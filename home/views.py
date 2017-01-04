@@ -5,6 +5,7 @@ from django.template import Template, Context
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from ask.models import question
 from .forms import registration
 
 token = False  # An error token - True when it encounters invalid credentials.
@@ -38,9 +39,11 @@ def home(request):
     token = False
     if request.user.is_authenticated:
         username = request.user.username
+        question_list = question.objects.all()
         return render(request,
                       'home_templates/home.html',
-                      {'username': username})
+                      {'username': username,
+                       'question_list': question_list})
     else:
         return render(request,
                       'login_templates/login.html',
