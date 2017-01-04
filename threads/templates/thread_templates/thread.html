@@ -1,9 +1,8 @@
 {% extends 'thread_templates/base.html' %}
 {% load bleach_tags %}
-
-{% block question %}
-
-<center><h1>{{ question.title }}</h1></center>
-<center><p>{{ question.description|bleach }}</p></center>
-
+{% block content %}
+<ul>
+  <li>{{ question.title }}</li>
+  <li>{{ question.description|bleach }}</li>
+</ul>
  {% endblock %}
