@@ -1,6 +1,9 @@
 {% extends 'home_templates/base.html' %}
 
 
-{% block content %}
-  <p>Heyy {{ username }}</p>
+{% block frontpage %}
+  {% for x in question_list %}
+    {{ x }}
+    <hr>
+  {% endfor %}
 {% endblock %}
