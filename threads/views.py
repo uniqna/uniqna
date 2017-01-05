@@ -33,4 +33,6 @@ def submit_answer(request, question_id):
             instance = submitted_answer.save(commit=False)
             instance.question = question_answered
             instance.save()
+            question_answered.answers = answer.objects.filter(question=question_id).count()
+            question_answered.save()
             return HttpResponseRedirect("/thread/" + str(question_id))
