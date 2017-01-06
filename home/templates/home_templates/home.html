@@ -3,7 +3,7 @@
 
 {% block frontpage %}
   {% for x in question_list %}
-    {{ x }} | Answers: {{ x.answers }}
+    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }}
     <hr>
   {% endfor %}
 {% endblock %}
