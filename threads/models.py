@@ -9,6 +9,7 @@ from ask.models import question
 class answer(models.Model):
     question = models.ForeignKey(question)
     description = models.TextField()
+    answer_author = models.CharField("Author", max_length=100, default="anonymous")
 
     def __str__(self):
         return (self.description)
