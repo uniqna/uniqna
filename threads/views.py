@@ -36,3 +36,34 @@ def submit_answer(request, question_id):
             question_answered.answers = answer.objects.filter(question=question_id).count()
             question_answered.save()
             return HttpResponseRedirect("/thread/" + str(question_id))
+
+
+def delete_question(request, thread_id):
+    try:
+        thread_id = int(thread_id)
+    except ValueError:
+        raise Http404()
+    username = request.user.username
+    question_requested = question.objects.get(id=thread_id)
+    author = question_requested.author
+    if author == username:
+        question_requested.delete()
+        answer.objects.filter(question=thread_id).delete()
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+
+def delete_answer(request, thread_id, answer_id):
+    try:
+        thread_id = int(thread_id)
+    except ValueError:
+        raise Http404()
+    username = request.user.username
+    answer_requested = answer.objects.get(id=answer_id)
+    author = answer_requested.answer_author
+    if author == username:
+        answer_requested.delete()
+        return HttpResponseRedirect("/thread/" + str(thread_id))
+    else:
+        return HttpResponseRedirect(reverse('home'))
