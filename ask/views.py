@@ -21,7 +21,9 @@ def submit(request):
     if request.method == 'POST' and request.POST:
         submitted_form = ask_form(request.POST)
         if submitted_form.is_valid():
-            instance = submitted_form.save()
+            instance = submitted_form.save(commit=False)
+            instance.author = request.user.username
+            instance.save()
             question_id = instance.pk
             return HttpResponseRedirect("/thread/" + str(question_id))
         else:
