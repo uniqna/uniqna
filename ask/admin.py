@@ -5,6 +5,6 @@ from ask.models import question
 
 
 class question_admin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'answers')
+    list_display = ('id', 'title', 'answers', 'author')
 
 admin.site.register(question, question_admin)

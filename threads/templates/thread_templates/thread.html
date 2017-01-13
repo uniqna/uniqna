@@ -3,7 +3,7 @@
 
 {% block question %}
 
-<center><h1>{{ question.title }}</h1></center>
+<center><h1>{{ question.title }}</h1><p>- {{question.author}}</p></center>
 <center><p>{{ question.description|bleach }}</p></center>
 
  {% endblock %}
