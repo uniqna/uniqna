@@ -6,4 +6,8 @@
 <center><h1>{{ question.title }}</h1><p>- {{question.author}}</p></center>
 <center><p>{{ question.description|bleach }}</p></center>
 
- {% endblock %}
+{% if question.author == username %}
+  <center><a href="{% url 'delete_question' question.pk %}">Delete?</a></center>
+{% endif %}
+
+{% endblock %}
