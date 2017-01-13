@@ -31,7 +31,8 @@
   {% block discussion %}
   {% load bleach_tags %}
     {% for x in all_answers %}
-    <center><p>{{ x|bleach }}</p></center>
+    <center><p> {{ x|bleach }} - <i>{{ x.answer_author }}</i> </p></center>
+    <center><p></p></center>
     <hr>
     {% endfor %}
   <center><p>Can you help? This forum depends on everyone sharing their

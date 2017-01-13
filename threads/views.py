@@ -6,7 +6,6 @@ from threads.models import answer
 from ask.models import question
 
 
-
 def thread(request, thread_id):
     try:
         thread_id = int(thread_id)
@@ -32,6 +31,7 @@ def submit_answer(request, question_id):
         if submitted_answer.is_valid():
             instance = submitted_answer.save(commit=False)
             instance.question = question_answered
+            instance.answer_author = request.user.username
             instance.save()
             question_answered.answers = answer.objects.filter(question=question_id).count()
             question_answered.save()
