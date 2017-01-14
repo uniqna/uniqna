@@ -12,7 +12,7 @@ def thread(request, thread_id):
     except ValueError:
         raise Http404()
     username = request.user.username
-    question_requested = question.objects.get(id=thread_id)
+    question_requested = get_object_or_404(question, pk=thread_id)
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
     all_answers = answer.objects.filter(question=thread_id)
@@ -44,7 +44,7 @@ def delete_question(request, thread_id):
     except ValueError:
         raise Http404()
     username = request.user.username
-    question_requested = question.objects.get(id=thread_id)
+    question_requested = get_object_or_404(question, pk=thread_id)
     author = question_requested.author
     if author == username:
         question_requested.delete()
@@ -60,10 +60,13 @@ def delete_answer(request, thread_id, answer_id):
     except ValueError:
         raise Http404()
     username = request.user.username
+    question_requested = get_object_or_404(question, pk=thread_id)
     answer_requested = answer.objects.get(id=answer_id)
     author = answer_requested.answer_author
     if author == username:
         answer_requested.delete()
+        question_requested.answers = answer.objects.filter(question=thread_id).count()
+        question_requested.save()
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
         return HttpResponseRedirect(reverse('home'))
