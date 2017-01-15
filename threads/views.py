@@ -57,6 +57,7 @@ def delete_question(request, thread_id):
 def delete_answer(request, thread_id, answer_id):
     try:
         thread_id = int(thread_id)
+        answer_id = int(answer_id)
     except ValueError:
         raise Http404()
     username = request.user.username
@@ -67,6 +68,46 @@ def delete_answer(request, thread_id, answer_id):
         answer_requested.delete()
         question_requested.answers = answer.objects.filter(question=thread_id).count()
         question_requested.save()
+        return HttpResponseRedirect("/thread/" + str(thread_id))
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+
+def edit_answer(request, thread_id, answer_id):
+    try:
+        thread_id = int(thread_id)
+        answer_id = int(answer_id)
+    except ValueError:
+        raise Http404()
+    answer_requested = get_object_or_404(answer, pk=answer_id)
+    author = answer_requested.answer_author
+    if author == request.user.username:
+        description = answer_requested.description
+        data = {'description': description}
+        prefilled_form = answer_form(data)
+        return render(request,
+                      'edit_templates/edit.html',
+                      {'username': request.user.username,
+                       'form': prefilled_form,
+                       'thread_id': thread_id,
+                       'answer_id': answer_id})
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+
+def edit_answer_submit(request, thread_id, answer_id):
+    try:
+        thread_id = int(thread_id)
+        answer_id = int(answer_id)
+    except ValueError:
+        raise Http404()
+    if request.method == 'POST' and request.POST:
+        answer_requested = get_object_or_404(answer, pk=answer_id)
+        edited_answer = answer_form(request.POST)
+        if edited_answer.is_valid():
+            updated_answer = edited_answer.save(commit=False)
+            answer_requested.description = updated_answer.description
+            answer_requested.save()
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
         return HttpResponseRedirect(reverse('home'))
