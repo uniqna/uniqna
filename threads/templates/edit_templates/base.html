@@ -22,32 +22,7 @@
 
 <body>
 
-    <h1>You're currently logged in, {{username}}</h1> {% block question %} {% endblock %}
-
-    <hr> {% block discussion %} {% load bleach_tags %} {% for x in all_answers %}
-    <center>
-        <p> {{ x|bleach }} - <i>{{ x.answer_author }}</i> </p>
-    </center>
-    {% if x.answer_author == username %}
-    <center><a href="{% url 'delete_answer' question.pk x.pk %}">Delete?</a></center>
-    <center><a href="{% url 'edit_answer' question.pk x.pk %}">Edit?</a></center>
-    {% endif %}
-    <hr> {% endfor %}
-    <center>
-        <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
-    </center>
-    <center>
-        <h3>Your Answer?</h3></center>
-    <form action="answer/" method="post">
-        {{ form }} {% csrf_token %}
-        <center><input type="submit" value="Answer!"></center>
-    </form>
-    {% endblock %}
-
-    <form method="post" action="/logout/">
-        {% csrf_token %}
-        <center><input type="submit" value="logout!" /></center>
-    </form>
+    <h1>You're currently logged in, {{username}}</h1> {% block edit %} {% endblock %}
 
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
