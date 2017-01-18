@@ -29,6 +29,11 @@
     <hr> {% block discussion %} {% load bleach_tags %} {% for x in all_answers %}
     <center>
         <p> {{ x|bleach }} - <i>{{ x.answer_author }}</i> </p>
+        <p>Posted on {{x.get_time}}</p>
+        {% if x.edited %}
+        <p>Edited on {{x.get_edited_time}}</p>
+        {% endif %}
+
     </center>
     {% if x.answer_author == username %}
     <center><a href="{% url 'delete_answer' question.pk x.pk %}">Delete?</a></center>
