@@ -3,9 +3,10 @@
 
 {% block question %}
 
-<center><h1>{{ question.title }}</h1><p>- {{question.author}}</p></center>
-<center><p>{{ question.description|bleach }}</p></center>
-
+<center><h1>{{ question.title }}</h1><p>- {{question.author}}</p>
+<p>{{ question.description|bleach }}</p>
+<p>Question asked on {{question.get_time}}</p>
+</center>
 {% if question.author == username %}
   <center><a href="{% url 'delete_question' question.pk %}">Delete?</a></center>
 {% endif %}
