@@ -1,0 +1,44 @@
+{% extends "userapp/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 jumbotron">
+      <h3 class="text-center text-info">About</h3>
+      <p class="lead"><strong>Username:</strong> {{ user_instance.username }}</p>
+      <p class="lead"><strong>Email: </strong>{{ user_instance.email }}</p>
+      <p class="lead"><strong>Detail 3:</strong> Detail 3</p>
+    </div>
+    <div class="col-md-4 jumbotron">
+    <h3 class="text-center text-info">Questions</h3>
+    {% if questions %}
+    {% for q in questions %}
+    <hr>
+    <a href="{% url 'thread' q.id %}">
+      <h4 class="question">{{ q.title }}</h4>
+    </a>
+  <hr>
+    {% endfor %}
+    {% else %}
+    <p class="lead">No questions yet.</p>
+    {% endif %}
+  </div>
+    <div class="col-md-4 jumbotron">
+      <h3 class="text-center text-info">Answers</h3>
+      {% if answers %}
+      {% for a in answers %}
+      <hr>
+      <a href="{% url 'thread' a.question.id %}">
+        <h4 class="question">{{ a.question.title }}</h4>
+        <p class="lead">{{ a.description }}</p>
+      </a>
+      <hr>
+      {% endfor %}
+      {% else %}
+      <p class="lead">No answers yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

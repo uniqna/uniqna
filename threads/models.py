@@ -18,13 +18,13 @@ class answer(models.Model):
         return (self.description);
 
     def get_time(self):
-        t = self.created_time;
+        t = self.created_time
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute);
 
     def get_edited_time(self):
-        t = self.edited_time;
+        t = self.edited_time
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute);
 
     def set_edited_time(self):
-        self.edited = True;
+        self.edited = True
         self.edited_time = datetime.now();
