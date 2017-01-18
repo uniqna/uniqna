@@ -36,8 +36,8 @@
 
     </center>
     {% if x.answer_author == username %}
-    <center><a href="{% url 'delete_answer' question.pk x.pk %}">Delete?</a></center>
-    <center><a href="{% url 'edit_answer' question.pk x.pk %}">Edit?</a></center>
+    <center><a href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>
+    <center><a href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit?</a></center>
     {% endif %}
     <hr> {% endfor %}
     <center>
