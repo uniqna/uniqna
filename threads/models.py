@@ -19,17 +19,6 @@ class answer(models.Model):
 
     def get_time(self):
         t = self.created_time
-<<<<<<< HEAD
-        return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute);
-
-    def get_edited_time(self):
-        t = self.edited_time
-        return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute);
-
-    def set_edited_time(self):
-        self.edited = True
-        self.edited_time = datetime.now();
-=======
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
 
     def get_edited_time(self):
@@ -39,4 +28,3 @@ class answer(models.Model):
     def set_edited_time(self):
         self.edited = True
         self.edited_time = datetime.now()
->>>>>>> origin/timestamp-branch
