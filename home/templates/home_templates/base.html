@@ -25,10 +25,11 @@
 
     {% endblock %}
 
-  <form method="post" action="/logout/">
-    {% csrf_token %}
-  <input type="submit" value="logout!" />
-  </form>
+    <form method="post" action="/logout/">
+        {% csrf_token %}
+        <center><input type="submit" value="Logout" class="btn btn-danger"/></center>
+    </form>
+  </div>
 
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -22,7 +22,9 @@
 
 <body>
 
-    <h1>You're currently logged in, {{username}}</h1> {% block question %} {% endblock %}
+    <h1>You're currently logged in, {{username}}</h1>
+    <h2><a href="{% url 'home' %}" class="btn btn-info">Go back to home</a></h2>
+    {% block question %} {% endblock %}
 
     <hr> {% block discussion %} {% load bleach_tags %} {% for x in all_answers %}
     <center>
@@ -40,14 +42,16 @@
         <h3>Your Answer?</h3></center>
     <form action="answer/" method="post">
         {{ form }} {% csrf_token %}
-        <center><input type="submit" value="Answer!"></center>
+        <center><input type="submit" value="Answer!" class="btn btn-info"></center>
     </form>
     {% endblock %}
-
+    <br><br>
+    <div class="text-center">
     <form method="post" action="/logout/">
         {% csrf_token %}
-        <center><input type="submit" value="logout!" /></center>
+        <center><input type="submit" value="Logout" class="btn btn-danger"/></center>
     </form>
+  </div>
 
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
