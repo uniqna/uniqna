@@ -8,13 +8,13 @@ from threads.models import answer
 
 def UserPage(request, usr):
     if usr == "anon":
-        return render(request, "userapp/userpage.html")
+        return render(request, "user_templates/userpage.html")
     requested_user = get_object_or_404(User, username=usr)
     user_questions = question.objects.filter(author=usr)
     user_answers = answer.objects.filter(answer_author=usr)
 
-    return render(request, "userapp/userpage.html", {
-        "user_instance": requested_user,
-        "questions": user_questions,
-        "answers": user_answers
-        })
+    return render(request, "user_templates/userpage.html",
+                  {"user_instance": requested_user,
+                   "questions": user_questions,
+                   "answers": user_answers,
+                   })
