@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from home import views
-from userapp.views import UserPage
 from tinymce import urls
 from threads import urls
+from user import urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^ask/', include('ask.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^thread/', include('threads.urls')),
-    url(r'^user/(?P<usr>[a-zA-Z_.]+)/$', UserPage, name="user"),
+    url(r'^user/', include('user.urls')),
 ]
