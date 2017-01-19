@@ -5,6 +5,6 @@ from threads.models import answer
 
 
 class answer_admin(admin.ModelAdmin):
-    list_display = ('id', 'question', 'description', 'answer_author')
+    list_display = ('id', 'question', 'description', 'answer_author', 'created_time', 'edited', 'edited_time')
 
 admin.site.register(answer, answer_admin)

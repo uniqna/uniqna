@@ -19,17 +19,17 @@
   <![endif]-->
 </head>
 <body>
-
-  <h1>You're currently logged in!</h1>
+<h3 class="page-header text-center">You are currently logged in as <span class="text-success">{{ request.user.username}}</span> :D</h3>
     <hr>
     {% block frontpage %}
 
     {% endblock %}
 
-  <form method="post" action="/logout/">
-    {% csrf_token %}
-  <input type="submit" value="logout!" />
-  </form>
+    <form method="post" action="/logout/">
+        {% csrf_token %}
+        <center><input type="submit" value="Logout" class="btn btn-danger"/></center>
+    </form>
+  </div>
 
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
