@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from threads.forms import answer_form
 from threads.models import answer
@@ -113,3 +113,25 @@ def edit_answer_submit(request, thread_id, answer_id):
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
         return HttpResponseRedirect(reverse('home'))
+
+
+def vote(request, thread_id, answer_id, upordown):
+    try:
+        thread_id = int(thread_id)
+        answer_id = int(answer_id)
+    except ValueError:
+        raise Http404()
+    if request.user.is_authenticated:
+        answer_instance = get_object_or_404(answer, pk=answer_id)
+        if upordown == 'u':
+            vote_on = answer_instance.ups
+        elif upordown == 'd':
+            vote_on = answer_instance.downs
+        if request.user not in vote_on.all():
+            vote_on.add(request.user)
+        else:
+            vote_on.remove(request.user)
+        return redirect('/thread/'+str(thread_id)+'/')
+    else:
+        return redirect('home')
+
