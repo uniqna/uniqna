@@ -125,10 +125,13 @@ def vote(request, thread_id, answer_id, upordown):
         answer_instance = get_object_or_404(answer, pk=answer_id)
         if upordown == 'u':
             vote_on = answer_instance.ups
+            vote_on_other = answer_instance.downs
         elif upordown == 'd':
             vote_on = answer_instance.downs
+            vote_on_other = answer_instance.ups
         if request.user not in vote_on.all():
             vote_on.add(request.user)
+            vote_on_other.remove(request.user)
         else:
             vote_on.remove(request.user)
         return redirect('/thread/'+str(thread_id)+'/')
