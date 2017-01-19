@@ -33,7 +33,9 @@
         {% if x.edited %}
         <p>Edited on {{x.get_edited_time}}</p>
         {% endif %}
-
+        <a href="{% url 'vote' x.question.pk x.pk 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></a>
+        <a href="{% url 'vote' x.question.pk x.pk 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        <p>Upvotes: {{ x.ups.count }} Downvotes: {{ x.downs.count }}</p>
     </center>
     {% if x.answer_author == username %}
     <center><a href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>

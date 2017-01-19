@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import models
 from ask.models import question
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -12,6 +13,8 @@ class answer(models.Model):
     created_time = models.DateTimeField(default=timezone.now)
     edited_time = models.DateTimeField(default=timezone.now, editable=True)
     edited = models.BooleanField(default=False)
+    ups = models.ManyToManyField(User, related_name='upvotes')
+    downs = models.ManyToManyField(User, related_name='downvotes')
 
     def __str__(self):
         return (self.description)
