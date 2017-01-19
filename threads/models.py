@@ -26,4 +26,4 @@ class answer(models.Model):
 
     def set_edited_time(self):
         self.edited = True
-        self.edited_time = datetime.now()
+        self.edited_time = timezone.now()
