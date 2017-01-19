@@ -23,9 +23,9 @@ from user import urls
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
-    url(r'^validation/$', views.validation),
+    url(r'^validation/$', views.validation, name='login'),
     url(r'^logout/$', views.logout_view, name='logout'),
-    url(r'^register/$', views.register),
+    url(r'^register/$', views.register, name='register'),
     url(r'^ask/', include('ask.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^thread/', include('threads.urls')),

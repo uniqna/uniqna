@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
-from .forms import registration
+from .forms import registration, loginForm
 
 token = False  # An error token - True when it encounters invalid credentials.
 
@@ -14,16 +14,22 @@ token = False  # An error token - True when it encounters invalid credentials.
 def validation(request):
     global token
     if request.method == 'POST' and request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-        else:
-            token = True
-        return HttpResponseRedirect(reverse('home'))
+        lform = loginForm(request.POST)
+        if lform.is_valid():
+            username = lform.cleaned_data['username']
+            password = lform.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("home")
+            else:
+                return render(request, "login_templates/login.html", {
+                    "form": lform,
+                    "failed": 1
+                })
     else:
-        return HttpResponseRedirect(reverse('home'))
+        lform = loginForm()
+        return render(request, "login_templates/login.html", {"form": lform})
 
 
 def logout_view(request):
@@ -42,12 +48,10 @@ def home(request):
         question_list = question.objects.all()
         return render(request,
                       'home_templates/home.html',
-                      {'username': username,
-                       'question_list': question_list})
+                      {'question_list': question_list})
     else:
         return render(request,
-                      'login_templates/login.html',
-                      {'error': error})
+                      'home_templates/home.html')
 
 
 def register(request):

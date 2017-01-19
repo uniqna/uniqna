@@ -1,10 +1,19 @@
-{% extends 'ask_templates/base.html' %}
-{% block content %}
-<form action="submit/" method="post">
+{% extends 'base.html' %}
+{% block title %}
+	Ask Question
+{% endblock title %}
+{% block body %}
+<div class="container">
+	<div class="col-md-6 col-md-offset-3">
+		<form action="submit/" method="post">
      <table>
-         {{ form.as_table }}
+         {{ form.as_p }}
      </table>
      {% csrf_token %}
      <input type="submit" value="Ask">
  </form>
+	</div>
+</div>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
  {% endblock %}

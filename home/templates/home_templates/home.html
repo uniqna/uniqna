@@ -1,9 +1,28 @@
-{% extends 'home_templates/base.html' %}
-
-
-{% block frontpage %}
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block body %}
+{% load bleach_tags %}
+<div class="container">
+  <div class="row"> 
+  {% if question_list %}
   {% for x in question_list %}
-    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }}
-    <hr>
+    <div class="jumbotron">
+    <a href="{% url 'thread' x.pk %}">
+    <h2>{{ x }} <span class="badge">{{ x.answers }}</span></h2>
+	<hr>
+	<p class="lead">{{ x.description|bleach }}</p>
+    </div>
   {% endfor %}
+  {% else %}
+	<div class="jumbotron text-center">
+		<h2 class="page-header">What is DjangoQA</h2>
+		<p class="lead">DjangoQA is a  Django Powered Q&A Forum meant for VITians.<br>
+			Ask questions on topics and you will get instant answers from other VITians just like you.
+		</p>
+	</div>
+  {% endif %}
+</div>
+</div>
 {% endblock %}

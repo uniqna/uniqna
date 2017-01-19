@@ -1,0 +1,30 @@
+<!-- 
+Template for creating forms via generic viewss
+-->
+<form action="{{ submit_url }}" method="POST" class="form-horizontal">
+{% csrf_token %}
+{% if failed %}
+	<p class="lead text-danger">Username and Password doesn't match.</p>
+{% endif %}
+{% for field in form %}
+	<div class="form-group">
+	<!-- Error message -->
+		<div class="col-md-offset-2 col-md-10">
+			<span class="text-danger small">
+				{{ field.errors }}
+			</span>
+		</div>
+	<!-- Lable -->
+	<label class="col-xs-2 control-label">{{ field.label_tag }}</label>
+	<!-- Input -->
+	<div class="col-xs-8 col-xs-offset-2">
+		{{ field }}
+	</div>
+	</div>
+{% endfor %}	
+<input type="hidden" name="next" value="{{ request.GET.next }}">
+<div class="text-center">
+<input type="submit" class="btn btn-{{btn}} btn-large" value="{{ value }}">
+</div>
+</form>
+

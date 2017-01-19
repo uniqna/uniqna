@@ -1,6 +1,23 @@
-{% extends 'edit_templates/base.html' %} {% block edit %}
-<form action="{% url 'edit_answer_submit' thread_id answer_id %}" method="post">
+{% extends 'base.html' %} 
+{% block title %}
+	Edit Answer
+{% endblock title %}
+{% block body %}
+
+<div class="container">
+	<div class="col-md-6 col-md-offset-3">
+		<form action="{% url 'edit_answer_submit' thread_id answer_id %}" method="post">
     {{ form }} {% csrf_token %}
     <center><input type="submit" value="Update!"></center>
 </form>
+	</div>
+</div>
+
+
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+    </script>
 {% endblock %}

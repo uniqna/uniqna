@@ -20,3 +20,8 @@ class registration(forms.Form):
         if password1 != password2:
             raise forms.ValidationError("Your passwords do not match")
         return password2
+
+
+class loginForm(forms.Form):
+    username = forms.CharField(label="Username", min_length=4)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
