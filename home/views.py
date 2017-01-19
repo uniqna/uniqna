@@ -51,7 +51,7 @@ def home(request):
                       {'question_list': question_list})
     else:
       return render(request,
-                      'home_templates/home.html');
+                      'home_templates/home.html')
 
 
 def register(request):

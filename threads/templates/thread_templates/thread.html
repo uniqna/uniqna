@@ -1,15 +1,61 @@
-{% extends 'thread_templates/base.html' %}
+{% extends 'base.html' %}
 {% load bleach_tags %}
 
-{% block question %}
+{% block body %}
+<div class="container">
 
-<center><h1>{{ question.title }}</h1>
+
+<center>
+<div class="panel panel-info">
+<div class="panel-heading">
+<h1>{{ question.title }}</h1>
 <a href="{% url 'user' question.author %}" class="text-info">{{ question.author}}</a>
+</div>
+<div class="panel-body">
 <p>{{ question.description|bleach }}</p>
 <p>Question asked on {{question.get_time}}</p>
+</div>
 </center>
 {% if question.author == username %}
   <center><a href="{% url 'delete_question' question.pk %}">Delete?</a></center>
 {% endif %}
+</div>
 
-{% endblock %}
+<div class="row">
+{% for x in all_answers %}
+<div class="jumbotron col-md-6 col-md-offset-3">
+    <center>
+        <p> {{ x|bleach }} - <a href="{% url 'user' x.answer_author  %}" class="text-info">{{ x.answer_author }}</a> </p>
+        <p>Posted on {{x.get_time}}</p>
+        {% if x.edited %}
+        <p>Edited on {{x.get_edited_time}}</p>
+        {% endif %}
+    </center>
+    {% if x.answer_author == username %}
+    <center><a href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>
+    <center><a href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit?</a></center>
+    {% endif %}
+</div>
+    <hr> {% endfor %}
+</div>
+<div class="row">
+    <center>
+        <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
+    </center>
+    <center>
+        <h3>Your Answer?</h3>
+  	<div class="col-md-6 col-md-offset-3">
+    <form action="answer/" method="post">
+        {{ form }} {% csrf_token %}
+        <center><input type="submit" value="Answer!" class="btn btn-info"></center>
+    </form>
+    </div>
+    </div>
+    </center>
+</div>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea'
+        });
+    </script>{% endblock %}

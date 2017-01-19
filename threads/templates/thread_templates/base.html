@@ -22,8 +22,6 @@
 
 <body>
 
-    <h1>You're currently logged in, {{username}}</h1>
-    <h2><a href="{% url 'home' %}" class="btn btn-info">Go back to home</a></h2>
     {% block question %} {% endblock %}
 
     <hr> {% block discussion %} {% load bleach_tags %} {% for x in all_answers %}
