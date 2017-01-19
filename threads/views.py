@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from threads.forms import answer_form
 from threads.models import answer
 from ask.models import question
+from datetime import datetime
 
 
 def thread(request, thread_id):
@@ -107,6 +108,7 @@ def edit_answer_submit(request, thread_id, answer_id):
         if edited_answer.is_valid():
             updated_answer = edited_answer.save(commit=False)
             answer_requested.description = updated_answer.description
+            answer_requested.set_edited_time()
             answer_requested.save()
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:

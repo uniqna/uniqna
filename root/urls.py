@@ -18,14 +18,16 @@ from django.contrib import admin
 from home import views
 from tinymce import urls
 from threads import urls
+from user import urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^validation/$', views.validation),
-    url(r'^logout/$', views.logout_view),
+    url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register),
     url(r'^ask/', include('ask.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^thread/', include('threads.urls')),
+    url(r'^user/', include('user.urls')),
 ]
