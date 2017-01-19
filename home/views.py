@@ -24,9 +24,9 @@ def validation(request):
                 return redirect("home")
             else:
                 return render(request, "login_templates/login.html", {
-                "form": lform,
-                "failed": 1
-              })
+                    "form": lform,
+                    "failed": 1
+                })
     else:
         lform = loginForm()
         return render(request, "login_templates/login.html", {"form": lform})
@@ -50,7 +50,7 @@ def home(request):
                       'home_templates/home.html',
                       {'question_list': question_list})
     else:
-      return render(request,
+        return render(request,
                       'home_templates/home.html')
 
 
