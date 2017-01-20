@@ -17,7 +17,7 @@ def thread(request, thread_id):
     question_requested = get_object_or_404(question, pk=thread_id)
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
-    all_answers = answer.objects.filter(question=thread_id)
+    all_answers = answer.objects.filter(question=thread_id).order_by("-score")
     return render(request,
                   'thread_templates/thread.html',
                   {'question': question_requested,
