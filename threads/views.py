@@ -5,7 +5,7 @@ from threads.forms import answer_form
 from threads.models import answer
 from ask.models import question
 from datetime import datetime
-from threads.algorithms import answer_score
+from root.algorithms import vote_score
 
 
 def thread(request, thread_id):
@@ -137,7 +137,7 @@ def vote(request, thread_id, answer_id, upordown):
             vote_on.remove(request.user)
         upvotes = answer_instance.ups.count()
         downvotes = answer_instance.downs.count()
-        answer_instance.score = answer_score.confidence(upvotes, downvotes)
+        answer_instance.score = vote_score.confidence(upvotes, downvotes)
         answer_instance.save()
         return redirect('/thread/' + str(thread_id) + '/')
     else:
