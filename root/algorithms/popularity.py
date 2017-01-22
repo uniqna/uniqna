@@ -2,7 +2,7 @@ from django.utils import timezone
 from math import log
 
 
-def popularity(ques):
+def _popularity(ques):
 	scores = [x.score for x in ques.answer_set.all()]
 	scores_sum = sum(scores)
 	time_diff = timezone.now() - timezone.localtime(ques.created_time)
