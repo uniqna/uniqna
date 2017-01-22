@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
+            model_name='question',
             old_name='score',
             new_name='popularity',
         ),
