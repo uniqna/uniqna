@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
 from .forms import registration
-from root.algorithms import vote_score
+from root.algorithms import popularity
 token = False  # An error token - True when it encounters invalid credentials.
 
 
@@ -39,7 +39,7 @@ def home(request):
     token = False
     if request.user.is_authenticated:
         username = request.user.username
-        question_list = question.objects.all()
+        question_list = question.objects.order_by("-popularity")
         return render(request,
                       'home_templates/home.html',
                       {'username': username,
@@ -109,7 +109,7 @@ def vote(request, qid, upordown):
             vote_on.remove(request.user)
         upvotes = question_instance.ups.count()
         downvotes = question_instance.downs.count()
-        question_instance.score = vote_score.confidence(upvotes, downvotes)
         question_instance.points = upvotes - downvotes
+        question_instance.popularity = popularity.popularity(question_instance)
         question_instance.save()
     return redirect('home')
