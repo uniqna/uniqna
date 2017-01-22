@@ -11,7 +11,7 @@ class question(models.Model):
     created_time = models.DateTimeField(default=timezone.now)
     ups = models.ManyToManyField(User, related_name='question_upvotes')
     downs = models.ManyToManyField(User, related_name='question_downvotes')
-    score = models.IntegerField(default=0)
+    popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
     points = models.IntegerField(default=0)
 
     def __str__(self):
