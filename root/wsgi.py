@@ -8,12 +8,9 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 import os
-from whitenoise.django import DjangoWhiteNoise
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "root.settings")
 
 application = get_wsgi_application()
-# Heroku Support
-application = DjangoWhiteNoise(application)
