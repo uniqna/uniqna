@@ -2,12 +2,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.template.loader import get_template
 from django.template import Template, Context
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
 from .forms import registration
-
 token = False  # An error token - True when it encounters invalid credentials.
 
 
@@ -39,7 +38,8 @@ def home(request):
     token = False
     if request.user.is_authenticated:
         username = request.user.username
-        question_list = question.objects.all()
+        question.objects.PopUpdate()
+        question_list = question.objects.order_by("-popularity")
         return render(request,
                       'home_templates/home.html',
                       {'username': username,
@@ -87,3 +87,28 @@ def welcome(request):
     return render(request,
                   'login_templates/welcome.html',
                   {'username': username})
+
+
+def vote(request, qid, upordown):
+    try:
+        qid = int(qid)
+    except ValueError:
+        raise Http404()
+    if request.user.is_authenticated:
+        question_instance = get_object_or_404(question, pk=qid)
+        if upordown == 'u':
+            vote_on = question_instance.ups
+            vote_on_other = question_instance.downs
+        elif upordown == 'd':
+            vote_on = question_instance.downs
+            vote_on_other = question_instance.ups
+        if request.user not in vote_on.all():
+            vote_on.add(request.user)
+            vote_on_other.remove(request.user)
+        else:
+            vote_on.remove(request.user)
+        upvotes = question_instance.ups.count()
+        downvotes = question_instance.downs.count()
+        question_instance.points = upvotes - downvotes
+        question_instance.save()
+    return redirect('home')
