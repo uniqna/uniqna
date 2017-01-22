@@ -20,6 +20,7 @@ class question(models.Model):
     downs = models.ManyToManyField(User, related_name='question_downvotes')
     popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
     points = models.IntegerField(default=0)
+    solved = models.BooleanField(default=False)
     objects = ManagerExtender()
 
     def __str__(self):
