@@ -1,10 +1,11 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from threads.forms import answer_form
 from threads.models import answer
 from ask.models import question
 from datetime import datetime
+from root.algorithms import vote_score
 
 
 def thread(request, thread_id):
@@ -16,7 +17,7 @@ def thread(request, thread_id):
     question_requested = get_object_or_404(question, pk=thread_id)
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
-    all_answers = answer.objects.filter(question=thread_id)
+    all_answers = answer.objects.filter(question=thread_id).order_by("-score")
     return render(request,
                   'thread_templates/thread.html',
                   {'question': question_requested,
@@ -113,3 +114,31 @@ def edit_answer_submit(request, thread_id, answer_id):
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
         return HttpResponseRedirect(reverse('home'))
+
+
+def vote(request, thread_id, answer_id, upordown):
+    try:
+        thread_id = int(thread_id)
+        answer_id = int(answer_id)
+    except ValueError:
+        raise Http404()
+    if request.user.is_authenticated:
+        answer_instance = get_object_or_404(answer, pk=answer_id)
+        if upordown == 'u':
+            vote_on = answer_instance.ups
+            vote_on_other = answer_instance.downs
+        elif upordown == 'd':
+            vote_on = answer_instance.downs
+            vote_on_other = answer_instance.ups
+        if request.user not in vote_on.all():
+            vote_on.add(request.user)
+            vote_on_other.remove(request.user)
+        else:
+            vote_on.remove(request.user)
+        upvotes = answer_instance.ups.count()
+        downvotes = answer_instance.downs.count()
+        answer_instance.score = vote_score.confidence(upvotes, downvotes)
+        answer_instance.save()
+        return redirect('/thread/' + str(thread_id) + '/')
+    else:
+        return redirect('home')

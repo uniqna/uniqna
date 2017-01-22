@@ -18,8 +18,13 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style type="text/css">
+      .glyphicon {
+        color: grey;
+        font-size: 20px;
+      }
+  </style>
 </head>
-
 <body>
 
     <h1>You're currently logged in, {{username}}</h1>
@@ -33,7 +38,10 @@
         {% if x.edited %}
         <p>Edited on {{x.get_edited_time}}</p>
         {% endif %}
+        <p>
+        <a href="{% url 'vote' x.question.pk x.pk 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></a><span class="badge">{{ x.ups.count }}</span>
 
+         <span class="badge vote">{{ x.downs.count }}</span> <a href="{% url 'vote' x.question.pk x.pk 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></a></p>
     </center>
     {% if x.answer_author == username %}
     <center><a href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>
