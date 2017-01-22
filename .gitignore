@@ -6,7 +6,5 @@ db.sqlite3
 /static
 .DS_Store
 *.db
-
 *.sqlite3
-
-*.sqlite3
+local_settings.py
