@@ -28,7 +28,7 @@ class question(models.Model):
     popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
     points = models.IntegerField(default=0)
     solved = models.BooleanField(default=False)
-    tags = models.ManyToManyField(tag, related_name="Tags")
+    tags = models.ManyToManyField(tag)
     objects = ManagerExtender()
 
     def __str__(self):
