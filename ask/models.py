@@ -10,6 +10,13 @@ class ManagerExtender(models.Manager):
             q.set_popularity()
 
 
+class tag(models.Model):
+    name = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.name
+
+
 class question(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -21,6 +28,7 @@ class question(models.Model):
     popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
     points = models.IntegerField(default=0)
     solved = models.BooleanField(default=False)
+    tags = models.ManyToManyField(tag, related_name="Tags")
     objects = ManagerExtender()
 
     def __str__(self):
@@ -34,3 +42,5 @@ class question(models.Model):
     def set_popularity(self):
         self.popularity = _popularity(self)
         self.save()
+
+
