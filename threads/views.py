@@ -142,3 +142,19 @@ def vote(request, thread_id, answer_id, upordown):
         return redirect('/thread/' + str(thread_id) + '/')
     else:
         return redirect('home')
+
+
+def mark_answer_solved(request, thread_id):
+    try:
+        thread_id = int(thread_id)
+    except ValueError:
+        raise Http404()
+    username = request.user.username
+    question_requested = get_object_or_404(question, pk=thread_id)
+    author = question_requested.author
+    if author == username:
+        question_requested.solved = True
+        question_requested.save()
+        return redirect('/thread/' + str(thread_id) + '/')
+    else:
+        return HttpResponseRedirect(reverse('home'))
