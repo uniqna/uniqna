@@ -25,7 +25,14 @@
   <a href="{% url 'qvote' x.pk 'u'%}" class="vote" id="up"><span class="glyphicon glyphicon-chevron-up"></span></a>
   <span class="points">{{ x.points }}</span>
   <a href="{% url 'qvote' x.pk 'd'%}" class="vote" id="down"><span class="glyphicon glyphicon-chevron-down"></span></a>
-    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | Popularity: {{ x.popularity }} {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}
+
+    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | 
+    {% if x.tags.all %}
+    {% for tag in x.tags.all %}
+       <span class="label label-info">{{ tag.name }}</span>
+    {% endfor %}
+    {% endif %}
+     {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}
     <hr>
   </div>
   {% endfor %}
