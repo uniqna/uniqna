@@ -1,24 +1,6 @@
 {% extends 'home_templates/base.html' %}
 {% block frontpage %}
 <style>
-.question {
-  position: absolute;
-}
-.vote {
-  position: relative;
-}
-.up {
-  top: 3px;
-  left:0px;
-}
-.down {
-  top: 9px;
-  left:0px;
-}
-.points {
-  top: 6px;
-  left:0px;
-}
 </style>
   {% for x in question_list %}
   <div class="questions">
@@ -29,7 +11,7 @@
     <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | 
     {% if x.tags.all %}
     {% for tag in x.tags.all %}
-       <span class="label label-info">{{ tag.name }}</span>
+       <a href="{% url 'tag' tag.id %}"><span class="label label-info">{{ tag.name }}</span></a>
     {% endfor %}
     {% endif %}
      {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}

@@ -19,13 +19,14 @@ from home import views
 from tinymce import urls
 from threads import urls
 from user import urls
-from home.views import vote
+from home.views import vote, tag_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
     url(r'question/(\d{1,5})/([ud])/$', views.vote, name='qvote'),
     url(r'^validation/$', views.validation),
+    url(r'^tag/(\d{1,3})/$', views.tag_view, name="tag"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register),
     url(r'^ask/', include('ask.urls')),
