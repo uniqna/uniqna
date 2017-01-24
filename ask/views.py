@@ -21,6 +21,11 @@ def ask(request):
 def submit(request):
     if request.method == 'POST' and request.POST:
         submitted_form = ask_form(request.POST)
+        if request.POST["new_tag"]:
+            t = tag()
+            t.name = request.POST['new_tag']
+            t.save()
+            return render(request, "ask_templates/ask.html", {'form': submitted_form, 'tags': tag.objects.all()})
         if submitted_form.is_valid():
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
