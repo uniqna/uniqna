@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'home',
     'ask',
     'threads',
-    'tinymce',
+    'trumbowyg',
     'django_bleach',
     'user',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
