@@ -29,10 +29,9 @@
     {% endif %}
 
         <form action="/register/" method="post">
-             <table>
-                 {{ form.as_table }}
-             </table>
              {% csrf_token %}
+             {{ userform.as_p }}
+             {{ profileform.as_p }}
              <input type="submit" value="Submit">
          </form>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
