@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
-from .forms import registration
+from user.models import UserForm, ProfileForm, student
 token = False  # An error token - True when it encounters invalid credentials.
 
 
@@ -52,35 +52,34 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        submitted_form = registration(request.POST)
-        if submitted_form.is_valid():
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            confirm_password = request.POST.get('confirm_password')
-            new_user = User.objects.create_user(username=username,
-                                                email=email,
-                                                password=password)
+        u = User()
+        s = student()
+        user_form = UserForm(request.POST, instance=u)
+        profile_form = ProfileForm(request.POST, instance=s)
+        if user_form.is_valid() and profile_form.is_valid():
+            s.user = u
+            profile_form.save()
+            user_form.save()
             login(request, new_user)
             return render(request,
                           'login_templates/welcome.html',
                           {'username': username})
         else:
             errors = []
-            for key in submitted_form.errors:
-                errors.append(submitted_form.errors.get(key))
-            unsubmitted_form = registration()
             return render(request,
                           'login_templates/register.html',
-                          {'form': unsubmitted_form,
-                           'errors': errors})
+                          {
+                              'userform': user_form,
+                              'profileform': profile_form,
+                              'errors': user_form.errors})
     elif request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home'))
     else:
-        unsubmitted_form = registration()
+        user_form = UserForm()
+        profile_form = ProfileForm()
         return render(request,
                       'login_templates/register.html',
-                      {'form': unsubmitted_form})
+                      {'userform': user_form, 'profileform': profile_form})
 
 
 def welcome(request):
