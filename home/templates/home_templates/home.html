@@ -1,32 +1,78 @@
-{% extends 'home_templates/base.html' %}
-{% block frontpage %}
+{% extends 'home_templates/base.html' %} {% block frontpage %}
 <style>
-.question {
-  position: absolute;
-}
-.vote {
-  position: relative;
-}
-.up {
-  top: 3px;
-  left:0px;
-}
-.down {
-  top: 9px;
-  left:0px;
-}
-.points {
-  top: 6px;
-  left:0px;
-}
+    .mdl-cell--12-col {
+        background-color: #EEEEEE;
+        height: 100px;
+    }
+
+    .platform {
+        padding: 0px;
+    }
+
+    .title {
+        margin-left: 60px;
+        margin-top: 40px;
+        font-size: 18px;
+        position: absolute;
+        color: #424242;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .a_title {
+      color: #424242;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .votes {
+      margin: 6.6px;
+    }
+
+    .score{
+      margin: auto;
+      margin-left: 14px;
+      margin-right: 0px;
+      margin-top: 39px;
+      width: 32px;
+      font-size:  13px;
+      position: absolute;
+    }
+
+    .solved {
+      color: #009688;
+      font-size: 18px;
+    }
+
+    .votecolor {
+      color: #424242;
+    }
+
 </style>
-  {% for x in question_list %}
-  <div class="questions">
-  <a href="{% url 'qvote' x.pk 'u'%}" class="vote" id="up"><span class="glyphicon glyphicon-chevron-up"></span></a>
-  <span class="points">{{ x.points }}</span>
-  <a href="{% url 'qvote' x.pk 'd'%}" class="vote" id="down"><span class="glyphicon glyphicon-chevron-down"></span></a>
-    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | Popularity: {{ x.popularity }} {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}
-    <hr>
-  </div>
-  {% endfor %}
+
+<div class="mdl-grid">
+    {% for x in question_list %}
+
+    <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-grid platform">
+            <div class="mdl-cell mdl-cell--1-col">
+                <div class="mdl-cell mdl-cell--1-col votes">
+                    <button id="upvote" class="mdl-button mdl-js-button mdl-button--icon">
+                    <a href="{% url 'qvote' x.pk 'u'%}" id="up"><i class="material-icons votecolor ">expand_less</i></a>
+                    </button>
+                </div>
+                <div class="mdl-cell mdl-cell--1-col votes">
+                    <button id="downvote" class="mdl-button mdl-js-button mdl-button--icon">
+                    <a href="{% url 'qvote' x.pk 'd'%}" id="down"><i class="material-icons votecolor">expand_more</i></a>
+                    </button>
+                </div>
+            </div>
+            <div class="mdl-cell mdl-cell--1-col score"><center>{{ x.points }}</center></div>
+            <div class="mdl-cell mdl-cell--10-col title"><a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a>
+              {% if x.solved == True %}
+              <i class="material-icons solved">check</i>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
