@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="{% static 'css/trumbowyg.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,71 +25,6 @@
   <![endif]-->
 </head>
 
-<style>
-    html,
-    body {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    .mdl-layout__title,
-    .mdl-layout-title {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 400;
-    }
-
-    .mdl-menu__item {
-        color: #424242;
-    }
-
-    a {
-        font-family: 'Montserrat', sans-serif;
-        color: #FFFFFF;
-        font-weight: 100;
-        text-decoration: none;
-    }
-
-    .mdl-progress {
-        width: 100%;
-    }
-
-    .trumbowyg-fullscreen {
-      top: 68px;
-    }
-
-    .mdl-textfield {
-      width: 100%;
-      font-size: 26px;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .mdl-textfield__input {
-      font-size: 26px;
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-      padding: 10px 0;
-      color: #424242;
-    }
-
-    .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-      color: #C51162;
-      font-size: 20px;
-      text-align: center;
-    }
-
-    .mdl-textfield__label {
-      text-align: center;
-    }
-
-    .trumbowyg-box .trumbowyg-editor {
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .mdl-menu__item {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-</style>
-
 <body>
 
     <!-- Uses a header that scrolls with the text, rather than staying
@@ -97,7 +33,7 @@
         <header class="mdl-layout__header mdl-layout__header--scroll">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">LOGO</span>
+                <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">VITQNA</a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
@@ -107,13 +43,13 @@
 
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                         <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class = "mdl-menu__item">View Profile</a></center>
+                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
                         </li>
                         <li class="mdl-menu__item">
-                          <form method="post" action="/logout/">
-                              {% csrf_token %}
-                              <center><input type="submit" value="Logout" class="mdl-menu__item"/></center>
-                          </form>
+                            <form method="post" action="/logout/">
+                                {% csrf_token %}
+                                <center><input type="submit" value="Logout" class="mdl-menu__item" /></center>
+                            </form>
                         </li>
                     </ul>
                 </nav>
