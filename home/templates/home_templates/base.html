@@ -8,7 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Home</title>
 
-    <!-- Bootstrap -->
+    <!-- Stylesheets -->
     {% load staticfiles %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -24,105 +24,77 @@
   <![endif]-->
 </head>
 
+<style>
+    .mdl-mini-footer {
+        display: block;
+    }
+</style>
+
 <body>
-  <!-- Uses a header that scrolls with the text, rather than staying
+    <!-- Uses a header that scrolls with the text, rather than staying
   locked at the top -->
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-      <header class="mdl-layout__header mdl-layout__header--scroll">
-          <div class="mdl-layout__header-row">
-              <!-- Title -->
-              <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">VITQNA</a>
-              <!-- Add spacer, to align navigation to the right -->
-              <div class="mdl-layout-spacer"></div>
-              <!-- Navigation -->
-              <nav class="mdl-navigation">
-                  <a> {{ username }} </a>
-                  <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">VITQNA</a>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <nav class="mdl-navigation">
+                    <a> {{ username }} </a>
+                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
 
-                  <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                      <li class="mdl-menu__item">
-                          <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
-                      </li>
-                      <li class="mdl-menu__item">
-                          <form method="post" action="/logout/">
-                              {% csrf_token %}
-                              <center><input type="submit" value="Logout" class="mdl-menu__item" /></center>
-                          </form>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
-      </header>
-      <main class="mdl-layout__content">
-          <div class="page-content">
-              <!-- Your content goes here -->
-              {% block frontpage %} {% endblock %}
-          </div>
-      </main>
-      <footer class="mdl-mega-footer">
-    <div class="mdl-mega-footer__middle-section">
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                        <li class="mdl-menu__item">
+                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
+                        </li>
+                        <li class="mdl-menu__item">
+                            <form method="post" action="/logout/">
+                                {% csrf_token %}
+                                <center><input type="submit" value="Logout" class="mdl-menu__item" /></center>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="mdl-grid searchparent">
+              <div class="mdl-cell mdl-cell--12-col search">
 
-      <div class="mdl-mega-footer__drop-down-section">
-        <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-        <h1 class="mdl-mega-footer__heading">Features</h1>
-        <ul class="mdl-mega-footer__link-list">
-          <li><a href="#">About</a></li>
-          <li><a href="#">Terms</a></li>
-          <li><a href="#">Partners</a></li>
-          <li><a href="#">Updates</a></li>
-        </ul>
-      </div>
+            <form action="#" class = "searchform">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
+                <input class="mdl-textfield__input searchbottommargin2" type="text" id="sample3">
+                <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
+              </div>
+            </form>
 
-      <div class="mdl-mega-footer__drop-down-section">
-        <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-        <h1 class="mdl-mega-footer__heading">Details</h1>
-        <ul class="mdl-mega-footer__link-list">
-          <li><a href="#">Specs</a></li>
-          <li><a href="#">Tools</a></li>
-          <li><a href="#">Resources</a></li>
-        </ul>
-      </div>
-
-      <div class="mdl-mega-footer__drop-down-section">
-        <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-        <h1 class="mdl-mega-footer__heading">Technology</h1>
-        <ul class="mdl-mega-footer__link-list">
-          <li><a href="#">How it works</a></li>
-          <li><a href="#">Patterns</a></li>
-          <li><a href="#">Usage</a></li>
-          <li><a href="#">Products</a></li>
-          <li><a href="#">Contracts</a></li>
-        </ul>
-      </div>
-
-      <div class="mdl-mega-footer__drop-down-section">
-        <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
-        <h1 class="mdl-mega-footer__heading">FAQ</h1>
-        <ul class="mdl-mega-footer__link-list">
-          <li><a href="#">Questions</a></li>
-          <li><a href="#">Answers</a></li>
-          <li><a href="#">Contact us</a></li>
-        </ul>
-      </div>
-
+              </div>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Your content goes here -->
+                {% block frontpage %} {% endblock %}
+            </div>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">Title</div>
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">Privacy & Terms</a></li>
+                    </ul>
+                </div>
+            </footer>
     </div>
 
-    <div class="mdl-mega-footer__bottom-section">
-      <div class="mdl-logo">Title</div>
-      <ul class="mdl-mega-footer__link-list">
-        <li><a href="#">Help</a></li>
-        <li><a href="#">Privacy & Terms</a></li>
-      </ul>
-    </div>
-
-  </footer>
-  </div>
+    </main>
 
 
-  <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  </body>
 
-  </html>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
