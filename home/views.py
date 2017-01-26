@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
-from user.models import UserForm, ProfileForm, student
+from user.models import student
+from home.forms import registration
 token = False  # An error token - True when it encounters invalid credentials.
 
 
@@ -52,34 +53,31 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        u = User()
-        s = student()
-        user_form = UserForm(request.POST, instance=u)
-        profile_form = ProfileForm(request.POST, instance=s)
-        if user_form.is_valid() and profile_form.is_valid():
-            s.user = u
-            profile_form.save()
-            user_form.save()
+        reg_form = registration(request.POST)
+        if reg_form.is_valid():
+            cd = reg_form.cleaned_data
+            new_user = User.objects.create_user(username=cd["username"], email=cd["email"], password=cd["password"])
+            new_profile = student(bio=cd["bio"], location=cd["location"], age=cd["age"], course=cd["course"], school=cd["school"])
+            new_profile.user = new_user
+            new_profile.save()
             login(request, new_user)
             return render(request,
                           'login_templates/welcome.html',
-                          {'username': username})
+                          {'username': new_user.username})
         else:
             errors = []
             return render(request,
                           'login_templates/register.html',
                           {
-                              'userform': user_form,
-                              'profileform': profile_form,
-                              'errors': user_form.errors})
+                              'regform': reg_form,
+                              'errors': reg_form.errors})
     elif request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home'))
     else:
-        user_form = UserForm()
-        profile_form = ProfileForm()
+        reg_form = registration()
         return render(request,
                       'login_templates/register.html',
-                      {'userform': user_form, 'profileform': profile_form})
+                      {'regform': reg_form})
 
 
 def welcome(request):

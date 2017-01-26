@@ -31,27 +31,3 @@ class student(models.Model):
     course = models.CharField(max_length=5, choices=course_choices, default="BT")
     school = models.CharField(max_length=6, choices=school_choices, default="SCSE")
 
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        student.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.student.save()
-
-
-# Form Classes
-
-class UserForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ["first_name", "last_name", "username", "password"]
-
-
-class ProfileForm(ModelForm):
-    class Meta:
-        model = student
-        fields = ["age", "bio", "location", "course", "school"]
