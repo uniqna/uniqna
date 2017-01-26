@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.conf.global_settings import TEMPLATES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django_bleach',
     'user',
     'widget_tweaks',
+    'el_pagination',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +75,8 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.template.context_processors.request')
 
 WSGI_APPLICATION = 'root.wsgi.application'
 
@@ -129,3 +133,6 @@ BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', '
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
 BLEACH_STRIP_TAGS = True
+
+EL_PAGINATION_PREVIOUS_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_back</i></button>"""
+EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_forward</i></button>"""
