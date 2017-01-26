@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
+from threads.models import answer
 from .forms import registration
 token = False  # An error token - True when it encounters invalid credentials.
 
@@ -40,10 +41,17 @@ def home(request):
         username = request.user.username
         question.objects.PopUpdate()
         question_list = question.objects.order_by("-popularity")
+        no_of_questions = question.objects.all().count()
+        no_of_answers = answer.objects.all().count()
+        no_of_solved = question.objects.filter(solved=True).count()
+        no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
         return render(request,
                       'home_templates/home.html',
                       {'username': username,
-                       'question_list': question_list})
+                       'question_list': question_list,
+                       'no_of_questions': no_of_questions,
+                       'no_of_answers': no_of_answers,
+                       'no_of_solved_percentage': no_of_solved_percentage})
     else:
         return render(request,
                       'login_templates/login.html',
