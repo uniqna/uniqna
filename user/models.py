@@ -9,10 +9,10 @@ from django.forms import ModelForm
 
 class student(models.Model):
     course_choices = (
-        ("BT", "B.Tech"),
-        ("MT", "M.Tech"),
-        ("FT", "F.Tech"),
-        ("BL", "B.Law"),
+        ("B.Tech", "B.Tech"),
+        ("M.Tech", "M.Tech"),
+        ("F.Tech", "F.Tech"),
+        ("B.Law", "B.Law"),
     )
     school_choices = (
         ("SCSE", "SCSE"),
@@ -28,6 +28,6 @@ class student(models.Model):
     bio = models.CharField(max_length=240, blank=True, default="")
     location = models.CharField(max_length=30, blank=True, default="")
     age = models.PositiveSmallIntegerField()
-    course = models.CharField(max_length=5, choices=course_choices, default="BT")
+    course = models.CharField(max_length=6, choices=course_choices, default="B.Tech")
     school = models.CharField(max_length=6, choices=school_choices, default="SCSE")
 
