@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
-from .forms import registration
+from user.models import student
+from home.forms import registration
 token = False  # An error token - True when it encounters invalid credentials.
 
 
@@ -52,35 +53,31 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        submitted_form = registration(request.POST)
-        if submitted_form.is_valid():
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            confirm_password = request.POST.get('confirm_password')
-            new_user = User.objects.create_user(username=username,
-                                                email=email,
-                                                password=password)
+        reg_form = registration(request.POST)
+        if reg_form.is_valid():
+            cd = reg_form.cleaned_data
+            new_user = User.objects.create_user(username=cd["username"], email=cd["email"], password=cd["password"])
+            new_profile = student(bio=cd["bio"], location=cd["location"], age=cd["age"], course=cd["course"], school=cd["school"])
+            new_profile.user = new_user
+            new_profile.save()
             login(request, new_user)
             return render(request,
                           'login_templates/welcome.html',
-                          {'username': username})
+                          {'username': new_user.username})
         else:
             errors = []
-            for key in submitted_form.errors:
-                errors.append(submitted_form.errors.get(key))
-            unsubmitted_form = registration()
             return render(request,
                           'login_templates/register.html',
-                          {'form': unsubmitted_form,
-                           'errors': errors})
+                          {
+                              'regform': reg_form,
+                              'errors': reg_form.errors})
     elif request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home'))
     else:
-        unsubmitted_form = registration()
+        reg_form = registration()
         return render(request,
                       'login_templates/register.html',
-                      {'form': unsubmitted_form})
+                      {'regform': reg_form})
 
 
 def welcome(request):
