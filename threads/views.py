@@ -6,6 +6,24 @@ from threads.models import answer
 from ask.models import question
 from datetime import datetime
 from root.algorithms import vote_score
+# Required REST modules
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import AnswerSerializer
+
+# Get the ups and down of an answer or send a vote
+
+
+class VotesView(APIView):
+
+    def get(self, request):
+        answers = answer.objects.all()
+        serializer = AnswerSerializer(answers, many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
 
 
 def thread(request, thread_id):
