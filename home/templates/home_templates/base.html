@@ -25,6 +25,13 @@
 </head>
 
 <style>
+    .mdl-layout__content {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+
     .mdl-mini-footer {
         display: block;
     }
@@ -59,23 +66,25 @@
                 </nav>
             </div>
             <div class="mdl-grid searchparent">
-              <div class="mdl-cell mdl-cell--12-col search">
+                <div class="mdl-cell mdl-cell--12-col search">
 
-            <form action="#" class = "searchform">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
-                <input class="mdl-textfield__input searchbottommargin2" type="text" id="sample3">
-                <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
-              </div>
-            </form>
+                    <form action="#" class="searchform">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
+                            <input class="mdl-textfield__input searchbottommargin2" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
+                        </div>
+                    </form>
 
-              </div>
+                </div>
             </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
                 {% block frontpage %} {% endblock %}
+
             </div>
+            <div class="mdl-layout-spacer"></div>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo">Title</div>
@@ -85,16 +94,14 @@
                     </ul>
                 </div>
             </footer>
+        </main>
     </div>
-
-    </main>
-
-
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
 </body>
 
 </html>
