@@ -20,6 +20,7 @@ from tinymce import urls
 from threads import urls
 from user import urls
 from home.views import vote
+from RestApi import urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -32,4 +33,7 @@ urlpatterns = [
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
+    url(r'^api/', include('RestApi.urls')),
 ]
+
+
