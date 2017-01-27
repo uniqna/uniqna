@@ -5,7 +5,7 @@ from django.template import Template, Context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from ask.models import question
+from ask.models import question, tag
 from user.models import student
 from home.forms import registration
 token = False  # An error token - True when it encounters invalid credentials.
@@ -109,3 +109,13 @@ def vote(request, qid, upordown):
         question_instance.points = upvotes - downvotes
         question_instance.save()
     return redirect('home')
+
+
+def tag_view(request, tag_id):
+    try:
+        tag_id = int(tag_id)
+    except ValueError:
+        raise Http404()
+    if request.user.is_authenticated:
+        tag_instance = get_object_or_404(tag, pk=tag_id)
+        return render(request, "tag_templates/home.html", {'tag': tag_instance})
