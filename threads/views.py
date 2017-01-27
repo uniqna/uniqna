@@ -30,6 +30,7 @@ def vote_rest(request, pk):
         return Response(serializer.data)
 """
 
+
 def thread(request, thread_id):
     try:
         thread_id = int(thread_id)

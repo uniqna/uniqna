@@ -22,7 +22,7 @@ class VotesView(APIView):
 class GetVote(APIView):
 	def GetAnswer(self, pk):
 		try:
-			return answer.objects.get(pk=pk)
+			return answer.objects.get(pk=int(pk))
 		except answer.DoesNotExist:
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

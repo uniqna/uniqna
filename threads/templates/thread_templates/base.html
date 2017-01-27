@@ -31,7 +31,10 @@
     <h2><a href="{% url 'home' %}" class="btn btn-info">Go back to home</a></h2>
     {% block question %} {% endblock %}
 
-    <hr> {% block discussion %} {% load bleach_tags %} {% for x in all_answers %}
+    <hr> 
+    {% block discussion %} 
+    {% load bleach_tags %}
+     {% for x in all_answers %}
     <center>
         <p> {{ x|bleach }} - <a href="{% url 'user' x.answer_author  %}" class="text-info">{{ x.answer_author }}</a> </p>
         <p>Posted on {{x.get_time}}</p>
@@ -39,15 +42,18 @@
         <p>Edited on {{x.get_edited_time}}</p>
         {% endif %}
         <p>
-        <a href="{% url 'vote' x.question.pk x.pk 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></a><span class="badge">{{ x.ups.count }}</span>
-
-         <span class="badge vote">{{ x.downs.count }}</span> <a href="{% url 'vote' x.question.pk x.pk 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></a></p>
+         <button class="btn btn-default vote upvote" data-url="{% url 'apivote' x.id 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></button>
+         <span class="badge">{{ x.ups.count }}</span>
+         <span class="badge">{{ x.downs.count }}</span>
+         <button class="btn btn-default vote downvote" data-url="{% url 'apivote' x.id 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></button>
+         </p>
     </center>
     {% if x.answer_author == username %}
-    <center><a href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>
-    <center><a href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit?</a></center>
+    <center><a href="{% url 'delete_answer' x.question.pk x.pk %}" class="btn btn-danger">Delete?</a></center>
+    <center><a href="{% url 'edit_answer' x.question.pk x.pk %}" class="btn btn-success">Edit?</a></center>
     {% endif %}
-    <hr> {% endfor %}
+    <hr>
+    {% endfor %}
     <center>
         <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
     </center>
@@ -74,6 +80,27 @@
     <script>
         tinymce.init({
             selector: 'textarea'
+        });
+    // Voting script
+        $(".upvote").click(function(){
+            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            ubutton = $(this);
+           $.get(vote_url, function(data, status){
+                ubutton.toggleClass("btn-default").toggleClass("btn-success");
+                ubutton.siblings().last().removeClass("btn-danger").addClass("btn-default")
+                ubutton.siblings()[0].textContent = data.ups.length;
+                ubutton.siblings()[1].textContent = data.downs.length;
+           });
+        });
+        $(".downvote").click(function(){
+            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            dbutton = $(this);
+           $.get(vote_url, function(data, status){
+                dbutton.toggleClass("btn-default").toggleClass("btn-danger");
+                dbutton.siblings().first().removeClass("btn-success").addClass("btn-default")
+                dbutton.siblings()[2].textContent = data.downs.length;
+                dbutton.siblings()[1].textContent = data.ups.length;
+           });
         });
     </script>
 </body>
