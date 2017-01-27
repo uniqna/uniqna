@@ -42,10 +42,11 @@
         <p>Edited on {{x.get_edited_time}}</p>
         {% endif %}
         <p>
-         <button class="btn btn-default vote upvote" data-url="{% url 'apivote' x.id 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></button>
+         <button class="btn
+         {% if request.user in x.ups.all %} btn-success {% else %} btn-default {% endif %} vote upvote" data-url="{% url 'apivote' x.id 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></button>
          <span class="badge">{{ x.ups.count }}</span>
          <span class="badge">{{ x.downs.count }}</span>
-         <button class="btn btn-default vote downvote" data-url="{% url 'apivote' x.id 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></button>
+         <button class="btn {% if request.user in x.downs.all %} btn-danger {% else %} btn-default {% endif %} vote downvote" data-url="{% url 'apivote' x.id 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></button>
          </p>
     </center>
     {% if x.answer_author == username %}
