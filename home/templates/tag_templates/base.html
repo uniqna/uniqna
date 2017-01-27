@@ -19,27 +19,12 @@
   <![endif]-->
 </head>
 <body>
-
-  <h1>You're currently logged in {{request.user.username}}</h1>
-
-    {% block content %}
-
-    {% endblock %}
-
-  <form method="post" action="/logout/">
-    {% csrf_token %}
-  <input type="submit" value="logout!" />
-  </form>
-
+    {% block body %}
+      
+    {% endblock body %}
     <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });
-    {% block script %}
-      
-    {% endblock script %}
-    </script>
   </body>
   </html>
