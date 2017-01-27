@@ -1,11 +1,2 @@
-*.pyc
-*~
-__pycache__
-myvenv
-db.sqlite3
-.DS_Store
-*.db
-*.sqlite3
-local_settings.py
-*.sqlite3
 
+*.pyc
