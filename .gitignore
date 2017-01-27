@@ -9,3 +9,10 @@ db.sqlite3
 local_settings.py
 
 *.sqlite3
+<<<<<<< HEAD
+=======
+
+*.sqlite3
+>>>>>>> master
+
+db.sqlite3
