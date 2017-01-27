@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'tinymce',
     'django_bleach',
     'user',
+    'rest_framework',
+    'RestApi',
 ]
 
 MIDDLEWARE = [
