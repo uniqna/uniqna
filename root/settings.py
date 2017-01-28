@@ -89,6 +89,7 @@ if 'RDS_DB_NAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+    STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
 else:
     DATABASES = {
         'default': {
@@ -101,6 +102,7 @@ else:
         }
     }
     DEBUG = True
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -143,5 +145,3 @@ BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', '
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
 BLEACH_STRIP_TAGS = True
-
-STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
