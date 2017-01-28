@@ -79,28 +79,16 @@ WSGI_APPLICATION = 'root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ebdb',
+        'USER': 'jeremyphilemon',
+        'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
+        'HOST': 'aa1r0mbr2gw1wh3.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'qnadb',
-            'USER': 'jeremyphilemon',
-            'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
-            'HOST': ' qnadb.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
+}
 
 
 # Password validation
