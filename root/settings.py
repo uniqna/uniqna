@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'ebdb',
         'USER': 'jeremyphilemon',
         'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
-        'HOST': 'aa1r0mbr2gw1wh3.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
+        'HOST': 'aa1ffwboodhyt2t.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
