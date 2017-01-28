@@ -100,7 +100,7 @@ else:
             'PORT': '5432',
         }
     }
-
+    DEBUG = True
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
