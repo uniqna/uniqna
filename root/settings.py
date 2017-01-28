@@ -144,4 +144,4 @@ BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', '
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
 BLEACH_STRIP_TAGS = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "..", "django", "www", "static")
