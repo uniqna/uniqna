@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from ask.models import question
 from user.models import student
 from home.forms import registration
+from threads.models import answer
+
 token = False  # An error token - True when it encounters invalid credentials.
 
 
