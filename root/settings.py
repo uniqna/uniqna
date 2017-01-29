@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.conf.global_settings import TEMPLATES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,11 +41,11 @@ INSTALLED_APPS = [
     'home',
     'ask',
     'threads',
-    'tinymce',
+    'trumbowyg',
     'django_bleach',
     'user',
-    'rest_framework',
-    'RestApi',
+    'widget_tweaks',
+    'el_pagination',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,8 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.template.context_processors.request')
+
 WSGI_APPLICATION = 'root.wsgi.application'
 
 
@@ -83,8 +86,12 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'qnadb',
+        'USER': 'jeremyphilemon',
+        'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
+        'HOST': 'qnadb.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -130,3 +137,6 @@ BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', '
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
 BLEACH_STRIP_TAGS = True
+
+EL_PAGINATION_PREVIOUS_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_back</i></button>"""
+EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_forward</i></button>"""
