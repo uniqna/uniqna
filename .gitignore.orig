@@ -1,0 +1,14 @@
+*.pyc
+*~
+__pycache__
+myvenv
+db.sqlite3
+.DS_Store
+*.db
+*.sqlite3
+db.sqlite3
+local_settings.py
+<<<<<<< HEAD
+db.sqlite3
+=======
+>>>>>>> master

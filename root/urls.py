@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register),
     url(r'^ask/', include('ask.urls')),
-    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^trumbowyg/', include('trumbowyg.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
