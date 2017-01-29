@@ -6,8 +6,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question
+<<<<<<< HEAD
+from threads.models import answer
+from .forms import registration
+=======
 from user.models import student
 from home.forms import registration
+>>>>>>> master
 token = False  # An error token - True when it encounters invalid credentials.
 
 
