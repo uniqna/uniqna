@@ -1,32 +1,272 @@
-{% extends 'home_templates/base.html' %}
-{% block frontpage %}
+{% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
 <style>
-.question {
-  position: absolute;
-}
-.vote {
-  position: relative;
-}
-.up {
-  top: 3px;
-  left:0px;
-}
-.down {
-  top: 9px;
-  left:0px;
-}
-.points {
-  top: 6px;
-  left:0px;
-}
+    .mdl-cell--12-col {
+        background-color: #EEEEEE;
+        height: 100px;
+    }
+
+    .platform {
+        padding: 0px;
+        height: 100px;
+    }
+
+    .title {
+        margin-left: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-size: 18px;
+        color: #424242;
+    }
+
+    .meta {
+        margin: 0px;
+        width: 90%;
+    }
+
+    .a_title {
+        color: #424242;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    .votes {
+        width: 43px;
+        margin: 0px;
+        margin-left: 9px;
+    }
+
+    .score {
+        width: 100%;
+    }
+
+    .voting {
+        padding: 0px;
+        margin: 0px;
+        width: 50px;
+    }
+
+    .solved {
+        color: #009688;
+        font-size: 18px;
+        position: absolute;
+        padding-left: 5px;
+
+    }
+
+    .votecolor {
+        color: #424242;
+    }
+
+    .searchparent {
+        padding: 5px;
+        margin: 0px;
+        height: 75px;
+        background-color: #F5F5F5;
+    }
+
+    .search {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .searchform {
+        height: 100%;
+    }
+
+    .searchbottommargin {
+        padding: 22px 0;
+    }
+
+    .searchbottommargin2 {
+        border-bottom: none;
+    }
+
+    .postsearchparent {
+        height: 40px;
+        padding-bottom: 0px;
+    }
+
+    .postsearch {
+        height: 100%;
+        margin: 0px;
+        margin-right: 0px;
+        margin-top: 5px;
+        margin-left: auto;
+    }
+
+    .statistics {
+        color: #009688;
+        font-size: 14px;
+        width: 265px;
+        margin-right: 7px;
+        margin-left: 7px;
+        float: right;
+    }
+
+    .ask {
+        width: 184px;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-left: 0px;
+    }
+
+    .askbutton {
+        width: 100%;
+        font-size: 14px;
+        height: 100%;
+        font-family: 'Montserrat', sans-serif;
+        color: #009688;
+    }
+
+    .date {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #D81B60;
+    }
+
+    .author {
+        float: right;
+        color: #D81B60;
+    }
+
+    .authorlink {
+        color: #D81B60;
+    }
+
+    .answers {
+        float: right;
+        color: #009688;
+    }
+
+    .tags {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #673AB7;
+    }
+
+    .mdl-layout__header {
+        box-shadow: none;
+    }
+
+    .endless_page_link {
+        color: #424242;
+    }
+
+    .pagination {
+        height: 55px;
+        background-color: #FFFFFF;
+    }
+
+    @media (max-width: 479px) {
+        .ask {
+            position: relative;
+            margin: 0px;
+            width: 100%;
+            height: 56px;
+            padding-top: 17px;
+        }
+        .statistics {
+            color: #009688;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            font-size: 12px;
+            text-align: center;
+        }
+        .postsearchparent {
+            height: 95px;
+            padding-bottom: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+        .postsearch {
+            height: 37.5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .askbutton {
+            width: 100%;
+            font-size: 12px;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 23px;
+            color: #009688;
+        }
+        .a_title {
+            font-size: 12px;
+        }
+        .mdl-textfield__input {
+            font-size: 15px;
+            padding: 17px 0;
+        }
+    }
 </style>
-  {% for x in question_list %}
-  <div class="questions">
-  <a href="{% url 'qvote' x.pk 'u'%}" class="vote" id="up"><span class="glyphicon glyphicon-chevron-up"></span></a>
-  <span class="points">{{ x.points }}</span>
-  <a href="{% url 'qvote' x.pk 'd'%}" class="vote" id="down"><span class="glyphicon glyphicon-chevron-down"></span></a>
-    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | Popularity: {{ x.popularity }} {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}
-    <hr>
-  </div>
-  {% endfor %}
+
+<div class="mdl-grid postsearchparent">
+    <div class="mdl-cell mdl-cell--3-col ask">
+        <form action="{% url 'ask' %}">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect">
+      Ask a Question <i class="material-icons">question_answer</i>
+    </button>
+        </form>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col postsearch">
+        <div class="mdl-cell mdl-cell--3-col statistics">
+            {{ no_of_questions }} Questions {{ no_of_answers }} Answers {{ no_of_solved_percentage }}% Solved
+        </div>
+    </div>
+</div>
+
+<div class="mdl-grid">
+    {% paginate question_list %} {% for x in question_list %}
+
+    <div class="mdl-cell mdl-cell--12-col">
+        <div class="mdl-grid platform">
+            <div class="mdl-cell mdl-cell--1-col voting">
+                <div class="mdl-grid voting">
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' x.pk 'u'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor ">expand_less</i>
+                    </button>
+                        </form>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score">
+                        <center>{{ x.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' x.pk 'd'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor">expand_more</i>
+                    </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">
+                <div class="date">Asked&nbsp{{ x.created_time|timesince }}&nbsp
+                    <div class="author">ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp&nbsp&nbsp
+                        <div class="answers">{{ x.answers }} Answers</div>
+                    </div>
+                </div>
+                <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
+                <i class="material-icons solved">check</i> {% endif %}
+                <div class="tags">#Tags</div>
+            </div>
+
+
+
+        </div>
+    </div>
+    {% endfor %} {% get_pages %}
+    <div class="mdl-cell mdl-cell--12-col pagination">
+        <center>{{ pages.previous }} {{ pages.next }} </center>
+        <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
+    </div>
+</div>
 {% endblock %}
