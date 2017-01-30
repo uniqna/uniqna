@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'user',
     'widget_tweaks',
     'el_pagination',
+    'rest_framework',
+    'RestApi',
 ]
 
 MIDDLEWARE = [
