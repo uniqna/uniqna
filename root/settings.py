@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'v@v9)ij^1+r&apveb-r#sf@+=kip2el+d8izw@26c_hqksh0%0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['intellectualdude.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,18 +83,32 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'qnadb',
-        'USER': 'jeremyphilemon',
-        'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
-        'HOST': 'qnadb.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
-        'PORT': '5432',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
-
+    STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'qnadb',
+            'USER': 'jeremyphilemon',
+            'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
+            'HOST': 'qnadb.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+    DEBUG = True
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static_refresh')
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
