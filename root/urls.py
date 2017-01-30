@@ -21,11 +21,8 @@ from tinymce import urls
 from threads import urls
 from user import urls
 from home.views import vote
-<<<<<<< HEAD
 from RestApi import urls
-=======
 from root import settings
->>>>>>> master
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -41,9 +38,5 @@ urlpatterns = [
     url(r'^api/', include('RestApi.urls')),
 ]
 
-<<<<<<< HEAD
-
-=======
 if settings.DEBUG is True:
     urlpatterns += staticfiles_urlpatterns()
->>>>>>> master
