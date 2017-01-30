@@ -1,4 +1,4 @@
-{% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
+{% extends 'result_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
 <style>
     .mdl-cell--12-col {
         background-color: #EEEEEE;
@@ -162,6 +162,17 @@
         background-color: #FFFFFF;
     }
 
+    .results_query {
+      margin-left: auto;
+      margin-right: auto;
+      color: #D81B60;
+    }
+
+    .results_true {
+      font-size: 14px;
+      color: #009688;
+    }
+
     @media (max-width: 479px) {
         .ask {
             position: relative;
@@ -222,8 +233,16 @@
     </div>
 </div>
 
+<div class="mdl-cell mdl-cell--3-col results_query">
+  {% if results %}
+  <center><small class="results_true"> Showing results for "{{ query }}"</small></center>
+  {% else %}
+  <center>No results found for "{{ query }}" <br> You can always ask a new question :D</center>
+  {% endif %}
+</div>
+
 <div class="mdl-grid">
-    {% paginate question_list %} {% for x in question_list %}
+    {% paginate results %} {% for x in results %}
 
     <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-grid platform">
@@ -262,9 +281,12 @@
         </div>
     </div>
     {% endfor %} {% get_pages %}
+    {% if results %}
     <div class="mdl-cell mdl-cell--12-col pagination">
         <center>{{ pages.previous }} {{ pages.next }} </center>
         <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
+    {% else %}
+    {% endif %}
 </div>
 {% endblock %}
