@@ -1,0 +1,13 @@
+branch-defaults:
+  default:
+    environment: null
+    group_suffix: null
+global:
+  application_name: qnaprod
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Python 3.4
+  default_region: ap-south-1
+  profile: eb-cli
+  repository: null
+  sc: null

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import url, include
 from django.contrib import admin
 from home import views
@@ -20,7 +21,11 @@ from tinymce import urls
 from threads import urls
 from user import urls
 from home.views import vote
+<<<<<<< HEAD
 from RestApi import urls
+=======
+from root import settings
+>>>>>>> master
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,4 +41,9 @@ urlpatterns = [
     url(r'^api/', include('RestApi.urls')),
 ]
 
+<<<<<<< HEAD
 
+=======
+if settings.DEBUG is True:
+    urlpatterns += staticfiles_urlpatterns()
+>>>>>>> master
