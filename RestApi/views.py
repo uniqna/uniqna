@@ -98,6 +98,7 @@ class QuestionVote(APIView):
 		else:
 			vote_on.remove(request.user)
 		print("saved")
+		ques.points = ques.ups.count() - ques.downs.count()
 		ques.save()
 		return ques
 
