@@ -10,6 +10,7 @@
     {% csrf_token %}
     <center><input class="mdl-button mdl-js-button mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
     <br>
+    <div class="mdl-button mdl-button--accent" id="suggested">Sup</div>
     <div>
         <strong>Suggested tags:   </strong> {% for tag in tags %}
         <label>
@@ -25,10 +26,9 @@
             <label for="newtab">Enter new tag name:</label>
             <input type="text" name="new_tag" id="newtag">
             <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
-</form>
-
         </div>
     </div>
+</form>
 {% endblock %}
 {% block script %}
     <script>
@@ -68,14 +68,17 @@
     });
     //Create Tag
     var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
-    var data;
     $("#create_tag").click(function(){
-        data = {"name": $("#newtag").val()}
+        var data = {"name": $("#newtag").val()}
         $.post(purl, data, function(data, status){
             document.getElementById("newtag").value=""
             $(".tagcreated").fadeIn(2000).fadeOut(2000);
             $("#newtagdiv").hide()
         })
+    });
+    var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
+    $(".mdl-textfield__input").blur(function(){
+        $.post(surl, {"text": $(this).val()});
     });
     </script>
 {% endblock script %}
