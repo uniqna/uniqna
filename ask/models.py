@@ -40,7 +40,6 @@ class question(models.Model):
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
 
     def set_popularity(self):
+        self.points = self.ups.count() + self.downs.count()
         self.popularity = _popularity(self)
         self.save()
-
-
