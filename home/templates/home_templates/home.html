@@ -229,21 +229,17 @@
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                        <form action="{% url 'qvote' x.pk 'u'%}">
-                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="upvote">
                     <i class="material-icons votecolor ">expand_less</i>
                     </button>
-                        </form>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col score">
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                        <form action="{% url 'qvote' x.pk 'd'%}">
-                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="downvote">
                     <i class="material-icons votecolor">expand_more</i>
                     </button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -270,3 +266,26 @@
     </div>
 </div>
 {% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        // Voting script
+        $("#upvote").click(function(){
+            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            ubutton = $(this);
+           $.get(vote_url, function(data, status){
+                ubutton.toggleClass("vote-default").toggleClass("vote-success");
+                ubutton.siblings().last().removeClass("vote-danger").addClass("vote-default")
+                $(".score").textContent = data.ups.length + data.downs.length
+           });
+        });
+        $("#downvote").click(function(){
+            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            dbutton = $(this);
+           $.get(vote_url, function(data, status){
+                dbutton.toggleClass("vote-default").toggleClass("vote-danger");
+                dbutton.siblings().first().removeClass("vote-success").addClass("vote-default")
+                $(".score").textContent = data.ups.length + data.downs.length
+           });
+        });
+</script>
+{% endblock script %}
