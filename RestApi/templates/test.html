@@ -1,6 +1,4 @@
-<label for="#tag">Enter tag name: </label>
-<input type="text" name="tagname" id="tag">
-<button value="Add" id="submit">Add</button>
+<textarea rows="10" cols="50" id="txt">Enter question here</textarea>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
 	// 403 error fix using jQuery
@@ -33,8 +31,7 @@
 
 	var purl = "http://127.0.0.1:8000{% url 'testpost' %}";
 	var data;
-	$("#submit").click(function(){
-		data = {"name": $("#tag").val()}
-		$.post(purl, data)
+	$("#txt").blur(function(){
+		$.post(purl, {"text": $("#txt").val()})
 	});
 </script>

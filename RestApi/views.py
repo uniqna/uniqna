@@ -14,9 +14,20 @@ def TestView(request):
 
 
 class TestPost(APIView):
+	def post(self):
+		pass
+
+
+class SuggestTag(APIView):
 	def post(self, request):
-		print(request.data["name"])
-		return Response(request.data)
+		text = request.data["text"]
+		words = text.split()
+		tag_names = [x.name for x in tag.objects.all()]
+		sugg_tag_names = [x for x in tag_names for y in words if x.lower() == y.lower()]
+		sugg_tags = [tag.objects.get(name=x) for x in sugg_tag_names]
+		serializer = TagSerializer(sugg_tags, many=True)
+		print(serializer.data)
+		return Response(serializer.data)
 
 
 class CreateTag(APIView):
