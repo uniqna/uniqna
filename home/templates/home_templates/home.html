@@ -204,6 +204,15 @@
             padding: 17px 0;
         }
     }
+    .vote-default {
+        color: grey; 
+    }
+    .vote-success{
+        color: green;
+    }
+    .vote-danger{
+        color: red;
+    }
 </style>
 
 <div class="mdl-grid postsearchparent">
@@ -222,22 +231,22 @@
 </div>
 
 <div class="mdl-grid">
-    {% paginate question_list %} {% for x in question_list %}
-
+    {% paginate question_list %}
+    {% for x in question_list %}
     <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="upvote">
-                    <i class="material-icons votecolor ">expand_less</i>
+                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote vote-default" id="up{{ x.pk }}" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor">expand_less</i>
                     </button>
                     </div>
-                    <div class="mdl-cell mdl-cell--1-col score">
+                    <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="downvote">
+                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote vote-default" id="down{{x.pk}}" data-id="{{x.pk}}">
                     <i class="material-icons votecolor">expand_more</i>
                     </button>
                     </div>
@@ -269,22 +278,27 @@
 {% block script %}
     <script type="text/javascript">
         // Voting script
-        $("#upvote").click(function(){
+        var d;
+        $(".upvote").click(function(){
             vote_url = "http://127.0.0.1:8000"+$(this).data("url");
             ubutton = $(this);
            $.get(vote_url, function(data, status){
+                d = data;
+                id = ubutton.data("id");
                 ubutton.toggleClass("vote-default").toggleClass("vote-success");
-                ubutton.siblings().last().removeClass("vote-danger").addClass("vote-default")
-                $(".score").textContent = data.ups.length + data.downs.length
+                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
+                $("#score"+id).children()[0].textContent = data.points;
            });
         });
-        $("#downvote").click(function(){
+        $(".downvote").click(function(){
             vote_url = "http://127.0.0.1:8000"+$(this).data("url");
             dbutton = $(this);
            $.get(vote_url, function(data, status){
+                d = data;
+                id = dbutton.data("id");
                 dbutton.toggleClass("vote-default").toggleClass("vote-danger");
-                dbutton.siblings().first().removeClass("vote-success").addClass("vote-default")
-                $(".score").textContent = data.ups.length + data.downs.length
+                $("#down"+id).removeClass("vote-danger").addClass("vote-default");
+                $("#score"+id).children()[0].textContent = data.points;
            });
         });
 </script>
