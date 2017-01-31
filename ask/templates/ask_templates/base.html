@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <title>Ask a question!</title>
 
     <!-- Bootstrap -->
     {% load staticfiles %}
@@ -99,13 +99,16 @@
     <script src="{% static 'js/trumbowyg.min.js' %}"></script>
     <script>
         document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
-            this.MaterialProgress.setProgress(0);
+            this.MaterialProgress.setProgress(50);
             this.MaterialProgress.setBuffer(50);
         });
         $(document).ready(function() {
             $('#id_description').trumbowyg();
         });
     </script>
+    {% block script %}
+        
+    {% endblock script %}
 </body>
 
 </html>
