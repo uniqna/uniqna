@@ -24,4 +24,4 @@ class QuestionSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = tag
-		field = ('name')
+		fields = '__all__'
