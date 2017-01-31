@@ -55,10 +55,6 @@
 
     }
 
-    .votecolor {
-        color: #424242;
-    }
-
     .searchparent {
         padding: 5px;
         margin: 0px;
@@ -205,13 +201,13 @@
         }
     }
     .vote-default {
-        color: grey; 
+        color: #424242;
     }
     .vote-success{
-        color: green;
+        color: #4CAF50;
     }
     .vote-danger{
-        color: red;
+        color: #F44336;
     }
 </style>
 
@@ -238,16 +234,18 @@
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote vote-default" id="up{{ x.pk }}" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor">expand_less</i>
+                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote 
+                            {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{x.pk}}">
+                    <i class="material-icons votecolor" id="up{{ x.pk }}">expand_less</i>
                     </button>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote vote-default" id="down{{x.pk}}" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor">expand_more</i>
+                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote 
+                            {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor" id="down{{x.pk}}">expand_more</i>
                     </button>
                     </div>
                 </div>
@@ -281,23 +279,19 @@
         var d;
         $(".upvote").click(function(){
             vote_url = "http://127.0.0.1:8000"+$(this).data("url");
-            ubutton = $(this);
+            id = $(this).data("id");
            $.get(vote_url, function(data, status){
-                d = data;
-                id = ubutton.data("id");
-                ubutton.toggleClass("vote-default").toggleClass("vote-success");
+                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
                 $("#down"+id).removeClass("vote-danger").addClass("vote-default")
                 $("#score"+id).children()[0].textContent = data.points;
            });
         });
         $(".downvote").click(function(){
             vote_url = "http://127.0.0.1:8000"+$(this).data("url");
-            dbutton = $(this);
+            id = $(this).data("id");
            $.get(vote_url, function(data, status){
-                d = data;
-                id = dbutton.data("id");
-                dbutton.toggleClass("vote-default").toggleClass("vote-danger");
-                $("#down"+id).removeClass("vote-danger").addClass("vote-default");
+                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#up"+id).removeClass("vote-success").addClass("vote-default");
                 $("#score"+id).children()[0].textContent = data.points;
            });
         });
