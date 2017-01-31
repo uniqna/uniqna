@@ -43,10 +43,10 @@
         {% endif %}
         <p>
          <button class="btn
-         {% if request.user in x.ups.all %} btn-success {% else %} btn-default {% endif %} vote upvote" data-url="{% url 'apivote' x.id 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></button>
+         {% if request.user in x.ups.all %} btn-success {% else %} btn-default {% endif %} vote upvote" data-url="{% url 'answer_vote' x.id 'u' %}"><span class="glyphicon glyphicon-chevron-up"></span></button>
          <span class="badge">{{ x.ups.count }}</span>
          <span class="badge">{{ x.downs.count }}</span>
-         <button class="btn {% if request.user in x.downs.all %} btn-danger {% else %} btn-default {% endif %} vote downvote" data-url="{% url 'apivote' x.id 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></button>
+         <button class="btn {% if request.user in x.downs.all %} btn-danger {% else %} btn-default {% endif %} vote downvote" data-url="{% url 'answer_vote' x.id 'd' %}"><span class="glyphicon glyphicon-chevron-down"></span></button>
          </p>
     </center>
     {% if x.answer_author == username %}
@@ -78,9 +78,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script>
-        tinymce.init({
-            selector: 'textarea'
-        });
     // Voting script
         $(".upvote").click(function(){
             vote_url = "http://127.0.0.1:8000"+$(this).data("url");

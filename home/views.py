@@ -42,6 +42,7 @@ def home(request):
     if request.user.is_authenticated:
         username = request.user.username
         question.objects.PopUpdate()
+        print("Pop updated")
         question_list = question.objects.order_by("-popularity")
         no_of_questions = question.objects.all().count()
         no_of_answers = answer.objects.all().count()
