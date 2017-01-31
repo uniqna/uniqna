@@ -12,7 +12,8 @@ def ask(request):
         unsubmitted_form = ask_form()
         return render(request,
                       'ask_templates/ask.html',
-                      {'tags': tag.objects.all(),
+                      {'username': username,
+                       'tags': tag.objects.all(),
                        'form': unsubmitted_form})
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -21,11 +22,6 @@ def ask(request):
 def submit(request):
     if request.method == 'POST' and request.POST:
         submitted_form = ask_form(request.POST)
-        if request.POST["new_tag"]:
-            t = tag()
-            t.name = request.POST['new_tag']
-            t.save()
-            return render(request, "ask_templates/ask.html", {'form': submitted_form, 'tags': tag.objects.all()})
         if submitted_form.is_valid():
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username

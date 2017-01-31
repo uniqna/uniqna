@@ -9,8 +9,17 @@ from ask.models import tag, question
 # Create your views here.
 
 
-class CreateTag(APIView):
+def TestView(request):
+	return render(request, "test.html")
 
+
+class TestPost(APIView):
+	def post(self, request):
+		print(request.data["name"])
+		return Response(request.data)
+
+
+class CreateTag(APIView):
 	def get(self, request):
 		tags = tag.objects.all()
 		serializer = TagSerializer(tags, many=True)
@@ -18,9 +27,11 @@ class CreateTag(APIView):
 
 	def post(self, request):
 		serializer = TagSerializer(data=request.data)
-		print(request.POST["name"])
+		print("data received")
 		if serializer.is_valid():
+			print("tag is valid")
 			serializer.save()
+			print("tag creaed")
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
