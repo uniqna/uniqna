@@ -26,12 +26,11 @@ def submit(request):
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
             instance.save()
-            # Get the selected checkbox items value from the POST request as a list
-            taglist = request.POST.getlist('tag')
-            # The checkbox value is the primary key of the tag
-            for tag_id in taglist:
-                # Get the tag using the pk
-                selected_tag = tag.objects.get(pk=tag_id)
+            selectedtags = request.POST['selectedtags']
+            taglist = selectedtags.split(",")
+            print(taglist)
+            for tagname in taglist:
+                selected_tag = tag.objects.get(name=tagname)
                 instance.tags.add(selected_tag)
             question_id = instance.pk
             return HttpResponseRedirect("/thread/" + str(question_id))
