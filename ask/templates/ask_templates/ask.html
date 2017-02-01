@@ -9,10 +9,10 @@
     </div>
     {% csrf_token %}
     <center>
+    <strong><p class="blank-error">Fill up the description!!!</p></strong>
     <br>
     <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col">
-    <div id="suggested"></div>
     <input type='text'
        placeholder='Select the tags'
        id="tags_input"
@@ -44,11 +44,11 @@
         </div>
         </div>
         </div>
-    <input class="mdl-button mdl-js-button mdl-button--fab mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
+    <a class="mdl-button mdl-js-button mdl-button--primary mdl-js-button submit" href="#" value="Ask">Ask</a></center>
 </form>
 {% endblock %}
 {% block script %}
-    <script>
+    <script async>
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
             this.MaterialProgress.setProgress(0);
@@ -60,6 +60,7 @@
     //Add new tag 
     $("#newtagdiv").hide();
     $(".tagcreated").hide();
+    $(".blank-error").hide();
     $("#addtag").click(function(){
         $("#newtagdiv").show();
     })
@@ -119,6 +120,12 @@
         });
     }
     });
-
+    //Check fields
+    $(".submit").click(function(){
+        if($(".trumbowyg-textarea").val()==""){
+            $(".trumbowyg-box").effect("shake")
+            $(".blank-error").fadeIn(1000);
+        }
+    })
     </script>
 {% endblock script %}

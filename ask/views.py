@@ -38,6 +38,9 @@ def submit(request):
                     instance.tags.add(selected_tag)
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
-            return HttpResponse('<p>Failed</p>')
+            return render(request, "ask_templates/ask.html", {"username": request.user.username,
+                                                              "tags": tag.objects.all(),
+                                                              "form": submitted_form,
+                                                              "errors": submitted_form.errors})
     else:
         return HttpResponseRedirect(reverse('home'))
