@@ -10,7 +10,7 @@
     {% csrf_token %}
     <center><input class="mdl-button mdl-js-button mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
     <br>
-    <div class="mdl-button mdl-button--accent" id="suggested">Sup</div>
+    <div id="suggested"></div>
     <div>
         <strong>Suggested tags:   </strong> {% for tag in tags %}
         <label>
@@ -78,7 +78,13 @@
     });
     var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
     $(".mdl-textfield__input").blur(function(){
-        $.post(surl, {"text": $(this).val()});
+        $.post(surl, {"text": $(this).val()}, function(data, status){
+            if(status=="success"){
+                for(var i=0;i<(data.length+1);i++){
+                    $("#suggested").append("<strong> "+data[i].name+" </strong>");
+                }
+            }
+        });
     });
     </script>
 {% endblock script %}
