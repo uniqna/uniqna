@@ -10,9 +10,12 @@
     {% csrf_token %}
     <center>
     <br>
+    <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
     <div id="suggested"></div>
     <input type='text'
        placeholder='Select the tags'
+       id="tags_input"
        class='flexdatalist'
        data-min-length='1'
        data-selection-required="1"
@@ -26,6 +29,8 @@
             <option value="{{tag.id}}">{{tag.name}}</option>
         {% endfor %}
       </datalist>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
         <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
         <center>
         <div class="tagcreated">
@@ -37,6 +42,8 @@
             <input type="text" name="new_tag" id="newtag">
             <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
         </div>
+        </div>
+        </div>
     <input class="mdl-button mdl-js-button mdl-button--fab mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
 </form>
 {% endblock %}
@@ -44,7 +51,7 @@
     <script>
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
-            this.MaterialProgress.setProgress(50);
+            this.MaterialProgress.setProgress(0);
             this.MaterialProgress.setBuffer(50);
         });
         $(document).ready(function() {
@@ -92,6 +99,8 @@
             document.getElementById("newtag").value=""
             $(".tagcreated").fadeIn(2000).fadeOut(2000);
             $("#newtagdiv").hide()
+            document.getElementById("tags_input").value = document.getElementById("tags_input").value + ","+data.name
+            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data.name+"</span><span class='fdl-remove'>×</span></li>");
         })
     });
     //Get suggested tags adn append to #suggested.
@@ -100,9 +109,12 @@
         if($(this).val()){
         $.post(surl, {"text": $(this).val()}, function(data, status){
             if(status=="success" && data.length){
-                for(var i=0;i<(data.length+1);i++){
-                    $("#suggested").append("<strong> "+data[i].name+" </strong>");
+                vals = document.getElementById("tags_input").value.split(",");
+                for(var i=0;i<(data.length);i++){
+                    vals.push(data[i].name);
+                   $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data[i].name+"</span><span class='fdl-remove'>×</span></li>"); 
                 }
+                document.getElementById("tags_input").value = vals.join(",");
             }
         });
     }

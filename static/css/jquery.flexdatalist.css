@@ -73,7 +73,7 @@
     cursor: default;
 }
 .flexdatalist-multiple:after {
-    content: '';
+    content: '<br>';
     display: block;
     clear: both;
 }

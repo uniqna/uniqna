@@ -143,5 +143,3 @@ class QuestionVote(APIView):
 
 	def post(self, request, pk, ud):
 		pass
-
-
