@@ -5,8 +5,16 @@
         {% render_field form.title class+="mdl-textfield__input" %}
         <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
     </div>
+    <div class="mdl-cell mdl-cell--12-col">
         {{ form.description }}
-    <center><input class="mdl-button mdl-js-button mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
+    </div>
+    <center>
+        <div class="ask1">
+          <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Ask">
+            <i class="ask_icon material-icons">send</i>
+          </button>
+        </div>
+    </center>
     <br>
     <div>
         <strong>Suggested tags:   </strong> {% for tag in tags %}

@@ -36,6 +36,43 @@
     .mdl-mini-footer {
         display: block;
     }
+
+    .editor-toolbar.fullscreen {
+        position: absolute;
+    }
+
+    .CodeMirror-fullscreen {
+        top: 115px;
+    }
+
+    .ask {
+        font-family: 'Montserrat', sans-serif;
+        color: #009688;
+        font-size: 25px;
+        font-size: 40px;
+        min-width: 65px;
+        height: 50px;
+        width: 50px;
+        min-width: 0px;
+    }
+
+    .ask_icon {
+          font-size: 40px;
+          left: 40%;
+    }
+
+    .ask:hover {
+    background-color: 0;
+  }
+
+  .ask1 .mdl-button--icon .material-icons {
+    left: 40%;
+  }
+
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
 </style>
 
 <body>
@@ -100,7 +137,11 @@
         document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
             this.MaterialProgress.setProgress(0);
             this.MaterialProgress.setBuffer(50);
-            var simplemde = new SimpleMDE({ element: $("#MyID")[0] });
+        });
+    </script>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: $("#MyID")[0]
         });
     </script>
 </body>
