@@ -1,15 +1,18 @@
 {% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% block content %}
-<form action="submit/" method="post">
+<form action="{% url 'question_submit' %}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
+        <div id="title_label">
         <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
+        </div>
     </div>
+    <strong><p class="blank-error" id="title_error">Fill up the question!!!</p></strong>
     <div class="trumbowyg-demo">
         {{ form.description }}
     </div>
     {% csrf_token %}
     <center>
-    <strong><p class="blank-error">Fill up the description!!!</p></strong>
+    <strong><p class="blank-error" id="desc_error">Fill up the description!!!</p></strong>
     <br>
     <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col">
@@ -45,14 +48,15 @@
         </div>
         </div>
     <a class="mdl-button mdl-js-button mdl-button--primary mdl-js-button submit" href="#" value="Ask">Ask</a></center>
+    <input type="submit" name="submit" class="hidden" value="Sup">
 </form>
 {% endblock %}
 {% block script %}
-    <script async>
+    <script>
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
             this.MaterialProgress.setProgress(0);
-            this.MaterialProgress.setBuffer(50);
+            this.MaterialProgress.setBuffer(0);
         });
         $(document).ready(function() {
             $('#id_description').trumbowyg();
@@ -92,6 +96,14 @@
             }
         }
     });
+    //Update Progress
+    $(document).ready(function(){
+        $(".trumbowyg-editor").blur(function(){
+        if($(".trumbowyg-textarea").val()){
+            $("#p3")[0].MaterialProgress.setBuffer(100)
+        }
+    })
+    })
     //Create Tag
     var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
     $("#create_tag").click(function(){
@@ -108,6 +120,7 @@
     var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
     $(".mdl-textfield__input").blur(function(){
         if($(this).val()){
+        $("#p3")[0].MaterialProgress.setBuffer(50);
         $.post(surl, {"text": $(this).val()}, function(data, status){
             if(status=="success" && data.length){
                 vals = document.getElementById("tags_input").value.split(",");
@@ -120,11 +133,22 @@
         });
     }
     });
-    //Check fields
+    //Submit fields
     $(".submit").click(function(){
-        if($(".trumbowyg-textarea").val()==""){
+        var qtitle = $("#id_title").val();
+        var qdesc = $(".trumbowyg-textarea").val();
+        if(qdesc==""){
             $(".trumbowyg-box").effect("shake")
-            $(".blank-error").fadeIn(1000);
+            $("#desc_error").fadeIn(1000)
+        }
+        else if(qtitle==""){
+            $("#title_label").effect("shake")
+            $("#title_error").fadeIn(1000)
+        }
+        else{
+        $("#p3")[0].MaterialProgress.setProgress(50);
+        $(".hidden").click();
+        $("#p3")[0].MaterialProgress.setProgress(100);
         }
     })
     </script>
