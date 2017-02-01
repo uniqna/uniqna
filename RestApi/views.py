@@ -30,6 +30,18 @@ class SuggestTag(APIView):
 		return Response(serializer.data)
 
 
+class GetTags(APIView):
+	def get(self, request):
+		tags = tag.objects.all()
+		serializer = TagSerializer(tags, many=True)
+		return Response(serializer.data)
+
+	def post(self, request):
+		tags = tag.objects.all()
+		serializer = TagSerializer(tags, many=True)
+		return Response(serializer.data)
+
+
 class CreateTag(APIView):
 	def get(self, request):
 		tags = tag.objects.all()
