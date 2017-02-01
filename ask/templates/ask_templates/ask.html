@@ -8,14 +8,24 @@
         {{ form.description }}
     </div>
     {% csrf_token %}
-    <center><input class="mdl-button mdl-js-button mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
+    <center>
     <br>
     <div id="suggested"></div>
-    <div>
-        <strong>Suggested tags:   </strong> {% for tag in tags %}
-        <label>
-     		<input type="checkbox" name="tag" value="{{ tag.id }}"> {{ tag.name }}
-     		</label> {% endfor %}
+    <input type='text'
+       placeholder='Select the tags'
+       class='flexdatalist'
+       data-min-length='1'
+       data-selection-required="1"
+       data-value-property='id'
+       multiple='multiple'
+       list='tags'
+       name='selectedtags'
+       width="200">
+    <datalist id="tags">
+        {% for tag in tags %}
+            <option value="{{tag.id}}">{{tag.name}}</option>
+        {% endfor %}
+      </datalist>
         <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
         <center>
         <div class="tagcreated">
@@ -27,11 +37,19 @@
             <input type="text" name="new_tag" id="newtag">
             <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
         </div>
-    </div>
+    <input class="mdl-button mdl-js-button mdl-button--fab mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
 </form>
 {% endblock %}
 {% block script %}
     <script>
+    //Default progress bar
+    document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
+            this.MaterialProgress.setProgress(50);
+            this.MaterialProgress.setBuffer(50);
+        });
+        $(document).ready(function() {
+            $('#id_description').trumbowyg();
+        });
     //Add new tag 
     $("#newtagdiv").hide();
     $(".tagcreated").hide();
@@ -76,15 +94,19 @@
             $("#newtagdiv").hide()
         })
     });
+    //Get suggested tags adn append to #suggested.
     var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
     $(".mdl-textfield__input").blur(function(){
+        if($(this).val()){
         $.post(surl, {"text": $(this).val()}, function(data, status){
-            if(status=="success"){
+            if(status=="success" && data.length){
                 for(var i=0;i<(data.length+1);i++){
                     $("#suggested").append("<strong> "+data[i].name+" </strong>");
                 }
             }
         });
+    }
     });
+
     </script>
 {% endblock script %}
