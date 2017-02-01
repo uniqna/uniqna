@@ -5,9 +5,10 @@
 
 <center><h1>{{ question.title }}</h1> {% if question.solved == True %} <span class="label label-success">Solved</span> {% endif %}
 <a href="{% url 'user' question.author %}" class="text-info">{{ question.author }}</a>
-<p>{{ question.description|bleach }}</p>
-<p>Question asked on {{ question.get_time }}</p>
 </center>
+{{ description|bleach }}
+<p>Question asked on {{ question.get_time }}</p>
+
 {% if question.author == username %}
   <center><a href="{% url 'delete_question' question.pk %}">Delete?</a></center>
   {% if question.solved == False %}
