@@ -12,7 +12,7 @@ class ManagerExtender(models.Manager):
 
 class question(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     answers = models.IntegerField(default=0)
     author = models.CharField(max_length=100, default="anonymous")
     created_time = models.DateTimeField(default=timezone.now)

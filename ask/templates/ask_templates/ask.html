@@ -1,13 +1,11 @@
 {% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% block content %}
 <form action="submit/" method="post">
+    {% csrf_token %}
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
         <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
     </div>
-    <div class="trumbowyg-demo">
         {{ form.description }}
-    </div>
-    {% csrf_token %}
     <center><input class="mdl-button mdl-js-button mdl-button--primary mdl-js-button" type="submit" value="Ask"></center>
     <br>
     <div>
