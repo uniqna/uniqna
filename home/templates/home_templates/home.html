@@ -259,7 +259,11 @@
                 </div>
                 <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
                 <i class="material-icons solved">check</i> {% endif %}
-                <div class="tags">#Tags</div>
+                <div class="tags">
+                 {% for t in x.tags.all %}
+                         #{{ t.name }}
+                    {% endfor %}   
+                </div>
             </div>
 
 

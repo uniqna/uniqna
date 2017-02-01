@@ -26,14 +26,17 @@ def submit(request):
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
             instance.save()
-            selectedtags = request.POST['selectedtags']
-            taglist = selectedtags.split(",")
-            print(taglist)
-            for tagname in taglist:
-                selected_tag = tag.objects.get(name=tagname)
-                instance.tags.add(selected_tag)
-            question_id = instance.pk
-            return HttpResponseRedirect("/thread/" + str(question_id))
+            if request.POST['selectedtags']:
+                selectedtags = request.POST['selectedtags']
+                print(selectedtags)
+                taglist = selectedtags.split(",")
+                # Filtering blank spaces
+                taglist = [x for x in taglist if x != '']
+                print(taglist)
+                for tagname in taglist:
+                    selected_tag = tag.objects.get(name=tagname)
+                    instance.tags.add(selected_tag)
+            return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
             return HttpResponse('<p>Failed</p>')
     else:
