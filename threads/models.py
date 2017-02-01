@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class answer(models.Model):
     question = models.ForeignKey(question)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     answer_author = models.CharField("Author", max_length=100, default="anon")
     created_time = models.DateTimeField(default=timezone.now)
     edited_time = models.DateTimeField(default=timezone.now, editable=True)

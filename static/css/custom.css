@@ -60,3 +60,42 @@
   .mdl-menu__item {
       font-family: 'Montserrat', sans-serif;
   }
+
+  .searchparent {
+      padding: 5px;
+      margin: 0px;
+      height: 75px;
+      background-color: #F5F5F5;
+  }
+
+  .search {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+      background-color: #FFFFFF;
+  }
+
+  .searchform {
+      height: 100%;
+  }
+
+  .searchbottommargin {
+      padding: 22px 0;
+  }
+
+  .searchbottommargin2 {
+      border-bottom: none;
+  }
+
+  .postsearchparent {
+      height: 40px;
+      padding-bottom: 0px;
+  }
+
+  .postsearch {
+      height: 100%;
+      margin: 0px;
+      margin-right: 0px;
+      margin-top: 5px;
+      margin-left: auto;
+  }
