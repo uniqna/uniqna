@@ -78,8 +78,8 @@
 <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-grid platform answer_parent">
         <div class="mdl-cell mdl-cell--1-col">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--1-col votes">
+            <div class="mdl-grid voting_align">
+                <div class="mdl-cell mdl-cell--1-col votes voting_align">
                     <form action="">
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
                 <i class="material-icons votecolor ">expand_less</i>
@@ -87,9 +87,9 @@
                     </form>
                 </div>
                 <div class="mdl-cell mdl-cell--1-col score">
-                    <center>{{ x.points }}</center>
+                    <center>10</center>
                 </div>
-                <div class="mdl-cell mdl-cell--1-col votes">
+                <div class="mdl-cell mdl-cell--1-col votes voting_align">
                     <form action="">
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
                 <i class="material-icons votecolor">expand_more</i>
@@ -102,6 +102,7 @@
         <div class="answer">
             {{ x|bleach }}
             <br>
+            <div class="meta_parent">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
                 {% if x.edited %} Answered by {{ x.answer_author }} on {{ x.get_time }} Edited on {{x.get_edited_time}} {% else %}
                 <br> Answered by {{ x.answer_author }} on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
@@ -111,6 +112,7 @@
                 <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
                 <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>{% if x.edited == False%}
                 <br> {% endif %}
+            </div>
             </div>
             {% endif %}
         </div>
