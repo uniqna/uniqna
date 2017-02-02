@@ -10,6 +10,8 @@ cycler==0.10.0
 Django==1.10.4
 django-bleach==0.3.0
 django-el-pagination==3.0.1
+django-markdown==0.8.4
+django-simplemde==0.1.0
 django-tinymce==2.4.0
 django-widget-tweaks==1.4.1
 djangorestframework==3.5.3
@@ -21,6 +23,7 @@ gunicorn==19.6.0
 html5lib==0.9999999
 jmespath==0.9.1
 Markdown==2.6.7
+markdown2==2.3.2
 packaging==16.8
 pathspec==0.5.0
 psycopg2==2.6.2
