@@ -155,11 +155,10 @@
     .endless_page_link {
         color: #424242;
     }
-    }
 
     .pagination {
         height: 55px;
-        background-color: #FFFFFF;
+        background: #FFFFFF !important;
     }
 
     @media (max-width: 479px) {
@@ -222,10 +221,10 @@
     </div>
 </div>
 
-<div class="mdl-grid">
+<div class="mdl-grid infini">
     {% paginate question_list %} {% for x in question_list %}
 
-    <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--12-col iquestion">
         <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
@@ -265,8 +264,8 @@
         </div>
     </div>
     {% endfor %} {% get_pages %}
-    <div class="mdl-cell mdl-cell--12-col pagination">
-        <center>{{ pages.previous }} {{ pages.next }} </center>
+    <div class="mdl-cell mdl-cell--12-col" id="pagination">
+        <center>{{ pages.next }} </center>
         <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
 </div>

@@ -1,39 +1,322 @@
-{% extends "base.html" %}
+{% extends "user_templates/base.html" %}
 {% block body %} 
 {% load bleach_tags %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 jumbotron">
-            <h3 class="text-center text-info">About</h3>
-            <p class="lead"><strong>Username:</strong> {{ user_instance.username }}</p>
-            <p class="lead"><strong>Email: </strong>{{ user_instance.email }}</p>
-            <p class="lead"><strong>Age:</strong> {{ user_instance.student.age }}</p>
-            <p class="lead"><strong>Bio:</strong> {{ user_instance.student.bio }}</p>
-            <p class="lead"><strong>Location:</strong> {{ user_instance.student.location }}</p>
-            <p class="lead"><strong>Course:</strong> {{ user_instance.student.course }}</p>
-            <p class="lead"><strong>School:</strong> {{ user_instance.student.school }}</p>
-        </div>
-        <div class="col-md-4 jumbotron">
-            <h3 class="text-center text-info">Questions</h3> {% if questions %} {% for q in questions %}
+<style type="text/css">
+    a {
+        color: black !important;
+    }
+    .mdl-cell--10-col {
+        background-color: #EEEEEE;
+        height: 100px;
+    }
+
+    .platform {
+        padding: 0px;
+        height: 100px;
+    }
+
+    .title {
+        margin-left: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-size: 18px;
+        color: #424242;
+    }
+
+    .meta {
+        margin: 0px;
+        width: 90%;
+    }
+
+    .a_title {
+        color: #424242;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    .votes {
+        width: 43px;
+        margin: 0px;
+        margin-left: 9px;
+    }
+
+    .score {
+        width: 100%;
+    }
+
+    .voting {
+        padding: 0px;
+        margin: 0px;
+        width: 50px;
+    }
+
+    .solved {
+        color: #009688;
+        font-size: 18px;
+        position: absolute;
+        padding-left: 5px;
+
+    }
+
+    .votecolor {
+        color: #424242;
+    }
+
+    .searchparent {
+        padding: 5px;
+        margin: 0px;
+        height: 75px;
+        background-color: #F5F5F5;
+    }
+
+    .search {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .searchform {
+        height: 100%;
+    }
+
+    .searchbottommargin {
+        padding: 22px 0;
+    }
+
+    .searchbottommargin2 {
+        border-bottom: none;
+    }
+
+    .postsearchparent {
+        height: 40px;
+        padding-bottom: 0px;
+    }
+
+    .postsearch {
+        height: 100%;
+        margin: 0px;
+        margin-right: 0px;
+        margin-top: 5px;
+        margin-left: auto;
+    }
+
+    .statistics {
+        color: #009688;
+        font-size: 14px;
+        width: 265px;
+        margin-right: 7px;
+        margin-left: 7px;
+        float: right;
+    }
+
+    .ask {
+        width: 184px;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-left: 0px;
+    }
+
+    .askbutton {
+        width: 100%;
+        font-size: 14px;
+        height: 100%;
+        font-family: 'Montserrat', sans-serif;
+        color: #009688;
+    }
+
+    .date {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #D81B60;
+    }
+
+    .author {
+        float: right;
+        color: #D81B60;
+    }
+
+    .authorlink {
+        color: #D81B60;
+    }
+
+    .answers {
+        float: right;
+        color: #009688;
+    }
+
+    .tags {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #673AB7;
+    }
+
+    .mdl-layout__header {
+        box-shadow: none;
+    }
+    .mdl-layout__header-row a{
+        color: white !important;
+    }
+
+    .endless_page_link {
+        color: #424242;
+    }
+
+    .pagination {
+        height: 55px;
+        background: #FFFFFF !important;
+    }
+    footer div ul li a {
+        color: white !important;
+    }
+    #about {
+        border-top: 4px rgba(163, 163, 163,0.5) dashed;
+        border-bottom: 4px rgba(163, 163, 163,0.5) dashed;
+    }
+    .mdl-tabs__tab-bar {
+        border-bottom: none;
+    }
+
+    @media (max-width: 479px) {
+        .ask {
+            position: relative;
+            margin: 0px;
+            width: 100%;
+            height: 56px;
+            padding-top: 17px;
+        }
+        .statistics {
+            color: #009688;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            font-size: 12px;
+            text-align: center;
+        }
+        .postsearchparent {
+            height: 95px;
+            padding-bottom: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+        .postsearch {
+            height: 37.5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .askbutton {
+            width: 100%;
+            font-size: 12px;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 23px;
+            color: #009688;
+        }
+        .a_title {
+            font-size: 12px;
+        }
+        .mdl-textfield__input {
+            font-size: 15px;
+            padding: 17px 0;
+        }
+    }
+</style>
+<center>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col" id="about">
+            <h3 class="username">@{{user_instance.username}}</h3>
+            <p>{{ user_instance.student.bio }}</p>
+            <p><i class="material-icons">room   </i> {{ user_instance.student.location }}</p>
+            <p><span class="mdl-chip"><span class="mdl-chip__text course">{{ user_instance.student.course }}</span></span> <span class="mdl-chip"><span class="mdl-chip__text school">{{ user_instance.student.school }}</span></span></p>
+    </div>
+</center>
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar">
+      <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
+      <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
+      <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
+  </div>
+   <div class="mdl-tabs__panel is-active" id="all-panel">
+            <h3 class="text-center text-info">ALL</h3> 
+            {% if questions %} 
+            {% for a in allqa %}
             <hr>
-            <a href="{% url 'thread' q.id %}">
-                <h4 class="question">{{ q.title }}</h4>
+            {% if a.question %}
+            <a href="{% url 'thread' a.question.id %}">
+                <h4 class="question">{{ a.question.title }}</h4>
+                <p class="answer">{{ a.description|bleach }}</p>
             </a>
-            <hr> {% endfor %} {% else %}
-            <p class="lead">No questions yet.</p>
+            {% else %}
+            <a href="{% url 'thread' a.id %}">
+                <h4 class="question">{{ a.title }}</h4>
+            </a>        
             {% endif %}
+            <hr> 
+            {% endfor %}
+            {% else %}
+            <p>Nothing here. :/</p>
+            {% endif %}
+    </div>
+    <div class="mdl-tabs__panel" id="questions-panel">
+            <h3 class="text-center text-info">Questions</h3> {% if questions %} {% for x in questions %}
+            <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+            <div class="mdl-grid platform">
+            <div class="mdl-cell mdl-cell--1-col voting">
+                <div class="mdl-grid voting">
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' x.pk 'u'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor ">expand_less</i>
+                    </button>
+                        </form>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score">
+                        <center>{{ x.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' x.pk 'd'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor">expand_more</i>
+                    </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">
+                <div class="date">Asked&nbsp{{ x.created_time|timesince }}&nbsp
+                    <div class="author">ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp&nbsp&nbsp
+                        <div class="answers">{{ x.answers }} Answers</div>
+                    </div>
+                </div>
+                <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
+                <i class="material-icons solved">check</i> {% endif %}
+                <div class="tags">
+                {% for tag in x.tags.all %}
+                    #{{tag.name}} 
+                {% endfor %}
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 jumbotron">
+    </div>
+            {% endfor %} {% else %}
+            <p>No questions yet.</p>
+            {% endif %}
+    </div>
+    <div class="mdl-tabs__panel" id="answers-panel">
             <h3 class="text-center text-info">Answers</h3> {% if answers %} {% for a in answers %}
             <hr>
             <a href="{% url 'thread' a.question.id %}">
                 <h4 class="question">{{ a.question.title }}</h4>
-                <p class="lead">{{ a.description|bleach }}</p>
+                <p class="answer">{{ a.description|bleach }}</p>
             </a>
-            <hr> {% endfor %} {% else %}
-            <p class="lead">No answers yet.</p>
+            <hr>
+            {% endfor %}
+            {% else %}
+            <p>No answers yet.</p>
             {% endif %}
-        </div>
     </div>
 </div>
 {% endblock %}
