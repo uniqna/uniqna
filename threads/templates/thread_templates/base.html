@@ -159,7 +159,7 @@
     }
 
     .platform {
-        background-color: #EEEEEE;
+        background-color: #FAFAFA;
     }
 
     .answer {
@@ -167,6 +167,16 @@
         padding: 10px;
         color: #424242;
         padding-top: 27px;
+        padding-bottom: 75px;
+        position: relative;
+    }
+
+    .answer_description a {
+      color: #3949AB;
+    }
+
+    .answer_description h4 {
+      font-family: 'Montserrat', sans-serif;
     }
 
     .answer p {
@@ -179,9 +189,13 @@
         float: left;
     }
 
+    code {
+
+    }
+
     .answer_author_meta {
         float: right;
-        width: 230px;
+        width: 240px;
         margin: 0px;
         color: #009688;
     }
@@ -215,7 +229,9 @@
     }
 
     .meta_parent {
-
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
     }
     @media (max-width: 479px) {
         .answer_author_meta {
