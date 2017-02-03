@@ -43,7 +43,11 @@
     }
 
 </style>
-
+<style type="text/css">
+    {% block "style" %}
+        
+    {% endblock %}
+</style>
 <body>
     <!-- Uses a header that scrolls with the text, rather than staying
   locked at the top -->
@@ -55,6 +59,7 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
+                {% if username %}
                 <nav class="mdl-navigation">
                     <a> {{ username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
@@ -71,24 +76,13 @@
                         </li>
                     </ul>
                 </nav>
-            </div>
-            <div class="mdl-grid searchparent">
-                <div class="mdl-cell mdl-cell--12-col search">
-
-                    <form action="#" class="searchform">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
-                            <input class="mdl-textfield__input searchbottommargin2" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
-                        </div>
-                    </form>
-
-                </div>
+                {% endif %}
             </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
-                {% block frontpage %} {% endblock %}
+                {% block body %} {% endblock %}
 
             </div>
             <div class="mdl-layout-spacer"></div>
@@ -109,15 +103,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
-    <script src="{% static 'js/jquery.infinitescroll.min.js' %}"></script>
-    <script type="text/javascript">
-    $('.infini').infinitescroll({
-        navSelector: '#pagination',
-        nextSelector: '#pagination center a',
-        itemSelector: '.iquestion',
-        loadingText: 'Loading more questions.',
-        animate: true
-    })
-    </script>
 </body>
+
 </html>
