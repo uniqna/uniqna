@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'home',
     'ask',
     'threads',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'user',
     'widget_tweaks',
     'el_pagination',
+    'search',
 ]
 
 MIDDLEWARE = [
