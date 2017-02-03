@@ -158,7 +158,7 @@
 
     .pagination {
         height: 55px;
-        background: #FFFFFF !important;
+        background: #FFFFFF;
     }
 
     @media (max-width: 479px) {
@@ -264,7 +264,7 @@
         </div>
     </div>
     {% endfor %} {% get_pages %}
-    <div class="mdl-cell mdl-cell--12-col" id="pagination">
+    <div class="mdl-cell mdl-cell--12-col pagination" id="pagination">
         <center>{{ pages.next }} </center>
         <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
