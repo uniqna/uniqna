@@ -238,6 +238,9 @@
         color: #FFFFFF;
         background-color: #64B5F6;
     }
+    .mdl-menu__item a{
+        color: #424242 !important;
+    }
 </style>
 <center>
 
@@ -308,7 +311,7 @@
      <script type="text/javascript">
     var all_page = 0;
     $('#all-panel').jscroll({
-    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
     autoTrigger: false,
     nextSelector: '.endless_page_link',
     contentSelector: '.all_content',
@@ -319,7 +322,7 @@
 });
     var questions_page = 0;
     $('#questions-panel').jscroll({
-    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
     autoTrigger: false,
     nextSelector: '.endless_page_link',
     contentSelector: '.questions_content',
@@ -330,7 +333,7 @@
 });
     var answers_page = 0;
     $('#answers-panel').jscroll({
-    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
     autoTrigger: false,
     nextSelector: '.endless_page_link',
     contentSelector: '.answers_content',

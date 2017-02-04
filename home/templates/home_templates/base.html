@@ -114,7 +114,7 @@
     var last_page = $("#last").data("last");
     var curr_page = 1;
     $('#infini').jscroll({
-    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
     autoTrigger: false,
     nextSelector: '.endless_page_link',
     contentSelector: '.iquestion',
