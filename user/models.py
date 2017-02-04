@@ -30,6 +30,11 @@ class student(models.Model):
         ("2019", "2019"),
         ("2020", "2020"),
     )
+
+    university_choices = (
+        ("Vellore Institute of Technology, Chennai", "Vellore Institute of Technology, Chennai"),
+        ("Vellore Institute of Technology, Vellore", "Vellore Institute of Technology, Vellore"),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=240, blank=True, default="")
     location = models.CharField(max_length=30, blank=True, default="")

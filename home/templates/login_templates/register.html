@@ -1,20 +1,74 @@
-{% extends "login_templates/base.html" %}
-{% block body %}
-{% load widget_tweaks %}
+{% extends "login_templates/base.html" %} {% load widget_tweaks %} {% block body %} {% load widget_tweaks %}
 <style type="text/css">
+
 </style>
 <div class="mdl-grid">
-<div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset" id="formy">
-<center>
-  <form action="/register/" method="post">
-  {% csrf_token %}
-  {{ regform.as_p }}
-  <input type="submit" value="Submit">
-  </form>
-  </center>
-</div>
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.username class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Username</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.email class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Email</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.password class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Password</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.confirm_password class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Confirm Password</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.bio class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Tell us about yourself in one line?</label>
+                </div>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.course class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Course</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.school class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">School</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.grad_year class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Class of?</label>
+            </div>
+
+            <div class="university mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.university class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">University</label>
+            </div>
+
+            <center>
+            <div class="ask1">
+              <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Register">
+                <i class="ask_icon material-icons">send</i>
+              </button>
+            </div>
+          </center>
+        </form>
+    </div>
 </div>
 {% endblock body %}
+
 <!--
 <p>
     {% render_field form.username class+="input-lg" %}
