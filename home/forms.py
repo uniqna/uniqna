@@ -10,7 +10,7 @@ class registration(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     bio = forms.CharField(max_length=240)
-    location = forms.CharField(max_length=30)
+    university = forms.ChoiceField(student.university_choices)
     age = forms.IntegerField(min_value=0, max_value=99)
     course = forms.ChoiceField(student.course_choices)
     school = forms.ChoiceField(student.school_choices)
