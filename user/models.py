@@ -24,10 +24,16 @@ class student(models.Model):
         ("VITSOL", "VITSOL"),
         ("VFIT", "VFIT"),
     )
+    grad_year_choices = (
+        ("2017", "2017"),
+        ("2018", "2018"),
+        ("2019", "2019"),
+        ("2020", "2020"),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=240, blank=True, default="")
     location = models.CharField(max_length=30, blank=True, default="")
     age = models.PositiveSmallIntegerField()
     course = models.CharField(max_length=6, choices=course_choices, default="B.Tech")
     school = models.CharField(max_length=6, choices=school_choices, default="SCSE")
-
+    grad_year = models.CharField(max_length=6, choices=grad_year_choices)
