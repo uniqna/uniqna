@@ -6,7 +6,7 @@ import re
 
 class registration(forms.Form):
     username = forms.CharField(min_length=4)
-    email = forms.CharField(required=False)
+    email = forms.CharField(required=True)
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     bio = forms.CharField(max_length=240)
