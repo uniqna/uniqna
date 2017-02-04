@@ -1,13 +1,13 @@
 {% extends "user_templates/base.html" %}
-{% block body %} 
+{% block body %}
 {% load bleach_tags %}
 {% load el_pagination_tags %}
 <style type="text/css">
     a {
-        color: black !important;
+        color: black;
     }
     .mdl-cell--10-col {
-        background-color: #EEEEEE;  
+        background-color: #EEEEEE;
         height: auto;
     }
 
@@ -166,12 +166,14 @@
     }
 
     .pagination {
-        height: 55px;
+        height: 80px;
         background: #FFFFFF !important;
     }
-    footer div ul li a {
-        color: white !important;
+
+    .mdl-mini-footer--link-list, .mdl-mini-footer__link-list a{
+        color: #9e9e9e;
     }
+
     #about {
         border-top: 4px rgba(163, 163, 163,0.5) dashed;
         border-bottom: 4px rgba(163, 163, 163,0.5) dashed;
@@ -260,10 +262,10 @@
       <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
   </div>
    <div class="mdl-tabs__panel is-active" id="all-panel">
-            {% if allqa %} 
+            {% if allqa %}
             {% paginate allqa using "all" %}
             {% for a in allqa %}
-            {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} 
+            {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %}
             {% endfor %}
             {% get_pages %}
             <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
