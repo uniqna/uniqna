@@ -14,6 +14,7 @@ class registration(forms.Form):
     age = forms.IntegerField(min_value=0, max_value=99)
     course = forms.ChoiceField(student.course_choices)
     school = forms.ChoiceField(student.school_choices)
+    grad_year = forms.ChoiceField(student.grad_year_choices)
 
     def clean_username(self):
         username = self.cleaned_data['username']
