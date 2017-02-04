@@ -1,0 +1,92 @@
+{% load bleach_tags %}
+{% if instance.question %}
+ <!-- This is implies that the passes object is an answer -->  
+ <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+            <div class="mdl-grid platform">
+            <div class="mdl-cell mdl-cell--1-col voting">
+                <div class="mdl-grid voting">
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' instance.question.pk 'u'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor ">expand_less</i>
+                    </button>
+                        </form>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score">
+                        <center>{{ instance.question.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' instance.question.pk 'd'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor">expand_more</i>
+                    </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">
+                <div class="date">Asked&nbsp{{ instance.question.created_time|timesince }}&nbsp
+                    <div class="author">ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp&nbsp&nbsp
+                        <div class="answers">{{ instance.question.answers }} Answers</div>
+                    </div>
+                </div>
+                <a href="{% url 'thread' instance.question.pk %}" class="a_title">{{ instance.question.title }}</a> {% if instance.question.solved == True %}
+                <i class="material-icons solved">check</i> {% endif %}
+                <div class="tags">
+                {% for tag in instance.question.tags.all %}
+                    #{{tag.name}} 
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="mdl-grid platform">
+            <div class="answer mdl-cell mdl-cell--12-col">
+                <p>{{instance.description|bleach|truncatechars:300 }}<a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"> View answer</a></p>
+
+            </div>
+        </div>
+    </div> 
+{% else %}
+<!-- else its a question -->
+<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+            <div class="mdl-grid platform">
+            <div class="mdl-cell mdl-cell--1-col voting">
+                <div class="mdl-grid voting">
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' instance.pk 'u'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor ">expand_less</i>
+                    </button>
+                        </form>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score">
+                        <center>{{ instance.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes">
+                        <form action="{% url 'qvote' instance.pk 'd'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor">expand_more</i>
+                    </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title">
+                <div class="date">Asked&nbsp{{ instance.created_time|timesince }}&nbsp
+                    <div class="author">ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp&nbsp&nbsp
+                        <div class="answers">{{ instance.answers }} Answers</div>
+                    </div>
+                </div>
+                <a href="{% url 'thread' instance.pk %}" class="a_title">{{ instance.title }}</a> {% if instance.solved == True %}
+                <i class="material-icons solved">check</i> {% endif %}
+                <div class="tags">
+                {% for tag in instance.tags.all %}
+                    #{{tag.name}} 
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
