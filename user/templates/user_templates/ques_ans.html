@@ -1,7 +1,7 @@
 {% load bleach_tags %}
 {% if instance.question %}
  <!-- This is implies that the passes object is an answer -->  
- <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+ <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset {{divclass}}">
             <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
@@ -49,7 +49,7 @@
     </div> 
 {% else %}
 <!-- else its a question -->
-<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset {{divclass}}">
             <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">

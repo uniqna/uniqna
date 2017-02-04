@@ -1,6 +1,7 @@
 {% extends "user_templates/base.html" %}
 {% block body %} 
 {% load bleach_tags %}
+{% load el_pagination_tags %}
 <style type="text/css">
     a {
         color: black !important;
@@ -225,8 +226,21 @@
             padding: 17px 0;
         }
     }
+    .username {
+        color: #3F51B5;
+        font-family: "Open Sans", sans-serif;
+    }
+    .jscroll-inner {
+        width: 100% !important;
+    }
+    .pagination .mdl-button {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF;
+        background-color: #64B5F6;
+    }
 </style>
 <center>
+
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col" id="about">
             <h3 class="username">@{{user_instance.username}}</h3>
@@ -243,31 +257,87 @@
       <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
   </div>
    <div class="mdl-tabs__panel is-active" id="all-panel">
-            {% if questions %} 
+            {% if allqa %} 
+            {% paginate allqa using "all" %}
             {% for a in allqa %}
-            {% include "user_templates/ques_ans.html" with instance=a %} 
+            {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} 
             {% endfor %}
+            {% get_pages %}
+            <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
+            <center><br> {{ pages.next }}</center>
+            </div>
             {% else %}
             <p>Nothing here. :/</p>
             {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="questions-panel">
             {% if questions %}
+            {% paginate questions using "ques" %}
             {% for x in questions %}
-            {% include "user_templates/ques_ans.html" with instance=x %}
+            {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %}
             {% endfor %}
+            <center>
+            {% get_pages %}
+            <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
+            <br> {{ pages.next }}
+            </div>
+            </center>
             {% else %}
             <p>No questions yet.</p>
             {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="answers-panel">
             {% if answers %}
+             {% paginate answers using "ans" %}
             {% for a in answers %}
-            {% include "user_templates/ques_ans.html" with instance=a %}
+            {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %}
             {% endfor %}
+            <center>
+            {% get_pages %}
+            <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
+            <br> {{ pages.next }}
+            </div>
+            </center>
             {% else %}
             <p>No answers yet.</p>
             {% endif %}
     </div>
 </div>
 {% endblock %}
+{% block script %}
+     <script type="text/javascript">
+    var all_page = 0;
+    $('#all-panel').jscroll({
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    autoTrigger: false,
+    nextSelector: '.endless_page_link',
+    contentSelector: '.all_content',
+    callback: function(){
+        $("#all-panel .pagination")[all_page].hidden=true;
+        all_page+=1;
+    }
+});
+    var questions_page = 0;
+    $('#questions-panel').jscroll({
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    autoTrigger: false,
+    nextSelector: '.endless_page_link',
+    contentSelector: '.questions_content',
+    callback: function(){
+        $("#questions-panel .pagination")[questions_page].hidden=true;
+        questions_page+=1;
+    }
+});
+    var answers_page = 0;
+    $('#answers-panel').jscroll({
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    autoTrigger: false,
+    nextSelector: '.endless_page_link',
+    contentSelector: '.answers_content',
+    callback: function(){
+        $("#answers-panel .pagination")[answers_page].hidden=true;
+        answers_page+=1;
+    }
+});
+    </script>
+{% endblock script %}
