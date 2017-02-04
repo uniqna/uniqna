@@ -1,5 +1,8 @@
 {% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
 <style>
+    * {
+        box-sizing: border-box;
+    }
     .mdl-cell--12-col {
         background-color: #EEEEEE;
         height: 100px;
@@ -154,6 +157,7 @@
 
     .endless_page_link {
         color: #424242;
+        font-size: 30px;
     }
 
     .pagination {
@@ -166,7 +170,6 @@
     .jscroll-inner {
         width: 100% !important;
     }
-
     @media (max-width: 479px) {
         .ask {
             position: relative;
@@ -270,9 +273,8 @@
         </div>
     </div>
     {% endfor %} {% get_pages %}
-    <div class="mdl-cell mdl-cell--12-col pagination" id="pagination">
+    <div class="mdl-cell mdl-cell--12-col pagination iquestion" id="pagination">
         <center>{{ pages.next }} </center>
-        <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
 </div>
 <p id="last" data-last='{{ pages|length }}'></p>
