@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ask.models import question
+from ask.models import question, tag
 
 # Register your models here.
 
@@ -9,3 +9,4 @@ class question_admin(admin.ModelAdmin):
     filter_horizontal = ('ups',)
 
 admin.site.register(question, question_admin)
+admin.site.register(tag)
