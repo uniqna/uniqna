@@ -1,29 +1,31 @@
-{% extends "login_templates/base.html" %}
-{% block body %}
-<br><br>
+{% extends "login_templates/base.html" %} {% load static %} {% block body %}
+<br><br><br><br>
+  <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
+    <img src="{% static 'assets/logo.svg' %}"/>
+</div>
 <div class="mdl-grid" id="formdiv">
-  <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
-     <form method="post" action="validation/">
-     <center>
-      {% csrf_token %}
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="username" name="username">
-        <label class="mdl-textfield__label" for="sample1">Username</label>
-      </div>
-      <br>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" id="password" name="password">
-        <label class="mdl-textfield__label" for="sample2">Password</label>
-      </div>
-      <br>
-      <input type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" value="login" />
-    </form>
-    </center>
-  </div>
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
+        <form method="post" action="validation/">
+            <center>
+                {% csrf_token %}
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="username" name="username">
+                    <label class="mdl-textfield__label" for="sample1">Username</label>
+                </div>
+                <br>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="password" id="password" name="password">
+                    <label class="mdl-textfield__label" for="sample2">Password</label>
+                </div>
+                <br>
+                <input type="submit" class="login mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" value="login" />
+        </form>
+        </center>
+    </div>
 </div>
 <style type="text/css">
-  #formdiv {
-  margin: auto 0px;
-  }
+    #formdiv {
+        margin: auto 0px;
+    }
 </style>
 {% endblock body %}}
