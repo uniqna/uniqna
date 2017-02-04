@@ -1,7 +1,7 @@
 {% load bleach_tags %}
 {% if instance.question %}
- <!-- This is implies that the passes object is an answer -->  
- <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset {{divclass}}">
+ <!-- This is implies that the passes object is an answer -->
+ <div class="mdl-cell mdl-cell--12-col {{divclass}}">
             <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
@@ -35,21 +35,29 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                 {% for tag in instance.question.tags.all %}
-                    #{{tag.name}} 
+                    #{{tag.name}}
                 {% endfor %}
+                &nbsp
                 </div>
             </div>
         </div>
-        <div class="mdl-grid platform">
+        <div class="mdl-grid platform platform_answer">
             <div class="answer mdl-cell mdl-cell--12-col">
-                <p>{{instance.description|bleach|truncatechars:300 }}<a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"> View answer</a></p>
-
+                <p>{{instance.description|bleach|truncatechars:300 }}<a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"><br>View answer</a></p>
             </div>
+            {% if instance.question.edited == True%}<br>{% endif %}
+            <div class="meta_parent">
+            <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+                {% if instance.question.edited %} Answered by {{ instance.question.answer_author }} on {{ instance.question.get_time }} <br>Edited on {{instance.question.get_edited_time}} {% else %}
+                 Answered by {{ instance.question.answer_author }} on {{ instance.question.get_time }} {% endif %} {% if instance.question.answer_author == username %}
+            </div>
+            </div>
+            {% endif %}
         </div>
-    </div> 
+    </div>
 {% else %}
 <!-- else its a question -->
-<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset {{divclass}}">
+<div class="mdl-cell mdl-cell--12-col {{divclass}}">
             <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
@@ -83,8 +91,10 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                 {% for tag in instance.tags.all %}
-                    #{{tag.name}} 
+                    #{{tag.name}}
                 {% endfor %}
+                &nbsp
+
                 </div>
             </div>
         </div>
