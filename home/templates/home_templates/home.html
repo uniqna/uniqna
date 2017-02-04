@@ -221,7 +221,7 @@
     </div>
 </div>
 
-<div class="mdl-grid infini">
+<div class="mdl-grid" id="infini">
     {% paginate question_list %} {% for x in question_list %}
 
     <div class="mdl-cell mdl-cell--12-col iquestion">
@@ -269,4 +269,5 @@
         <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
 </div>
+<p id="last" data-last='{{ pages|length }}'></p>
 {% endblock %}
