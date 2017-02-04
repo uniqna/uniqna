@@ -1,5 +1,24 @@
 {% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
 <style>
+<<<<<<< HEAD
+</style>
+  {% for x in question_list %}
+  <div class="questions">
+  <a href="{% url 'qvote' x.pk 'u'%}" class="vote" id="up"><span class="glyphicon glyphicon-chevron-up"></span></a>
+  <span class="points">{{ x.points }}</span>
+  <a href="{% url 'qvote' x.pk 'd'%}" class="vote" id="down"><span class="glyphicon glyphicon-chevron-down"></span></a>
+
+    <a href="{% url 'thread' x.pk %}">{{ x }}</a> | Answers: {{ x.answers }} | 
+    {% if x.tags.all %}
+    {% for tag in x.tags.all %}
+       <a href="{% url 'tag' tag.id %}"><span class="label label-info">{{ tag.name }}</span></a>
+    {% endfor %}
+    {% endif %}
+     {% if x.solved == True %}| <span class="label label-success">Solved</span> {% endif %}
+    <hr>
+  </div>
+  {% endfor %}
+=======
     .mdl-cell--12-col {
         background-color: #EEEEEE;
         height: 100px;
@@ -52,6 +71,11 @@
         font-size: 18px;
         position: absolute;
         padding-left: 5px;
+
+    }
+
+    .votecolor {
+        color: #424242;
     }
 
     .searchparent {
@@ -133,8 +157,7 @@
     }
 
     .answers {
-        margin-left: 0px;
-        font-size: 11px;
+        float: right;
         color: #009688;
     }
 
@@ -150,31 +173,11 @@
 
     .endless_page_link {
         color: #424242;
-        font-size: 30px;
     }
 
     .pagination {
         height: 55px;
-        background: #FFFFFF;
-    }
-
-    .extra {
-        padding: 80px;
-    }
-
-    .jscroll-inner {
-        width: 100% !important;
-    }
-
-    .padding-fix {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .pagination .mdl-button {
-        font-family: 'Montserrat', sans-serif;
-        color: #FFFFFF;
-        background-color: #64B5F6;
+        background-color: #FFFFFF;
     }
 
     @media (max-width: 479px) {
@@ -220,15 +223,6 @@
             padding: 17px 0;
         }
     }
-    .vote-default {
-        color: #424242;
-    }
-    .vote-success{
-        color: #4CAF50;
-    }
-    .vote-danger{
-        color: #F44336;
-    }
 </style>
 
 <div class="mdl-grid postsearchparent">
@@ -246,72 +240,53 @@
     </div>
 </div>
 
-<div class="mdl-grid padding-fix" id="infini">
-    {% paginate question_list%} {% for x in question_list %}
-    <div class="mdl-cell mdl-cell--12-col iquestion">
+<div class="mdl-grid">
+    {% paginate question_list %} {% for x in question_list %}
+
+    <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote
-                            {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{x.pk}}">
-                    <i class="material-icons votecolor" id="up{{ x.pk }}">expand_less</i>
+                        <form action="{% url 'qvote' x.pk 'u'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor ">expand_less</i>
                     </button>
+                        </form>
                     </div>
-                    <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
+                    <div class="mdl-cell mdl-cell--1-col score">
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote
-                            {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor" id="down{{x.pk}}">expand_more</i>
+                        <form action="{% url 'qvote' x.pk 'd'%}">
+                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                    <i class="material-icons votecolor">expand_more</i>
                     </button>
+                        </form>
                     </div>
                 </div>
             </div>
 
             <div class="title">
-                <div class="date">Asked&nbsp{{ x.created_time|timesince }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} Answers</small>
+                <div class="date">Asked&nbsp{{ x.created_time|timesince }}&nbsp
+                    <div class="author">ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp&nbsp&nbsp
+                        <div class="answers">{{ x.answers }} Answers</div>
+                    </div>
                 </div>
                 <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
                 <i class="material-icons solved">check</i> {% endif %}
-                <div class="tags">
-                 {% for t in x.tags.all %}
-                         #{{ t.name }}
-                    {% endfor %}
-                  &nbsp   
-                </div>
+                <div class="tags">#Tags</div>
             </div>
+
+
+
         </div>
     </div>
     {% endfor %} {% get_pages %}
-    <div class="mdl-cell mdl-cell--12-col pagination iquestion" id="pagination">
-        <center><br> {{ pages.next }} </center>
+    <div class="mdl-cell mdl-cell--12-col pagination">
+        <center>{{ pages.previous }} {{ pages.next }} </center>
+        <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
     </div>
 </div>
-<p id="last" data-last='{{ pages|length }}'></p>
+>>>>>>> master
 {% endblock %}
-{% block script %}
-    <script type="text/javascript">
-        // Voting script
-        var d;
-        $(".upvote").click(function(){
-            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
-                $("#score"+id).children()[0].textContent = data.points;
-           });
-        });
-        $(".downvote").click(function(){
-            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#up"+id).removeClass("vote-success").addClass("vote-default");
-                $("#score"+id).children()[0].textContent = data.points;
-           });
-        });
-</script>
-{% endblock script %}

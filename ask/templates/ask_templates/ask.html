@@ -1,32 +1,155 @@
 {% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% block content %}
-<form action="submit/" method="post">
-    {% csrf_token %}
+<form action="{% url 'question_submit' %}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
+        <div id="title_label">
         <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
+        </div>
     </div>
-    <div class="mdl-cell mdl-cell--12-col">
+    <strong><p class="blank-error" id="title_error">Fill up the question!!!</p></strong>
+    <div class="trumbowyg-demo">
         {{ form.description }}
     </div>
+    {% csrf_token %}
     <center>
-        <div class="ask1">
-          <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Ask">
-            <i class="ask_icon material-icons">send</i>
-          </button>
-        </div>
-    </center>
+    <strong><p class="blank-error" id="desc_error">Fill up the description!!!</p></strong>
     <br>
-    <div>
-        <strong>Suggested tags:   </strong> {% for tag in tags %}
-        <label>
-     		<input type="checkbox" name="tag" value="{{ tag.id }}"> {{ tag.name }}
-     		</label> {% endfor %}
-        <a href="#" id="addtag">   +Add new tag</a>
+    <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+    <input type='text'
+       placeholder='Select the tags'
+       id="tags_input"
+       class='flexdatalist'
+       data-min-length='1'
+       data-selection-required="1"
+       data-value-property='id'
+       multiple='multiple'
+       list='tags'
+       name='selectedtags'
+       width="200">
+    <datalist id="tags">
+        {% for tag in tags %}
+            <option value="{{tag.id}}">{{tag.name}}</option>
+        {% endfor %}
+      </datalist>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
+        <center>
+        <div class="tagcreated">
+            <p class="mdl-button mdl-button--accent">Tag Created</p>
+        </div>
+        </center>
         <div id="newtagdiv">
             <label for="newtab">Enter new tag name:</label>
             <input type="text" name="new_tag" id="newtag">
-            <input type="submit" name="AddTag" value="Add Tag">
+            <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
         </div>
-    </div>
+        </div>
+        </div>
+    <a class="mdl-button mdl-js-button mdl-button--primary mdl-js-button submit" href="#" value="Ask">Ask</a></center>
+    <input type="submit" name="submit" class="hidden" value="Sup">
 </form>
 {% endblock %}
+{% block script %}
+    <script>
+    //Default progress bar
+    document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
+            this.MaterialProgress.setProgress(0);
+            this.MaterialProgress.setBuffer(0);
+        });
+        $(document).ready(function() {
+            $('#id_description').trumbowyg();
+        });
+    //Add new tag 
+    $("#newtagdiv").hide();
+    $(".tagcreated").hide();
+    $(".blank-error").hide();
+    $("#addtag").click(function(){
+        $("#newtagdiv").show();
+    })
+    //Getting csrf token from stored cookie
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    //Attachign the token to the rest header
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    //Update Progress
+    $(document).ready(function(){
+        $(".trumbowyg-editor").blur(function(){
+        if($(".trumbowyg-textarea").val()){
+            $("#p3")[0].MaterialProgress.setBuffer(100)
+        }
+    })
+    })
+    //Create Tag
+    var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
+    $("#create_tag").click(function(){
+        var data = {"name": $("#newtag").val()}
+        $.post(purl, data, function(data, status){
+            document.getElementById("newtag").value=""
+            $(".tagcreated").fadeIn(2000).fadeOut(2000);
+            $("#newtagdiv").hide()
+            document.getElementById("tags_input").value = document.getElementById("tags_input").value + ","+data.name
+            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data.name+"</span><span class='fdl-remove'>×</span></li>");
+        })
+    });
+    //Get suggested tags adn append to #suggested.
+    var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
+    $(".mdl-textfield__input").blur(function(){
+        if($(this).val()){
+        $("#p3")[0].MaterialProgress.setBuffer(50);
+        $.post(surl, {"text": $(this).val()}, function(data, status){
+            if(status=="success" && data.length){
+                vals = document.getElementById("tags_input").value.split(",");
+                for(var i=0;i<(data.length);i++){
+                    vals.push(data[i].name);
+                   $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data[i].name+"</span><span class='fdl-remove'>×</span></li>"); 
+                }
+                document.getElementById("tags_input").value = vals.join(",");
+            }
+        });
+    }
+    });
+    //Submit fields
+    $(".submit").click(function(){
+        var qtitle = $("#id_title").val();
+        var qdesc = $(".trumbowyg-textarea").val();
+        if(qdesc==""){
+            $(".trumbowyg-box").effect("shake")
+            $("#desc_error").fadeIn(1000)
+        }
+        else if(qtitle==""){
+            $("#title_label").effect("shake")
+            $("#title_error").fadeIn(1000)
+        }
+        else{
+        $("#p3")[0].MaterialProgress.setProgress(50);
+        $(".hidden").click();
+        $("#p3")[0].MaterialProgress.setProgress(100);
+        }
+    })
+    </script>
+{% endblock script %}

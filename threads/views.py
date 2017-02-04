@@ -9,6 +9,29 @@ import markdown2
 from root.algorithms import vote_score
 
 
+# Get the ups and down of an answer or send a vote
+
+"""
+class VotesView(APIView):
+
+    def get(self, request):
+        answers = answer.objects.all()
+        serializer = AnswerSerializer(answers, many=True)
+        return Response(serializer.data)
+
+    def post(self):
+        pass
+
+
+@api_view(["GET", "POST"])
+def vote_rest(request, pk):
+    if request.method == "GET":
+        instance = get_object_or_404(answer, pk=pk)
+        serializer = AnswerSerializer(instance)
+        return Response(serializer.data)
+"""
+
+
 def thread(request, thread_id):
     try:
         thread_id = int(thread_id)
@@ -119,34 +142,6 @@ def edit_answer_submit(request, thread_id, answer_id):
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
         return HttpResponseRedirect(reverse('home'))
-
-
-def vote(request, thread_id, answer_id, upordown):
-    try:
-        thread_id = int(thread_id)
-        answer_id = int(answer_id)
-    except ValueError:
-        raise Http404()
-    if request.user.is_authenticated:
-        answer_instance = get_object_or_404(answer, pk=answer_id)
-        if upordown == 'u':
-            vote_on = answer_instance.ups
-            vote_on_other = answer_instance.downs
-        elif upordown == 'd':
-            vote_on = answer_instance.downs
-            vote_on_other = answer_instance.ups
-        if request.user not in vote_on.all():
-            vote_on.add(request.user)
-            vote_on_other.remove(request.user)
-        else:
-            vote_on.remove(request.user)
-        upvotes = answer_instance.ups.count()
-        downvotes = answer_instance.downs.count()
-        answer_instance.score = vote_score.confidence(upvotes, downvotes)
-        answer_instance.save()
-        return redirect('/thread/' + str(thread_id) + '/')
-    else:
-        return redirect('home')
 
 
 def mark_answer_solved(request, thread_id):

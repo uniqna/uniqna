@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from ask.forms import ask_form
-from ask.models import question
+from ask.models import question, tag
 
 
 def ask(request):
@@ -13,6 +13,7 @@ def ask(request):
         return render(request,
                       'ask_templates/ask.html',
                       {'username': username,
+                       'tags': tag.objects.all(),
                        'form': unsubmitted_form})
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -25,9 +26,21 @@ def submit(request):
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
             instance.save()
-            question_id = instance.pk
-            return HttpResponseRedirect("/thread/" + str(question_id))
+            if request.POST['selectedtags']:
+                selectedtags = request.POST['selectedtags']
+                print(selectedtags)
+                taglist = selectedtags.split(",")
+                # Filtering blank spaces
+                taglist = [x for x in taglist if x != '']
+                print(taglist)
+                for tagname in taglist:
+                    selected_tag = tag.objects.get(name=tagname)
+                    instance.tags.add(selected_tag)
+            return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
-            return HttpResponse('<p>Failed</p>')
+            return render(request, "ask_templates/ask.html", {"username": request.user.username,
+                                                              "tags": tag.objects.all(),
+                                                              "form": submitted_form,
+                                                              "errors": submitted_form.errors})
     else:
         return HttpResponseRedirect(reverse('home'))
