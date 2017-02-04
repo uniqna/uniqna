@@ -36,10 +36,24 @@
         display: block;
     }
 
+    .navbar_logo {
+      width: 85px;
+    }
+
     @media (max-width: 320px) {
       .title .date {
         font-size: 9px;
       }
+    }
+
+    @media (max-width: 479px) {
+      .mdl-mini-footer--link-list, .mdl-mini-footer__link-list {
+        display: block;
+      }
+
+        .mdl-mini-footer--link-list, .mdl-mini-footer__link-list a {
+          white-space: normal;
+        }
     }
 
 </style>
@@ -51,7 +65,11 @@
         <header class="mdl-layout__header mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">VITQNA</a>
+                <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">
+                <div class="navbar_logo">
+                <img src="{% static 'assets/logo_white.svg' %}">
+              </div>
+                </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
@@ -94,10 +112,10 @@
             <div class="mdl-layout-spacer"></div>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">Title</div>
+                    <div class="mdl-logo">uniqna © 2017</div>
                     <ul class="mdl-mini-footer__link-list">
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">Privacy & Terms</a></li>
+                        <li><a href="#">Found a Bug?</a>&nbsp&nbsp&nbsp&nbsp |</li>
+                        <li><a href="https://creativecommons.org/licenses/by-sa/3.0/">User contributions licensed under cc by-sa 3.0 with attribution required</a></li>
                     </ul>
                 </div>
             </footer>
@@ -125,7 +143,7 @@
 });
     </script>
     {% block script %}
-        
+
     {% endblock script %}
 </body>
 </html>
