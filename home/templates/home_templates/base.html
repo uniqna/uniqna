@@ -111,13 +111,26 @@
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
     <script src="{% static 'js/jquery.infinitescroll.min.js' %}"></script>
     <script type="text/javascript">
-    $('.infini').infinitescroll({
+    var last_page = $("#last").data("last");
+    var curr_page = 1;
+    $("#pagination").hide();
+    $('#infini').infinitescroll({
         navSelector: '#pagination',
         nextSelector: '#pagination center a',
         itemSelector: '.iquestion',
-        loadingText: 'Loading more questions.',
+        loadingImg: "http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif",
+        loadingText: "<div>LOADING</div>",
         animate: true
-    })
+    },
+        function(new_elts) {
+        var elts = $(new_elts).css('opacity', 0);
+        elts.animate({opacity: 1});
+        curr_page=curr_page+1;
+        if(curr_page==last_page){
+            $('#infini').infinitescroll('destroy');
+        }
+        }
+    )
     </script>
 </body>
 </html>
