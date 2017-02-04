@@ -7,9 +7,7 @@
         </div>
     </div>
     <strong><p class="blank-error" id="title_error">Fill up the question!!!</p></strong>
-    <div class="trumbowyg-demo">
         {{ form.description }}
-    </div>
     {% csrf_token %}
     <center>
     <strong><p class="blank-error" id="desc_error">Fill up the description!!!</p></strong>
@@ -61,7 +59,7 @@
         $(document).ready(function() {
             $('#id_description').trumbowyg();
         });
-    //Add new tag 
+    //Add new tag
     $("#newtagdiv").hide();
     $(".tagcreated").hide();
     $(".blank-error").hide();
@@ -126,7 +124,7 @@
                 vals = document.getElementById("tags_input").value.split(",");
                 for(var i=0;i<(data.length);i++){
                     vals.push(data[i].name);
-                   $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data[i].name+"</span><span class='fdl-remove'>×</span></li>"); 
+                   $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data[i].name+"</span><span class='fdl-remove'>×</span></li>");
                 }
                 document.getElementById("tags_input").value = vals.join(",");
             }
