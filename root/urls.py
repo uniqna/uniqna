@@ -23,6 +23,7 @@ from user import urls
 from home.views import vote
 from RestApi import urls
 from root import settings
+from search import urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,6 +37,7 @@ urlpatterns = [
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
+    url(r'^search', include('search.urls')),
 ]
 
 if settings.DEBUG is True:
