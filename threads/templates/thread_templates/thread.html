@@ -100,7 +100,7 @@
         </div>
 
         <div class="answer">
-          <div class="answer_description">
+          <div class="answer_description" id="a{{x.pk}}">
             {{ x|bleach }}
           </div>
             {% if x.edited == True%}<br>{% endif %}
