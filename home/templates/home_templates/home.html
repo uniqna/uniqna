@@ -235,7 +235,7 @@
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote 
+                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote
                             {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{x.pk}}">
                     <i class="material-icons votecolor" id="up{{ x.pk }}">expand_less</i>
                     </button>
@@ -244,7 +244,7 @@
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote 
+                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote
                             {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" data-id="{{x.pk}}">
                     <i class="material-icons votecolor" id="down{{x.pk}}">expand_more</i>
                     </button>
@@ -260,7 +260,8 @@
                 <div class="tags">
                  {% for t in x.tags.all %}
                          #{{ t.name }}
-                    {% endfor %}   
+                    {% endfor %}
+                  &nbsp   
                 </div>
             </div>
 
