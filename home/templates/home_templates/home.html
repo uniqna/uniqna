@@ -1,8 +1,5 @@
 {% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
 <style>
-    * {
-        box-sizing: border-box;
-    }
     .mdl-cell--12-col {
         background-color: #EEEEEE;
         height: 100px;
@@ -55,7 +52,6 @@
         font-size: 18px;
         position: absolute;
         padding-left: 5px;
-
     }
 
     .votecolor {
@@ -164,12 +160,26 @@
         height: 55px;
         background: #FFFFFF;
     }
+
     .extra {
         padding: 80px;
     }
+
     .jscroll-inner {
         width: 100% !important;
     }
+
+    .padding-fix {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .pagination .mdl-button {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF;
+        background-color: #64B5F6;
+    }
+
     @media (max-width: 479px) {
         .ask {
             position: relative;
@@ -230,9 +240,8 @@
     </div>
 </div>
 
-<div class="mdl-grid" id="infini">
-    {% paginate question_list%}
-    {% for x in question_list %}
+<div class="mdl-grid padding-fix" id="infini">
+    {% paginate question_list%} {% for x in question_list %}
     <div class="mdl-cell mdl-cell--12-col iquestion">
         <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
@@ -267,14 +276,11 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">#Tags</div>
             </div>
-
-
-
         </div>
     </div>
     {% endfor %} {% get_pages %}
     <div class="mdl-cell mdl-cell--12-col pagination iquestion" id="pagination">
-        <center>{{ pages.next }} </center>
+        <center><br> {{ pages.next }} </center>
     </div>
 </div>
 <p id="last" data-last='{{ pages|length }}'></p>
