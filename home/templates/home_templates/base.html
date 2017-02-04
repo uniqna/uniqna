@@ -113,12 +113,15 @@
     <script type="text/javascript">
     var last_page = $("#last").data("last");
     var curr_page = 1;
-    $("#pagination").hide();
     $('#infini').jscroll({
-    loadingHtml: '<img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif" alt="Loading" /> Loading...',
-    padding: -20,
-    nextSelector: 'a.endless_page_link',
-    contentSelector: '.iquestion'
+    loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active"></div></center>',
+    autoTrigger: false,
+    nextSelector: '.endless_page_link',
+    contentSelector: '.iquestion',
+    callback: function(){
+        $(".pagination")[curr_page-1].hidden=true;
+        curr_page+=1;
+    }
 });
 
     </script>
