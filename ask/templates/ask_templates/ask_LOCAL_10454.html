@@ -1,0 +1,31 @@
+{% extends 'ask_templates/base.html' %}
+{% block content %}
+<form action="{% url 'question_submit' %}" method="post">
+  {% csrf_token %}
+     <table>
+         {{ form.as_table }}
+     </table>
+     <br>
+     <div>
+     <strong>Suggested tags:   </strong>
+     	{% for tag in tags %}
+     		<label>
+     		<input type="checkbox" name="tag" value="{{ tag.id }}"> {{ tag.name }}
+     		</label>
+     	{% endfor %}
+     	<a href="#" id="addtag">   +Add new tag</a>
+        <div id="newtagdiv">
+        <label for="newtab">Enter new tag name:</label>
+        <input type="text" name="new_tag" id="newtag">
+        <input type="submit" name="AddTag" value="Add Tag">
+        </div>
+    </div>
+     <input type="submit" value="Ask">
+ </form>
+ {% endblock %}
+{% block script %}
+    $("#newtagdiv").hide();
+    $("#addtag").click(function(){
+        $("#newtagdiv").show();
+    })
+{% endblock script %}
