@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <title>Ask a question!</title>
 
     <!-- Bootstrap -->
     {% load staticfiles %}
@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.flexdatalist.min.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +38,6 @@
     .mdl-mini-footer {
         display: block;
     }
-
     .editor-toolbar.fullscreen {
         position: absolute;
     }
@@ -68,10 +69,28 @@
   .ask1 .mdl-button--icon .material-icons {
     left: 40%;
   }
-
-
     body {
         font-family: 'Open Sans', sans-serif;
+    }
+    .flexdatalist-multiple {
+        width: 50%;
+    }
+    .flexdatalist-alias {
+        height: 20px;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        outline: none;
+        border: 2px dashed #CDDC39 !important;
+        border-radius: 5px;
+        padding: 5px !important;
+    }
+    .blank-error {
+        color: #F44336;
+        font-size: 15px;
+        font-family: "Open Sans", sans-serif;
+        text-align: center;
+        margin: 10px auto;
+        font-weight:800;
     }
 </style>
 
@@ -133,17 +152,12 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script>
-        document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
-            this.MaterialProgress.setProgress(0);
-            this.MaterialProgress.setBuffer(50);
-        });
-    </script>
-    <script>
-        var simplemde = new SimpleMDE({
-            element: $("#MyID")[0]
-        });
-    </script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/trumbowyg.min.js' %}"></script>
+        <script src="{% static 'js/jquery.flexdatalist.min.js' %}"></script>
+    {% block script %}
+        
+    {% endblock script %}
 </body>
 
 </html>
