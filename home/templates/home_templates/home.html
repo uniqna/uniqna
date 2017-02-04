@@ -160,6 +160,12 @@
         height: 55px;
         background: #FFFFFF;
     }
+    .extra {
+        padding: 80px;
+    }
+    .jscroll-inner {
+        width: 100% !important;
+    }
 
     @media (max-width: 479px) {
         .ask {
@@ -222,8 +228,8 @@
 </div>
 
 <div class="mdl-grid" id="infini">
-    {% paginate question_list %} {% for x in question_list %}
-
+    {% paginate question_list%}
+    {% for x in question_list %}
     <div class="mdl-cell mdl-cell--12-col iquestion">
         <div class="mdl-grid platform">
             <div class="mdl-cell mdl-cell--1-col voting">
