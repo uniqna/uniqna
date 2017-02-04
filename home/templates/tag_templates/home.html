@@ -1,0 +1,13 @@
+{% extends "tag_templates/base.html" %}
+{% block body %}
+  <h1>Username: {{ request.user.username }}</h1>
+  <h3 class="text-info">#{{ tag.name }}</h3>
+  {% for q in tag.question_set.all %}
+  <a href="{% url 'thread' q.id %}"
+    <div class="panel panel-default col-sm-6 col-sm-offset-3">
+      <h4 class="panel-heading lead">{{ q.title }}</h4>
+      <p class="panel-body lead">{{ q.description }}</p>
+    </div>
+    </a>
+  {% endfor %}
+{% endblock body %}

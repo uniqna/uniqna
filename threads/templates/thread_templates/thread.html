@@ -6,6 +6,12 @@
 <center><h1>{{ question.title }}</h1> {% if question.solved == True %} <span class="label label-success">Solved</span> {% endif %}
 <a href="{% url 'user' question.author %}" class="text-info">{{ question.author }}</a>
 <p>{{ question.description|bleach }}</p>
+{% if question.tags.all %}
+	{% for tag in question.tags.all %}
+		 <a href"#"><span class="label label-info">{{ tag.name }}</span></a>
+	{% endfor %}
+{% endif %}
+
 <p>Question asked on {{ question.get_time }}</p>
 </center>
 {% if question.author == username %}
