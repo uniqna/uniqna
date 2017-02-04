@@ -57,7 +57,7 @@
             this.MaterialProgress.setBuffer(0);
         });
         $(document).ready(function() {
-            $('#id_description').trumbowyg();
+            var simplemde = new SimpleMDE({ element: $("#id_description")[0],hideIcons: ["quote", "fullscreen"], placeholder: "Type here..."});
         });
     //Add new tag
     $("#newtagdiv").hide();
@@ -96,8 +96,8 @@
     });
     //Update Progress
     $(document).ready(function(){
-        $(".trumbowyg-editor").blur(function(){
-        if($(".trumbowyg-textarea").val()){
+        $(".CodeMirror-scroll").blur(function(){
+        if($("#id_description").val()){
             $("#p3")[0].MaterialProgress.setBuffer(100)
         }
     })
