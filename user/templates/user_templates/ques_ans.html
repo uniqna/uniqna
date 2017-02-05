@@ -42,6 +42,27 @@
             </div>
         </div>
         <div class="mdl-grid platform platform_answer">
+          <div class="mdl-cell mdl-cell--1-col answer_align_fix">
+              <div class="mdl-grid voting_align_answer">
+                  <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                      <form action="">
+                          <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                  <i class="material-icons votecolor ">expand_less</i>
+                  </button>
+                      </form>
+                  </div>
+                  <div class="mdl-cell mdl-cell--1-col score">
+                      <center>{{instance.question.points}}</center>
+                  </div>
+                  <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                      <form action="">
+                          <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
+                  <i class="material-icons votecolor">expand_more</i>
+                  </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
             <div class="answer mdl-cell mdl-cell--12-col">
                 <p>{{instance.description|bleach|truncatechars:300 }}<a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"><br>View answer</a></p>
             </div>
