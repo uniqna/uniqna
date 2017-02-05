@@ -36,23 +36,24 @@
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
             </div>
         </div>
-        </div>
         <center>
-            <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" name="submit" value="Ask">
+            <input type="submit" name="submit" class="submit" value="Ask!">
+            <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
       <i class="ask_icon material-icons">send</i>
     </button>
         </center><br>
 </form>
 {% endblock %} {% block script %}
 <script>
+    var simplemde;
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
         this.MaterialProgress.setProgress(0);
         this.MaterialProgress.setBuffer(0);
     });
     $(document).ready(function() {
-        var simplemde = new SimpleMDE({
-            element: $("#id_description")[0],
+            simplemde = new SimpleMDE({
+            element: $("[name=description]")[0],
             hideIcons: ["quote", "fullscreen"],
             placeholder: "Type here..."
         });
@@ -95,13 +96,14 @@
     //Update Progress
     $(document).ready(function() {
         $(".CodeMirror-scroll").blur(function() {
-            if ($("#id_description").val()) {
+            if (simplemde.value()){
                 $("#p3")[0].MaterialProgress.setBuffer(100)
             }
         })
     })
     //Create Tag
     var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
+    var fail;
     $("#create_tag").click(function() {
         var data = {
             "name": $("#newtag").val()
@@ -111,7 +113,19 @@
             $(".tagcreated").fadeIn(2000).fadeOut(2000);
             $("#newtagdiv").hide()
             document.getElementById("tags_input").value = document.getElementById("tags_input").value + "," + data.name
-            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data.name + "</span><span class='fdl-remove'>×</span></li>");
+            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data.name + "</span><span class='fdl-remove custom-remove' data-name='"+data.name+"'>×</span></li>");
+            $(".custom-remove").off("click");
+            $(".custom-remove").on("click", function(){
+                        var container = $(this).parent();
+                        var _vals = document.getElementById("tags_input").value.split(",");
+                        var toRemove = _vals.indexOf($(this).data("name"));
+                        _vals.splice(toRemove, 1);
+                        alert(toRemove + " " + _vals);
+                        document.getElementById("tags_input").value = _vals.join(",");
+                        container.remove();
+                    });
+        }).fail(function(data){
+            alert("Tag already exists");
         })
     });
     //Get suggested tags and append to #suggested.
@@ -122,31 +136,58 @@
             $.post(surl, {
                 "text": $(this).val()
             }, function(data, status) {
-                if (status == "success" && data.length) {
+                if (data.length) {
                     vals = document.getElementById("tags_input").value.split(",");
-                    for (var i = 0; i < (data.length); i++) {
-                        vals.push(data[i].name);
-                        $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data[i].name + "</span><span class='fdl-remove'>×</span></li>");
+                    function validateData(obj){
+                        for(i=0;i<vals.length;i++){
+                        if(obj.name==vals[i]){
+                            return 0;
+                        }
+                        }
+                        return 1;
+                    }
+                    var validated = data.filter(validateData);
+                    for (var i = 0; i < (validated.length); i++) {
+                        vals.push(validated[i].name);
+                        $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + validated[i].name + "</span><span class='fdl-remove custom-remove' data-name='"+validated[i].name+"'>×</span></li>");
                     }
                     document.getElementById("tags_input").value = vals.join(",");
+                    $(".custom-remove").off("click");
+                    $(".custom-remove").on("click", function(){
+                        var container = $(this).parent();
+                        var _vals = document.getElementById("tags_input").value.split(",");
+                        var toRemove = _vals.indexOf($(this).data("name"));
+                        _vals.splice(toRemove, 1);
+                        alert(toRemove + " " + _vals);
+                        document.getElementById("tags_input").value = _vals.join(",");
+                        container.remove();
+                    });
                 }
             });
         }
     });
+    //Attaching click events
+
     //Submit fields
-    $(".submit").click(function() {
+    $("#submitdummy").click(function(e) {
+        e.preventDefault();
         var qtitle = $("#id_title").val();
-        var qdesc = $(".trumbowyg-textarea").val();
+        var qdesc = simplemde.value();
+        var flag = 1;
         if (qdesc == "") {
-            $(".trumbowyg-box").effect("shake")
-            $("#desc_error").fadeIn(1000)
-        } else if (qtitle == "") {
+            flag = 0;
+
+            $(".CodeMirror").effect("shake")
+            $("#desc_error").fadeIn(3000).slideUp(5000);
+        }
+        if (qtitle == "") {
+            flag = 0;
             $("#title_label").effect("shake")
-            $("#title_error").fadeIn(1000)
-        } else {
-            $("#p3")[0].MaterialProgress.setProgress(50);
-            $(".hidden").click();
-            $("#p3")[0].MaterialProgress.setProgress(100);
+            $("#title_error").fadeIn(3000).slideUp(5000);
+        } 
+        if (flag==1) {
+            $("#p3")[0].MaterialProgress.setBuffer(100);
+            $(".submit").click();
         }
     })
 </script>
