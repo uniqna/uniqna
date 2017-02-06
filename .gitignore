@@ -8,3 +8,8 @@ db.sqlite3
 *.sqlite3
 db.sqlite3
 local_settings.py
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
