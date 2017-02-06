@@ -121,11 +121,11 @@ def vote(request, qid, upordown):
     return redirect('home')
 
 
-def tag_view(request, tag_id):
+def tag_view(request, tagname):
     try:
-        tag_id = int(tag_id)
+        tagname = str(tagname)
     except ValueError:
         raise Http404()
     if request.user.is_authenticated:
-        tag_instance = get_object_or_404(tag, pk=tag_id)
-        return render(request, "tag_templates/home.html", {'tag': tag_instance})
+        tag_instance = get_object_or_404(tag, name=tagname)
+        return render(request, "tag_templates/tags.html", {'tags': tag_instance})

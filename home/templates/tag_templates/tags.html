@@ -1,5 +1,6 @@
-{% extends "user_templates/base.html" %} {% block body %} {% load bleach_tags %} {% load el_pagination_tags %}
-<style type="text/css">
+{% extends "tag_templates/base.html" %}
+{% block body %}
+<style>
     a {
         color: black;
     }
@@ -267,6 +268,15 @@
     .answer_align_fix {
       width: 65px;
     }
+    .taglinks {
+        color: ##2196F3 !important;
+        font-weight: 500;
+    }
+    h3 {
+      color: #2196F3;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 2px 0px 3px #aaa;
+    }
 
     @media (max-width: 479px) {
         .ask {
@@ -295,14 +305,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .askbutton {
-            width: 100%;
-            font-size: 12px;
-            height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 23px;
-            color: #009688;
-        }
         .a_title {
             font-size: 12px;
         }
@@ -321,96 +323,24 @@
     }
 </style>
 <center>
-
-    
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-        <div class="about mdl-cell mdl-cell--12-col">
-            <h3 class="username">@{{user_instance.username}}</h3>
-            <p>{{ user_instance.student.bio }}</p>
-            <div class="university">
-                <p><i class="material-icons">room</i> {{ user_instance.student.location }}</p>
-            </div>
-            <p>Class of {{user_instance.student.grad_year}}.</p>
-            <p><span class="mdl-chip"><span class="mdl-chip__text course">{{ user_instance.student.course }}</span></span> <span class="mdl-chip"><span class="mdl-chip__text school">{{ user_instance.student.school }}</span></span>
-            </p>
-        </div>
-        </div>
-</center>
-<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-    <div class="mdl-tabs__tab-bar">
-        <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
-        <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
-        <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
-    </div>
-    <div class="mdl-tabs__panel is-active" id="all-panel">
-        {% if allqa %}
-        {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %}
-        <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
-            <center><br> {{ pages.next }}</center>
-        </div>
-        {% else %}
-        <p>Nothing here. :/</p>
-        {% endif %}
-    </div>
-    <div class="mdl-tabs__panel" id="questions-panel">
-        {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
-        <center>
-            {% get_pages %}
-            <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
-                <br> {{ pages.next }}
-            </div>
-        </center>
-        {% else %}
-        <p>No questions yet.</p>
-        {% endif %}
-    </div>
-    <div class="mdl-tabs__panel" id="answers-panel">
-        {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
-        <center>
-            {% get_pages %}
-            <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
-                <br> {{ pages.next }}
-            </div>
-        </center>
-        {% else %}
-        <p>No answers yet.</p>
-        {% endif %}
-    </div>
-</div>
-{% endblock %} {% block script %}
-<script type="text/javascript">
-    var all_page = 0;
-    $('#all-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.all_content',
-        callback: function() {
-            $("#all-panel .pagination")[all_page].hidden = true;
-            all_page += 1;
-        }
-    });
-    var questions_page = 0;
-    $('#questions-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.questions_content',
-        callback: function() {
-            $("#questions-panel .pagination")[questions_page].hidden = true;
-            questions_page += 1;
-        }
-    });
-    var answers_page = 0;
-    $('#answers-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.answers_content',
-        callback: function() {
-            $("#answers-panel .pagination")[answers_page].hidden = true;
-            answers_page += 1;
-        }
-    });
-</script>
-{% endblock script %}
+  <h3>#{{ tags.name }}</h3>
+  {% if tags.question_set.count %}
+    <h5 class="postcount">{{tags.question_set.count}} posts so far. </h5>
+    <hr>
+  {% else %}
+    No posts yet
+  {% endif %}
+  </center>
+  {% for q in tags.question_set.all %}
+  {% include "user_templates/ques_ans.html" with instance=q %}
+  {% endfor %}
+  <style type="text/css">
+    .taglinks {
+      color: #2196F3;
+    }
+    .postcount {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 10px;
+    }
+  </style>
+{% endblock body %}
