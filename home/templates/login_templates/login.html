@@ -21,12 +21,17 @@
                 <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Login</button>
                 <input type="submit" class="login mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" value="login" />
         </form>
+        <br>
+        <p>Not a user? <a href="{% url 'register' %}" class="register">Register now!</a></p>
         </center>
     </div>
 </div>
 <style type="text/css">
     #formdiv {
         margin: auto 0px;
+    }
+    .register {
+        color: #E91E63;
     }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -51,4 +56,22 @@
 
     });
 </script>
+<style type="text/css">
+    .notyf {
+        bottom: 110px;
+    }
+    @media (max-width: 900px){
+        .notyf {
+            bottom: 50px; 
+            width: 40%;
+        }
+    }
+    @media (max-width: 400px){
+        .notyf {
+            bottom: 30px;
+            font-size: 12px;
+            width: 50%;
+        }
+    }
+</style>
 {% endblock body %}}
