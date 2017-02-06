@@ -2,8 +2,8 @@ branch-defaults:
   default:
     environment: null
     group_suffix: null
-  threads-frontend:
-    environment: null
+  master:
+    environment: production-env
     group_suffix: null
 global:
   application_name: qnaprod
