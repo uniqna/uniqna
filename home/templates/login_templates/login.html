@@ -18,6 +18,7 @@
                     <label class="mdl-textfield__label" for="sample2">Password</label>
                 </div>
                 <br>
+                <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Login</button>
                 <input type="submit" class="login mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" value="login" />
         </form>
         </center>
@@ -28,4 +29,26 @@
         margin: auto 0px;
     }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{% static 'js/notyf.js' %}"></script>
+<script type="text/javascript">
+    var n = new Notyf({delay:5000});
+    $(".login").hide();
+    $('.submit').on("click", function(e){
+        e.preventDefault();
+        flag = 1;
+        if($("#username").val()==""){
+            n.alert("Username is blank.")
+            flag=0;
+        }
+        if($("#password").val()==""){
+            n.alert("Password is blank.")
+            flag=0;
+        }
+        if(flag){
+            $(".login").click();
+        }
+
+    });
+</script>
 {% endblock body %}}
