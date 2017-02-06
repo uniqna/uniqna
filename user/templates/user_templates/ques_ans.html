@@ -112,7 +112,7 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                 {% for tag in instance.tags.all %}
-                    #{{tag.name}}
+                    <a href="{% url 'tags' tag.name %}" class="taglinks">#{{tag.name}}</a>
                 {% endfor %}
                 &nbsp
 

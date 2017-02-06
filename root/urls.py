@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^validation/$', views.validation),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^ask/', include('ask.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
