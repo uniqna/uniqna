@@ -1,4 +1,5 @@
 {% extends "login_templates/base.html" %} {% load widget_tweaks %} {% block body %} {% load widget_tweaks %}
+{% load staticfiles %}
 <style type="text/css">
 
 </style>
@@ -64,6 +65,7 @@
 
             <center>
             <div class="ask1">
+            <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Register</button>
               <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Register">
                 <i class="ask_icon material-icons">send</i>
               </button>
@@ -72,6 +74,58 @@
         </form>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{% static 'js/notyf.js' %}"></script>
+<script type="text/javascript">
+    var n = new Notyf({delay:5000});
+    $(".ask").hide();
+    $('.submit').on("click", function(e){
+        e.preventDefault();
+        flag = 1;
+        if($("#id_username").val()==""){
+            n.alert("Username is blank.")
+            flag=0;
+        }
+        if($("#id_email").val()==""){
+            n.alert("Email is blank.")
+            flag=0;
+        }
+        if($("#id_password").val()==""){
+            n.alert("Password is blank.")
+            flag=0;
+        }
+        if($("#id_confirm_password").val()==""){
+            n.alert("Confirm Password is blank.")
+            flag=0;
+        }
+        if($("#id_bio").val()==""){
+            n.alert("Bio is blank.")
+            flag=0;
+        }
+        if(flag){
+            $(".login").click();
+        }
+
+    });
+</script>
+<style type="text/css">
+    .notyf {
+        bottom: 110px;
+    }
+    @media (max-width: 900px){
+        .notyf {
+            bottom: 50px; 
+            width: 40%;
+        }
+    }
+    @media (max-width: 400px){
+        .notyf {
+            bottom: 30px;
+            font-size: 12px;
+            width: 50%;
+        }
+    }
+</style>
 {% endblock body %}
 
 <!--
