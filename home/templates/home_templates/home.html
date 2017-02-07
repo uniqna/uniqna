@@ -290,7 +290,7 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                  {% for t in x.tags.all %}
-                         #{{ t.name }}
+                         <a href="{% url 'tag' t.name %}">#{{t.name}}</a>
                     {% endfor %}
                   &nbsp
                 </div>
@@ -302,14 +302,11 @@
         <center><br> {{ pages.next }} </center>
     </div>
 </div>
-<p id="last" data-last='{{ pages|length }}'></p>
 {% endblock %}
-{% block script %}
+{% block votescript %}
     <script type="text/javascript">
-        // Voting script
-        var d;
         $(".upvote").click(function(){
-            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            vote_url = $(this).data("url");
             id = $(this).data("id");
            $.get(vote_url, function(data, status){
                 $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
@@ -318,7 +315,7 @@
            });
         });
         $(".downvote").click(function(){
-            vote_url = "http://127.0.0.1:8000"+$(this).data("url");
+            vote_url = $(this).data("url");
             id = $(this).data("id");
            $.get(vote_url, function(data, status){
                 $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
@@ -327,4 +324,4 @@
            });
         });
 </script>
-{% endblock script %}
+{% endblock votescript %}

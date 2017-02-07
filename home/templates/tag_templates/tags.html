@@ -321,6 +321,7 @@
           font-size: 12px;
         }
     }
+
 </style>
 <center>
   <h3>#{{ tags.name }}</h3>
@@ -342,5 +343,36 @@
       font-family: "Montserrat", sans-serif;
       font-weight: 10px;
     }
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
   </style>
 {% endblock body %}
+{% block votescript %}
+        <script type="text/javascript">
+        $(".upvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
+                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+        $(".downvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#up"+id).removeClass("vote-success").addClass("vote-default");
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+</script>
+{% endblock votescript %}
