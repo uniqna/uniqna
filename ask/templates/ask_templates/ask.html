@@ -169,31 +169,6 @@
             });
         }
     });
-    //Attaching click events
-
-    //Submit fields
-    /*
-    $("#submitdummy").click(function(e) {
-        e.preventDefault();
-        var qtitle = $("#id_title").val();
-        var qdesc = simplemde.value();
-        var flag = 1;
-        if (qdesc == "") {
-            flag = 0;
-
-            $(".CodeMirror").effect("shake")
-            $("#desc_error").fadeIn(3000).slideUp(5000);
-        }
-        if (qtitle == "") {
-            flag = 0;
-            $("#title_label").effect("shake")
-            $("#title_error").fadeIn(3000).slideUp(5000);
-        }
-        if (flag == 1) {
-            $("#p3")[0].MaterialProgress.setBuffer(100);
-            $(".submit").click();
-        }
-    })*/
     //Client side error
     var n = new Notyf({delay:5000});
     $(".submit").hide();

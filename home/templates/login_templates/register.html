@@ -5,17 +5,25 @@
 </style>
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
-        {{errors}}
         <form action="/register/" method="post">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% render_field regform.username class+="mdl-textfield__input" %}
+                {% if regform.username.errors %}
+                <br>
+                    {% for err in regform.username.errors %}
+                    <center>
+                        <p class="uname_error">{{err|escape}}</p>
+                        </center>
+                    {% endfor %}
+                {% endif %}
                 <div id="title_label">
                     <label class="mdl-textfield__label" for="sample3">Username</label>
                 </div>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% render_field regform.email class+="mdl-textfield__input" %}
+                {{ regform.email.errors }}
                 <div id="title_label">
                     <label class="mdl-textfield__label" for="sample3">Email</label>
                 </div>
@@ -83,8 +91,13 @@
     $('.submit').on("click", function(e){
         e.preventDefault();
         flag = 1;
-        if($("#id_username").val()==""){
+        userName = $("#id_username").val();
+        if(userName==""){
             n.alert("Username is blank.")
+            flag=0;
+        }
+        if(userName.length<4 || userName.length>15){
+            n.alert("Username's character length must be between 4 and 15.")
             flag=0;
         }
         if($("#id_email").val()==""){
@@ -125,6 +138,9 @@
             font-size: 12px;
             width: 50%;
         }
+    }
+    .uname_error {
+        color: red;
     }
 </style>
 {% endblock body %}
