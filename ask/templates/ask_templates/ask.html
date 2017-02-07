@@ -1,4 +1,4 @@
-{% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% block content %}
+{% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% load staticfiles %}{% block content %}
 <form action="{% url 'question_submit' %}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
@@ -45,6 +45,7 @@
         </center><br>
 </form>
 {% endblock %} {% block script %}
+<script src="{% static 'js/notyf.js' %}"></script>
 <script>
     var simplemde;
     //Default progress bar
@@ -171,6 +172,7 @@
     //Attaching click events
 
     //Submit fields
+    /*
     $("#submitdummy").click(function(e) {
         e.preventDefault();
         var qtitle = $("#id_title").val();
@@ -191,6 +193,30 @@
             $("#p3")[0].MaterialProgress.setBuffer(100);
             $(".submit").click();
         }
-    })
+    })*/
+    //Client side error
+    var n = new Notyf({delay:5000});
+    $(".submit").hide();
+    $('#submitdummy').on("click", function(e){
+        e.preventDefault();
+        flag = 1;
+        if($("#id_title").val()==""){
+            n.alert("Title is blank.")
+            flag=0;
+        }
+        if($("#id_title").val().length<=10){
+            n.alert("Title is too short.")
+            flag=0;
+        }
+        if(simplemde.value()==""){
+            $(".CodeMirror").effect("shake")
+            n.alert("Description is blank.")
+            flag=0;
+        }
+        if(flag){
+            $(".submit").click();
+        }
+
+    });
 </script>
 {% endblock script %}
