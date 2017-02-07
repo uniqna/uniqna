@@ -16,6 +16,7 @@
         margin-bottom: auto;
         margin-right: 0px;
         font-size: 18px;
+        width: calc(100% - 50px);
         color: #424242;
     }
 
@@ -177,6 +178,16 @@
         background-color: #64B5F6;
     }
 
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+
     @media (max-width: 479px) {
         .ask {
             position: relative;
@@ -220,15 +231,17 @@
             padding: 17px 0;
         }
     }
-    .vote-default {
-        color: #424242;
+
+    @media (max-width: 479px) {
+      .a_title {
+        font-size: 11px;
+      }
+
+      body {
+        line-height: 15px;
+      }
     }
-    .vote-success{
-        color: #4CAF50;
-    }
-    .vote-danger{
-        color: #F44336;
-    }
+
 </style>
 
 <div class="mdl-grid postsearchparent">
