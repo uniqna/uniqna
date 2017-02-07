@@ -290,7 +290,7 @@
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                  {% for t in x.tags.all %}
-                         <a href="{% url 'tag' t.name %}">#{{t.name}}</a>
+                         <a href="{% url 'tags' t.name %}">#{{t.name}}</a>
                     {% endfor %}
                   &nbsp
                 </div>
@@ -303,25 +303,4 @@
     </div>
 </div>
 {% endblock %}
-{% block votescript %}
-    <script type="text/javascript">
-        $(".upvote").click(function(){
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
-                $("#score"+id).children()[0].textContent = data.points;
-           });
-        });
-        $(".downvote").click(function(){
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#up"+id).removeClass("vote-success").addClass("vote-default");
-                $("#score"+id).children()[0].textContent = data.points;
-           });
-        });
-</script>
-{% endblock votescript %}
+
