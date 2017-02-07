@@ -5,6 +5,7 @@
 </style>
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
+        {{errors}}
         <form action="/register/" method="post">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -103,7 +104,7 @@
             flag=0;
         }
         if(flag){
-            $(".login").click();
+            $(".ask").click();
         }
 
     });
