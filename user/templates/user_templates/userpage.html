@@ -204,7 +204,7 @@
         padding-left: 0px;
         position: relative;
         margin-top: 0px;
-        margin-left: 0px;;
+        margin-left: 0px;
         margin-bottom: 0px;
     }
 
@@ -414,3 +414,36 @@
     });
 </script>
 {% endblock script %}
+{% block votescript %}
+        <script type="text/javascript">
+        $(".upvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
+                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+        $(".downvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#up"+id).removeClass("vote-success").addClass("vote-default");
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+</script>
+<style type="text/css">
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+</style>
+{% endblock votescript %}
