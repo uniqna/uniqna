@@ -6,7 +6,8 @@
             <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
         </div>
     </div>
-    <strong><p class="blank-error" id="title_error">Fill up the question</p></strong> {{ form.description }} {% csrf_token %}
+    <strong><p class="blank-error" id="title_error">Fill up the question</p></strong>
+    {{ form.description }} {% csrf_token %}
     <center>
         <strong><p class="blank-error" id="desc_error">Fill up the description</p></strong>
         <br>
@@ -52,7 +53,7 @@
         this.MaterialProgress.setBuffer(0);
     });
     $(document).ready(function() {
-            simplemde = new SimpleMDE({
+        simplemde = new SimpleMDE({
             element: $("[name=description]")[0],
             hideIcons: ["quote", "fullscreen"],
             placeholder: "Type here..."
@@ -96,7 +97,7 @@
     //Update Progress
     $(document).ready(function() {
         $(".CodeMirror-scroll").blur(function() {
-            if (simplemde.value()){
+            if (simplemde.value()) {
                 $("#p3")[0].MaterialProgress.setBuffer(100)
             }
         })
@@ -113,18 +114,18 @@
             $(".tagcreated").fadeIn(2000).fadeOut(2000);
             $("#newtagdiv").hide()
             document.getElementById("tags_input").value = document.getElementById("tags_input").value + "," + data.name
-            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data.name + "</span><span class='fdl-remove custom-remove' data-name='"+data.name+"'>×</span></li>");
+            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data.name + "</span><span class='fdl-remove custom-remove' data-name='" + data.name + "'>×</span></li>");
             $(".custom-remove").off("click");
-            $(".custom-remove").on("click", function(){
-                        var container = $(this).parent();
-                        var _vals = document.getElementById("tags_input").value.split(",");
-                        var toRemove = _vals.indexOf($(this).data("name"));
-                        _vals.splice(toRemove, 1);
-                        alert(toRemove + " " + _vals);
-                        document.getElementById("tags_input").value = _vals.join(",");
-                        container.remove();
-                    });
-        }).fail(function(data){
+            $(".custom-remove").on("click", function() {
+                var container = $(this).parent();
+                var _vals = document.getElementById("tags_input").value.split(",");
+                var toRemove = _vals.indexOf($(this).data("name"));
+                _vals.splice(toRemove, 1);
+                alert(toRemove + " " + _vals);
+                document.getElementById("tags_input").value = _vals.join(",");
+                container.remove();
+            });
+        }).fail(function(data) {
             alert("Tag already exists");
         })
     });
@@ -138,22 +139,23 @@
             }, function(data, status) {
                 if (data.length) {
                     vals = document.getElementById("tags_input").value.split(",");
-                    function validateData(obj){
-                        for(i=0;i<vals.length;i++){
-                        if(obj.name==vals[i]){
-                            return 0;
-                        }
+
+                    function validateData(obj) {
+                        for (i = 0; i < vals.length; i++) {
+                            if (obj.name == vals[i]) {
+                                return 0;
+                            }
                         }
                         return 1;
                     }
                     var validated = data.filter(validateData);
                     for (var i = 0; i < (validated.length); i++) {
                         vals.push(validated[i].name);
-                        $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + validated[i].name + "</span><span class='fdl-remove custom-remove' data-name='"+validated[i].name+"'>×</span></li>");
+                        $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + validated[i].name + "</span><span class='fdl-remove custom-remove' data-name='" + validated[i].name + "'>×</span></li>");
                     }
                     document.getElementById("tags_input").value = vals.join(",");
                     $(".custom-remove").off("click");
-                    $(".custom-remove").on("click", function(){
+                    $(".custom-remove").on("click", function() {
                         var container = $(this).parent();
                         var _vals = document.getElementById("tags_input").value.split(",");
                         var toRemove = _vals.indexOf($(this).data("name"));
@@ -184,8 +186,8 @@
             flag = 0;
             $("#title_label").effect("shake")
             $("#title_error").fadeIn(3000).slideUp(5000);
-        } 
-        if (flag==1) {
+        }
+        if (flag == 1) {
             $("#p3")[0].MaterialProgress.setBuffer(100);
             $(".submit").click();
         }
