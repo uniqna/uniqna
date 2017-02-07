@@ -23,7 +23,7 @@ def validation(request):
             login(request, user)
         else:
             token = True
-        return HttpResponseRedirect(reverse('home'))
+        return render(request, "login_templates/login.html", {"failed": 1})
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -75,7 +75,6 @@ def register(request):
                           'login_templates/welcome.html',
                           {'username': new_user.username})
         else:
-            errors = []
             return render(request,
                           'login_templates/register.html',
                           {
