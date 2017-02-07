@@ -3,6 +3,13 @@
   <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
     <img src="{% static 'assets/logo.svg' %}"/>
 </div>
+{% if failed %}
+    <center>
+   <div class="fail">
+       <p class="mdl-button mdl-button--accent">Incorrect Username or Password</p>
+   </div> 
+   </center>
+{% endif %}
 <div class="mdl-grid" id="formdiv">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
         <form method="post" action="validation/">
