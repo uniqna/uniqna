@@ -15,12 +15,13 @@
     }
 
     .title {
-        margin-left: 0px;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-right: 0px;
-        font-size: 18px;
-        color: #424242;
+      margin-left: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-right: 0px;
+      font-size: 18px;
+      width: calc(100% - 50px);
+      color: #424242;
     }
 
     .meta {
@@ -141,8 +142,9 @@
     }
 
     .answers {
-        float: right;
-        color: #009688;
+      margin-left: 0px;
+      font-size: 11px;
+      color: #009688;
     }
 
     .tags {
@@ -174,12 +176,11 @@
     }
 
     .about {
-        border-top: 4px rgba(163, 163, 163, 0.5) dashed;
-        border-bottom: 4px rgba(163, 163, 163, 0.5) dashed;
+
     }
 
     .about p {
-        color: #424242;
+        color: #01579B;
         margin: 8px;
     }
 
@@ -241,7 +242,7 @@
     }
 
     .username {
-        color: #3F51B5;
+        color: #01579B;
         font-family: 'Montserrat', sans-serif;
     }
 
@@ -267,6 +268,25 @@
     .answer_align_fix {
       width: 65px;
     }
+
+    .mdl-card {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .university p {
+      margin-bottom: 5px;
+    }
+
+    .user_parent {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tags a {
+      color: #673AB7;
+    }
+
 
     @media (max-width: 479px) {
         .ask {
@@ -318,23 +338,37 @@
         .answer_author_meta {
           font-size: 12px;
         }
+        .about p {
+          font-size: 12px;
+        }
     }
+
+    @media (max-width: 479px) {
+      .a_title {
+        font-size: 11px;
+      }
+
+      body {
+        line-height: 15px;
+      }
+    }
+
 </style>
 <center>
 
-    
+<div class="user_parent about mdl-cell mdl-cell--6-col">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="about mdl-cell mdl-cell--12-col">
             <h3 class="username">@{{user_instance.username}}</h3>
             <p>{{ user_instance.student.bio }}</p>
             <div class="university">
-                <p><i class="material-icons">room</i> {{ user_instance.student.university }}</p>
+                <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
             </div>
-            <p>Class of {{user_instance.student.grad_year}}.</p>
-            <p><span class="mdl-chip"><span class="mdl-chip__text course">{{ user_instance.student.course }}</span></span> <span class="mdl-chip"><span class="mdl-chip__text school">{{ user_instance.student.school }}</span></span>
-            </p>
+            <i class="twa twa-mortar-board"></i><p> Class of {{user_instance.student.grad_year}}.</p>
+            <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
         </div>
         </div>
+</div>
 </center>
 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
     <div class="mdl-tabs__tab-bar">
