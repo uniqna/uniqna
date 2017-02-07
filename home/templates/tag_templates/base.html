@@ -56,16 +56,6 @@
         }
     }
 </style>
-<style type="text/css">
-    {
-        % block "style" %
-    }
-
-    {
-        % endblock %
-    }
-</style>
-
 <body>
     <!-- Uses a header that scrolls with the text, rather than staying
   locked at the top -->
@@ -127,6 +117,7 @@
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
     <script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
     {% block script %} {% endblock script %}
+    {% block votescript %} {% endblock votescript %}
 </body>
 
 </html>
