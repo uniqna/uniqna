@@ -14,7 +14,6 @@ token = False  # An error token - True when it encounters invalid credentials.
 
 
 def validation(request):
-    global token
     if request.method == 'POST' and request.POST:
         username = request.POST['username']
         password = request.POST['password']
@@ -22,43 +21,49 @@ def validation(request):
         if user is not None:
             login(request, user)
         else:
-            token = True
-        return render(request, "login_templates/login.html", {"failed": 1})
+            return render(request, "login_templates/login.html", {"failed": 1})
     else:
         return HttpResponseRedirect(reverse('home'))
 
 
 def logout_view(request):
-    global token
     logout(request)
-    token = False
     return HttpResponseRedirect(reverse('home'))
 
 
 def home(request):
-    global token
-    error = token  # Transferring the token's boolean and resetting token.
-    token = False
-    if request.user.is_authenticated:
-        username = request.user.username
-        question.objects.PopUpdate()
-        print("Pop updated")
-        question_list = question.objects.order_by("-popularity")
-        no_of_questions = question.objects.all().count()
-        no_of_answers = answer.objects.all().count()
-        no_of_solved = question.objects.filter(solved=True).count()
-        no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
-        return render(request,
-                      'home_templates/home.html',
-                      {'username': username,
-                       'question_list': question_list,
-                       'no_of_questions': no_of_questions,
-                       'no_of_answers': no_of_answers,
-                       'no_of_solved_percentage': no_of_solved_percentage})
-    else:
-        return render(request,
-                      'login_templates/login.html',
-                      {'error': error})
+    print("outside")
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            username = request.user.username
+            question.objects.PopUpdate()
+            print("Pop updated")
+            question_list = question.objects.order_by("-popularity")
+            no_of_questions = question.objects.all().count()
+            no_of_answers = answer.objects.all().count()
+            no_of_solved = question.objects.filter(solved=True).count()
+            no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
+            return render(request,
+                          'home_templates/home.html',
+                          {'username': username,
+                           'question_list': question_list,
+                           'no_of_questions': no_of_questions,
+                           'no_of_answers': no_of_answers,
+                           'no_of_solved_percentage': no_of_solved_percentage})
+        else:
+            return render(request,
+                          'login_templates/login.html',)
+
+    if request.method == 'POST' and request.POST:
+        print("inside")
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return render(request, "login_templates/login.html", {"failed": 1})
 
 
 def register(request):
@@ -93,31 +98,6 @@ def welcome(request):
     return render(request,
                   'login_templates/welcome.html',
                   {'username': username})
-
-
-def vote(request, qid, upordown):
-    try:
-        qid = int(qid)
-    except ValueError:
-        raise Http404()
-    if request.user.is_authenticated:
-        question_instance = get_object_or_404(question, pk=qid)
-        if upordown == 'u':
-            vote_on = question_instance.ups
-            vote_on_other = question_instance.downs
-        elif upordown == 'd':
-            vote_on = question_instance.downs
-            vote_on_other = question_instance.ups
-        if request.user not in vote_on.all():
-            vote_on.add(request.user)
-            vote_on_other.remove(request.user)
-        else:
-            vote_on.remove(request.user)
-        upvotes = question_instance.ups.count()
-        downvotes = question_instance.downs.count()
-        question_instance.points = upvotes - downvotes
-        question_instance.save()
-    return redirect('home')
 
 
 def tag_view(request, tagname):
