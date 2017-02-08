@@ -1,5 +1,7 @@
 {% extends "login_templates/base.html" %} {% load static %} {% block body %}
-<br><br><br><br>
+<div class="motto mdl-cell mdl-cell--6-col mdl-cell--6-offset mdl-cell--middle">
+<br><center><p>Suh dude?<i class="twa twa-2x twa-v"></i> Got a question?</i></p></center><br>
+</div>
   <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
     <img src="{% static 'assets/logo.svg' %}"/>
 </div>
@@ -7,11 +9,11 @@
     <center>
    <div class="fail">
        <p class="mdl-button mdl-button--accent">Incorrect Username or Password</p>
-   </div> 
+   </div>
    </center>
 {% endif %}
 <div class="mdl-grid" id="formdiv">
-    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
+    <div class="login_form mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
         <form method="post" action="">
             <center>
                 {% csrf_token %}
@@ -69,7 +71,7 @@
     }
     @media (max-width: 900px){
         .notyf {
-            bottom: 50px; 
+            bottom: 50px;
             width: 40%;
         }
     }
