@@ -3,7 +3,15 @@ from django.utils import timezone
 from django.db import models
 from ask.models import question
 from django.contrib.auth.models import User
+from root.algorithms import vote_score
 # Create your models here.
+
+
+class ManagerExtender(models.Manager):
+    def ScoreUpdate(self):
+        print("score Updating")
+        for a in self.all():
+            a.set_score()
 
 
 class answer(models.Model):
@@ -15,7 +23,9 @@ class answer(models.Model):
     edited = models.BooleanField(default=False)
     ups = models.ManyToManyField(User, related_name='upvotes')
     downs = models.ManyToManyField(User, related_name='downvotes')
+    points = models.IntegerField(default=0)
     score = models.DecimalField(default=0, max_digits=20, decimal_places=17)
+    objects = ManagerExtender()
 
     def __str__(self):
         return (self.description)
@@ -31,3 +41,8 @@ class answer(models.Model):
     def set_edited_time(self):
         self.edited = True
         self.edited_time = timezone.now()
+
+    def set_score(self):
+        self.points = self.ups.count() - self.downs.count()
+        self.score = vote_score.confidence(self.ups.count(), self.downs.count())
+        self.save()
