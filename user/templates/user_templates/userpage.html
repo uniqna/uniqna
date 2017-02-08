@@ -383,7 +383,7 @@
             <center><br> {{ pages.next }}</center>
         </div>
         {% else %}
-        <p>Nothing here. :/</p>
+        <center><p>Nothing here. :/</p></center>
         {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="questions-panel">
@@ -395,7 +395,7 @@
             </div>
         </center>
         {% else %}
-        <p>No questions yet.</p>
+        <center><p>No questions yet.</p></center>
         {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="answers-panel">
@@ -407,7 +407,7 @@
             </div>
         </center>
         {% else %}
-        <p>No answers yet.</p>
+        <center><p>No answers yet.</p></center>
         {% endif %}
     </div>
 </div>
@@ -469,7 +469,7 @@
                 $("#up"+id).removeClass("vote-success").addClass("vote-default");
            });
         });
-        //Answer voting 
+        //Answer voting
         $(".ansUpvote").click(function(){
             vote_url = $(this).data("url");
             id = $(this).data("id");

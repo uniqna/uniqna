@@ -106,8 +106,8 @@
                 <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
                 <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>{% if x.edited == False%}
                  {% endif %}
+                 {% endif %}
             </div>
-            {% endif %}
             </div>
         </div>
     </div>
