@@ -9,29 +9,6 @@ import markdown2
 from root.algorithms import vote_score
 
 
-# Get the ups and down of an answer or send a vote
-
-"""
-class VotesView(APIView):
-
-    def get(self, request):
-        answers = answer.objects.all()
-        serializer = AnswerSerializer(answers, many=True)
-        return Response(serializer.data)
-
-    def post(self):
-        pass
-
-
-@api_view(["GET", "POST"])
-def vote_rest(request, pk):
-    if request.method == "GET":
-        instance = get_object_or_404(answer, pk=pk)
-        serializer = AnswerSerializer(instance)
-        return Response(serializer.data)
-"""
-
-
 def thread(request, thread_id):
     try:
         thread_id = int(thread_id)
