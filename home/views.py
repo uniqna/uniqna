@@ -78,9 +78,7 @@ def register(request):
             notif = Notification()
             notif.user = new_user
             login(request, new_user)
-            return render(request,
-                          'login_templates/welcome.html',
-                          {'username': new_user.username})
+            return HttpResponseRedirect(reverse('home'))
         else:
             return render(request,
                           'login_templates/register.html',
