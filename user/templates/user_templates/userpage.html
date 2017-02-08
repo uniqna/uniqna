@@ -451,6 +451,7 @@
 {% block votescript %}
         <script type="text/javascript">
         $(".upvote").click(function(){
+            //QuestionVoting
             vote_url = $(this).data("url");
             id = $(this).data("id");
            $.get(vote_url, function(data, status){
@@ -464,8 +465,29 @@
             id = $(this).data("id");
            $.get(vote_url, function(data, status){
                 $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#up"+id).removeClass("vote-success").addClass("vote-default");
                 $("#score"+id).children()[0].textContent = data.points;
+                $("#up"+id).removeClass("vote-success").addClass("vote-default");
+           });
+        });
+        //Answer voting 
+        $(".ansUpvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $(".ansUp"+id).toggleClass("vote-default").toggleClass("vote-success");
+                $(".ansDown"+id).removeClass("vote-danger").addClass("vote-default")
+                $(".ansScore"+id)[0].childNodes[1].textContent = data.points;
+                $(".ansScore"+id)[1].childNodes[1].textContent = data.points;
+           });
+        });
+        $(".ansDownvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $(".ansDown"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $(".ansUp"+id).removeClass("vote-success").addClass("vote-default");
+                $(".ansScore"+id)[0].childNodes[1].textContent = data.points;
+                $(".ansScore"+id)[1].childNodes[1].textContent = data.points;
            });
         });
 </script>

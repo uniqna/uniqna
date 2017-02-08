@@ -270,18 +270,16 @@
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote
-                            {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{x.pk}}">
-                    <i class="material-icons votecolor" id="up{{ x.pk }}">expand_less</i>
+                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote">
+                    <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ x.pk }}">expand_less</i>
                     </button>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote
-                            {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor" id="down{{x.pk}}">expand_more</i>
+                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{x.pk}}">expand_more</i>
                     </button>
                     </div>
                 </div>

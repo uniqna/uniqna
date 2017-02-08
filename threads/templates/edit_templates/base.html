@@ -124,7 +124,7 @@
         <header class="mdl-layout__header mdl-layout__header--scroll">
             <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <a href="{% url 'home' %}" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">
+                <a href="#" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">
                     <div class="navbar_logo">
                         <img src="{% static 'assets/logo_white.svg' %}">
                     </div>
@@ -179,6 +179,6 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'js/jquery.flexdatalist.min.js' %}"></script>
-    {% block script %} {% endblock script %}
+    <script src="{% static 'js/vote.js' %}"></script>
 </body>
 </html>
