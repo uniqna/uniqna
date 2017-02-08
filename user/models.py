@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Signal Modules
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 # Form Modules
 from django.forms import ModelForm
+# Notificaition modules
+from threads.models import answer
 
 
 class student(models.Model):
@@ -41,3 +40,13 @@ class student(models.Model):
     school = models.CharField(max_length=6, choices=school_choices, default="SCSE")
     grad_year = models.CharField(max_length=6, choices=grad_year_choices, default="2020")
     university = models.CharField(max_length=100, choices=university_choices)
+
+
+class AnsweredNotifcation(models.Model):
+    theanswer = models.ForeignKey(answer)
+    read = models.BooleanField(default=False)
+
+
+class Notification(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    answers = models.ManyToManyField(AnsweredNotifcation)
