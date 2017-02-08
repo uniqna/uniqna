@@ -181,15 +181,17 @@
     .vote-default {
         color: #424242;
     }
-    .vote-success{
+
+    .vote-success {
         color: #4CAF50;
     }
-    .vote-danger{
+
+    .vote-danger {
         color: #F44336;
     }
 
     .tags a {
-      color: #673AB7;
+        color: #673AB7;
     }
 
     @media (max-width: 479px) {
@@ -234,18 +236,22 @@
             font-size: 15px;
             padding: 17px 0;
         }
+        .answer p {
+            font-size: 12px;
+        }
+        .answer_author_meta {
+            font-size: 12px;
+        }
     }
 
     @media (max-width: 479px) {
-      .a_title {
-        font-size: 11px;
-      }
-
-      body {
-        line-height: 15px;
-      }
+        .a_title {
+            font-size: 11px;
+        }
+        body {
+            line-height: 15px;
+        }
     }
-
 </style>
 
 <div class="mdl-grid postsearchparent">
@@ -270,7 +276,7 @@
             <div class="mdl-cell mdl-cell--1-col voting">
                 <div class="mdl-grid voting">
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote">
+                        <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote">
                     <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ x.pk }}">expand_less</i>
                     </button>
                     </div>
@@ -278,7 +284,7 @@
                         <center>{{ x.points }}</center>
                     </div>
                     <div class="mdl-cell mdl-cell--1-col votes">
-                            <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{x.pk}}">
+                        <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{x.pk}}">
                     <i class="material-icons votecolor {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{x.pk}}">expand_more</i>
                     </button>
                     </div>
@@ -291,10 +297,8 @@
                 <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
-                 {% for t in x.tags.all %}
-                         <a href="{% url 'tags' t.name %}">#{{t.name}}</a>
-                    {% endfor %}
-                  &nbsp
+                    {% for t in x.tags.all %}
+                    <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
                 </div>
             </div>
         </div>
