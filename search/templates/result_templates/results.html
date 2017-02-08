@@ -255,43 +255,7 @@
 
 <div class="mdl-grid">
     {% paginate results %} {% for x in results %}
-
-    <div class="mdl-cell mdl-cell--12-col">
-        <div class="mdl-grid platform">
-            <div class="mdl-cell mdl-cell--1-col voting">
-                <div class="mdl-grid voting">
-                    <div class="mdl-cell mdl-cell--1-col votes">
-                        <form action="{% url 'qvote' x.pk 'u'%}">
-                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                    <i class="material-icons votecolor ">expand_less</i>
-                    </button>
-                        </form>
-                    </div>
-                    <div class="mdl-cell mdl-cell--1-col score">
-                        <center>{{ x.points }}</center>
-                    </div>
-                    <div class="mdl-cell mdl-cell--1-col votes">
-                        <form action="{% url 'qvote' x.pk 'd'%}">
-                            <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                    <i class="material-icons votecolor">expand_more</i>
-                    </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="title">
-                <div class="date">Asked&nbsp{{ x.created_time|timesince }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} Answers</small>
-                </div>
-                <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
-                <i class="material-icons solved">check</i> {% endif %}
-                <div class="tags">#Tags</div>
-            </div>
-
-
-
-        </div>
-    </div>
+        {% include "user_templates/ques_ans.html" with instance=x divclass="searchresults" %}
     {% endfor %} {% get_pages %}
     {% if results %}
     <div class="mdl-cell mdl-cell--12-col pagination">
@@ -301,4 +265,15 @@
     {% else %}
     {% endif %}
 </div>
+<style type="text/css">
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+</style>
 {% endblock %}
