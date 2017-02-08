@@ -32,25 +32,21 @@
     </div>
     <div class="mdl-grid platform platform_answer">
         <div class="mdl-cell mdl-cell--1-col answer_align_fix">
-            <div class="mdl-grid voting_align_answer">
-                <div class="mdl-cell mdl-cell--1-col votes voting_align">
-                    <form action="">
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                  <i class="material-icons votecolor ">expand_less</i>
-                  </button>
-                    </form>
+            <div class="mdl-grid voting-align_answer">
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' instance.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{instance.pk}}">
+                    <i class="material-icons votecolor {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %} ansUp{{instance.pk}}">expand_less</i>
+                    </button>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score ansScore{{instance.pk}}">
+                        <center>{{ instance.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' instance.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{instance.pk}}">
+                    <i class="material-icons votecolor{% if request.user in instance.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{instance.pk}}">expand_more</i>
+                    </button>
+                    </div>
                 </div>
-                <div class="mdl-cell mdl-cell--1-col score">
-                    <center>{{instance.question.points}}</center>
-                </div>
-                <div class="mdl-cell mdl-cell--1-col votes voting_align">
-                    <form action="">
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                  <i class="material-icons votecolor">expand_more</i>
-                  </button>
-                    </form>
-                </div>
-            </div>
         </div>
         <div class="answer mdl-cell mdl-cell--12-col">
             <p>{{instance.description|bleach|truncatechars:300 }}
@@ -74,18 +70,16 @@
       <div class="mdl-cell mdl-cell--1-col voting">
           <div class="mdl-grid voting">
               <div class="mdl-cell mdl-cell--1-col votes">
-                      <button data-url="{% url 'question_vote' instance.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote
-                      {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{instance.pk}}">
-              <i class="material-icons votecolor" id="up{{ instance.pk }}">expand_less</i>
+                      <button data-url="{% url 'question_vote' instance.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote">
+              <i class="material-icons votecolor {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %}"  data-id="{{instance.pk}}" id="up{{ instance.pk }}">expand_less</i>
               </button>
               </div>
               <div class="mdl-cell mdl-cell--1-col score" id="score{{instance.pk}}">
                   <center>{{ instance.points }}</center>
               </div>
               <div class="mdl-cell mdl-cell--1-col votes">
-                      <button data-url="{% url 'question_vote' instance.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote
-                      {% if request.user in instance.downs.all %} vote-danger {% else %} vote-default {% endif %}" data-id="{{instance.pk}}">
-              <i class="material-icons votecolor" id="down{{instance.pk}}">expand_more</i>
+                      <button data-url="{% url 'question_vote' instance.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{instance.pk}}">
+              <i class="material-icons votecolor {% if request.user in instance.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{instance.pk}}">expand_more</i>
               </button>
               </div>
           </div>

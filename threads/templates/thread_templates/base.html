@@ -356,32 +356,30 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src='{% static "js/vote.js" %}'></script>
     <script>
         var simplemde = new SimpleMDE({
             element: $("#MyID")[0]
         });
-        // Voting script
-        $(".upvote").click(function() {
-            vote_url = "http://127.0.0.1:8000" + $(this).data("url");
-            ubutton = $(this);
-            $.get(vote_url, function(data, status) {
-                ubutton.toggleClass("btn-default").toggleClass("btn-success");
-                ubutton.siblings().last().removeClass("btn-danger").addClass("btn-default")
-                ubutton.siblings()[0].textContent = data.ups.length;
-                ubutton.siblings()[1].textContent = data.downs.length;
-            });
+        //Answer voting 
+        $(".ansUpvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#ansUp"+id).toggleClass("vote-default").toggleClass("vote-success");
+                $("#ansDown"+id).removeClass("vote-danger").addClass("vote-default")
+                $("#ansScore"+id).children()[0].textContent = data.points;
+           });
         });
-        $(".downvote").click(function() {
-            vote_url = "http://127.0.0.1:8000" + $(this).data("url");
-            dbutton = $(this);
-            $.get(vote_url, function(data, status) {
-                dbutton.toggleClass("btn-default").toggleClass("btn-danger");
-                dbutton.siblings().first().removeClass("btn-success").addClass("btn-default")
-                dbutton.siblings()[2].textContent = data.downs.length;
-                dbutton.siblings()[1].textContent = data.ups.length;
-            });
+        $(".ansDownvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#ansDown"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#ansUp"+id).removeClass("vote-success").addClass("vote-default");
+                $("#ansScore"+id).children()[0].textContent = data.points;
+           });
         });
     </script>
 </body>
-
 </html>

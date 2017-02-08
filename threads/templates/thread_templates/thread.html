@@ -34,24 +34,20 @@
 <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-cell mdl-cell--2-col voting">
         <div class="mdl-grid voting">
-            <div class="mdl-cell mdl-cell--1-col votesu">
-                <form action="">
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                    <i class="material-icons votecolor ">expand_less</i>
+                    <div class="mdl-cell mdl-cell--1-col votesu">
+                            <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote"  data-id="{{question.pk}}">
+                    <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
                     </button>
-                </form>
-            </div>
-            <div class="mdl-cell mdl-cell--1-col score">
-                <center>{{ question.points }}</center>
-            </div>
-            <div class="mdl-cell mdl-cell--1-col votesd">
-                <form action="">
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                    <i class="material-icons votecolor">expand_more</i>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
+                        <center>{{ question.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votesd">
+                            <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{question.pk}}">
+                    <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
                     </button>
-                </form>
-            </div>
-        </div>
+                    </div>
+ </div>
     </div>
 </div>
 
@@ -78,25 +74,21 @@
 <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-grid platform answer_parent">
         <div class="mdl-cell mdl-cell--1-col">
-            <div class="mdl-grid voting_align">
-                <div class="mdl-cell mdl-cell--1-col votes voting_align">
-                    <form action="">
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                <i class="material-icons votecolor ">expand_less</i>
-                </button>
-                    </form>
+            <div class="mdl-grid voting-align">
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
+                    </button>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score" id="ansScore{{x.pk}}">
+                        <center>{{ x.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
+                    </button>
+                    </div>
                 </div>
-                <div class="mdl-cell mdl-cell--1-col score">
-                    <center>{{x.points}}</center>
-                </div>
-                <div class="mdl-cell mdl-cell--1-col votes voting_align">
-                    <form action="">
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect">
-                <i class="material-icons votecolor">expand_more</i>
-                </button>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <div class="answer">
@@ -121,5 +113,16 @@
     </div>
 </div>
 {% endfor %}
+<style type="text/css">
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+</style>
 <!-- -->
 {% endblock %}
