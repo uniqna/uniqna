@@ -20,7 +20,6 @@ from home import views
 from tinymce import urls
 from threads import urls
 from user import urls
-from home.views import vote
 from RestApi import urls
 from root import settings
 from search import urls
@@ -28,8 +27,6 @@ from search import urls
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
-    url(r'question/(\d{1,5})/([ud])/$', views.vote, name='qvote'),
-    url(r'^validation/$', views.validation),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
