@@ -6,13 +6,12 @@
             <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
         </div>
     </div>
-    <strong><p class="blank-error" id="title_error">Fill up the question</p></strong>
-    {{ form.description }} {% csrf_token %}
+    <strong><p class="blank-error" id="title_error">Fill up the question</p></strong> {{ form.description }} {% csrf_token %}
     <center>
         <strong><p class="blank-error" id="desc_error">Fill up the description</p></strong>
         <br>
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col">
+            <div class="mdl-cell mdl-cell--12-col">
                 <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
 
                 <datalist id="tags">
@@ -32,8 +31,10 @@
                 </div>
             </center>
             <div id="newtagdiv">
-                <label for="newtab">Enter new tag name:</label>
-                <input type="text" name="new_tag" id="newtag">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag">
+                    <label class="tags_label mdl-textfield__label" for="sample3">Enter new tag name</label>
+                </div><br>
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
             </div>
         </div>
@@ -170,25 +171,27 @@
         }
     });
     //Client side error
-    var n = new Notyf({delay:5000});
+    var n = new Notyf({
+        delay: 5000
+    });
     $(".submit").hide();
-    $('#submitdummy').on("click", function(e){
+    $('#submitdummy').on("click", function(e) {
         e.preventDefault();
         flag = 1;
-        if($("#id_title").val()==""){
+        if ($("#id_title").val() == "") {
             n.alert("Title is blank.")
-            flag=0;
+            flag = 0;
         }
-        if($("#id_title").val().length<=10){
+        if ($("#id_title").val().length <= 10) {
             n.alert("Title is too short.")
-            flag=0;
+            flag = 0;
         }
-        if(simplemde.value()==""){
+        if (simplemde.value() == "") {
             $(".CodeMirror").effect("shake")
             n.alert("Description is blank.")
-            flag=0;
+            flag = 0;
         }
-        if(flag){
+        if (flag) {
             $(".submit").click();
         }
 
