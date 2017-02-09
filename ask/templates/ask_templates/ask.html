@@ -6,10 +6,6 @@
             <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
         </div>
     </div>
-    <strong><p class="blank-error" id="title_error">Fill up the question</p></strong> {{ form.description }} {% csrf_token %}
-    <center>
-        <strong><p class="blank-error" id="desc_error">Fill up the description</p></strong>
-        <br>
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
                 <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
