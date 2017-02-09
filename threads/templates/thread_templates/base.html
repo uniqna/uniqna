@@ -364,6 +364,12 @@
         var simplemde = new SimpleMDE({
             element: $("#MyID")[0]
         });
+        $(".writeanswer").hide();
+        $(".writeanswerbtn").on("click", function(e){
+            e.preventDefault();
+            $(".writeanswer").slideDown(1000, function(){
+                $(".writeanswerbtn").hide();
+            })});
         //Answer voting
         $(".ansUpvote").click(function(){
             vote_url = $(this).data("url");

@@ -43,10 +43,10 @@ class student(models.Model):
 
 
 class AnsweredNotifcation(models.Model):
-    theanswer = models.ForeignKey(answer)
+    theanswer = models.ForeignKey(answer, related_name="writted_answer")
     read = models.BooleanField(default=False)
 
 
 class Notification(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    answers = models.ManyToManyField(AnsweredNotifcation)
+    answers = models.ManyToManyField(AnsweredNotifcation, related_name="answered_questions")
