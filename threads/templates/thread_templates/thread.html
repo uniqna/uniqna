@@ -54,8 +54,9 @@
 <center>
     <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
 </center>
+<div class="writeanswer">
 <form action="answer/" method="post">
-    <div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
         {{ form.description }} {% csrf_token %}
     </div>
     <center>
@@ -64,9 +65,12 @@
         <i class="ask_icon material-icons">send</i>
       </button>
     </div>
-  </center>
+    </center>
 </form>
-
+</div>
+<center>
+<div class="mdl-button mdl-button--primary writeanswerbtn">Write Answer</div>
+</center>
 <br><br> {% load bleach_tags %} {% for x in all_answers %}
 
 <!-- -->

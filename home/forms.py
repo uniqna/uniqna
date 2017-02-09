@@ -5,7 +5,7 @@ import re
 
 
 class registration(forms.Form):
-    username = forms.CharField(min_length=4, max_length=13)
+    username = forms.CharField(min_length=4, max_length=15)
     email = forms.CharField(required=True)
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
@@ -28,5 +28,5 @@ class registration(forms.Form):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('confirm_password')
         if password1 != password2:
-            raise forms.ValidationError("Your passwords do not match")
+            raise forms.ValidationError("Your passwords do not match.")
         return password2
