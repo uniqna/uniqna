@@ -28,7 +28,7 @@ class answer(models.Model):
     objects = ManagerExtender()
 
     def __str__(self):
-        return (self.description)
+        return str(self.pk)
 
     def get_time(self):
         t = timezone.localtime(self.created_time)
