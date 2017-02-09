@@ -7,6 +7,8 @@ from ask.models import question
 from datetime import datetime
 import markdown2
 from root.algorithms import vote_score
+from user.models import Answered
+from django.contrib.auth.models import User
 
 
 def thread(request, thread_id):
@@ -42,6 +44,11 @@ def submit_answer(request, question_id):
             instance.save()
             question_answered.answers = answer.objects.filter(question=question_id).count()
             question_answered.save()
+            ans_notif = Answered()
+            ans_notif.theanswer = instance
+            ans_notif.save()
+            question_author = get_object_or_404(User, username=question_answered.author)
+            question_author.notifications.answers.add(ans_notif)
             return HttpResponseRedirect("/thread/" + str(question_id))
 
 
