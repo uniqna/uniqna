@@ -6,6 +6,13 @@ from django.forms import ModelForm
 from threads.models import answer
 
 
+class ManagerExtender(models.Manager):
+    def unread_count(self):
+        unread_list = [1 for o in self.all() if not o.read]
+        unread_count = int(sum(unread_list))
+        return unread_count
+
+
 class student(models.Model):
     course_choices = (
         ("B.Tech", "B.Tech"),
@@ -42,11 +49,12 @@ class student(models.Model):
     university = models.CharField(max_length=100, choices=university_choices)
 
 
-class AnsweredNotifcation(models.Model):
+class Answered(models.Model):
     theanswer = models.ForeignKey(answer, related_name="writted_answer")
     read = models.BooleanField(default=False)
+    objects = ManagerExtender()
 
 
-class Notification(models.Model):
+class Notifications(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    answers = models.ManyToManyField(AnsweredNotifcation, related_name="answered_questions")
+    answers = models.ManyToManyField(Answered, related_name="answered_questions")
