@@ -286,6 +286,11 @@
     .tags a {
       color: #673AB7;
     }
+    .editprofile {
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
 
 
     @media (max-width: 479px) {
@@ -359,6 +364,11 @@
 <div class="user_parent about mdl-cell mdl-cell--6-col">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="about mdl-cell mdl-cell--12-col">
+            <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-offset">
+            <a href="{% url 'edit_profile' user_instance.username %}" class="mdl-button mdl-button--primary">Edit Profile</a>
+            </div>
+            </div>
             <h3 class="username">@{{user_instance.username}}</h3>
             <p>{{ user_instance.student.bio }}</p>
             <div class="university">

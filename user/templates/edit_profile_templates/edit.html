@@ -1,0 +1,53 @@
+{% extends "user_templates/base.html" %}
+{% block body %}
+{% load widget_tweaks %}
+	<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.email class+="mdl-textfield__input" %}
+                {{ regform.email.errors }}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Email</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.bio class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Bio</label>
+                </div>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.course class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Course</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.school class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">School</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.grad_year class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Class of?</label>
+            </div>
+
+            <div class="university mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.university class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">University</label>
+            </div>
+
+            <center>
+            <div class="ask1">
+            <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Register</button>
+              <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Register">
+                <i class="ask_icon material-icons">send</i>
+              </button>
+            </div>
+          </center>
+        </form>
+    </div>
+</div>
+{% endblock body %}
