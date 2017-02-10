@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from ask.models import question
 from threads.models import answer
 from itertools import chain
-from home.forms import editForm
+from home.forms import editForm, changePasswordForm
 # Create your views here.
 
 
@@ -56,4 +57,26 @@ def EditProfile(request, usr):
             "grad_year": requested_user.student.grad_year,
         }
         profile_form = editForm(data)
-        return render(request, "edit_profile_templates/edit.html", {"regform": profile_form})
+        return render(request, "user_templates/edit.html", {"regform": profile_form})
+
+
+def ChangePassword(request, usr):
+    req_user = get_object_or_404(User, username=usr)
+    if request.method == "POST" and request.POST:
+        cp_form = changePasswordForm(request.POST)
+        if cp_form.is_valid():
+            cur_pass = cp_form.cleaned_data["current_password"]
+            a_user = authenticate(username=req_user.username, password=cur_pass)
+            if a_user is not None:
+                a_user.set_password(cp_form.cleaned_data["password"])
+                a_user.save()
+                login(request, a_user)
+                return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "success": 1})
+            else:
+                return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "changeform": cp_form, "failed": 1})
+        else:
+            return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "changeform": cp_form})
+
+    else:
+        cp_form = changePasswordForm()
+        return render(request, "user_templates/changepassword.html", {"changeform": cp_form, "user_instance": req_user})
