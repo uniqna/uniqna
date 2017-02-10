@@ -6,6 +6,7 @@
             <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
         </div>
     </div>
+    {{ form.description }} {% csrf_token %}
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
                 <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
@@ -17,15 +18,14 @@
       </datalist>
 
             </div>
-
         </div>
+        <center>
         <div class="mdl-cell mdl-cell--6-col">
             <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
-            <center>
+
                 <div class="tagcreated">
                     <p class="mdl-button mdl-button--accent">Tag Created</p>
                 </div>
-            </center>
             <div id="newtagdiv">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag">
@@ -34,7 +34,6 @@
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
             </div>
         </div>
-        <center>
             <input type="submit" name="submit" class="submit" value="Ask!">
             <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
       <i class="ask_icon material-icons">send</i>
@@ -54,7 +53,8 @@
         simplemde = new SimpleMDE({
             element: $("[name=description]")[1],
             hideIcons: ["quote", "fullscreen"],
-            placeholder: "Type here..."
+            placeholder: "Type here...",
+            spellChecker: false
         });
     });
     //Add new tag
@@ -101,7 +101,7 @@
         })
     })
     //Create Tag
-    var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
+    var purl = "{% url 'CreateTag' %}";
     var fail;
     $("#create_tag").click(function() {
         var data = {
@@ -128,7 +128,7 @@
         })
     });
     //Get suggested tags and append to #suggested.
-    var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
+    var surl = "{% url 'SuggestTag' %}";
     $(".mdl-textfield__input").blur(function() {
         if ($(this).val()) {
             $("#p3")[0].MaterialProgress.setBuffer(50);
