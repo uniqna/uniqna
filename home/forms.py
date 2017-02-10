@@ -6,7 +6,7 @@ import re
 
 class registration(forms.Form):
     username = forms.CharField(min_length=4, max_length=15)
-    email = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     bio = forms.CharField(max_length=240)
@@ -30,3 +30,12 @@ class registration(forms.Form):
         if password1 != password2:
             raise forms.ValidationError("Your passwords do not match.")
         return password2
+
+
+class editForm(forms.Form):
+    email = forms.CharField(required=True)
+    bio = forms.CharField(max_length=240)
+    university = forms.ChoiceField(student.university_choices)
+    course = forms.ChoiceField(student.course_choices)
+    school = forms.ChoiceField(student.school_choices)
+    grad_year = forms.ChoiceField(student.grad_year_choices)

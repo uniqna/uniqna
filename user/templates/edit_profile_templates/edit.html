@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 	<div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset">
-        <form action="/register/" method="post">
+        <form action="" method="post">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% render_field regform.email class+="mdl-textfield__input" %}
@@ -41,13 +41,15 @@
 
             <center>
             <div class="ask1">
-            <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Register</button>
-              <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Register">
-                <i class="ask_icon material-icons">send</i>
+            <button class="submitdummy mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Done</button>
+              <button class="submit mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Done">
               </button>
             </div>
           </center>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    
+</script>
 {% endblock body %}
