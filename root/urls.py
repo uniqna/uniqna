@@ -23,6 +23,7 @@ from user import urls
 from RestApi import urls
 from root import settings
 from search import urls
+from user.views import forgot_password_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,6 +37,7 @@ urlpatterns = [
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
+    url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
 ]
 
 if settings.DEBUG is True:

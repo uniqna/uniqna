@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from ask.models import question
 from threads.models import answer
 from itertools import chain
-from home.forms import editForm, changePasswordForm
+from home.forms import editForm, changePasswordForm, emailForm
+from random import randint
+from django.core.mail import EmailMessage
 # Create your views here.
 
 
@@ -80,3 +82,37 @@ def ChangePassword(request, usr):
     else:
         cp_form = changePasswordForm()
         return render(request, "user_templates/changepassword.html", {"changeform": cp_form, "user_instance": req_user})
+
+
+def forgot_password_view(request):
+    if request.method == "POST" and request.POST:
+        emf = emailForm(request.POST)
+        if emf.is_valid():
+            email = emf.cleaned_data["email"]
+            print("badumtss")
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return render(request, "user_templates/forgotpassword.html", {"emailform": emf, "notexist": 1})
+            # Generating all the lowercase and uppercase chars
+            chars = [chr(i) for i in range(65, 123)]
+            # Randomising the length of the password
+            length = randint(6, 8)
+            # Choosing the password
+            pwd = [chars[randint(0, len(chars))] for i in range(0, length)]
+            # Generated password
+            pwdstring = ''.join(pwd)
+            # Make the password as the users password
+            user.set_password(pwdstring)
+            user.save()
+            # Mail the random password
+            body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + "\n\n\n Go here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
+            email_user = EmailMessage("Reset your password - uniqna.com", body, to=[email])
+            if email_user.send():
+                print("Success.")
+                return render(request, "user_templates/forgotpassword.html", {"success": 1})
+        else:
+            return render(request, "user_templates/forgotpassword.html", {"emailform": emf})
+    else:
+        emf = emailForm()
+        return render(request, "user_templates/forgotpassword.html", {"emailform": emf})
