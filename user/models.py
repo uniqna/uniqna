@@ -12,6 +12,11 @@ class ManagerExtender(models.Manager):
         unread_count = int(sum(unread_list))
         return unread_count
 
+    def sort_read(self):
+        unsorted = self.all()
+        srted = sorted(unsorted, key=lambda x: (x.theanswer.created_time, x.read), reverse=True)
+        return srted
+
 
 class student(models.Model):
     course_choices = (
@@ -53,6 +58,9 @@ class Answered(models.Model):
     theanswer = models.ForeignKey(answer, related_name="writted_answer")
     read = models.BooleanField(default=False)
     objects = ManagerExtender()
+
+    class Meta:
+        ordering = ["-read"]
 
 
 class Notifications(models.Model):

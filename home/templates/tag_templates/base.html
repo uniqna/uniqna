@@ -43,8 +43,11 @@
         width: 85px;
     }
 
-    .unread {
-        background: #B0BEC5;
+    .notif-inside {
+        color: black;
+    }
+    .unread .notif-inside {
+        color: #3F51B5;
     }
 
     @media (max-width: 479px) {
@@ -88,23 +91,31 @@
                 </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                {% if request.user.notifications.answers.all %}
+                {% with ansnotifs=request.user.notifications.answers  %}
+                {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
-                    <button class="mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left"><div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div></button>
+                    <button class="mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
+                    {% if ansnotifs.unread_count %}
+                    <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
+                    {% else %}
+                    <i class="material-icons">notifications</i>
+                    {% endif %}
+                    </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                    {% for ans in request.user.notifications.answers.all %}
+                    {% for ans in ansnotifs.sort_read %}
+                    <a href="{% url 'notif' ans.id %}">
                         <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
                         <p class="notif-inside">
-                        <a href="{% url 'notif' ans.id %}">
                         <strong>{{ ans.theanswer.answer_author }}</strong> wrote an answer for your question <strong>{{ ans.theanswer.question.title }}</strong>
                         <small> {{ ans.theanswer.created_time|timesince }} </small>ago.  
-                        </a>
                         </p>
                         </li>
+                    </a>
                     {% endfor %}
                     </ul>
                 </nav>
                 {% endif %}
+                {% endwith %}
                 {% if request.user.username %}
                 <nav class="mdl-navigation">
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
