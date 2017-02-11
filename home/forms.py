@@ -52,3 +52,7 @@ class changePasswordForm(forms.Form):
         if password1 != password2:
             raise forms.ValidationError("The passwords do not match.")
         return password2
+
+
+class emailForm(forms.Form):
+    email = forms.EmailField(required=True)
