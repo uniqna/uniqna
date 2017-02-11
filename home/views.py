@@ -117,4 +117,4 @@ def notif_redirect(request, pk):
     ans_notif.save()
     ques = ans_notif.theanswer.question.id
     ans = ans_notif.theanswer.id
-    return HttpResponseRedirect("/thread/" + str(ques) + "/#" + str(ans))
+    return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
