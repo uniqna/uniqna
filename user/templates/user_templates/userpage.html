@@ -286,10 +286,37 @@
     .tags a {
       color: #673AB7;
     }
+
     .editprofile {
         position: relative;
         top: 10px;
         right: 10px;
+    }
+
+    .edit_profile_parent {
+        padding: 0px;
+    }
+
+    .edit_profile_parent a {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .edit_profile_parent .mdl-button--primary.mdl-button--primary {
+      color: #FFFFFF;
+    }
+
+    .edit_profile_parent .mdl-button {
+      background-color: #90CAF9;
+    }
+
+    .edit_button {
+      margin-left: 0px;
+      margin-right: auto;
+    }
+
+    .change_password_button {
+      margin-right: 0px;
+      margin-left: auto;
     }
 
 
@@ -346,6 +373,13 @@
         .about p {
           font-size: 12px;
         }
+        .edit_button {
+          width: 100%;
+        }
+
+        .change_password_button {
+          width: 100%;
+        }
     }
 
     @media (max-width: 479px) {
@@ -365,18 +399,18 @@
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="about mdl-cell mdl-cell--12-col">
         {% if request.user.username == user_instance.username %}
-            <div class="mdl-grid">
+            <div class="edit_profile_parent mdl-grid">
             <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
             <center>
-            <a href="{% url 'edit_profile' user_instance.username %}" class="mdl-button mdl-button--primary">Edit Profile</a>
+            <a href="{% url 'edit_profile' user_instance.username %}" class="edit_button mdl-button mdl-button--primary">Edit Profile</a>
             <center>
             </div>
             <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
             <center>
-            <a href="{% url 'change_password' user_instance.username %}" class="mdl-button mdl-button--primary">Change Password</a>
+            <a href="{% url 'change_password' user_instance.username %}" class="change_password_button mdl-button mdl-button--primary">Change Password</a>
             <center>
             </div>
-            </div>  
+            </div>
         {% endif %}
             <h3 class="username">@{{user_instance.username}}</h3>
             <p>{{ user_instance.student.bio }}</p>

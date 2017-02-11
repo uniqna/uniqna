@@ -112,12 +112,20 @@
     .tags_label {
       font-size: 14px;
     }
+
     .notif-inside {
         color: black;
     }
+
     .unread .notif-inside {
-        color: #3F51B5;
+        color: #009688;
     }
+
+    .notifications {
+      width: 50px;
+      height: 50px;
+    }
+
     @media (max-width: 479px) {
         .mdl-mini-footer--link-list,
         .mdl-mini-footer__link-list {
@@ -145,7 +153,7 @@
                 </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                <!-- Navigation 
+                <!-- Navigation
                 {% if request.user.notifications.answers.all %}
                 <nav class="mdl-navigation">
                     <button class="mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left"><div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div></button>
@@ -155,7 +163,7 @@
                         <p class="notif-inside">
                         <a href="{% url 'notif' ans.id %}">
                         <strong>{{ ans.theanswer.answer_author }}</strong> wrote an answer for your question <strong>{{ ans.theanswer.question.title }}</strong>
-                        <small> {{ ans.theanswer.created_time|timesince }} </small>ago.  
+                        <small> {{ ans.theanswer.created_time|timesince }} </small>ago.
                         </a>
                         </p>
                         </li>
@@ -167,7 +175,7 @@
                 {% with ansnotifs=request.user.notifications.answers  %}
                 {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
-                    <button class="mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
+                    <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
                     {% if ansnotifs.unread_count %}
                     <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
                     {% else %}
@@ -179,8 +187,8 @@
                     <a href="{% url 'notif' ans.id %}">
                         <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
                         <p class="notif-inside">
-                        <strong>{{ ans.theanswer.answer_author }}</strong> wrote an answer for your question <strong>{{ ans.theanswer.question.title }}</strong>
-                        <small> {{ ans.theanswer.created_time|timesince }} </small>ago.  
+                        <strong>{{ ans.theanswer.answer_author }}</strong> answered your question <strong>{{ ans.theanswer.question.title }}</strong>
+                        <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
                         </p>
                         </li>
                     </a>
