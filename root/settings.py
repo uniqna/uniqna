@@ -113,6 +113,15 @@ else:
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     # STATIC_ROOT = os.path.join(BASE_DIR, 'static_refresh')
 
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'mail.privateemail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'superheroes@uniqna.com'
+EMAIL_HOST_PASSWORD = 'w4B7b@5#4jR9'
+DEFAULT_FROM_EMAIL = 'superheroes@uniqna.com'
+SERVER_EMAIL = 'superheroes@uniqna.com'
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
