@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from ask.models import question
@@ -9,6 +9,7 @@ from home.forms import editForm, changePasswordForm, emailForm
 from random import randint
 from django.core.mail import EmailMessage
 from user.models import Notifications
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
@@ -126,11 +127,15 @@ def update_all(request):
     log = ""
     cnt = 0
     for u in us:
-        n = Notifications()
-        n.user = u
-        n.save()
-        del n
-        log+= "<br>-> " + u.username
-        cnt+=1
-    log+="<br>==== " + cnt + " users updated ==="
-    return render(request, "<html>" + log + "</html")
+        try:
+            print(u.notifications)
+            print(u.username)
+        except ObjectDoesNotExist:
+            n = Notifications()
+            n.user = u
+            n.save()
+            del n
+            log+= "<br>-> " + u.username
+            cnt+=1
+            log+="<br>==== " + str(cnt) + " users updated ==="
+            return HttpResponse("<html>" + log + "</html>")
