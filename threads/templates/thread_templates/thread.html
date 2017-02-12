@@ -103,8 +103,8 @@
             {% if x.edited == True%}<br>{% endif %}
             <div class="meta_parent">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks"><strong>{{ x.answer_author }}</strong></a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %}
-                 Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks"><strong>{{ x.answer_author }}</strong></a> on <strong>{{ x.get_time }}</strong> {% endif %} {% if x.answer_author == username %}
+                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %}
+                 Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
             </div>
             <div class="answer_user">
               {% if x.edited == False%} {% endif %}

@@ -111,7 +111,7 @@ else:
     }
     DEBUG = True
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static_refresh')
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
