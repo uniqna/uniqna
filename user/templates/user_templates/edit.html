@@ -1,6 +1,15 @@
 {% extends "user_templates/base.html" %}
 {% block body %}
 {% load widget_tweaks %}
+<style>
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font_fix {
+    font-family: 'Montserrat', sans-serif;
+  }
+</style>
     <center>
         <h2>Edit Profile</h2>
     </center>
@@ -44,15 +53,13 @@
 
             <center>
             <div class="ask1">
-            <button class="submitdummy mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Done</button>
-              <button class="submit mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Done">
-              </button>
+            <button type="submit" class="font_fix submitdummy mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Done</button>
             </div>
           </center>
         </form>
     </div>
 </div>
 <script type="text/javascript">
-    
+
 </script>
 {% endblock body %}
