@@ -14,6 +14,10 @@
     <div class="question_meta mdl-cell mdl-cell--12-col">
         <p> Asked {{ question.created_time|timesince }} ago by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
     </div>
+    <div class="question_meta_tags mdl-cell mdl-cell--12-col">
+      {% for t in question.tags.all %}
+      <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+    </div>
     <div class="question_meta_answers mdl-cell mdl-cell--12-col">
         {{ question.views}}
     </div>
@@ -99,7 +103,7 @@
             {% if x.edited == True%}<br>{% endif %}
             <div class="meta_parent">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if x.edited %} Answered by {<a href="{% url 'user' x.answer_author %}" class="userlinks"><strong>{{ x.answer_author }}</strong></a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %}
+                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks"><strong>{{ x.answer_author }}</strong></a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %}
                  Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks"><strong>{{ x.answer_author }}</strong></a> on <strong>{{ x.get_time }}</strong> {% endif %} {% if x.answer_author == username %}
             </div>
             <div class="answer_user">
