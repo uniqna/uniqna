@@ -108,7 +108,7 @@ def forgot_password_view(request):
             user.set_password(pwdstring)
             user.save()
             # Mail the random password
-            body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + "\n\n\n Go here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
+            body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + "\n\n\nGo here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
             email_user = EmailMessage("Reset your password - uniqna.com", body, to=[email])
             if email_user.send():
                 print("Success.")
@@ -135,7 +135,7 @@ def update_all(request):
             n.user = u
             n.save()
             del n
-            log+= "<br>-> " + u.username
-            cnt+=1
-            log+="<br>==== " + str(cnt) + " users updated ==="
+            log += "<br>-> " + u.username
+            cnt += 1
+            log += "<br>==== " + str(cnt) + " users updated ==="
             return HttpResponse("<html>" + log + "</html>")
