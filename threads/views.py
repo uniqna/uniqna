@@ -5,30 +5,10 @@ from threads.forms import answer_form
 from threads.models import answer
 from ask.models import question
 from datetime import datetime
+import markdown2
 from root.algorithms import vote_score
-
-
-# Get the ups and down of an answer or send a vote
-
-"""
-class VotesView(APIView):
-
-    def get(self, request):
-        answers = answer.objects.all()
-        serializer = AnswerSerializer(answers, many=True)
-        return Response(serializer.data)
-
-    def post(self):
-        pass
-
-
-@api_view(["GET", "POST"])
-def vote_rest(request, pk):
-    if request.method == "GET":
-        instance = get_object_or_404(answer, pk=pk)
-        serializer = AnswerSerializer(instance)
-        return Response(serializer.data)
-"""
+from user.models import Answered
+from django.contrib.auth.models import User
 
 
 def thread(request, thread_id):
@@ -38,12 +18,16 @@ def thread(request, thread_id):
         raise Http404()
     username = request.user.username
     question_requested = get_object_or_404(question, pk=thread_id)
+    description = markdown2.markdown(question_requested.description)
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
     all_answers = answer.objects.filter(question=thread_id).order_by("-score")
+    for x in all_answers:
+        x.description = markdown2.markdown(x.description)
     return render(request,
                   'thread_templates/thread.html',
                   {'question': question_requested,
+                   'description': description,
                    'username': username,
                    'form': unsubmitted_answer,
                    'all_answers': all_answers})
@@ -60,6 +44,11 @@ def submit_answer(request, question_id):
             instance.save()
             question_answered.answers = answer.objects.filter(question=question_id).count()
             question_answered.save()
+            ans_notif = Answered()
+            ans_notif.theanswer = instance
+            ans_notif.save()
+            question_author = get_object_or_404(User, username=question_answered.author)
+            question_author.notifications.answers.add(ans_notif)
             return HttpResponseRedirect("/thread/" + str(question_id))
 
 

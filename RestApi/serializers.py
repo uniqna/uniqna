@@ -4,17 +4,17 @@ from ask.models import tag, question
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-	ups = serializers.StringRelatedField(many=True)
-	downs = serializers.StringRelatedField(many=True)
+	ups = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+	downs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
 	class Meta:
 		model = answer
-		fields = ("id", "ups", "downs")
+		fields = ("id", "ups", "downs", "points")
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-	ups = serializers.StringRelatedField(many=True)
-	downs = serializers.StringRelatedField(many=True)
+	ups = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+	downs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
 	class Meta:
 		model = question

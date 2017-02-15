@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'home',
     'ask',
     'threads',
-    'trumbowyg',
     'django_bleach',
     'user',
     'widget_tweaks',
@@ -112,8 +111,17 @@ else:
     }
     DEBUG = True
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static_refresh')
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'mail.privateemail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'superheroes@uniqna.com'
+EMAIL_HOST_PASSWORD = 'w4B7b@5#4jR9'
+DEFAULT_FROM_EMAIL = 'superheroes@uniqna.com'
+SERVER_EMAIL = 'superheroes@uniqna.com'
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -151,10 +159,9 @@ TIME_ZONE = 'Asia/Kolkata'
 STATIC_URL = '/static/'
 # Django Bleach settings
 # Which HTML tags are allowed
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote']
+BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code']
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
 BLEACH_STRIP_TAGS = True
 
-EL_PAGINATION_PREVIOUS_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_back</i></button>"""
-EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"><i class="material-icons navigation">arrow_forward</i></button>"""
+EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">Load More</button>"""

@@ -50,6 +50,7 @@ class CreateTag(APIView):
 
 	def post(self, request):
 		serializer = TagSerializer(data=request.data)
+		print(request.data["name"])
 		print("data received")
 		if serializer.is_valid():
 			print("tag is valid")
@@ -62,7 +63,8 @@ class CreateTag(APIView):
 class VotesView(APIView):
 
 	def get(self, request):
-		answers = answer.objects.all()
+		answer.objects.ScoreUpdate()
+		answers = answer.objects.order_by("-score")
 		serializer = AnswerSerializer(answers, many=True)
 		return Response(serializer.data)
 
@@ -94,6 +96,7 @@ class AnswerVote(APIView):
 			vote_on_other.remove(request.user)
 		else:
 			vote_on.remove(request.user)
+		ans.set_score()
 		print("saved")
 		ans.save()
 		return ans
