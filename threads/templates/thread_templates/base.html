@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night."/>
+    <meta name="description" content="{{question.question_author}} asked {{question.title}}"/>
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{{ question.title }}</title>
@@ -418,7 +418,10 @@
     <script src='{% static "js/vote.js" %}'></script>
     <script>
         var simplemde = new SimpleMDE({
-            element: $("#MyID")[0]
+            element: $("#MyID")[0],
+            hideIcons: ["quote", "fullscreen"],
+            spellChecker: false,
+            placeholder: "Type here...",
         });
         //Answer voting
         $(".ansUpvote").click(function(){
