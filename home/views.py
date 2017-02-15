@@ -1,8 +1,8 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.template.loader import get_template
-from django.template import Template, Context
-from django.shortcuts import render, redirect, get_object_or_404
+from django.template import RequestContext
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question, tag

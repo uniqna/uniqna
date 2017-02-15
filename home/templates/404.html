@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}
+	404 - Page Not Found
+{% endblock title %}
+{% block body %} 
+<style type="text/css">
+	h2 {
+		color: #F44336;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 2;
+		text-shadow: 2px 2px 5px #ccc;
+	}
+	h3 {
+		color: #3F51B5;
+		font-size: 12px;
+		font-weight: 200;
+		line-height: 2;
+		text-shadow: 2px 2px 5px #ccc;
+	}
+	@media (min-width: 500px){
+		h2{
+			font-size: 23px;
+		}
+		h3 {
+			font-size: 17px;
+			line-height: 1;
+		}
+	}
+	@media (min-width: 700px){
+		h2{
+			font-size: 30px;
+		}
+		h3 {
+			font-size: 22px;
+			line-height: 1;
+		}
+	}
+</style>
+<center>
+	<h2>Ooops Error 404 occured.</h2>
+	<h3>That means the page you wanted to see wasn't found</h3>
+</center>
+{% endblock body %}
