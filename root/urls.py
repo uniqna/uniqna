@@ -20,24 +20,24 @@ from home import views
 from tinymce import urls
 from threads import urls
 from user import urls
-from home.views import vote
 from RestApi import urls
 from root import settings
 from search import urls
+from user.views import forgot_password_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
-    url(r'question/(\d{1,5})/([ud])/$', views.vote, name='qvote'),
-    url(r'^validation/$', views.validation),
     url(r'^logout/$', views.logout_view, name='logout'),
-    url(r'^register/$', views.register),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
+    url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
     url(r'^ask/', include('ask.urls')),
-    url(r'^trumbowyg/', include('trumbowyg.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
+    url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
 ]
 
 if settings.DEBUG is True:

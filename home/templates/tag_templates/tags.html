@@ -1,0 +1,393 @@
+{% extends "tag_templates/base.html" %}
+{% block body %}
+<style>
+    a {
+        color: black;
+    }
+
+    .mdl-cell--10-col {
+        background-color: #EEEEEE;
+        height: auto;
+    }
+
+    .platform {
+        padding: 0px;
+        height: 100px;
+    }
+
+    .title {
+        margin-left: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-size: 18px;
+        color: #424242;
+    }
+
+    .meta {
+        margin: 0px;
+        width: 90%;
+    }
+
+    .a_title {
+        color: #424242;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    .votes {
+        width: 43px;
+        margin: 0px;
+        margin-left: 9px;
+    }
+
+    .score {
+        width: 32px;
+    }
+
+    .voting {
+        padding: 0px;
+        margin: 0px;
+        width: 50px;
+    }
+
+    .solved {
+        color: #009688;
+        font-size: 18px;
+        position: absolute;
+        padding-left: 5px;
+    }
+
+    .votecolor {
+        color: #424242;
+    }
+
+    .searchparent {
+        padding: 5px;
+        margin: 0px;
+        height: 75px;
+        background-color: #F5F5F5;
+    }
+
+    .search {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .searchform {
+        height: 100%;
+    }
+
+    .searchbottommargin {
+        padding: 22px 0;
+    }
+
+    .searchbottommargin2 {
+        border-bottom: none;
+    }
+
+    .postsearchparent {
+        height: 40px;
+        padding-bottom: 0px;
+    }
+
+    .postsearch {
+        height: 100%;
+        margin: 0px;
+        margin-right: 0px;
+        margin-top: 5px;
+        margin-left: auto;
+    }
+
+    .statistics {
+        color: #009688;
+        font-size: 14px;
+        width: 265px;
+        margin-right: 7px;
+        margin-left: 7px;
+        float: right;
+    }
+
+    .ask {
+        width: 184px;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-left: 0px;
+    }
+
+    .askbutton {
+        width: 100%;
+        font-size: 14px;
+        height: 100%;
+        font-family: 'Montserrat', sans-serif;
+        color: #009688;
+    }
+
+    .date {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #D81B60;
+    }
+
+    .author {
+        float: right;
+        color: #D81B60;
+    }
+
+    .authorlink {
+        color: #D81B60;
+    }
+
+    .answers {
+      margin-left: 0px;
+      font-size: 11px;
+      color: #009688;
+    }
+
+    .tags {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #673AB7;
+    }
+
+    .mdl-layout__header {
+        box-shadow: none;
+    }
+
+    .mdl-layout__header-row a {
+        color: white;
+    }
+
+    .endless_page_link {
+        color: #424242;
+    }
+
+    .pagination {
+        height: 80px;
+        background: #FFFFFF;
+    }
+
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list a {
+        color: #9e9e9e;
+    }
+
+    .about {
+        border-top: 4px rgba(163, 163, 163, 0.5) dashed;
+        border-bottom: 4px rgba(163, 163, 163, 0.5) dashed;
+    }
+
+    .about p {
+        color: #424242;
+        margin: 8px;
+    }
+
+    .mdl-tabs__tab-bar {
+        border-bottom: none;
+    }
+
+    .viewans {
+        color: #3949AB;
+    }
+
+    .platform {
+        background-color: #EEEEEE;
+    }
+
+    .answer {
+        width: calc(100% - 100px);
+        padding: 10px;
+        color: #424242;
+        padding-top: 20px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        position: relative;
+        margin-top: 0px;
+        margin-left: 0px;;
+        margin-bottom: 0px;
+    }
+
+    .answer_description a {
+        color: #3949AB;
+    }
+
+    .answer_description h4 {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .answer p {
+        margin: 0px;
+    }
+
+    .answer_parent {}
+
+    .answer_user {
+        float: left;
+    }
+
+    .answer_author_meta {
+        float: right;
+        width: 100%;
+        margin: 0px;
+        margin-right: 10px;
+        color: #009688;
+    }
+
+    .platform_answer {
+        height: 100%;
+        background-color: #FAFAFA;
+        padding-top: 0px;
+    }
+
+    .username {
+        color: #3F51B5;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .jscroll-inner {
+        width: 100%;
+    }
+
+    .pagination .mdl-button {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF;
+        background-color: #64B5F6;
+    }
+
+    .mdl-menu__item a {
+        color: #424242;
+    }
+
+    .meta_parent {
+      margin-left: auto;
+      padding-bottom: 15px;
+    }
+
+    .answer_align_fix {
+      width: 65px;
+    }
+
+    .tags a {
+      color: #673AB7;
+    }
+
+    .results_true {
+      font-size: 14px;
+      color: #009688;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    h3 {
+      color: #673AB7;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    @media (max-width: 479px) {
+        .ask {
+            position: relative;
+            margin: 0px;
+            width: 100%;
+            height: 56px;
+            padding-top: 17px;
+        }
+        .statistics {
+            color: #009688;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            font-size: 12px;
+            text-align: center;
+        }
+        .postsearchparent {
+            height: 95px;
+            padding-bottom: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+        .postsearch {
+            height: 37.5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .a_title {
+            font-size: 12px;
+        }
+        .mdl-textfield__input {
+            font-size: 15px;
+            padding: 17px 0;
+        }
+
+        .answer p {
+            font-size: 12px;
+        }
+
+        .answer_author_meta {
+          font-size: 12px;
+        }
+    }
+
+    @media (max-width: 479px) {
+      .a_title {
+        font-size: 11px;
+      }
+
+      body {
+        line-height: 15px;
+      }
+    }
+</style>
+<center>
+  <h3>#{{ tags.name }}</h3>
+  {% if tags.question_set.count %}
+    <h5 class="results_true">{{tags.question_set.count}} posts so far </h5>
+  {% else %}
+    <h5 class="results_true">No posts yet</h5>
+  {% endif %}
+  </center>
+  {% for q in tags.question_set.all %}
+  {% include "user_templates/ques_ans.html" with instance=q %}
+  {% endfor %}
+  <style type="text/css">
+    .taglinks {
+      color: #2196F3;
+    }
+    .postcount {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 10px;
+    }
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+  </style>
+{% endblock body %}
+{% block votescript %}
+        <script type="text/javascript">
+        $(".upvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
+                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+        $(".downvote").click(function(){
+            vote_url = $(this).data("url");
+            id = $(this).data("id");
+           $.get(vote_url, function(data, status){
+                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#up"+id).removeClass("vote-success").addClass("vote-default");
+                $("#score"+id).children()[0].textContent = data.points;
+           });
+        });
+</script>
+{% endblock votescript %}

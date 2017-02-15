@@ -1,71 +1,69 @@
-{% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% block content %}
+{% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% load staticfiles %}{% block content %}
 <form action="{% url 'question_submit' %}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
         <div id="title_label">
-        <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
+            <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
         </div>
     </div>
-    <strong><p class="blank-error" id="title_error">Fill up the question!!!</p></strong>
-    <div class="trumbowyg-demo">
-        {{ form.description }}
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
+    {{ form.description }} {% csrf_token %}
     </div>
-    {% csrf_token %}
-    <center>
-    <strong><p class="blank-error" id="desc_error">Fill up the description!!!</p></strong>
-    <br>
-    <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col">
-    <input type='text'
-       placeholder='Select the tags'
-       id="tags_input"
-       class='flexdatalist'
-       data-min-length='1'
-       data-selection-required="1"
-       data-value-property='id'
-       multiple='multiple'
-       list='tags'
-       name='selectedtags'
-       width="200">
-    <datalist id="tags">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
+                <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
+
+                <datalist id="tags">
         {% for tag in tags %}
             <option value="{{tag.id}}">{{tag.name}}</option>
         {% endfor %}
       </datalist>
-      </div>
-      <div class="mdl-cell mdl-cell--6-col">
-        <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
+
+            </div>
+        </div>
         <center>
-        <div class="tagcreated">
-            <p class="mdl-button mdl-button--accent">Tag Created</p>
+        <div class="mdl-cell mdl-cell--6-col">
+            <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
+
+                <div class="tagcreated">
+                    <p class="mdl-button mdl-button--accent">Tag Created</p>
+                </div>
+            <div id="newtagdiv">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag">
+                    <label class="tags_label mdl-textfield__label" for="sample3">Enter new tag name</label>
+                </div><br>
+                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
+            </div>
         </div>
-        </center>
-        <div id="newtagdiv">
-            <label for="newtab">Enter new tag name:</label>
-            <input type="text" name="new_tag" id="newtag">
-            <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
-        </div>
-        </div>
-        </div>
-    <a class="mdl-button mdl-js-button mdl-button--primary mdl-js-button submit" href="#" value="Ask">Ask</a></center>
-    <input type="submit" name="submit" class="hidden" value="Sup">
+            <input type="submit" name="submit" class="submit" value="Ask!">
+            <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
+      <i class="ask_icon material-icons">send</i>
+    </button>
+        </center><br>
 </form>
-{% endblock %}
-{% block script %}
-    <script>
+{% endblock %} {% block script %}
+<script src="{% static 'js/notyf.js' %}"></script>
+<script>
+    var simplemde;
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
-            this.MaterialProgress.setProgress(0);
-            this.MaterialProgress.setBuffer(0);
+        this.MaterialProgress.setProgress(0);
+        this.MaterialProgress.setBuffer(0);
+    });
+    $(document).ready(function() {
+        simplemde = new SimpleMDE({
+            element: $("[name=description]")[1],
+            hideIcons: ["quote", "fullscreen"],
+            spellChecker: false,
+            placeholder: "Type here...",
         });
-        $(document).ready(function() {
-            $('#id_description').trumbowyg();
-        });
-    //Add new tag 
+    });
+    //Add new tag
     $("#newtagdiv").hide();
     $(".tagcreated").hide();
     $(".blank-error").hide();
-    $("#addtag").click(function(){
+    $("#addtag").click(function() {
         $("#newtagdiv").show();
     })
     //Getting csrf token from stored cookie
@@ -97,59 +95,104 @@
         }
     });
     //Update Progress
-    $(document).ready(function(){
-        $(".trumbowyg-editor").blur(function(){
-        if($(".trumbowyg-textarea").val()){
-            $("#p3")[0].MaterialProgress.setBuffer(100)
-        }
-    })
+    $(document).ready(function() {
+        $(".CodeMirror-scroll").blur(function() {
+            if (simplemde.value()) {
+                $("#p3")[0].MaterialProgress.setBuffer(100)
+            }
+        })
     })
     //Create Tag
-    var purl = "http://127.0.0.1:8000{% url 'CreateTag' %}";
-    $("#create_tag").click(function(){
-        var data = {"name": $("#newtag").val()}
-        $.post(purl, data, function(data, status){
-            document.getElementById("newtag").value=""
+    var purl = "{% url 'CreateTag' %}";
+    var fail;
+    $("#create_tag").click(function() {
+        var data = {
+            "name": $("#newtag").val()
+        }
+        $.post(purl, data, function(data, status) {
+            document.getElementById("newtag").value = ""
             $(".tagcreated").fadeIn(2000).fadeOut(2000);
             $("#newtagdiv").hide()
-            document.getElementById("tags_input").value = document.getElementById("tags_input").value + ","+data.name
-            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data.name+"</span><span class='fdl-remove'>×</span></li>");
+            document.getElementById("tags_input").value = document.getElementById("tags_input").value + "," + data.name
+            $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + data.name + "</span><span class='fdl-remove custom-remove' data-name='" + data.name + "'>×</span></li>");
+            $(".custom-remove").off("click");
+            $(".custom-remove").on("click", function() {
+                var container = $(this).parent();
+                var _vals = document.getElementById("tags_input").value.split(",");
+                var toRemove = _vals.indexOf($(this).data("name"));
+                _vals.splice(toRemove, 1);
+                alert(toRemove + " " + _vals);
+                document.getElementById("tags_input").value = _vals.join(",");
+                container.remove();
+            });
+        }).fail(function(data) {
+            alert("Tag already exists");
         })
     });
-    //Get suggested tags adn append to #suggested.
-    var surl = "http://127.0.0.1:8000{% url 'SuggestTag' %}";
-    $(".mdl-textfield__input").blur(function(){
-        if($(this).val()){
-        $("#p3")[0].MaterialProgress.setBuffer(50);
-        $.post(surl, {"text": $(this).val()}, function(data, status){
-            if(status=="success" && data.length){
-                vals = document.getElementById("tags_input").value.split(",");
-                for(var i=0;i<(data.length);i++){
-                    vals.push(data[i].name);
-                   $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>"+data[i].name+"</span><span class='fdl-remove'>×</span></li>"); 
+    //Get suggested tags and append to #suggested.
+    var surl = "{% url 'SuggestTag' %}";
+    $(".mdl-textfield__input").blur(function() {
+        if ($(this).val()) {
+            $("#p3")[0].MaterialProgress.setBuffer(50);
+            $.post(surl, {
+                "text": $(this).val()
+            }, function(data, status) {
+                if (data.length) {
+                    vals = document.getElementById("tags_input").value.split(",");
+
+                    function validateData(obj) {
+                        for (i = 0; i < vals.length; i++) {
+                            if (obj.name == vals[i]) {
+                                return 0;
+                            }
+                        }
+                        return 1;
+                    }
+                    var validated = data.filter(validateData);
+                    for (var i = 0; i < (validated.length); i++) {
+                        vals.push(validated[i].name);
+                        $(".flexdatalist-multiple").prepend("<li class='value'><span class='text'>" + validated[i].name + "</span><span class='fdl-remove custom-remove' data-name='" + validated[i].name + "'>×</span></li>");
+                    }
+                    document.getElementById("tags_input").value = vals.join(",");
+                    $(".custom-remove").off("click");
+                    $(".custom-remove").on("click", function() {
+                        var container = $(this).parent();
+                        var _vals = document.getElementById("tags_input").value.split(",");
+                        var toRemove = _vals.indexOf($(this).data("name"));
+                        _vals.splice(toRemove, 1);
+                        alert(toRemove + " " + _vals);
+                        document.getElementById("tags_input").value = _vals.join(",");
+                        container.remove();
+                    });
                 }
-                document.getElementById("tags_input").value = vals.join(",");
-            }
-        });
-    }
+            });
+        }
     });
-    //Submit fields
-    $(".submit").click(function(){
-        var qtitle = $("#id_title").val();
-        var qdesc = $(".trumbowyg-textarea").val();
-        if(qdesc==""){
-            $(".trumbowyg-box").effect("shake")
-            $("#desc_error").fadeIn(1000)
+    //Client side error
+    var n = new Notyf({
+        delay: 5000
+    });
+    $(".submit").hide();
+    $('#submitdummy').on("click", function(e) {
+        e.preventDefault();
+        flag = 1;
+        if ($("#id_title").val() == "") {
+            n.alert("Title is blank.")
+            flag = 0;
         }
-        else if(qtitle==""){
-            $("#title_label").effect("shake")
-            $("#title_error").fadeIn(1000)
+        if ($("#id_title").val().length <= 10) {
+            n.alert("Title is too short.")
+            flag = 0;
         }
-        else{
-        $("#p3")[0].MaterialProgress.setProgress(50);
-        $(".hidden").click();
-        $("#p3")[0].MaterialProgress.setProgress(100);
+        if (simplemde.value() == "") {
+            $(".CodeMirror").effect("shake")
+            n.alert("Description is blank.")
+            flag = 0;
         }
-    })
-    </script>
+        if (flag) {
+            $(".submit").click();
+        }
+
+    });
+</script>
 {% endblock script %}

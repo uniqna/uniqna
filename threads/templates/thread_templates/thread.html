@@ -1,24 +1,133 @@
-{% extends 'thread_templates/base.html' %}
-{% load bleach_tags %}
+{% extends 'thread_templates/base.html' %} {% load bleach_tags %} {% block question %}
 
-{% block question %}
+<center>
+    {% if question.solved == False %}
+    <div class="question_title mdl-cell mdl-cell--12-col">
+        {{ question.title }}
+    </div>
+    {% else %}
+    <div class="question_title_solved mdl-cell mdl-cell--12-col">
+        {{ question.title }}
+    </div>
+    {% endif %}
 
-<center><h1>{{ question.title }}</h1> {% if question.solved == True %} <span class="label label-success">Solved</span> {% endif %}
-<a href="{% url 'user' question.author %}" class="text-info">{{ question.author }}</a>
-<p>{{ question.description|bleach }}</p>
-{% if question.tags.all %}
-	{% for tag in question.tags.all %}
-		 <a href"#"><span class="label label-info">{{ tag.name }}</span></a>
-	{% endfor %}
-{% endif %}
-
-<p>Question asked on {{ question.get_time }}</p>
+    <div class="question_meta mdl-cell mdl-cell--12-col">
+        <p> Asked {{ question.created_time|timesince }} ago by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
+    </div>
+    <div class="question_meta_tags mdl-cell mdl-cell--12-col">
+      {% for t in question.tags.all %}
+      <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+    </div>
+    <div class="question_meta_answers mdl-cell mdl-cell--12-col">
+        {{ question.views}}
+    </div>
 </center>
-{% if question.author == username %}
-  <center><a href="{% url 'delete_question' question.pk %}">Delete?</a></center>
-  {% if question.solved == False %}
-  <center><a href="{% url 'mark_answer_solved' question.pk %}" class="btn btn-success">Mark as Solved?</a></center>
-  {% endif %}
-{% endif %}
 
+{% if question.author == username %}
+<center><a class="question_delete" href="{% url 'delete_question' question.pk %}">Delete?</a></center>
+{% if question.solved == False %}
+<center><a class="question_solved" href="{% url 'mark_answer_solved' question.pk %}">Mark as Solved?</a></center>
+{% endif %} {% endif %}
+
+<div class="question_description_parent mdl-cell mdl-cell--10-col">
+    <div class="question_description mdl-cell mdl-cell--10-col">
+        {{ description|bleach }}
+    </div>
+</div>
+
+<div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell mdl-cell--2-col voting">
+        <div class="mdl-grid voting">
+                    <div class="mdl-cell mdl-cell--1-col votesu">
+                            <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote"  data-id="{{question.pk}}">
+                    <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
+                    </button>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
+                        <center>{{ question.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votesd">
+                            <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{question.pk}}">
+                    <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
+                    </button>
+                    </div>
+ </div>
+    </div>
+</div>
+
+<center>
+    <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
+</center>
+<div class="writeanswer">
+<form action="answer/" method="post">
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
+        {{ form.description }} {% csrf_token %}
+    </div>
+    <center>
+    <div class="ask1">
+      <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Ask">
+        <i class="ask_icon material-icons">send</i>
+      </button>
+    </div>
+    </center>
+</form>
+</div>
+<br><br> {% load bleach_tags %} {% for x in all_answers %}
+
+<!-- -->
+
+<div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-grid platform answer_parent">
+        <div class="mdl-cell mdl-cell--1-col">
+            <div class="mdl-grid voting-align">
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
+                    </button>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col score" id="ansScore{{x.pk}}">
+                        <center>{{ x.points }}</center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                            <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{x.pk}}">
+                    <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
+                    </button>
+                    </div>
+                </div>
+        </div>
+
+        <div class="answer">
+          <div class="answer_description" id="a{{x.pk}}">
+            {{ x.description|bleach }}
+          </div>
+            {% if x.edited == True%}<br>{% endif %}
+            <div class="meta_parent">
+            <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %}
+                 Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
+            </div>
+            <div class="answer_user">
+              {% if x.edited == False%} {% endif %}
+                <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
+                <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>{% if x.edited == False%}
+                 {% endif %}
+                 {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<style type="text/css">
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+</style>
+<!-- -->
 {% endblock %}
