@@ -8,7 +8,7 @@
         <form action="/register/" method="post">
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                {% render_field regform.username class+="mdl-textfield__input" %}
+                {% render_field regform.username class+="mdl-textfield__input" autocapitalize="none"%}
                 {% if regform.username.errors %}
                 <br>
                     {% for err in regform.username.errors %}
