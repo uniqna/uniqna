@@ -34,6 +34,14 @@ class student(models.Model):
         ("VITBS", "VITBS"),
         ("VITSOL", "VITSOL"),
         ("VFIT", "VFIT"),
+        ("V-SPARC", "V-SPARC"),
+        ("SBST", "SBST"),
+        ("SCALE", "SCALE"),
+        ("SCOPE", "SCOPE"),
+        ("SITE", "SITE"),
+        ("SMEC", "SMEC"),
+        ("SSL", "SSL"),
+        ("LAW", "LAW"),
     )
     grad_year_choices = (
         ("2017", "2017"),
