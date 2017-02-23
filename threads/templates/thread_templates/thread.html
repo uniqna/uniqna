@@ -78,17 +78,17 @@
 
 <div class="mdl-cell mdl-cell--12-col">
     <div class="mdl-grid platform answer_parent">
-        <div class="mdl-cell mdl-cell--1-col">
+        <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
             <div class="mdl-grid voting-align">
-                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
                             <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{x.pk}}">
                     <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
                     </button>
                     </div>
-                    <div class="mdl-cell mdl-cell--1-col score" id="ansScore{{x.pk}}">
+                    <div class="mdl-cell mdl-cell--1-col score answer_score_size" id="ansScore{{x.pk}}">
                         <center>{{ x.points }}</center>
                     </div>
-                    <div class="mdl-cell mdl-cell--1-col votes voting_align">
+                    <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
                             <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{x.pk}}">
                     <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
                     </button>
