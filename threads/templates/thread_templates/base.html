@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{question.question_author}} asked {{question.title}}"/>
+    <meta name="description" content="{{question.question_author}} asked {{question.title}}" />
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{{ question.title }}</title>
@@ -120,7 +120,7 @@
     }
 
     .question_description p {
-      margin: 16px 0 16px;
+        margin: 16px 0 16px;
     }
 
     .question_delete {
@@ -170,11 +170,12 @@
     }
 
     .answer {
-        width: calc(100% - 130px);
+        width: calc(100% - 85px);
         padding: 10px;
         color: #424242;
-        padding-top: 26px;
-        padding-bottom: 75px;
+        padding-top: 5px;
+        padding-bottom: 30px;
+        padding-left: 15px;
         position: relative;
     }
 
@@ -226,7 +227,11 @@
     }
 
     .voting_align {
-        width: 70px;
+        width: 50px;
+    }
+
+    .voting-align {
+        padding: 0px;
     }
 
     .meta_parent {
@@ -258,16 +263,29 @@
     }
 
     .notifications {
-      width: 50px;
-      height: 50px;
+        width: 50px;
+        height: 50px;
     }
 
-    .question_meta p{
-      margin: 0 0 0px;
+    .question_meta p {
+        margin: 0 0 0px;
     }
 
-    .question_meta_tags a{
-      color: #673AB7;
+    .question_meta_tags a {
+        color: #673AB7;
+    }
+
+    .answer_voting_parent {
+        width: 40px;
+        margin: 0px;
+    }
+
+    .answer_vote_size {
+        margin: 0px;
+    }
+
+    .answer_score_size {
+        margin: 0px;
     }
 
     @media (max-width: 479px) {
@@ -295,19 +313,31 @@
             line-height: 25px;
             padding-top: 25px;
         }
-    }
-
-    @media (max-width: 839px) and (min-width: 480px) {
-        .answer_author_meta {
-            float: left;
+        .answer p {
+            font-size: 12px;
         }
-    }
-
-    @media (min-width: 1367px) {
+        .meta_parent {
+            font-size: 12px;
+        }
+        .question_delete {
+            font-size: 12px;
+        }
+        .question_solved {
+            font-size: 12px;
+        }
+        .question_meta p {
+            font-size: 12px;
+        }
         .answer {
-            width: calc(100% - 190px);
+            padding-top: 5px;
+            padding-bottom: 40px;
+        }
+        .can_you_help p{
+            font-size: 12px;
         }
     }
+
+    @media (max-width: 839px) and (min-width: 480px) {}
 
     @media (max-width: 320px) {
         html,
@@ -316,7 +346,14 @@
             font-size: 12px;
         }
         .answer {
-            padding-top: 29px;
+            padding-top: 5px;
+            padding-bottom: 60px;
+        }
+        ul {
+            font-size: 12px;
+        }
+        .can_you_help p{
+            font-size: 12px;
         }
     }
 </style>
@@ -335,8 +372,7 @@
                 </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                {% with ansnotifs=request.user.notifications.answers  %}
-                {% if ansnotifs.all %}
+                {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
                     <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
                     {% if ansnotifs.unread_count %}
@@ -346,20 +382,19 @@
                     {% endif %}
                     </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                    {% for ans in ansnotifs.sort_read %}
-                    <a href="{% url 'notif' ans.id %}">
-                        <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
-                        <p class="notif-inside">
-                        {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title }}
-                        <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
-                        </p>
-                        </li>
-                    </a>
-                    {% endfor %}
+                        {% for ans in ansnotifs.sort_read %}
+                        <a href="{% url 'notif' ans.id %}">
+                            <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
+                                <p class="notif-inside">
+                                    {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title }}
+                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
+                                </p>
+                            </li>
+                        </a>
+                        {% endfor %}
                     </ul>
                 </nav>
-                {% endif %}
-                {% endwith %}
+                {% endif %} {% endwith %}
                 <!-- Navigation -->
                 <nav class="mdl-navigation">
                     <a> {{ username }} </a>
@@ -424,23 +459,23 @@
             placeholder: "Type here...",
         });
         //Answer voting
-        $(".ansUpvote").click(function(){
+        $(".ansUpvote").click(function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#ansUp"+id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#ansDown"+id).removeClass("vote-danger").addClass("vote-default")
-                $("#ansScore"+id).children()[0].textContent = data.points;
-           });
+            $.get(vote_url, function(data, status) {
+                $("#ansUp" + id).toggleClass("vote-default").toggleClass("vote-success");
+                $("#ansDown" + id).removeClass("vote-danger").addClass("vote-default")
+                $("#ansScore" + id).children()[0].textContent = data.points;
+            });
         });
-        $(".ansDownvote").click(function(){
+        $(".ansDownvote").click(function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#ansDown"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#ansUp"+id).removeClass("vote-success").addClass("vote-default");
-                $("#ansScore"+id).children()[0].textContent = data.points;
-           });
+            $.get(vote_url, function(data, status) {
+                $("#ansDown" + id).toggleClass("vote-default").toggleClass("vote-danger");
+                $("#ansUp" + id).removeClass("vote-success").addClass("vote-default");
+                $("#ansScore" + id).children()[0].textContent = data.points;
+            });
         });
     </script>
     <script>
@@ -460,4 +495,5 @@
         ga('send', 'pageview');
     </script>
 </body>
+
 </html>
