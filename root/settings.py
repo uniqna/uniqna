@@ -114,14 +114,13 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'qnadb',
-            'USER': 'jeremyphilemon',
-            'PASSWORD': 'XnfvtmdWkUfDZwKKmnEcbpQJPJZYKrJmzBZenVxZQNRMbxdjtCCSZtckvR',
-            'HOST': 'qnadb.cmtq348kawjn.ap-south-1.rds.amazonaws.com',
-            'PORT': '5432',
+            'NAME': 'uniqna',
+            'USER': 'moderator',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
-
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
