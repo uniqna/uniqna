@@ -7,11 +7,8 @@ db.sqlite3
 *.db
 *.sqlite3
 db.sqlite3
-settings.py
 local_settings.py
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-
-root/settings.py
