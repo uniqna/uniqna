@@ -20,9 +20,11 @@
         <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
     </div>
     {% endif %}
+    <!--
     <div class="question_meta_answers mdl-cell mdl-cell--12-col">
         {{ question.views}}
     </div>
+-->
 </center>
 
 {% if question.author == username %}
@@ -101,26 +103,23 @@
         </div>
 
         <div class="answer">
-          <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-              {% if x.edited %}
-                Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
-                on {{ x.get_time }}*<!--<br>Edited on {{x.get_edited_time}}-->
-              {% else %}
-                <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
-                on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
-          </div>
-            <div class="answer_description" id="a{{x.pk}}">
-              <br>
-                {{ x.description|bleach }}
+            <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }}*
+                <!--<br>Edited on {{x.get_edited_time}}-->
+                {% else %}
+                <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %}
             </div>
-            {% if x.edited == True%}<br>{% endif %}
+            <div class="answer_description" id="a{{x.pk}}">
+                <br> {{ x.description|bleach }}
+            </div>
+            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == username %}
             <div class="meta_parent">
                 <div class="answer_user">
-                    {% if x.edited == False%} {% endif %}
                     <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
-                    <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>{% if x.edited == False%} {% endif %} {% endif %}
+                    <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
