@@ -31,15 +31,18 @@ class question(models.Model):
     tags = models.ManyToManyField(tag)
     objects = ManagerExtender()
 
-    def __str__(self):
+
+def __str__(self):
         return (self.title)
 
-    def get_time(self):
+
+def get_time(self):
         t = timezone.localtime(self.created_time)
 
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
 
-    def set_popularity(self):
+
+def set_popularity(self):
         self.points = self.ups.count() - self.downs.count()
         self.popularity = _popularity(self)
         self.save()
