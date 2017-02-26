@@ -24,13 +24,12 @@
         <center>
         <div class="mdl-cell mdl-cell--6-col">
             <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
-
                 <div class="tagcreated">
                     <p class="mdl-button mdl-button--accent">Tag Created</p>
                 </div>
             <div id="newtagdiv">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag">
+                    <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag" style="text-transform: lowercase;" pattern="[a-z]{1,15}">
                     <label class="tags_label mdl-textfield__label" for="sample3">Enter new tag name</label>
                 </div><br>
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
@@ -56,7 +55,7 @@
             element: $("[name=description]")[1],
             hideIcons: ["quote", "fullscreen"],
             spellChecker: false,
-            placeholder: "Type here...",
+            placeholder: "A follow up description...",
         });
     });
     //Add new tag
@@ -168,6 +167,7 @@
             });
         }
     });
+
     //Client side error
     var n = new Notyf({
         delay: 5000
@@ -177,16 +177,15 @@
         e.preventDefault();
         flag = 1;
         if ($("#id_title").val() == "") {
-            n.alert("Title is blank.")
+            n.alert("Please enter a Title")
             flag = 0;
         }
-        if ($("#id_title").val().length <= 10) {
-            n.alert("Title is too short.")
+        if ($("#id_title").val().length <= 10 && $("#id_title").val().length != "") {
+            n.alert("Title is too short")
             flag = 0;
         }
         if (simplemde.value() == "") {
-            $(".CodeMirror").effect("shake")
-            n.alert("Description is blank.")
+            n.alert("Please enter a Description")
             flag = 0;
         }
         if (flag) {

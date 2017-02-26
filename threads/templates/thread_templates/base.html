@@ -174,13 +174,17 @@
         padding: 10px;
         color: #424242;
         padding-top: 5px;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
         padding-left: 15px;
         position: relative;
     }
 
     .answer_description a {
         color: #3949AB;
+    }
+
+    .answer_description p{
+      float: left;
     }
 
     .answer_description h4 {
@@ -196,7 +200,7 @@
     code {}
 
     .answer_author_meta {
-        float: right;
+        float: left;
         width: auto;
         margin: 0px;
         color: #009688;
@@ -275,6 +279,10 @@
         color: #673AB7;
     }
 
+    .question_meta_tags {
+      margin: 0px;
+    }
+
     .answer_voting_parent {
         width: 40px;
         margin: 0px;
@@ -314,6 +322,53 @@
             padding-top: 25px;
         }
         .answer p {
+            font-size: 14px;
+        }
+        .meta_parent {
+            font-size: 14px;
+        }
+        .question_delete {
+            font-size: 14px;
+        }
+        .question_solved {
+            font-size: 14px;
+        }
+        .question_meta p {
+            font-size: 14px;
+        }
+
+        .question_meta_tags a {
+          font-size: 14px;
+        }
+
+        .answer {
+            padding-top: 5px;
+            padding-bottom: 20px;
+        }
+        .can_you_help p{
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 839px) and (min-width: 480px) {}
+
+    @media (max-width: 320px) {
+        html,
+        body,
+        p {
+            font-size: 12px;
+        }
+        .answer {
+            padding-top: 5px;
+            padding-bottom: 20px;
+        }
+        ul {
+            font-size: 12px;
+        }
+        .can_you_help p{
+            font-size: 12px;
+        }
+        .answer p {
             font-size: 12px;
         }
         .meta_parent {
@@ -328,29 +383,9 @@
         .question_meta p {
             font-size: 12px;
         }
-        .answer {
-            padding-top: 5px;
-            padding-bottom: 40px;
-        }
-        .can_you_help p{
-            font-size: 12px;
-        }
-    }
 
-    @media (max-width: 839px) and (min-width: 480px) {}
-
-    @media (max-width: 320px) {
-        html,
-        body,
-        p {
-            font-size: 12px;
-        }
-        .answer {
-            padding-top: 5px;
-            padding-bottom: 60px;
-        }
-        ul {
-            font-size: 12px;
+        .question_meta_tags a {
+          font-size: 12px;
         }
         .can_you_help p{
             font-size: 12px;
@@ -413,22 +448,11 @@
                     </ul>
                 </nav>
             </div>
-            <div class="mdl-grid searchparent">
-                <div class="mdl-cell mdl-cell--12-col search">
-
-                    <form method="GET" action="{% url 'search' %}" class="searchform">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
-                            <input class="mdl-textfield__input searchbottommargin2" type="text" name="query">
-                            <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
+                {% include 'home_templates/search.html' %}
                 {% block question %} {% endblock %}
 
             </div>
