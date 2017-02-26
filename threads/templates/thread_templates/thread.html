@@ -14,7 +14,7 @@
     <div class="question_meta mdl-cell mdl-cell--12-col">
         <p> Asked {{ question.created_time|timesince }} ago by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
     </div>
-    {% if t in question.tags.all %}
+    {% if question.tags.all %}
     <div class="question_meta_tags mdl-cell mdl-cell--12-col">
         {% for t in question.tags.all %}
         <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
@@ -101,16 +101,20 @@
         </div>
 
         <div class="answer">
+          <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+              {% if x.edited %}
+                Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
+                on {{ x.get_time }}*<!--<br>Edited on {{x.get_edited_time}}-->
+              {% else %}
+                <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
+                on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
+          </div>
             <div class="answer_description" id="a{{x.pk}}">
+              <br>
                 {{ x.description|bleach }}
             </div>
             {% if x.edited == True%}<br>{% endif %}
             <div class="meta_parent">
-                <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                    {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} <br>Edited on {{x.get_edited_time}} {% else %} Answered by
-                    <a href="{% url 'user' x.answer_author %}"
-                        class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %} {% if x.answer_author == username %}
-                </div>
                 <div class="answer_user">
                     {% if x.edited == False%} {% endif %}
                     <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |

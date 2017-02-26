@@ -60,6 +60,10 @@
 
     }
 
+    .mdl-badge[data-badge]:after {
+      font-family: 'Montserrat', sans-serif;
+    }
+
     @media (max-width: 320px) {
       .title .date {
         font-size: 9px;
@@ -144,22 +148,11 @@
                     </ul>
                 </nav>
             </div>
-            <div class="mdl-grid searchparent">
-                <div class="mdl-cell mdl-cell--12-col search">
-
-                    <form method = "GET" action="{% url 'search' %}" class="searchform">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label searchbottommargin">
-                            <input class="mdl-textfield__input searchbottommargin2" type="text" name="query">
-                            <label class="mdl-textfield__label" for="sample3"><i class="material-icons">search</i></label>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
+                {% include 'home_templates/search.html' %}
                 {% block frontpage %} {% endblock %}
 
             </div>
