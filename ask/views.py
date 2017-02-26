@@ -35,7 +35,7 @@ def submit(request):
                 print(taglist)
                 for tagname in taglist:
                     selected_tag = tag.objects.get(name=tagname)
-                    instance.tags.add(selected_tag)
+                    instance.tags.add(selected_tag.lower())
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
             return render(request, "ask_templates/ask.html", {"username": request.user.username,
