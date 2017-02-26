@@ -49,8 +49,9 @@ class CreateTag(APIView):
 		return Response(serializer.data)
 
 	def post(self, request):
-		serializer = TagSerializer(data=request.data)
-		print(request.data["name"])
+		ldata = {"name": request.data["name"].lower()}
+		serializer = TagSerializer(data=ldata)
+		print(ldata["name"])
 		print("data received")
 		if serializer.is_valid():
 			print("tag is valid")
