@@ -6,8 +6,9 @@ db.sqlite3
 .DS_Store
 *.db
 *.sqlite3
+*.orig
 db.sqlite3
-local_settings.py
+secret_settings.py
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
