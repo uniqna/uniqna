@@ -1,14 +1,14 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from root.algorithms import vote_score
 from threads.forms import answer_form
 from threads.models import answer
+from user.models import Answered
 from ask.models import question
 from datetime import datetime
 import markdown2
-from root.algorithms import vote_score
-from user.models import Answered
-from django.contrib.auth.models import User
 
 
 def thread(request, thread_id):
@@ -18,13 +18,12 @@ def thread(request, thread_id):
         raise Http404()
     username = request.user.username
     question_requested = get_object_or_404(question, pk=thread_id)
-    description = markdown2.markdown(question_requested.description)
+    description = markdown2.markdown(question_requested.description, extras=["tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
     all_answers = answer.objects.filter(question=thread_id).order_by("-score")
     for x in all_answers:
         x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
-        print(x.description)
     return render(request,
                   'thread_templates/thread.html',
                   {'question': question_requested,
