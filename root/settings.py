@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 from django.conf.global_settings import TEMPLATES
-from root import secret_settings
+
+try:
+    from root import secret_settings
+except ImportError:
+    log.debug('local_settings failed to import', exc_info=True)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
