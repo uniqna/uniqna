@@ -1,44 +1,54 @@
 {% extends "base.html" %}
+
 {% block title %}
 	404 - Page Not Found
 {% endblock title %}
-{% block body %} 
+
+<!-- created by http://codepen.io/nickspiel/ -->
+
+{% block body %}
 <style type="text/css">
-	h2 {
-		color: #F44336;
-		font-weight: 500;
-		font-size: 20px;
-		line-height: 2;
-		text-shadow: 2px 2px 5px #ccc;
-	}
-	h3 {
-		color: #3F51B5;
-		font-size: 12px;
-		font-weight: 200;
-		line-height: 2;
-		text-shadow: 2px 2px 5px #ccc;
-	}
-	@media (min-width: 500px){
-		h2{
-			font-size: 23px;
+
+	.message {
+	    font-size: 40px;
+	    background: none;
+	    font-family: 'Montserrat', sans-serif;
+	    color: #535353;
+	    width: 100%;
+	    left: calc(50% - 35px);
+	    top: 65%;
 		}
-		h3 {
-			font-size: 17px;
-			line-height: 1;
+
+	.followup {
+	    font-size: 20px;
+	    background: none;
+	    font-family: 'Montserrat', sans-serif;
+	    color: #535353;
+	    width: 100%;
+	    left: calc(50% - 75px);
+	    top: 70%;
 		}
+
+	.redirect {
+	    font-size: 20px;
+	    background: none;
+	    font-family: 'Montserrat', sans-serif;
+	    color: #535353;
+	    width: 100%;
+			left: calc(50% - 15px);
+			top: 75%;
+		}
+
+	.redirect a{
+		color: #535353;
 	}
-	@media (min-width: 700px){
-		h2{
-			font-size: 30px;
+
+		body {
+			overflow: hidden;
 		}
-		h3 {
-			font-size: 22px;
-			line-height: 1;
-		}
-	}
+
 </style>
-<center>
-	<h2>Ooops Error 404 occured.</h2>
-	<h3>That means the page you wanted to see wasn't found</h3>
-</center>
+<div class="message">404</div>
+<div class="followup">Page not found</div>
+<div class="redirect"><a href="{% url 'home' %}"><button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">home</i></button></a></div>
 {% endblock body %}

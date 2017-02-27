@@ -21,6 +21,7 @@
         margin-bottom: auto;
         margin-right: 0px;
         font-size: 18px;
+        width: calc(100% - 50px);
         color: #424242;
     }
 
@@ -342,7 +343,7 @@
 <center>
   <h3>#{{ tags.name }}</h3>
   {% if tags.question_set.count %}
-    <h5 class="results_true">{{tags.question_set.count}} posts so far </h5>
+    <h5 class="results_true">{{tags.question_set.count}} post{{tags.question_set.count|pluralize}} so far </h5>
   {% else %}
     <h5 class="results_true">No posts yet</h5>
   {% endif %}
