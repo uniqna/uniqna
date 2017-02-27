@@ -1,10 +1,10 @@
 {% load bleach_tags %} {% if instance.question %}
-<!-- This is implies that the passes object is an answer -->
+<!-- This implies that the passes object is an answer -->
 <div class="mdl-cell mdl-cell--12-col {{divclass}}">
     <div class="mdl-grid platform">
         <div class="mdl-cell mdl-cell--1-col voting">
             <div class="mdl-grid voting">
-                <div class="mdl-cell mdl-cell--1-col votes">
+                <div class="mdl-cell mdl-cell--1-col votes upvote_margin">
                     <button data-url="{% url 'question_vote' instance.question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote" data-id="{{instance.question.pk}}">
                     <i class="material-icons votecolor {% if request.user in instance.question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ instance.question.pk }}">expand_less</i>
                     </button>
@@ -26,7 +26,7 @@
             <a href="{% url 'thread' instance.question.pk %}" class="a_title">{{ instance.question.title }}</a> {% if instance.question.solved == True %}
             <i class="material-icons solved">check</i> {% endif %}
             <div class="tags">
-                {% for tag in instance.question.tags.all %} #{{tag.name}} {% endfor %} &nbsp
+                {% for tag in instance.question.tags.all %} <a href="{% url 'tags' tag.name %}">#{{tag.name}}</a> {% endfor %} &nbsp
             </div>
         </div>
     </div>
@@ -49,18 +49,19 @@
                 </div>
         </div>
         <div class="answer mdl-cell mdl-cell--12-col">
-            <p>{{instance.description|bleach|truncatechars:300 }}
+            <p>{{instance.description|bleach|truncatechars:500 }}
                 <a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"><br>View answer</a>
             </p>
         </div>
         {% if instance.question.edited == True%}<br>{% endif %}
         <div class="meta_parent">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if instance.question.edited %} Answered by {{ instance.question.answer_author }} on {{ instance.question.get_time }} <br>Edited on {{instance.question.get_edited_time}} {% else %} Answered by {{ instance.question.answer_author }} on
-                {{ instance.question.get_time }} {% endif %} {% if instance.question.answer_author == username %}
+                {% if instance.question.edited %}
+                {{ instance.question.created_time }}*
+                {% else %}
+                {{ instance.question.created_time }} {% endif %}
             </div>
         </div>
-        {% endif %}
     </div>
 </div>
 {% else %}
@@ -69,7 +70,7 @@
   <div class="mdl-grid platform">
       <div class="mdl-cell mdl-cell--1-col voting">
           <div class="mdl-grid voting">
-              <div class="mdl-cell mdl-cell--1-col votes">
+              <div class="mdl-cell mdl-cell--1-col votes upvote_margin">
                       <button data-url="{% url 'question_vote' instance.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote" data-id="{{instance.pk}}">
               <i class="material-icons votecolor {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %}"  id="up{{ instance.pk }}">expand_less</i>
               </button>
