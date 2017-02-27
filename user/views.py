@@ -10,6 +10,7 @@ from random import randint
 from django.core.mail import EmailMessage
 from user.models import Notifications
 from django.core.exceptions import ObjectDoesNotExist
+import markdown2
 # Create your views here.
 
 
@@ -19,6 +20,10 @@ def UserPage(request, usr):
     requested_user = get_object_or_404(User, username=usr)
     user_questions = question.objects.filter(author=usr)
     user_answers = answer.objects.filter(answer_author=usr)
+    for x in user_answers:
+        x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
+    for x in user_questions:
+        x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
     # Combining questions and answers
     all_list = sorted(list(chain(user_questions, user_answers)), key=lambda instance: instance.created_time)
     return render(request, "user_templates/userpage.html",

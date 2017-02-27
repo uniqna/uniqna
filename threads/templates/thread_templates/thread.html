@@ -104,10 +104,10 @@
 
         <div class="answer">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if x.edited %} Answered by <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }}*
+                {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}*</a>
                 <!--<br>Edited on {{x.get_edited_time}}-->
                 {% else %}
-                <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %}
+                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}</a> {% endif %}
             </div>
             <div class="answer_description" id="a{{x.pk}}">
                 <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>

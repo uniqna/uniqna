@@ -121,7 +121,7 @@ else:
             'PORT': '',
         }
     }
-    DEBUG = False
+    DEBUG = True
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
