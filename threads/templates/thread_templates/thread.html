@@ -110,7 +110,7 @@
                 <a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> on {{ x.get_time }} {% endif %}
             </div>
             <div class="answer_description" id="a{{x.pk}}">
-                <br> {{ x.description|bleach }}
+                <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>
             </div>
             {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == username %}
             <div class="meta_parent">
