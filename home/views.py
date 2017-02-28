@@ -74,6 +74,7 @@ def register(request):
             new_user = User.objects.create_user(username=cd["username"], email=cd["email"], password=cd["password"])
             new_profile = student(bio=cd["bio"], university=cd["university"], course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
             new_profile.user = new_user
+            new_profile.unique_username = cd["username"].lower()
             new_profile.save()
             notif = Notifications()
             notif.user = new_user
@@ -95,7 +96,7 @@ def register(request):
                       {'regform': reg_form})
 
 
-def welcome(request):
+def welcome(request):  # Not being used for now.
     return render(request,
                   'login_templates/welcome.html',
                   {'username': username})

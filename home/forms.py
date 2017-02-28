@@ -17,7 +17,7 @@ class registration(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if User.objects.filter(username=self.cleaned_data['username']).exists():
+        if User.objects.filter(username__iexact=self.cleaned_data['username'].lower()).exists():
             raise forms.ValidationError('Username "%s" is already in use.' % username)
         if re.match(r'^[_a-zA-Z0-9]{4,15}$', username):
             return username

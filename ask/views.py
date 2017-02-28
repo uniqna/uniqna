@@ -26,6 +26,7 @@ def submit(request):
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
             instance.save()
+            instance.ups.add(request.user)
             if request.POST['selectedtags']:
                 selectedtags = request.POST['selectedtags']
                 print(selectedtags)

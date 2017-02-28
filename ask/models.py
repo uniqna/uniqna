@@ -23,12 +23,12 @@ class question(models.Model):
     answers = models.IntegerField(default=0)
     author = models.CharField(max_length=100, default="anonymous")
     created_time = models.DateTimeField(default=timezone.now)
-    ups = models.ManyToManyField(User, related_name='question_upvotes')
-    downs = models.ManyToManyField(User, related_name='question_downvotes')
+    ups = models.ManyToManyField(User, related_name='question_upvotes', blank=True)
+    downs = models.ManyToManyField(User, related_name='question_downvotes', blank=True)
     popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
-    points = models.IntegerField(default=0)
+    points = models.IntegerField(default=1)
     solved = models.BooleanField(default=False)
-    tags = models.ManyToManyField(tag)
+    tags = models.ManyToManyField(tag, blank=True)
     objects = ManagerExtender()
 
     def __str__(self):

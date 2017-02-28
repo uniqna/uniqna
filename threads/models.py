@@ -23,7 +23,7 @@ class answer(models.Model):
     edited = models.BooleanField(default=False)
     ups = models.ManyToManyField(User, related_name='upvotes')
     downs = models.ManyToManyField(User, related_name='downvotes')
-    points = models.IntegerField(default=0)
+    points = models.IntegerField(default=1)
     score = models.DecimalField(default=0, max_digits=20, decimal_places=17)
     objects = ManagerExtender()
 

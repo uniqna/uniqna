@@ -42,6 +42,7 @@ def submit_answer(request, question_id):
             instance.question = question_answered
             instance.answer_author = request.user.username
             instance.save()
+            instance.ups.add(request.user)
             question_answered.answers = answer.objects.filter(question=question_id).count()
             question_answered.save()
             ans_notif = Answered()
