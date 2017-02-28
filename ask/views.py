@@ -32,11 +32,11 @@ def submit(request):
                 print(selectedtags)
                 taglist = selectedtags.split(",")
                 # Filtering blank spaces
-                taglist = [x for x in taglist if x != '']
+                taglist = [x.lower() for x in taglist if x != '']
                 print(taglist)
                 for tagname in taglist:
                     selected_tag = tag.objects.get(name=tagname)
-                    instance.tags.add(selected_tag.lower())
+                    instance.tags.add(selected_tag)
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
             return render(request, "ask_templates/ask.html", {"username": request.user.username,
