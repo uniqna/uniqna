@@ -119,3 +119,11 @@ def notif_redirect(request, pk):
     ques = ans_notif.theanswer.question.id
     ans = ans_notif.theanswer.id
     return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
+
+
+def write_answer_view(request):
+    unanswered = question.objects.filter(answers=0)
+    # Right now am sorting based on the created date
+    # Older questions come up first
+    unanswered_sorted = sorted(unanswered, key=lambda x: x.created_time)
+    return render(request, "write_answer_templates/writeanswer.html", {"unans_list": unanswered_sorted})
