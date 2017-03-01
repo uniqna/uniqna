@@ -136,7 +136,6 @@
                 var _vals = document.getElementById("tags_input").value.split(",");
                 var toRemove = _vals.indexOf($(this).data("name"));
                 _vals.splice(toRemove, 1);
-                alert(toRemove + " " + _vals);
                 document.getElementById("tags_input").value = _vals.join(",");
                 container.remove();
             });
