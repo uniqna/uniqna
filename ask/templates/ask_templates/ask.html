@@ -44,12 +44,15 @@
 {% endblock %} {% block script %}
 <script src="{% static 'js/notyf.js' %}"></script>
 <script>
+    //Initializing simplemde object
     var simplemde;
+    
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
         this.MaterialProgress.setProgress(0);
         this.MaterialProgress.setBuffer(0);
     });
+
     $(document).ready(function() {
         simplemde = new SimpleMDE({
             element: $("[name=description]")[1],
@@ -58,13 +61,15 @@
             placeholder: "A follow up description...",
         });
     });
+
     //Add new tag
     $("#newtagdiv").hide();
     $(".tagcreated").hide();
     $(".blank-error").hide();
     $("#addtag").click(function() {
         $("#newtagdiv").show();
-    })
+    });
+
     //Getting csrf token from stored cookie
     function getCookie(name) {
         var cookieValue = null;
@@ -93,6 +98,7 @@
             }
         }
     });
+
     //Update Progress
     $(document).ready(function() {
         $(".CodeMirror-scroll").blur(function() {
@@ -100,7 +106,17 @@
                 $("#p3")[0].MaterialProgress.setBuffer(100)
             }
         })
-    })
+    });
+
+    //Replace spaces while creating tags with underscore
+    $("#newtag").on("keyup", function(e){
+        vals = this.value;
+        modified = vals.replace(/ /g, '_');
+        if(vals!=modified){
+            this.value = modified;
+        }
+    });
+
     //Create Tag
     var purl = "{% url 'CreateTag' %}";
     var fail;
@@ -128,6 +144,7 @@
             alert("Tag already exists");
         })
     });
+
     //Get suggested tags and append to #suggested.
     var surl = "{% url 'SuggestTag' %}";
     $(".mdl-textfield__input").blur(function() {
@@ -172,6 +189,8 @@
     var n = new Notyf({
         delay: 5000
     });
+
+    //Submit the question
     $(".submit").hide();
     $('#submitdummy').on("click", function(e) {
         e.preventDefault();
