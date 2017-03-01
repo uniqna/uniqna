@@ -530,8 +530,9 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src='{% static "js/vote.js" %}'></script>
-    <script src='{% static "js/clipboard.min.js" %}'></script>
+    <script src='{% static "js/notyf.js" %}'></script>
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script src='{% static "js/clipboard.min.js" %}'></script>
     <script>
         var simplemde = new SimpleMDE({
             element: $("#MyID")[0],
@@ -587,6 +588,25 @@
 
         ga('create', 'UA-91622346-1', 'auto');
         ga('send', 'pageview');
+    </script>
+    <script>
+       var not = new Notyf({
+        delay: 5000
+    });
+
+    $(".submit").hide();
+    $('#submitdummy').on("click", function(e) {
+        e.preventDefault();
+        flag = 1;
+        if (simplemde.value() == "") {
+            alert("Write the answer before clicking submit.");
+            not.alert("Please write the answer.")
+            flag = 0;
+        }
+        if (flag) {
+            $(".submit").click();
+        }
+    });
     </script>
 </body>
 
