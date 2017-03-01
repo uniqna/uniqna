@@ -104,10 +104,17 @@
 
         <div class="answer">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}*</a>
+                {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
+                <a class="answer_meta_time">{{ x.created_time }}*</a>
                 <!--<br>Edited on {{x.get_edited_time}}-->
                 {% else %}
                 <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}</a> {% endif %}
+                <a id="clipboard" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}">
+                <i class="material-icons link_clipboard">link</i>
+              </a>
+                <div class="mdl-tooltip" for="clipboard">
+                  Permalink
+                </div>
             </div>
             <div class="answer_description" id="a{{x.pk}}">
                 <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>
