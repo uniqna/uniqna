@@ -106,8 +106,8 @@
 
     .ask {
         width: 184px;
-        margin-right: auto;
-        margin-top: 5px;
+        margin-right: 0px;
+        margin-top: 0px;
         margin-left: 0px;
     }
 
@@ -118,6 +118,17 @@
         font-family: 'Montserrat', sans-serif;
         color: #009688;
     }
+
+    .writebutton {
+        width: 100%;
+        font-size: 14px;
+        height: 100%;
+        font-family: 'Montserrat', sans-serif;
+        color: #009688;
+        margin-left:0px;
+        padding-left: 0px;
+    }
+    
 
     .date {
         font-family: 'Open Sans', sans-serif;
@@ -196,6 +207,7 @@
     }
 
     @media (max-width: 479px) {
+        /*
         .ask {
             position: relative;
             margin: 0px;
@@ -203,6 +215,7 @@
             height: 56px;
             padding-top: 17px;
         }
+        */
         .statistics {
             color: #009688;
             width: 100%;
@@ -222,6 +235,7 @@
             margin-left: auto;
             margin-right: auto;
         }
+        /*
         .askbutton {
             width: 100%;
             font-size: 12px;
@@ -230,6 +244,7 @@
             font-size: 23px;
             color: #009688;
         }
+        */
         .a_title {
             font-size: 12px;
         }
@@ -262,15 +277,17 @@
     }
 </style>
 <div class="mdl-grid postsearchparent">
-    <div class="mdl-cell mdl-cell--9-col ask">
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone ask">
         <form action="{% url 'ask' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect">
       Ask a Question <i class="material-icons">question_answer</i>
     </button>
         </form>
-        <a href="{% url 'writeanswer' %}" class="mdl-button mdl-js-button writebutton mdl-js-ripple-effect">Write an Answer <i class="material-icons">question_answer</i></a>
     </div>
-    <div class="mdl-cell mdl-cell--3-col postsearch">
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone ask">
+        <a href="{% url 'writeanswer' %}" class="mdl-button mdl-js-button writebutton mdl-js-ripple-effect">Write an Answer <i class="material-icons">create</i></a>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-phone postsearch">
         <div class="mdl-cell mdl-cell--3-col statistics">
             {{ no_of_questions }} Questions {{ no_of_answers }} Answers {{ no_of_solved_percentage }}% Solved
         </div>
