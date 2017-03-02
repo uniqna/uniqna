@@ -567,10 +567,16 @@
         });
         var delayMillis = 1500;
         $(".clipboard_button").click(function() {
-            $(".mdl-tooltip span").html($(".mdl-tooltip span").html() == 'Permalink' ? 'Copied!' : 'Permalink');
-            setTimeout(function() {
-                $(".mdl-tooltip span").html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
+            ans_id = $(this).data("id");
+            span_id = "#aspan"+ans_id;
+            $(span_id).html($(".mdl-tooltip span").html() == 'Permalink' ? 'Copied!' : 'Permalink');
+            setTimeout(function(){
+              $(span_id).parent().hide()
             }, delayMillis);
+            setTimeout(function(){
+              $(span_id).html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
+              $(span_id).parent().show()
+            }, 4000)
         });
         var clipboard = new Clipboard('.clipboard_button');
     </script>

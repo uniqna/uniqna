@@ -110,11 +110,11 @@
                 <!--<br>Edited on {{x.get_edited_time}}-->
                 {% else %}
                 <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}</a> {% endif %}
-                <a id="clipboard_{{ x.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}">
+                <a id="clipboard_{{ x.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}" data-id="{{x.pk}}">
                 <i class="material-icons link_clipboard">link</i>
               </a>
                 <div class="mdl-tooltip" for="clipboard_{{ x.pk }}">
-                  <span>Permalink</span>
+                  <span id="aspan{{x.pk}}">Permalink</span>
                 </div>
             </div>
             <div class="answer_description" id="a{{x.pk}}">
