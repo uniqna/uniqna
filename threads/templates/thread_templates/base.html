@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -156,7 +157,9 @@
         padding-right: 40px;
     }
 
-    table, th, td {
+    table,
+    th,
+    td {
         border-bottom: 1px solid #ddd;
     }
 
@@ -192,7 +195,7 @@
     }
 
     .answer_description_align {
-      padding-top: 10px;
+        padding-top: 10px;
     }
 
     .answer_description h4 {
@@ -205,12 +208,12 @@
         float: left;
     }
 
-    .answer p{
+    .answer p {
         width: 100%;
     }
 
     .answer_meta_time {
-      color: #757575;
+        color: #757575;
     }
 
     code {}
@@ -220,7 +223,6 @@
         width: auto;
         margin: 0px;
         color: #009688;
-        margin-bottom: 10px;
     }
 
     .ask {
@@ -297,7 +299,7 @@
     }
 
     .question_meta_tags {
-      margin: 0px;
+        margin: 0px;
     }
 
     .answer_voting_parent {
@@ -314,11 +316,43 @@
     }
 
     .answer_meta_time {
-      color: #9E9E9E;
+        color: #9E9E9E;
+    }
+
+    .link_clipboard {
+        vertical-align: middle;
+        color: #FFE082;
+        padding-bottom: 3px;
+        top: 40%;
+    }
+
+    .answer_author_meta .mdl-button--icon .material-icons {
+        top: 45%;
+    }
+
+    .clipboard_button {
+        height: 23px;
+        min-width: 0px;
+        width: 23px;
+        cursor: pointer;
+    }
+
+    .mdl-button {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .editor-preview a {
+        color: #3949AB;
+    }
+
+    .hljs {
+        background: #EEEEEE;
+        padding-bottom: 20px;
+        padding-top: 0px;
     }
 
     .mdl-badge[data-badge]:after {
-      font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', sans-serif;
     }
 
     @media (max-width: 479px) {
@@ -361,16 +395,14 @@
         .question_meta p {
             font-size: 14px;
         }
-
         .question_meta_tags a {
-          font-size: 14px;
+            font-size: 14px;
         }
-
         .answer {
             padding-top: 5px;
             padding-bottom: 23px;
         }
-        .can_you_help p{
+        .can_you_help p {
             font-size: 14px;
         }
     }
@@ -392,7 +424,7 @@
         ul {
             font-size: 12px;
         }
-        .can_you_help p{
+        .can_you_help p {
             font-size: 12px;
         }
         .answer p {
@@ -410,11 +442,10 @@
         .question_meta p {
             font-size: 12px;
         }
-
         .question_meta_tags a {
-          font-size: 12px;
+            font-size: 12px;
         }
-        .can_you_help p{
+        .can_you_help p {
             font-size: 12px;
         }
     }
@@ -479,8 +510,7 @@
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
-                {% include 'home_templates/search.html' %}
-                {% block question %} {% endblock %}
+                {% include 'home_templates/search.html' %} {% block question %} {% endblock %}
 
             </div>
             <div class="mdl-layout-spacer"></div>
@@ -503,12 +533,18 @@
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src='{% static "js/vote.js" %}'></script>
     <script src='{% static "js/notyf.js" %}'></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script src='{% static "js/clipboard.min.js" %}'></script>
     <script>
         var simplemde = new SimpleMDE({
             element: $("#MyID")[0],
-            hideIcons: ["quote", "fullscreen"],
+            hideIcons: ["quote", "fullscreen", "side-by-side"],
             spellChecker: false,
             placeholder: "Type here...",
+            renderingConfig: {
+              singleLineBreaks: false,
+              codeSyntaxHighlighting: true,
+            },
         });
         //Answer voting
         $(".ansUpvote").click(function() {
@@ -529,7 +565,22 @@
                 $("#ansScore" + id).children()[0].textContent = data.points;
             });
         });
+        var delayMillis = 1500;
+        $(".clipboard_button").click(function() {
+            ans_id = $(this).data("id");
+            span_id = "#aspan"+ans_id;
+            $(span_id).html($(".mdl-tooltip span").html() == 'Permalink' ? 'Copied!' : 'Permalink');
+            setTimeout(function(){
+              $(span_id).parent().hide()
+            }, delayMillis);
+            setTimeout(function(){
+              $(span_id).html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
+              $(span_id).parent().show()
+            }, 4000)
+        });
+        var clipboard = new Clipboard('.clipboard_button');
     </script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
