@@ -208,15 +208,28 @@
         margin-right: 2px;
     }
 
+    .emoji-active {
+        background-color: rgba(158,158,158,.4);
+    }
+
     .thinking-align {
         margin-left: 2px;
         margin-right: 2px;
     }
 
+    .twa-confounded {
+        margin: 1px;
+    }
+
     .twa-thought-balloon {
-        margin-left: 2px;
+        margin-left: 3px;
         margin-right: 2px;
     }
+
+    .emoji-buttons {
+      font-size: 14px;
+    }
+
 
     @media (max-width: 479px) {
         .ask {
@@ -225,7 +238,7 @@
             margin-left: auto;
             width: 245px;
             height: 56px;
-            padding-top: 17px;
+            padding-top: 0px;
         }
         .statistics {
             color: #009688;
@@ -245,7 +258,7 @@
             height: 30.5px;
             margin-left: auto;
             margin-right: auto;
-            margin-top: -20px;
+            margin-top: -47px;
         }
         .askbutton {
             width: 250px;
@@ -271,6 +284,7 @@
         .emoji-tabbed {
             margin-right: auto;
             margin-left: auto;
+            margin-top: -25px;
         }
         .a_title {
             font-size: 11px;
@@ -284,6 +298,9 @@
         }
         body {
             line-height: 15px;
+        }
+        .postsearchparent .mdl-button {
+          text-transform: none;
         }
     }
 </style>
@@ -303,10 +320,18 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--2-col emoji-tabbed">
+  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect emoji-active">
     <i class="twa twa-2x twa-fire"></i>
+  </button>
+  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-thinking thinking-align"></i>
+  </button>
+  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-confounded"></i>
+  </button>
+  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-thought-balloon"></i>
+  </button>
 </div>
 <div class="mdl-grid padding-fix" id="infini">
     {% paginate question_list%} {% for x in question_list %}
