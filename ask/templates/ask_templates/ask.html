@@ -7,26 +7,35 @@
         </div>
     </div>
     <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
-    {{ form.description }} {% csrf_token %}
+        {{ form.description }} {% csrf_token %}
     </div>
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
-                <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
+    <div class="mdl-cell mdl-cell--3-col answer_discussion_choice">
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect radio_question" for="option-1">
+  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+  <span class="mdl-radio__label">Question</span>
+</label>
+<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+  <span class="mdl-radio__label">Discussion</span>
+</label>
+</div>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
+            <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
 
-                <datalist id="tags">
+            <datalist id="tags">
         {% for tag in tags %}
             <option value="{{tag.id}}">{{tag.name}}</option>
         {% endfor %}
       </datalist>
-
-            </div>
         </div>
-        <center>
+    </div>
+    <center>
         <div class="mdl-cell mdl-cell--6-col">
             <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
-                <div class="tagcreated">
-                    <p class="mdl-button mdl-button--accent">Tag Created</p>
-                </div>
+            <div class="tagcreated">
+                <p class="mdl-button mdl-button--accent">Tag Created</p>
+            </div>
             <div id="newtagdiv">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag" style="text-transform: lowercase;" pattern=".{1,15}">
@@ -35,18 +44,18 @@
                 <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
             </div>
         </div>
-            <input type="submit" name="submit" class="submit" value="Ask!">
-            <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
+        <input type="submit" name="submit" class="submit" value="Ask!">
+        <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
       <i class="ask_icon material-icons">send</i>
     </button>
-        </center><br>
+    </center><br>
 </form>
 {% endblock %} {% block script %}
 <script src="{% static 'js/notyf.js' %}"></script>
 <script>
     //Initializing simplemde object
     var simplemde;
-    
+
     //Default progress bar
     document.querySelector('#p3').addEventListener('mdl-componentupgraded', function() {
         this.MaterialProgress.setProgress(0);
@@ -109,10 +118,10 @@
     });
 
     //Replace spaces while creating tags with underscore
-    $("#newtag").on("keyup", function(e){
+    $("#newtag").on("keyup", function(e) {
         vals = this.value;
         modified = vals.replace(/ /g, '_');
-        if(vals!=modified){
+        if (vals != modified) {
             this.value = modified;
         }
     });

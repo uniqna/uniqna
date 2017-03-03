@@ -475,7 +475,7 @@
                     {% endif %}
                     </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                        {% for ans in ansnotifs.sort_read %}
+                        {% for ans in ansnotifs.sort_read|slice:":10" %}
                         <a href="{% url 'notif' ans.id %}">
                             <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
                                 <p class="notif-inside">
