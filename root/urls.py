@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^$', views.home, name="home"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^notifications/$', views.notifications_view, name='notifications'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
     url(r'^ask/', include('ask.urls')),

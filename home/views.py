@@ -127,3 +127,9 @@ def write_answer_view(request):
     # Older questions come up first
     unanswered_sorted = sorted(unanswered, key=lambda x: x.created_time)
     return render(request, "write_answer_templates/writeanswer.html", {"unans_list": unanswered_sorted})
+
+
+def notifications_view(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect("/")
+    return render(request, "notifications.html")

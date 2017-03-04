@@ -1,0 +1,27 @@
+{% extends "home_templates/base.html" %}
+{% block title %}
+	Notifications
+{% endblock title %}
+{% block frontpage %}
+
+	 {% with ansnotifs=request.user.notifications.answers %} 
+	 {% if ansnotifs.all %}
+	 <center>
+                <div class="notification-container">
+                    <ul class="mdl-js-ripple-effect notifs">
+                        {% for ans in ansnotifs.sort_read %}
+                        <a href="{% url 'notif' ans.id %}">
+                            <li class="{% if not ans.read %}unread{% endif %}">
+                                <p class="notif-inside">
+                                    {% if request.user_agent.is_mobile %} {{ ans.theanswer.answer_author }} answered your question <br>{{ ans.theanswer.question.title|truncatechars:20 }} <small> {{ ans.theanswer.created_time|timesince }} ago.</small>                                    {% endif %} {% if request.user_agent.is_tablet %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:30 }}
+                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %} {% if request.user_agent.is_pc %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:40}}
+                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %}
+                                </p>
+                            </li>
+                        </a>
+                        {% endfor %}
+                    </ul>
+					</div>
+					</center>
+                {% endif %} {% endwith %}
+{% endblock frontpage %}

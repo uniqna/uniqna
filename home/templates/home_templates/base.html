@@ -8,7 +8,9 @@
     <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>uniqna</title>
+    <title>{% block title %}
+        uniqna
+    {% endblock title %}</title>
 
     <!-- Stylesheets -->
     {% load staticfiles %}
@@ -122,12 +124,12 @@
                 {% endif %} {% endwith %}
                 <!-- Navigation -->
                 <nav class="mdl-navigation">
-                    <a> {{ username }} </a>
+                    <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
 
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                         <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
+                            <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
                         </li>
                         <li class="mdl-menu__item">
                             <form method="post" action="/logout/">
