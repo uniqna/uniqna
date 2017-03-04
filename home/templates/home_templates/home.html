@@ -320,18 +320,30 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--2-col emoji-tabbed">
-  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect emoji-active">
+  <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect emoji-active">
     <i class="twa twa-2x twa-fire"></i>
   </button>
-  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <div class="mdl-tooltip" data-mdl-for="hot">
+    Hot
+  </div>
+  <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-thinking thinking-align"></i>
   </button>
-  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <div class="mdl-tooltip" data-mdl-for="qna">
+    Q&A
+  </div>
+  <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-confounded"></i>
   </button>
-  <button class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <div class="mdl-tooltip" data-mdl-for="nsy">
+    Not Solved Yet
+  </div>
+  <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
     <i class="twa twa-2x twa-thought-balloon"></i>
   </button>
+  <div class="mdl-tooltip" data-mdl-for="discussions">
+    Discussions
+  </div>
 </div>
 <div class="mdl-grid padding-fix" id="infini">
     {% paginate question_list%} {% for x in question_list %}
