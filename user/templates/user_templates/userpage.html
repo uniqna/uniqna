@@ -333,6 +333,15 @@
       margin-top: 8px;
     }
 
+    .verified {
+      fill: #FFD180;
+    }
+
+    .twa {
+      background-size: 16px 16px;
+      height: 16px;
+      width: 16px;
+    }
 
     @media (max-width: 479px) {
         .ask {
@@ -422,7 +431,14 @@
             </div>
             </div>
         {% endif %}
-            <h3 class="username">@{{user_instance.username}}</h3>
+            <h3 class="username">@{{user_instance.username}}
+              {% if user_instance.is_superuser %}
+                {% include 'user_templates/verified.html' %}
+                <div class="mdl-tooltip" data-mdl-for="verified">
+                  Verified
+                </div>
+              {% endif %}
+            </h3>
             <p>{{ user_instance.student.bio }}</p>
             <div class="university">
                 <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
