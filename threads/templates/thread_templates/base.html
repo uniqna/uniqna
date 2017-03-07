@@ -11,8 +11,7 @@
     <title>{{ question.title }}</title>
 
     <!-- Stylesheets -->
-    {% load staticfiles %}
-    {% include 'home_templates/favicon.html' %}
+    {% load staticfiles %} {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400i" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -490,12 +489,12 @@
                 {% endif %} {% endwith %}
                 <!-- Navigation -->
                 <nav class="mdl-navigation">
-                    <a> {{ username }} </a>
+                    {% if user.is_authenticated %}
+                    <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
-
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                         <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
+                            <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
                         </li>
                         <li class="mdl-menu__item">
                             <form method="post" action="/logout/">
@@ -504,6 +503,8 @@
                             </form>
                         </li>
                     </ul>
+                    {% else %}
+                    {% endif %}
                 </nav>
             </div>
         </header>
@@ -542,8 +543,8 @@
             spellChecker: false,
             placeholder: "Type here...",
             renderingConfig: {
-              singleLineBreaks: false,
-              codeSyntaxHighlighting: true,
+                singleLineBreaks: false,
+                codeSyntaxHighlighting: true,
             },
         });
         //Answer voting
@@ -568,19 +569,21 @@
         var delayMillis = 1500;
         $(".clipboard_button").click(function() {
             ans_id = $(this).data("id");
-            span_id = "#aspan"+ans_id;
+            span_id = "#aspan" + ans_id;
             $(span_id).html($(".mdl-tooltip span").html() == 'Permalink' ? 'Copied!' : 'Permalink');
-            setTimeout(function(){
-              $(span_id).parent().hide()
+            setTimeout(function() {
+                $(span_id).parent().hide()
             }, delayMillis);
-            setTimeout(function(){
-              $(span_id).html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
-              $(span_id).parent().show()
+            setTimeout(function() {
+                $(span_id).html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
+                $(span_id).parent().show()
             }, 4000)
         });
         var clipboard = new Clipboard('.clipboard_button');
     </script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -598,23 +601,23 @@
         ga('send', 'pageview');
     </script>
     <script>
-       var not = new Notyf({
-        delay: 5000
-    });
+        var not = new Notyf({
+            delay: 5000
+        });
 
-    $(".submit").hide();
-    $('#submitdummy').on("click", function(e) {
-        e.preventDefault();
-        flag = 1;
-        if (simplemde.value() == "") {
-            alert("Write the answer before clicking submit.");
-            not.alert("Please write the answer.")
-            flag = 0;
-        }
-        if (flag) {
-            $(".submit").click();
-        }
-    });
+        $(".submit").hide();
+        $('#submitdummy').on("click", function(e) {
+            e.preventDefault();
+            flag = 1;
+            if (simplemde.value() == "") {
+                alert("Write the answer before clicking submit.");
+                not.alert("Please write the answer.")
+                flag = 0;
+            }
+            if (flag) {
+                $(".submit").click();
+            }
+        });
     </script>
 </body>
 
