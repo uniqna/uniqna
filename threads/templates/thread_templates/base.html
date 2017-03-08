@@ -350,6 +350,15 @@
         padding-top: 0px;
     }
 
+    .mdl-snackbar__action {
+        padding: 0px;
+    }
+
+    .mdl-snackbar__text {
+        font-family: 'Montserrat', sans-serif;
+        color: #EEEEEE;
+    }
+
     .mdl-badge[data-badge]:after {
         font-family: 'Montserrat', sans-serif;
     }
@@ -618,6 +627,20 @@
                 $(".submit").click();
             }
         });
+    </script>
+    <script>
+        (function() {
+            'use strict';
+            var snackbarContainer = document.querySelector('#snackbar_reveals');
+            var showToastButton = document.querySelector('#snackbar_show');
+            showToastButton.addEventListener('click', function() {
+                'use strict';
+                var data = {
+                    message: 'Please log in to vote'
+                };
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            });
+        }());
     </script>
 </body>
 
