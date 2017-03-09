@@ -1,10 +1,9 @@
         //Answer voting
         if(anonFlag == 1){
-            alert("Heree");
             (function(){
                 'use strict';
                 var data = {
-                    message: 'Please loggg in to vote'
+                    message: 'Please log in to vote'
                 };
                 $(".snackbar_show").on("click", function(){
                     $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
@@ -12,7 +11,6 @@
              }());
         }
         else{
-            alert("hereoo")
             var simplemde = new SimpleMDE({
                 element: $("#MyID")[0],
                 hideIcons: ["quote", "fullscreen", "side-by-side"],
@@ -23,7 +21,6 @@
                     codeSyntaxHighlighting: true,
                 },
             });
-            alert("Not over there");
             $(".upvote").click(function(){
                 vote_url = $(this).data("url");
                 id = $(this).data("id");
@@ -77,8 +74,8 @@
             }, 4000)
         });
         var clipboard = new Clipboard('.clipboard_button');
-        
-        //Highligting 
+
+        //Highligting
         hljs.initHighlightingOnLoad();
 
         //Google Analytics
@@ -106,8 +103,8 @@
             e.preventDefault();
             flag = 1;
             if (simplemde.value() == "") {
-                alert("Write the answer before clicking submit.");
-                not.alert("Please write the answer.")
+                alert("C'mon! Your thoughts can't be this empty...");
+                // not.alert("Please write the answer.")
                 flag = 0;
             }
             if (flag) {
