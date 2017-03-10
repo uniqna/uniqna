@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from root.algorithms.popularity import _popularity
+from django.core.urlresolvers import reverse
 
 
 class ManagerExtender(models.Manager):
@@ -42,3 +43,6 @@ class question(models.Model):
             self.points = self.ups.count() - self.downs.count()
             self.popularity = _popularity(self)
             self.save()
+
+    def get_absolute_url(self):
+        return reverse('thread', args=[str(self.pk)])

@@ -24,6 +24,12 @@ from RestApi import urls
 from root import settings
 from search import urls
 from user.views import forgot_password_view
+from django.contrib.sitemaps.views import sitemap
+from home.sitemaps import ThreadsSitemap
+
+sitemaps = {
+    'thread': ThreadsSitemap()
+}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -39,6 +45,9 @@ urlpatterns = [
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
     url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^robots.txt', include('robots.urls')),
 ]
 
 if settings.DEBUG is True:
