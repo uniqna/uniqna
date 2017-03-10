@@ -46,7 +46,8 @@ urlpatterns = [
     url(r'^search', include('search.urls')),
     url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap')
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^robots.txt', include('robots.urls')),
 ]
 
 if settings.DEBUG is True:
