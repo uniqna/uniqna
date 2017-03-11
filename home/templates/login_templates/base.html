@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night."/>
+    <meta name="description" content="A forum where students can ask questions or start discussions about anything that’s happening around our university all day errday!"/>
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>uniqna</title>
 
     <!-- Stylesheets -->
     {% load staticfiles %}
-    <link rel="icon" href="{% static 'favicon.png' %}">
+    {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -83,7 +83,7 @@
     }
 
     .motto p {
-      color: #00E676;
+      color: #ffe082;
       font-size: 20px;
       margin-bottom: 0px;
     }
@@ -106,6 +106,15 @@
     .uname_error {
       color: #C51162;
       font-size: 13px;
+    }
+
+    .mdl-layout__header {
+      background-color: #EEEEEE;
+      box-shadow: none;
+    }
+
+    .p_margin_fix {
+      margin-bottom: 0px;
     }
 
     @media (max-width: 320px) {
@@ -175,24 +184,6 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
-                {% if username %}
-                <nav class="mdl-navigation">
-                    <a> {{ username }} </a>
-                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
-
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                        <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
-                        </li>
-                        <li class="mdl-menu__item">
-                            <form method="post" action="/logout/">
-                                {% csrf_token %}
-                                <center><input type="submit" value="Logout" class="mdl-menu__item" /></center>
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-                {% endif %}
             </div>
         </header>
         <main class="mdl-layout__content">
@@ -218,6 +209,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;

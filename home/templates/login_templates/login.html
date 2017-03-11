@@ -1,9 +1,9 @@
 {% extends "login_templates/base.html" %} {% load static %} {% block body %}
 <div class="motto mdl-cell mdl-cell--6-col mdl-cell--6-offset mdl-cell--middle">
-<br><center><p>Suh dude?<i class="twa twa-2x twa-v"></i> Got a question?</i></p></center><br>
+<br><center><p>Your university's online community <i class="twa twa-2x twa-100"></i></p></center><br>
 </div>
   <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
-    <img src="{% static 'assets/logo.svg' %}"/>
+    <img src="{% static 'assets/logo_colored.svg' %}"/>
 </div>
 {% if failed %}
     <center>
@@ -30,8 +30,8 @@
                 <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Login</button>
                 <input type="submit" class="login mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" value="login" />
         </form>
-        <br>
-        <p>Not an user? <a href="{% url 'register' %}" class="register">Register now!</a></p>
+        <br><br>
+        <p class="p_margin_fix">Not an user? <a href="{% url 'register' %}" class="register">Register now!</a></p>
         <p>Forgot your password? <a href="{% url 'forgot' %}" class="register">Click here!</a></p>
         </center>
     </div>
