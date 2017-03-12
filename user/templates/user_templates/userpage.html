@@ -168,7 +168,7 @@
     }
 
     .pagination {
-        height: 80px;
+        height: 75px;
         background: #FFFFFF;
     }
 
@@ -400,6 +400,9 @@
         .upvote_margin {
           margin-top: 12px;
         }
+        .pagination {
+            height: 65px;
+        }
     }
 
     @media (max-width: 479px) {
@@ -459,35 +462,41 @@
     <div class="mdl-tabs__panel is-active" id="all-panel">
         {% if allqa %}
         {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %}
+        {% if questions|length > 10 %}
         <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
             <center><br> {{ pages.next }}</center>
         </div>
+        {% endif %}
         {% else %}
-        <center><p>Nothing here. :/</p></center>
+        <center><br><p>Nothing here. :/</p></center>
         {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="questions-panel">
         {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
         <center>
             {% get_pages %}
+            {% if questions|length > 10 %}
             <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
                 <br> {{ pages.next }}
             </div>
+            {% endif %}
         </center>
         {% else %}
-        <center><p>No questions yet.</p></center>
+        <center><br><p>No questions yet.</p></center>
         {% endif %}
     </div>
     <div class="mdl-tabs__panel" id="answers-panel">
         {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
         <center>
             {% get_pages %}
+            {% if questions|length > 10 %}
             <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
                 <br> {{ pages.next }}
             </div>
+            {% endif %}
         </center>
         {% else %}
-        <center><p>No answers yet.</p></center>
+        <center><br><p>No answers yet.</p></center>
         {% endif %}
     </div>
 </div>
