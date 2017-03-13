@@ -360,6 +360,15 @@
         color: #EEEEEE;
     }
 
+    .button-responsive-fix {
+        padding: 0px;
+    }
+
+    .register-padding {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
     .mdl-badge[data-badge]:after {
         font-family: 'Montserrat', sans-serif;
     }
@@ -457,6 +466,9 @@
         .can_you_help p {
             font-size: 12px;
         }
+        .mdl-layout__header-row {
+            padding: 0 10px 0 55px;
+        }
     }
 </style>
 
@@ -472,7 +484,7 @@
                         <img src="{% static 'assets/logo_white.svg' %}">
                     </div>
                 </a>
-                
+
                 <div class="mdl-layout-spacer"></div>
                 <!--Navigation-->
                 {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
@@ -515,10 +527,10 @@
                         </li>
                     </ul>
                     {% else %}
-                    <button class="mdl-button mdl-js-button">
+                    <button class="mdl-button mdl-js-button button-responsive-fix">
                     <a href="{% url 'home' %}" class="anon-login"> Login </a>
                     </button>
-                    <button class="mdl-button mdl-js-button">
+                    <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
                     <a href="{% url 'register' %}" class="anon-register"> Register </a>
                     </button>
                     {% endif %}

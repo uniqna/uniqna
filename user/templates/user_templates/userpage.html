@@ -1,426 +1,446 @@
 {% extends "user_templates/base.html" %} {% block body %} {% load bleach_tags %} {% load el_pagination_tags %}
 <style type="text/css">
-a {
-    color: black;
-}
-
-.mdl-cell--10-col {
-    background-color: #EEEEEE;
-    height: auto;
-}
-
-.platform {
-    padding: 0px;
-    height: 100px;
-}
-
-.title {
-    margin-left: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 0px;
-    font-size: 18px;
-    width: calc(100% - 50px);
-    color: #424242;
-}
-
-.meta {
-    margin: 0px;
-    width: 90%;
-}
-
-.a_title {
-    color: #424242;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 100;
-}
-
-.votes {
-    width: 43px;
-    margin: 0px;
-    margin-left: 9px;
-}
-
-.score {
-    width: 32px;
-    margin: 0px;
-    margin-left: 9px;
-}
-
-.voting {
-    padding: 0px;
-    margin: 0px;
-    width: 50px;
-}
-
-.solved {
-    color: #009688;
-    font-size: 18px;
-    position: absolute;
-    padding-left: 5px;
-}
-
-.votecolor {
-    color: #424242;
-}
-
-.searchparent {
-    padding: 5px;
-    margin: 0px;
-    height: 75px;
-    background-color: #F5F5F5;
-}
-
-.search {
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: #FFFFFF;
-}
-
-.searchform {
-    height: 100%;
-}
-
-.searchbottommargin {
-    padding: 22px 0;
-}
-
-.searchbottommargin2 {
-    border-bottom: none;
-}
-
-.postsearchparent {
-    height: 40px;
-    padding-bottom: 0px;
-}
-
-.postsearch {
-    height: 100%;
-    margin: 0px;
-    margin-right: 0px;
-    margin-top: 5px;
-    margin-left: auto;
-}
-
-.statistics {
-    color: #009688;
-    font-size: 14px;
-    width: 265px;
-    margin-right: 7px;
-    margin-left: 7px;
-    float: right;
-}
-
-.ask {
-    width: 184px;
-    margin-right: auto;
-    margin-top: 5px;
-    margin-left: 0px;
-}
-
-.askbutton {
-    width: 100%;
-    font-size: 14px;
-    height: 100%;
-    font-family: 'Montserrat', sans-serif;
-    color: #009688;
-}
-
-.date {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11px;
-    color: #D81B60;
-}
-
-.author {
-    float: right;
-    color: #D81B60;
-}
-
-.authorlink {
-    color: #D81B60;
-}
-
-.answers {
-    margin-left: 0px;
-    font-size: 11px;
-    color: #009688;
-}
-
-.tags {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 11px;
-    color: #673AB7;
-}
-
-.mdl-layout__header {
-    box-shadow: none;
-}
-
-.mdl-layout__header-row a {
-    color: white;
-}
-
-.endless_page_link {
-    color: #424242;
-}
-
-.pagination {
-    height: 75px;
-    background: #FFFFFF;
-}
-
-.mdl-mini-footer--link-list,
-.mdl-mini-footer__link-list a {
-    color: #9e9e9e;
-}
-
-.about {}
-
-.about p {
-    color: #01579B;
-    margin: 8px;
-}
-
-.mdl-tabs__tab-bar {
-    border-bottom: none;
-}
-
-.viewans {
-    color: #3949AB;
-    float: right;
-    margin-right: 7px;
-}
-
-.platform {
-    background-color: #EEEEEE;
-}
-
-.answer {
-    width: calc(100% - 80px);
-    margin: 0px;
-    color: #424242;
-    padding-top: 13px;
-    padding-bottom: 40px;
-    padding-left: 0px;
-    position: relative;
-}
-
-.answer_description a {
-    color: #3949AB;
-}
-
-.answer_description h4 {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.answer p {
-    margin: 0px;
-}
-
-.answer a {
-    color: #3949AB;
-    font-size: 12px;
-}
-
-.answer_parent {}
-
-.answer_user {
-    float: left;
-}
-
-.answer_author_meta {
-    float: right;
-    width: 100%;
-    margin: 0px;
-    margin-right: 10px;
-    color: #9E9E9E;
-}
-
-.platform_answer {
-    height: 100%;
-    background-color: #FAFAFA;
-    padding-top: 0px;
-}
-
-.username {
-    color: #01579B;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.jscroll-inner {
-    width: 100%;
-}
-
-.pagination .mdl-button {
-    font-family: 'Montserrat', sans-serif;
-    color: #FFFFFF;
-    background-color: #64B5F6;
-}
-
-.mdl-menu__item a {
-    color: #424242;
-}
-
-.meta_parent {
-    margin-left: auto;
-    padding-bottom: 15px;
-    margin-top: -35px;
-}
-
-.answer_align_fix {
-    width: 65px;
-}
-
-.mdl-card {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.university p {
-    margin-bottom: 5px;
-}
-
-.user_parent {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.tags a {
-    color: #673AB7;
-}
-
-.editprofile {
-    position: relative;
-    top: 10px;
-    right: 10px;
-}
-
-.edit_profile_parent {
-    padding: 0px;
-}
-
-.edit_profile_parent a {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.edit_profile_parent .mdl-button--primary.mdl-button--primary {
-    color: #FFFFFF;
-}
-
-.edit_profile_parent .mdl-button {
-    background-color: #64B5F6;
-}
-
-.edit_button {
-    margin-left: 0px;
-    margin-right: auto;
-}
-
-.change_password_button {
-    margin-right: 0px;
-    margin-left: auto;
-}
-
-h3 {
-    line-height: 10px;
-}
-
-.upvote_margin {
-    margin-top: 8px;
-}
-
-.verified {
-    fill: #FFD180;
-}
-
-.twa {
-    background-size: 16px 16px;
-    height: 16px;
-    width: 16px;
-}
-
-.vote-default {
-    color: #424242;
-}
-
-.vote-success {
-    color: #4CAF50;
-}
-
-.vote-danger {
-    color: #F44336;
-}
-
-@media (max-width: 479px) {
-    .ask {
-        position: relative;
-        margin: 0px;
-        width: 100%;
-        height: 56px;
-        padding-top: 17px;
+    a {
+        color: black;
     }
+
+    .mdl-cell--10-col {
+        background-color: #EEEEEE;
+        height: auto;
+    }
+
+    .platform {
+        padding: 0px;
+        height: 100px;
+    }
+
+    .title {
+        margin-left: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-size: 18px;
+        width: calc(100% - 50px);
+        color: #424242;
+    }
+
+    .meta {
+        margin: 0px;
+        width: 90%;
+    }
+
+    .a_title {
+        color: #424242;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    .votes {
+        width: 43px;
+        margin: 0px;
+        margin-left: 9px;
+    }
+
+    .score {
+        width: 32px;
+        margin: 0px;
+        margin-left: 9px;
+    }
+
+    .voting {
+        padding: 0px;
+        margin: 0px;
+        width: 50px;
+    }
+
+    .solved {
+        color: #009688;
+        font-size: 18px;
+        position: absolute;
+        padding-left: 5px;
+    }
+
+    .votecolor {
+        color: #424242;
+    }
+
+    .searchparent {
+        padding: 5px;
+        margin: 0px;
+        height: 75px;
+        background-color: #F5F5F5;
+    }
+
+    .search {
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .searchform {
+        height: 100%;
+    }
+
+    .searchbottommargin {
+        padding: 22px 0;
+    }
+
+    .searchbottommargin2 {
+        border-bottom: none;
+    }
+
+    .postsearchparent {
+        height: 40px;
+        padding-bottom: 0px;
+    }
+
+    .postsearch {
+        height: 100%;
+        margin: 0px;
+        margin-right: 0px;
+        margin-top: 5px;
+        margin-left: auto;
+    }
+
     .statistics {
         color: #009688;
-        width: 100%;
+        font-size: 14px;
+        width: 265px;
+        margin-right: 7px;
+        margin-left: 7px;
+        float: right;
+    }
+
+    .ask {
+        width: 184px;
         margin-right: auto;
-        margin-left: auto;
-        font-size: 12px;
-        text-align: center;
+        margin-top: 5px;
+        margin-left: 0px;
     }
-    .postsearchparent {
-        height: 95px;
-        padding-bottom: 0px;
-        padding-right: 0px;
-        padding-left: 0px;
-    }
-    .postsearch {
-        height: 37.5px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
     .askbutton {
         width: 100%;
-        font-size: 12px;
+        font-size: 14px;
         height: 100%;
         font-family: 'Montserrat', sans-serif;
-        font-size: 23px;
         color: #009688;
     }
-    .a_title {
-        font-size: 12px;
-    }
-    .mdl-textfield__input {
-        font-size: 15px;
-        padding: 17px 0;
-    }
-    .answer p {
-        font-size: 12px;
-    }
-    .answer_author_meta {
-        font-size: 12px;
-    }
-    .about p {
-        font-size: 12px;
-    }
-    .upvote_margin {
-        margin-top: 12px;
-    }
-    .pagination {
-        height: 65px;
-    }
-}
 
-@media (max-width: 479px) {
-    .a_title {
+    .date {
+        font-family: 'Open Sans', sans-serif;
         font-size: 11px;
+        color: #D81B60;
     }
-    body {
-        line-height: 15px;
+
+    .author {
+        float: right;
+        color: #D81B60;
     }
-}
+
+    .authorlink {
+        color: #D81B60;
+    }
+
+    .answers {
+        margin-left: 0px;
+        font-size: 11px;
+        color: #009688;
+    }
+
+    .tags {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 11px;
+        color: #673AB7;
+    }
+
+    .mdl-layout__header {
+        box-shadow: none;
+    }
+
+    .mdl-layout__header-row a {
+        color: white;
+    }
+
+    .endless_page_link {
+        color: #424242;
+    }
+
+    .pagination {
+        height: 75px;
+        background: #FFFFFF;
+    }
+
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list a {
+        color: #9e9e9e;
+    }
+
+    .about {}
+
+    .about p {
+        color: #01579B;
+        margin: 8px;
+    }
+
+    .mdl-tabs__tab-bar {
+        border-bottom: none;
+    }
+
+    .viewans {
+        color: #3949AB;
+        float: right;
+        margin-right: 7px;
+    }
+
+    .platform {
+        background-color: #EEEEEE;
+    }
+
+    .answer {
+        width: calc(100% - 80px);
+        margin: 0px;
+        color: #424242;
+        padding-top: 13px;
+        padding-bottom: 40px;
+        padding-left: 0px;
+        position: relative;
+    }
+
+    .answer_description a {
+        color: #3949AB;
+    }
+
+    .answer_description h4 {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .answer p {
+        margin: 0px;
+    }
+
+    .answer a {
+        color: #3949AB;
+        font-size: 12px;
+    }
+
+    .answer_parent {}
+
+    .answer_user {
+        float: left;
+    }
+
+    .answer_author_meta {
+        float: right;
+        width: 100%;
+        margin: 0px;
+        margin-right: 10px;
+        color: #9E9E9E;
+    }
+
+    .platform_answer {
+        height: 100%;
+        background-color: #FAFAFA;
+        padding-top: 0px;
+    }
+
+    .username {
+        color: #01579B;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .jscroll-inner {
+        width: 100%;
+    }
+
+    .pagination .mdl-button {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF;
+        background-color: #64B5F6;
+    }
+
+    .mdl-menu__item a {
+        color: #424242;
+    }
+
+    .meta_parent {
+        margin-left: auto;
+        padding-bottom: 15px;
+        margin-top: -35px;
+    }
+
+    .answer_align_fix {
+        width: 65px;
+    }
+
+    .mdl-card {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .university p {
+        margin-bottom: 5px;
+    }
+
+    .user_parent {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tags a {
+        color: #673AB7;
+    }
+
+    .editprofile {
+        position: relative;
+        top: 10px;
+        right: 10px;
+    }
+
+    .edit_profile_parent {
+        padding: 0px;
+    }
+
+    .edit_profile_parent a {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .edit_profile_parent .mdl-button--primary.mdl-button--primary {
+        color: #FFFFFF;
+    }
+
+    .edit_profile_parent .mdl-button {
+        background-color: #64B5F6;
+    }
+
+    .edit_button {
+        margin-left: 0px;
+        margin-right: auto;
+    }
+
+    .change_password_button {
+        margin-right: 0px;
+        margin-left: auto;
+    }
+
+    h3 {
+        line-height: 10px;
+    }
+
+    .upvote_margin {
+        margin-top: 8px;
+    }
+
+    .verified {
+        fill: #FFD180;
+    }
+
+    .twa {
+        background-size: 16px 16px;
+        height: 16px;
+        width: 16px;
+    }
+
+    .vote-default {
+        color: #424242;
+    }
+
+    .vote-success {
+        color: #4CAF50;
+    }
+
+    .vote-danger {
+        color: #F44336;
+    }
+
+    .mdl-snackbar__text {
+        font-family: 'Montserrat', sans-serif;
+        color: #EEEEEE;
+    }
+
+    .button-responsive-fix {
+        padding: 0px;
+    }
+
+    .register-padding {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    @media (max-width: 479px) {
+        .ask {
+            position: relative;
+            margin: 0px;
+            width: 100%;
+            height: 56px;
+            padding-top: 17px;
+        }
+        .statistics {
+            color: #009688;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            font-size: 12px;
+            text-align: center;
+        }
+        .postsearchparent {
+            height: 95px;
+            padding-bottom: 0px;
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+        .postsearch {
+            height: 37.5px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .askbutton {
+            width: 100%;
+            font-size: 12px;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 23px;
+            color: #009688;
+        }
+        .a_title {
+            font-size: 12px;
+        }
+        .mdl-textfield__input {
+            font-size: 15px;
+            padding: 17px 0;
+        }
+        .answer p {
+            font-size: 12px;
+        }
+        .answer_author_meta {
+            font-size: 12px;
+        }
+        .about p {
+            font-size: 12px;
+        }
+        .upvote_margin {
+            margin-top: 12px;
+        }
+        .pagination {
+            height: 65px;
+        }
+    }
+
+    @media (max-width: 479px) {
+        .a_title {
+            font-size: 11px;
+        }
+        body {
+            line-height: 15px;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .mdl-layout__header-row {
+            padding: 0 10px 0 55px;
+        }
+    }
 </style>
 <center>
     <div class="user_parent about mdl-cell mdl-cell--6-col">
@@ -513,7 +533,7 @@ h3 {
     </div>
     {% if user.is_anonymous %}
     <script>
-    var anonFlag = 1;
+        var anonFlag = 1;
     </script>
     <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
@@ -521,7 +541,6 @@ h3 {
     </div>
     {% else %}
     <script>
-    var anonFlag = 0;
+        var anonFlag = 0;
     </script>
-    {% endif %}
-    {% endblock %}
+    {% endif %} {% endblock %}
