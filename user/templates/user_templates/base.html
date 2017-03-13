@@ -124,8 +124,9 @@
                 </nav>
                 {% endif %} {% endwith %}
                 <!-- Navigation -->
-                {% if request.user.username %}
+                
                 <nav class="mdl-navigation">
+                {% if user.is_authenticated %}
                     <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
@@ -141,8 +142,15 @@
                             </form>
                         </li>
                     </ul>
-                </nav>
+                {% else %}
+                <button class="mdl-button mdl-js-button">
+                    <a href="{% url 'home' %}" class="anon-login"> Login </a>
+                    </button>
+                    <button class="mdl-button mdl-js-button">
+                    <a href="{% url 'register' %}" class="anon-register"> Register </a>
+                    </button>
                 {% endif %}
+                </nav>
             </div>
         </header>
         <main class="mdl-layout__content">

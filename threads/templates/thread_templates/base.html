@@ -472,8 +472,9 @@
                         <img src="{% static 'assets/logo_white.svg' %}">
                     </div>
                 </a>
-                <!-- Add spacer, to align navigation to the right -->
+                
                 <div class="mdl-layout-spacer"></div>
+                <!--Navigation-->
                 {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
                     <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
@@ -514,6 +515,12 @@
                         </li>
                     </ul>
                     {% else %}
+                    <button class="mdl-button mdl-js-button">
+                    <a href="{% url 'home' %}" class="anon-login"> Login </a>
+                    </button>
+                    <button class="mdl-button mdl-js-button">
+                    <a href="{% url 'register' %}" class="anon-register"> Register </a>
+                    </button>
                     {% endif %}
                 </nav>
             </div>
