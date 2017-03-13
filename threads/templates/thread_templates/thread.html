@@ -63,12 +63,6 @@
                 <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote mdl-snackbar__action snackbar_show" data-id="{{question.pk}}">
                     <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
                 </button>
-                {% if user.is_anonymous %}
-                <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
-                  <div class="mdl-snackbar__text"></div>
-                  <button class="mdl-snackbar__action" type="button"></button>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>
