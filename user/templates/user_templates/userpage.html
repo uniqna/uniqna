@@ -15,13 +15,13 @@
     }
 
     .title {
-      margin-left: 0px;
-      margin-top: auto;
-      margin-bottom: auto;
-      margin-right: 0px;
-      font-size: 18px;
-      width: calc(100% - 50px);
-      color: #424242;
+        margin-left: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 0px;
+        font-size: 18px;
+        width: calc(100% - 50px);
+        color: #424242;
     }
 
     .meta {
@@ -144,9 +144,9 @@
     }
 
     .answers {
-      margin-left: 0px;
-      font-size: 11px;
-      color: #009688;
+        margin-left: 0px;
+        font-size: 11px;
+        color: #009688;
     }
 
     .tags {
@@ -168,7 +168,7 @@
     }
 
     .pagination {
-        height: 80px;
+        height: 75px;
         background: #FFFFFF;
     }
 
@@ -177,9 +177,7 @@
         color: #9e9e9e;
     }
 
-    .about {
-
-    }
+    .about {}
 
     .about p {
         color: #01579B;
@@ -223,7 +221,8 @@
     }
 
     .answer a {
-      color: #3949AB;
+        color: #3949AB;
+        font-size: 12px;
     }
 
     .answer_parent {}
@@ -266,31 +265,31 @@
     }
 
     .meta_parent {
-      margin-left: auto;
-      padding-bottom: 15px;
-      margin-top: -35px;
+        margin-left: auto;
+        padding-bottom: 15px;
+        margin-top: -35px;
     }
 
     .answer_align_fix {
-      width: 65px;
+        width: 65px;
     }
 
     .mdl-card {
-      width: 100%;
-      margin-top: 10px;
+        width: 100%;
+        margin-top: 10px;
     }
 
     .university p {
-      margin-bottom: 5px;
+        margin-bottom: 5px;
     }
 
     .user_parent {
-      margin-left: auto;
-      margin-right: auto;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .tags a {
-      color: #673AB7;
+        color: #673AB7;
     }
 
     .editprofile {
@@ -304,43 +303,69 @@
     }
 
     .edit_profile_parent a {
-      font-family: 'Montserrat', sans-serif;
+        font-family: 'Montserrat', sans-serif;
     }
 
     .edit_profile_parent .mdl-button--primary.mdl-button--primary {
-      color: #FFFFFF;
+        color: #FFFFFF;
     }
 
     .edit_profile_parent .mdl-button {
-      background-color: #64B5F6;
+        background-color: #64B5F6;
     }
 
     .edit_button {
-      margin-left: 0px;
-      margin-right: auto;
+        margin-left: 0px;
+        margin-right: auto;
     }
 
     .change_password_button {
-      margin-right: 0px;
-      margin-left: auto;
+        margin-right: 0px;
+        margin-left: auto;
     }
 
     h3 {
-      line-height: 10px;
+        line-height: 10px;
     }
 
     .upvote_margin {
-      margin-top: 8px;
+        margin-top: 8px;
     }
 
     .verified {
-      fill: #FFD180;
+        fill: #FFD180;
     }
 
     .twa {
-      background-size: 16px 16px;
-      height: 16px;
-      width: 16px;
+        background-size: 16px 16px;
+        height: 16px;
+        width: 16px;
+    }
+
+    .vote-default {
+        color: #424242;
+    }
+
+    .vote-success {
+        color: #4CAF50;
+    }
+
+    .vote-danger {
+        color: #F44336;
+    }
+
+    .mdl-snackbar__text {
+        font-family: 'Montserrat', sans-serif;
+        color: #EEEEEE;
+    }
+
+    .button-responsive-fix {
+        padding: 0px;
+    }
+
+    .register-padding {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     @media (max-width: 479px) {
@@ -385,53 +410,57 @@
             font-size: 15px;
             padding: 17px 0;
         }
-
         .answer p {
             font-size: 12px;
         }
-
         .answer_author_meta {
-          font-size: 12px;
+            font-size: 12px;
         }
         .about p {
-          font-size: 12px;
+            font-size: 12px;
         }
         .upvote_margin {
-          margin-top: 12px;
+            margin-top: 12px;
+        }
+        .pagination {
+            height: 65px;
         }
     }
 
     @media (max-width: 479px) {
-      .a_title {
-        font-size: 11px;
-      }
-
-      body {
-        line-height: 15px;
-      }
+        .a_title {
+            font-size: 11px;
+        }
+        body {
+            line-height: 15px;
+        }
     }
 
+    @media (max-width: 320px) {
+        .mdl-layout__header-row {
+            padding: 0 10px 0 55px;
+        }
+    }
 </style>
 <center>
-
-<div class="user_parent about mdl-cell mdl-cell--6-col">
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-        <div class="about mdl-cell mdl-cell--12-col">
-        {% if request.user.username == user_instance.username %}
-            <div class="edit_profile_parent mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
-            <center>
-            <a href="{% url 'edit_profile' user_instance.username %}" class="edit_button mdl-button mdl-button--primary">Edit Profile</a>
-            <center>
-            </div>
-            <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
-            <center>
-            <a href="{% url 'change_password' user_instance.username %}" class="change_password_button mdl-button mdl-button--primary">Change Password</a>
-            <center>
-            </div>
-            </div>
-        {% endif %}
-            <h3 class="username">@{{user_instance.username}}
+    <div class="user_parent about mdl-cell mdl-cell--6-col">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="about mdl-cell mdl-cell--12-col">
+                {% if request.user.username == user_instance.username %}
+                <div class="edit_profile_parent mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
+                        <center>
+                            <a href="{% url 'edit_profile' user_instance.username %}" class="edit_button mdl-button mdl-button--primary">Edit Profile</a>
+                            <center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
+                        <center>
+                            <a href="{% url 'change_password' user_instance.username %}" class="change_password_button mdl-button mdl-button--primary">Change Password</a>
+                            <center>
+                    </div>
+                </div>
+                {% endif %}
+                <h3 class="username">@{{user_instance.username}}
               {% if user_instance.is_superuser %}
                 {% include 'user_templates/verified.html' %}
                 <div class="mdl-tooltip" data-mdl-for="verified">
@@ -439,146 +468,79 @@
                 </div>
               {% endif %}
             </h3>
-            <p>{{ user_instance.student.bio }}</p>
-            <div class="university">
-                <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
+                <p>{{ user_instance.student.bio }}</p>
+                <div class="university">
+                    <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
+                </div>
+                <i class="twa twa-mortar-board"></i>
+                <p> Class of {{user_instance.student.grad_year}}.</p>
+                <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
             </div>
-            <i class="twa twa-mortar-board"></i><p> Class of {{user_instance.student.grad_year}}.</p>
-            <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
         </div>
-        </div>
-</div>
-</center>
-<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-    <div class="mdl-tabs__tab-bar">
-        <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
-        <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
-        <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
     </div>
-    <div class="mdl-tabs__panel is-active" id="all-panel">
-        {% if allqa %}
-        {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %}
-        <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
-            <center><br> {{ pages.next }}</center>
+    </center>
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
+            <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
+            <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
         </div>
-        {% else %}
-        <center><p>Nothing here. :/</p></center>
-        {% endif %}
-    </div>
-    <div class="mdl-tabs__panel" id="questions-panel">
-        {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
-        <center>
-            {% get_pages %}
-            <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
-                <br> {{ pages.next }}
+        <div class="mdl-tabs__panel is-active" id="all-panel">
+            {% if allqa %} {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %} {% if questions|length > 10 %}
+            <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
+                <center>
+                    <br> {{ pages.next }}</center>
             </div>
-        </center>
-        {% else %}
-        <center><p>No questions yet.</p></center>
-        {% endif %}
+            {% endif %} {% else %}
+            <center>
+                <br>
+                <p>Nothing here. :/</p>
+            </center>
+            {% endif %}
+        </div>
+        <div class="mdl-tabs__panel" id="questions-panel">
+            {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
+            <center>
+                {% get_pages %} {% if questions|length > 10 %}
+                <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
+                    <br> {{ pages.next }}
+                </div>
+                {% endif %}
+            </center>
+            {% else %}
+            <center>
+                <br>
+                <p>No questions yet.</p>
+            </center>
+            {% endif %}
+        </div>
+        <div class="mdl-tabs__panel" id="answers-panel">
+            {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
+            <center>
+                {% get_pages %} {% if questions|length > 10 %}
+                <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
+                    <br> {{ pages.next }}
+                </div>
+                {% endif %}
+            </center>
+            {% else %}
+            <center>
+                <br>
+                <p>No answers yet.</p>
+            </center>
+            {% endif %}
+        </div>
     </div>
-    <div class="mdl-tabs__panel" id="answers-panel">
-        {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
-        <center>
-            {% get_pages %}
-            <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
-                <br> {{ pages.next }}
-            </div>
-        </center>
-        {% else %}
-        <center><p>No answers yet.</p></center>
-        {% endif %}
+    {% if user.is_anonymous %}
+    <script>
+        var anonFlag = 1;
+    </script>
+    <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
     </div>
-</div>
-{% endblock %} {% block script %}
-<script type="text/javascript">
-    var all_page = 0;
-    $('#all-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.all_content',
-        callback: function() {
-            $("#all-panel .pagination")[all_page].hidden = true;
-            all_page += 1;
-        }
-    });
-    var questions_page = 0;
-    $('#questions-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.questions_content',
-        callback: function() {
-            $("#questions-panel .pagination")[questions_page].hidden = true;
-            questions_page += 1;
-        }
-    });
-    var answers_page = 0;
-    $('#answers-panel').jscroll({
-        loadingHtml: '<center><div class="mdl-spinner mdl-js-spinner is-active loader"></div></center><script>componentHandler.upgradeElement($(".loader")[0])<\/script>',
-        autoTrigger: false,
-        nextSelector: '.endless_page_link',
-        contentSelector: '.answers_content',
-        callback: function() {
-            $("#answers-panel .pagination")[answers_page].hidden = true;
-            answers_page += 1;
-        }
-    });
-</script>
-{% endblock script %}
-{% block votescript %}
-        <script type="text/javascript">
-        $(".upvote").click(function(){
-            //QuestionVoting
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#down"+id).removeClass("vote-danger").addClass("vote-default")
-                $("#score"+id).children()[0].textContent = data.points;
-           });
-        });
-        $(".downvote").click(function(){
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#score"+id).children()[0].textContent = data.points;
-                $("#up"+id).removeClass("vote-success").addClass("vote-default");
-           });
-        });
-        //Answer voting
-        $(".ansUpvote").click(function(){
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $(".ansUp"+id).toggleClass("vote-default").toggleClass("vote-success");
-                $(".ansDown"+id).removeClass("vote-danger").addClass("vote-default")
-                $(".ansScore"+id)[0].childNodes[1].textContent = data.points;
-                $(".ansScore"+id)[1].childNodes[1].textContent = data.points;
-           });
-        });
-        $(".ansDownvote").click(function(){
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-           $.get(vote_url, function(data, status){
-                $(".ansDown"+id).toggleClass("vote-default").toggleClass("vote-danger");
-                $(".ansUp"+id).removeClass("vote-success").addClass("vote-default");
-                $(".ansScore"+id)[0].childNodes[1].textContent = data.points;
-                $(".ansScore"+id)[1].childNodes[1].textContent = data.points;
-           });
-        });
-</script>
-<style type="text/css">
-    .vote-default {
-        color: #424242;
-    }
-    .vote-success{
-        color: #4CAF50;
-    }
-    .vote-danger{
-        color: #F44336;
-    }
-</style>
-{% endblock votescript %}
+    {% else %}
+    <script>
+        var anonFlag = 0;
+    </script>
+    {% endif %} {% endblock %}

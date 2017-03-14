@@ -16,7 +16,6 @@ def thread(request, thread_id):
         thread_id = int(thread_id)
     except ValueError:
         raise Http404()
-    username = request.user.username
     question_requested = get_object_or_404(question, pk=thread_id)
     description = markdown2.markdown(question_requested.description, extras=["tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
@@ -28,7 +27,6 @@ def thread(request, thread_id):
                   'thread_templates/thread.html',
                   {'question': question_requested,
                    'description': description,
-                   'username': username,
                    'form': unsubmitted_answer,
                    'all_answers': all_answers})
 

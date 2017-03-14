@@ -5,14 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night."/>
+    <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>@{{ user_instance.username }}</title>
-
     <!-- Stylesheets -->
-    {% load staticfiles %}
-    {% include 'home_templates/favicon.html' %}
+    {% load staticfiles %} {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -21,7 +19,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,66 +26,67 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-
 <style>
-    .mdl-layout__content {
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: column;
-        flex-direction: column;
-    }
+.mdl-layout__content {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
 
-    .mdl-mini-footer {
+.mdl-mini-footer {
+    display: block;
+}
+
+.navbar_logo {
+    width: 85px;
+}
+
+.notif-inside {
+    color: #424242;
+}
+
+.unread .notif-inside {
+    color: #009688;
+}
+
+.notifications {
+    width: 50px;
+    height: 50px;
+}
+
+.answer_align_fix {
+    margin: 0px;
+}
+
+.mdl-badge[data-badge]:after {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.hljs {
+    background: #EEEEEE;
+    padding-bottom: 20px;
+    padding-top: 0px;
+}
+
+@media (max-width: 479px) {
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list {
         display: block;
     }
-
-    .navbar_logo {
-        width: 85px;
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list a {
+        white-space: normal;
     }
+}
 
-    .notif-inside {
-        color: #424242;
+@media (max-width: 320px) {
+    .title .date {
+        font-size: 9px;
     }
-
-    .unread .notif-inside {
-        color: #009688;
-    }
-
-    .notifications {
-      width: 50px;
-      height: 50px;
-    }
-
-    .answer_align_fix {
-      margin: 0px;
-    }
-
-    .mdl-badge[data-badge]:after {
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .hljs {
-        background: #EEEEEE;
-        padding-bottom: 20px;
-        padding-top: 0px;
-    }
-
-    @media (max-width: 479px) {
-        .mdl-mini-footer--link-list, .mdl-mini-footer__link-list {
-          display: block;
-        }
-
-          .mdl-mini-footer--link-list, .mdl-mini-footer__link-list a {
-            white-space: normal;
-          }
-      }
-
-    @media (max-width: 320px) {
-        .title .date {
-            font-size: 9px;
-        }
-    }
+}
 </style>
+
 <body>
     <!-- Uses a header that scrolls with the text, rather than staying
   locked at the top -->
@@ -103,37 +101,34 @@
                 </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                {% with ansnotifs=request.user.notifications.answers  %}
-                {% if ansnotifs.all %}
+                {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
                     <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
-                    {% if ansnotifs.unread_count %}
-                    <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
-                    {% else %}
-                    <i class="material-icons">notifications</i>
-                    {% endif %}
+                        {% if ansnotifs.unread_count %}
+                        <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
+                        {% else %}
+                        <i class="material-icons">notifications</i> {% endif %}
                     </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                    {% for ans in ansnotifs.sort_read|slice:":10" %}
-                    <a href="{% url 'notif' ans.id %}">
-                        <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
-                        <p class="notif-inside">
-                        {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:100 }}
-                        <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
-                        </p>
-                        </li>
-                    </a>
-                    {% endfor %}
+                        {% for ans in ansnotifs.sort_read %}
+                        <a href="{% url 'notif' ans.id %}">
+                            <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
+                                <p class="notif-inside">
+                                    {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:100 }}
+                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
+                                </p>
+                            </li>
+                        </a>
+                        {% endfor %}
                     </ul>
                 </nav>
-                {% endif %}
-                {% endwith %}
+                {% endif %} {% endwith %}
                 <!-- Navigation -->
-                {% if request.user.username %}
+
                 <nav class="mdl-navigation">
+                {% if user.is_authenticated %}
                     <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
-
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                         <li class="mdl-menu__item">
                             <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
@@ -141,19 +136,27 @@
                         <li class="mdl-menu__item">
                             <form method="post" action="/logout/">
                                 {% csrf_token %}
-                                <center><input type="submit" value="Logout" class="mdl-menu__item" /></center>
+                                <center>
+                                    <input type="submit" value="Logout" class="mdl-menu__item" />
+                                </center>
                             </form>
                         </li>
                     </ul>
-                </nav>
+                {% else %}
+                <button class="mdl-button mdl-js-button button-responsive-fix">
+                    <a href="{% url 'home' %}" class="anon-login"> Login </a>
+                    </button>
+                    <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
+                    <a href="{% url 'register' %}" class="anon-register"> Register </a>
+                    </button>
                 {% endif %}
+                </nav>
             </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Your content goes here -->
                 {% block body %} {% endblock %}
-
             </div>
             <div class="mdl-layout-spacer"></div>
             <footer class="mdl-mini-footer">
@@ -167,7 +170,6 @@
             </footer>
         </main>
     </div>
-
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -175,25 +177,7 @@
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
     <script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-91622346-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    {% block script %} {% endblock script %}
-    {% block votescript %} {% endblock votescript %}
+    <script src="{% static 'js/user/user.js' %}"></script>
 </body>
 
 </html>

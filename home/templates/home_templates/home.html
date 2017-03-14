@@ -1,4 +1,4 @@
-{% extends 'home_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
+{% extends 'home_templates/base.html' %} {% block frontpage %} {% load timesince_upto %} {% load el_pagination_tags %}
 <style>
     .mdl-cell--12-col {
         background-color: #EEEEEE;
@@ -368,7 +368,7 @@
             </div>
 
             <div class="title">
-                <div class="date">Asked&nbsp{{ x.created_time|timesince }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} Answers</small>
+                <div class="date">Asked&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} Answers</small>
                 </div>
                 <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
                 <i class="material-icons solved">check</i> {% endif %}
