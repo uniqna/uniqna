@@ -1,4 +1,4 @@
-{% load bleach_tags %} {% if instance.question %}
+{% load bleach_tags %} {% load timesince_upto %} {% if instance.question %}
 <div class="mdl-cell mdl-cell--12-col {{divclass}}">
     <div class="mdl-grid platform">
         <div class="mdl-cell mdl-cell--1-col voting">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="title">
-            <div class="date">Asked&nbsp{{ instance.question.created_time|timesince }} ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.question.answers }} Answers</small>
+            <div class="date">Asked&nbsp{{ instance.question.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.question.answers }} Answers</small>
             </div>
             <a href="{% url 'thread' instance.question.pk %}" class="a_title">{{ instance.question.title }}</a> {% if instance.question.solved == True %}
             <i class="material-icons solved">check</i> {% endif %}
@@ -48,7 +48,7 @@
                 </div>
         </div>
         <div class="answer mdl-cell mdl-cell--12-col">
-            <p>{{instance.description|bleach|truncatechars:500 }}
+            <p>{{instance.description|bleach|truncatechars_html:500 }}
                 <a href="{% url 'thread' instance.question.pk %}#a{{instance.pk}}" class="viewans"><br>View answer</a>
             </p>
         </div>
@@ -85,7 +85,7 @@
       </div>
 
       <div class="title">
-          <div class="date">Asked&nbsp{{ instance.created_time|timesince }} ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.answers }} Answers</small>
+          <div class="date">Asked&nbsp{{ instance.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.answers }} Answers</small>
           </div>
           <a href="{% url 'thread' instance.pk %}" class="a_title">{{ instance.title }}</a> {% if instance.solved == True %}
           <i class="material-icons solved">check</i> {% endif %}
