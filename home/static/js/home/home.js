@@ -1,3 +1,4 @@
+// Pagination
         var last_page = $("#last").data("last");
         var curr_page = 1;
         $('#infini').jscroll({
@@ -10,6 +11,7 @@
                 curr_page += 1;
             }
         });
+// Voting script
         $(".upvote").click(function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
@@ -28,7 +30,31 @@
                 $("#score" + id).children()[0].textContent = data.points;
             });
         });
+// Floating button script
+        var fabState = 1; // Variable denoting the state of the fab
+        // 1 - its closed
+        // 0 - its open
+        $(".hidden-fab").hide();
+        $(".create-fab").click("on", function(){
+            if (fabState===1){
+                $(".wrapper")[0].style.opacity=0.5;
+                $(".hidden-fab").show();
+                $(".create-fab")[0].style.background = "#eee";
+                $(".create-fab")[0].style.color = "#aaa";
+                fabState = 0;
+            }
+            else if (fabState===0){
+                $(".create-fab")[0].style.background = "rgb(255, 64, 129)";
+                $(".create-fab")[0].style.color = "#fff";
+                $(".hidden-fab").hide()
+                $(".wrapper")[0].style.opacity=1;
+                fabState = 1;
+            }
+        });
 
+
+
+// G-Analytics
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function() {

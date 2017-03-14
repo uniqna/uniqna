@@ -305,9 +305,12 @@
     }
 </style>
 <div class="mdl-grid postsearchparent">
+    <!-- 
+    
+    -->
     <div class="mdl-cell mdl-cell--3-col ask">
         <form action="{% url 'ask' %}">
-            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
       Submit a Post <i class="material-icons">question_answer</i>
     </button>
         </form>
