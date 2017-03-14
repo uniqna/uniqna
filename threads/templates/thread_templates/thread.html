@@ -12,7 +12,7 @@
     {% endif %}
 
     <div class="question_meta mdl-cell mdl-cell--12-col">
-        <p> Asked {{ question.created_time|timesince }} ago by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
+        <p> Asked on {{ question.created_time|date:"d M, Y" }} by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
     </div>
     {% if question.tags.all %}
     <div class="question_meta_tags mdl-cell mdl-cell--12-col">
