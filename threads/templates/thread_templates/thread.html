@@ -27,7 +27,7 @@
 -->
 </center>
 
-{% if question.author == username %}
+{% if question.author == request.user.username %}
 <center><a class="question_delete" href="{% url 'delete_question' question.pk %}">Delete?</a></center>
 {% if question.solved == False %}
 <center><a class="question_solved" href="{% url 'mark_answer_solved' question.pk %}">Mark as Solved?</a></center>
@@ -43,17 +43,26 @@
     <div class="mdl-cell mdl-cell--2-col voting">
         <div class="mdl-grid voting">
             <div class="mdl-cell mdl-cell--1-col votesu">
-                <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote" data-id="{{question.pk}}">
+                <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{question.pk}}">
                     <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
-                    </button>
+                </button>
+                {% if user.is_anonymous %}
+                <script>
+                var anonFlag = 1;
+                </script>
+                <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+                  <div class="mdl-snackbar__text"></div>
+                  <button class="mdl-snackbar__action" type="button"></button>
+                </div>
+                {% endif %}
             </div>
             <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
                 <center>{{ question.points }}</center>
             </div>
             <div class="mdl-cell mdl-cell--1-col votesd">
-                <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{question.pk}}">
+                <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote mdl-snackbar__action snackbar_show" data-id="{{question.pk}}">
                     <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
-                    </button>
+                </button>
             </div>
         </div>
     </div>
@@ -61,9 +70,18 @@
 
 <center>
     <div class="can_you_help">
+      {% if user.is_anonymous %}
+        <p>Please <a href="{% url 'home' %}" style="color:#3f51b5">login</a> to contribute to this discussion!<p>
+      {% else %}
         <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
+      {% endif %}
     </div>
 </center>
+
+{% if user.is_authenticated %}
+<script>
+var anonFlag = 0;
+</script>
 <div class="writeanswer">
     <form action="answer/" method="post">
         <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
@@ -79,7 +97,10 @@
         </center>
     </form>
 </div>
-<br><br> {% load bleach_tags %} {% for x in all_answers %}
+<br>
+{% endif %}
+<br>
+{% load bleach_tags %} {% for x in all_answers %}
 
 <!-- -->
 
@@ -88,7 +109,7 @@
         <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
             <div class="mdl-grid voting-align">
                 <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{x.pk}}">
+                    <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{x.pk}}">
                     <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
                     </button>
                 </div>
@@ -96,7 +117,7 @@
                     <center>{{ x.points }}</center>
                 </div>
                 <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{x.pk}}">
+                    <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{x.pk}}">
                     <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
                     </button>
                 </div>
@@ -120,7 +141,7 @@
             <div class="answer_description" id="a{{x.pk}}">
                 <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>
             </div>
-            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == username %}
+            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == request.user.username %}
             <div class="meta_parent">
                 <div class="answer_user">
                     <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
@@ -136,11 +157,9 @@
     .vote-default {
         color: #424242;
     }
-
     .vote-success {
         color: #4CAF50;
     }
-
     .vote-danger {
         color: #F44336;
     }

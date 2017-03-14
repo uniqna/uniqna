@@ -2,17 +2,18 @@
 <html lang="en">
 
 <head>
+    {% load timesince_upto %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{question.author}} asked {{question.title}}" />
+    <meta name="description" content="{{question.description|truncatechars:70}} Answers: {{question.answers}}, Submitted on: {{question.created_time|upto}}">
+    <meta name="author" content="{{question.author}}">
     <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>{{ question.title }}</title>
+    <title>{{ question.title }} - uniqna</title>
 
     <!-- Stylesheets -->
-    {% load staticfiles %}
-    {% include 'home_templates/favicon.html' %}
+    {% load staticfiles %} {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400i" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -351,6 +352,24 @@
         padding-top: 0px;
     }
 
+    .mdl-snackbar__action {
+        padding: 0px;
+    }
+
+    .mdl-snackbar__text {
+        font-family: 'Montserrat', sans-serif;
+        color: #EEEEEE;
+    }
+
+    .button-responsive-fix {
+        padding: 0px;
+    }
+
+    .register-padding {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
     .mdl-badge[data-badge]:after {
         font-family: 'Montserrat', sans-serif;
     }
@@ -448,6 +467,9 @@
         .can_you_help p {
             font-size: 12px;
         }
+        .mdl-layout__header-row {
+            padding: 0 10px 0 55px;
+        }
     }
 </style>
 
@@ -463,8 +485,9 @@
                         <img src="{% static 'assets/logo_white.svg' %}">
                     </div>
                 </a>
-                <!-- Add spacer, to align navigation to the right -->
+
                 <div class="mdl-layout-spacer"></div>
+                <!--Navigation-->
                 {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
                     <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
@@ -490,12 +513,12 @@
                 {% endif %} {% endwith %}
                 <!-- Navigation -->
                 <nav class="mdl-navigation">
-                    <a> {{ username }} </a>
+                    {% if user.is_authenticated %}
+                    <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
-
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                         <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
+                            <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
                         </li>
                         <li class="mdl-menu__item">
                             <form method="post" action="/logout/">
@@ -504,6 +527,14 @@
                             </form>
                         </li>
                     </ul>
+                    {% else %}
+                    <button class="mdl-button mdl-js-button button-responsive-fix">
+                    <a href="{% url 'home' %}" class="anon-login"> Login </a>
+                    </button>
+                    <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
+                    <a href="{% url 'register' %}" class="anon-register"> Register </a>
+                    </button>
+                    {% endif %}
                 </nav>
             </div>
         </header>
@@ -518,7 +549,7 @@
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo">uniqna © 2017</div>
                     <ul class="mdl-mini-footer__link-list">
-                        <li><a href="http://bit.ly/foundabug">Found a Bug?&nbsp&nbsp&nbsp&nbsp |</a></li>
+                        <li><a href="mailto:superheroes@uniqna.com">Need to tell us something?&nbsp&nbsp&nbsp&nbsp |</a></li>
                         <li><a href="https://creativecommons.org/licenses/by-sa/3.0/">User contributions licensed under cc by-sa 3.0 with attribution required</a></li>
                     </ul>
                 </div>
@@ -531,91 +562,10 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src='{% static "js/vote.js" %}'></script>
     <script src='{% static "js/notyf.js" %}'></script>
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
     <script src='{% static "js/clipboard.min.js" %}'></script>
-    <script>
-        var simplemde = new SimpleMDE({
-            element: $("#MyID")[0],
-            hideIcons: ["quote", "fullscreen", "side-by-side"],
-            spellChecker: false,
-            placeholder: "Type here...",
-            renderingConfig: {
-              singleLineBreaks: false,
-              codeSyntaxHighlighting: true,
-            },
-        });
-        //Answer voting
-        $(".ansUpvote").click(function() {
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-            $.get(vote_url, function(data, status) {
-                $("#ansUp" + id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#ansDown" + id).removeClass("vote-danger").addClass("vote-default")
-                $("#ansScore" + id).children()[0].textContent = data.points;
-            });
-        });
-        $(".ansDownvote").click(function() {
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-            $.get(vote_url, function(data, status) {
-                $("#ansDown" + id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#ansUp" + id).removeClass("vote-success").addClass("vote-default");
-                $("#ansScore" + id).children()[0].textContent = data.points;
-            });
-        });
-        var delayMillis = 1500;
-        $(".clipboard_button").click(function() {
-            ans_id = $(this).data("id");
-            span_id = "#aspan"+ans_id;
-            $(span_id).html($(".mdl-tooltip span").html() == 'Permalink' ? 'Copied!' : 'Permalink');
-            setTimeout(function(){
-              $(span_id).parent().hide()
-            }, delayMillis);
-            setTimeout(function(){
-              $(span_id).html($(".mdl-tooltip span").html() == 'Copied!' ? 'Permalink' : 'Permalink');
-              $(span_id).parent().show()
-            }, 4000)
-        });
-        var clipboard = new Clipboard('.clipboard_button');
-    </script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-91622346-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script>
-       var not = new Notyf({
-        delay: 5000
-    });
-
-    $(".submit").hide();
-    $('#submitdummy').on("click", function(e) {
-        e.preventDefault();
-        flag = 1;
-        if (simplemde.value() == "") {
-            alert("Write the answer before clicking submit.");
-            not.alert("Please write the answer.")
-            flag = 0;
-        }
-        if (flag) {
-            $(".submit").click();
-        }
-    });
-    </script>
+    <script src='{% static "js/threads/thread.js" %}'></script>
 </body>
 
 </html>

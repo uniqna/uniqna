@@ -156,7 +156,7 @@
                         <img src="{% static 'assets/logo_white.svg' %}">
                     </div>
                 </a>
-                <!-- Add spacer, to align navigation to the right -->
+                <!-- Navigation -->
                 <div class="mdl-layout-spacer"></div>
                 {% with ansnotifs=request.user.notifications.answers  %}
                 {% if ansnotifs.all %}
@@ -183,7 +183,6 @@
                 </nav>
                 {% endif %}
                 {% endwith %}
-                <!-- Navigation -->
                 <nav class="mdl-navigation">
                     <a> {{ request.user.username }} </a>
                     <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>

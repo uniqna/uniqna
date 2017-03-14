@@ -110,6 +110,8 @@ def tag_view(request, tagname):
     if request.user.is_authenticated:
         tag_instance = get_object_or_404(tag, name=tagname)
         return render(request, "tag_templates/tags.html", {'tags': tag_instance})
+    else:
+        return HttpResponseRedirect(reverse('home'))
 
 
 def notif_redirect(request, pk):
