@@ -37,7 +37,7 @@
         $(".hidden-fab").hide();
         $(".create-fab").click("on", function(){
             if (fabState===1){
-                $(".wrapper")[0].style.opacity=0.5;
+                $(".wrapper")[0].style.opacity=0.3;
                 $(".hidden-fab").show();
                 $(".create-fab")[0].style.background = "#eee";
                 $(".create-fab")[0].style.color = "#aaa";
