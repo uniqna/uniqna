@@ -31,32 +31,41 @@
     -webkit-flex-direction: column;
     flex-direction: column;
 }
+
 .mdl-mini-footer {
     display: block;
 }
+
 .navbar_logo {
     width: 85px;
 }
+
 .notif-inside {
     color: #424242;
 }
+
 .unread .notif-inside {
     color: #009688;
 }
+
 .notifications {
     width: 50px;
     height: 50px;
 }
+
 .notifications_ago {}
+
 .mdl-badge[data-badge]:after {
     font-family: 'Montserrat', sans-serif;
 }
-    .wrapper {
-        opacity: 1;
-        -webkit-transition: opacity .20s ease-in;
-        transition: opacity .20s ease-in;
-    }
-    .create-fab {
+
+.wrapper {
+    opacity: 1;
+    -webkit-transition: opacity .20s ease-in;
+    transition: opacity .20s ease-in;
+}
+
+.create-fab {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -64,28 +73,34 @@
     font-weight: 500;
     transition: all 0.20s ease-in;
     -webkit-transition: all 0.20s ease-in;
-    }
-    .question-fab {
+}
+
+.question-fab {
     position: fixed;
     bottom: 100px;
     right: 20px;
     z-index: 10;
     font-weight: 500;
-    }
-    .discuss-fab {
+}
+
+.discuss-fab {
     position: fixed;
     bottom: 180px;
     right: 20px;
     z-index: 10;
-    }
-    .fab-button {
-        margin-left: 10px;
-    }
+}
+
+.fab-button {
+    margin-left: 10px;
+}
+
+
 @media (max-width: 320px) {
     .title .date {
         font-size: 9px;
     }
 }
+
 @media (max-width: 479px) {
     .mdl-mini-footer--link-list,
     .mdl-mini-footer__link-list {
@@ -103,95 +118,97 @@
   locked at the top -->
     <!-- Hi! -->
     <div class="wrapper">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <a href="#infini" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <div class="navbar_logo">
-                        <img src="{% static 'assets/logo_white.svg' %}">
-                    </div>
-                </a>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
-                <nav class="mdl-navigation">
-                    <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
-                        {% if ansnotifs.unread_count %}
-                        <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
-                        {% else %}
-                        <i class="material-icons">notifications</i> {% endif %}
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                        {% for ans in ansnotifs.sort_read|slice:":10" %}
-                        <a href="{% url 'notif' ans.id %}">
-                            <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
-                                <p class="notif-inside">
-                                    {% if request.user_agent.is_mobile %} {{ ans.theanswer.answer_author }} answered your question #}
-                                    <br>{{ ans.theanswer.question.title|truncatechars:20 }} <small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %} {% if request.user_agent.is_tablet %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:30 }}
-                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %} {% if request.user_agent.is_pc %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:40 }}
-                                    <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %}
-                                </p>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <a href="#infini" class="mdl-layout-title mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <div class="navbar_logo">
+                            <img src="{% static 'assets/logo_white.svg' %}">
+                        </div>
+                    </a>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
+                    <nav class="mdl-navigation">
+                        <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
+                            {% if ansnotifs.unread_count %}
+                            <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
+                            {% else %}
+                            <i class="material-icons">notifications</i> {% endif %}
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
+                            {% for ans in ansnotifs.sort_read|slice:":10" %}
+                            <a href="{% url 'notif' ans.id %}">
+                                <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
+                                    <p class="notif-inside">
+                                        {% if request.user_agent.is_mobile %} {{ ans.theanswer.answer_author }} answered your question #}
+                                        <br>{{ ans.theanswer.question.title|truncatechars:20 }} <small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %} {% if request.user_agent.is_tablet %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:30 }}
+                                        <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %} {% if request.user_agent.is_pc %} {{ ans.theanswer.answer_author }} answered your question {{ ans.theanswer.question.title|truncatechars:40 }}
+                                        <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small> {% endif %}
+                                    </p>
+                                </li>
+                            </a>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                    {% endif %} {% endwith %}
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                        <a> {{ username }} </a>
+                        <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                            <li class="mdl-menu__item">
+                                <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
                             </li>
-                        </a>
-                        {% endfor %}
-                    </ul>
-                </nav>
-                {% endif %} {% endwith %}
-                <!-- Navigation -->
-                <nav class="mdl-navigation">
-                    <a> {{ username }} </a>
-                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
-                        <li class="mdl-menu__item">
-                            <center><a href="{% url 'user' username %}" class="mdl-menu__item">View Profile</a></center>
-                        </li>
-                        <li class="mdl-menu__item">
-                            <form method="post" action="/logout/">
-                                {% csrf_token %}
-                                <center>
-                                    <input type="submit" value="Logout" class="mdl-menu__item" />
-                                </center>
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <main class="mdl-layout__content">
-            <div class="page-content">
-                <!-- Your content goes here -->
-                {% include 'home_templates/search.html' %} {% block frontpage %} {% endblock %}
-            </div>
-            <div class="mdl-layout-spacer"></div>
-            <footer class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">uniqna © 2017</div>
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="http://bit.ly/foundabug">Found a Bug?</a>&nbsp&nbsp&nbsp&nbsp |</li>
-                        <li><a href="https://creativecommons.org/licenses/by-sa/3.0/">User contributions licensed under cc by-sa 3.0 with attribution required</a></li>
-                    </ul>
+                            <li class="mdl-menu__item">
+                                <form method="post" action="/logout/">
+                                    {% csrf_token %}
+                                    <center>
+                                        <input type="submit" value="Logout" class="mdl-menu__item" />
+                                    </center>
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-            </footer>
-        </main>
-    </div>
+            </header>
+            <main class="mdl-layout__content">
+                <div class="page-content">
+                    <!-- Your content goes here -->
+                    {% include 'home_templates/search.html' %} {% block frontpage %} {% endblock %}
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <footer class="mdl-mini-footer">
+                    <div class="mdl-mini-footer__left-section">
+                        <div class="mdl-logo">uniqna © 2017</div>
+                        <ul class="mdl-mini-footer__link-list">
+                            <li><a href="http://bit.ly/foundabug">Found a Bug?</a>&nbsp&nbsp&nbsp&nbsp |</li>
+                            <li><a href="https://creativecommons.org/licenses/by-sa/3.0/">User contributions licensed under cc by-sa 3.0 with attribution required</a></li>
+                        </ul>
+                    </div>
+                </footer>
+            </main>
+        </div>
     </div>
     <div class="fab-buttons mdl-cell--hide-desktop">
-    <div class="question-fab hidden-fab">
-    Ask a question
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
-        Q
-    </button>
+        <div class="question-fab hidden-fab">
+            Ask a question
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
+                Q
+            </button>
+        </div>
+        <div class="discuss-fab hidden-fab">
+            Start a discussion
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
+                D
+            </button>
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored create-fab">
+            <i class="material-icons">add</i>
+        </button>
     </div>
-    <div class="discuss-fab hidden-fab">
-    Start a discussion
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
-        D
-    </button>
-    </div>
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored create-fab">
-        <i class="material-icons">add</i>
-    </button>
+    <div class="overlay">
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
