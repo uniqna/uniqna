@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     'home',
     'ask',
     'threads',
@@ -49,8 +51,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'RestApi',
     'search',
-    'django_user_agents'
+    'django_user_agents',
+    'robots'
 ]
+
+SITE_ID = 2
 
 CACHES = {
     'default': {
