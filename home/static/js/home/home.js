@@ -44,7 +44,7 @@
                 fabState = 0;
             }
             else if (fabState===0){
-                $(".create-fab")[0].style.background = "rgb(255, 64, 129)";
+                $(".create-fab")[0].style.background = "rgb(255, 204, 77)";
                 $(".create-fab")[0].style.color = "#fff";
                 $(".hidden-fab").hide()
                 $(".wrapper")[0].style.opacity=1;

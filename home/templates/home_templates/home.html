@@ -105,10 +105,11 @@
     }
 
     .ask {
-        width: 184px;
+        width: 135px;
         /* margin-right: auto; */
         margin-top: 5px;
         margin-left: 0px;
+        text-align: center;
     }
 
     .askbutton {
@@ -195,7 +196,7 @@
         width: 140px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 0px;
+        margin-top: -32px;
         margin-bottom: 0px;
     }
 
@@ -230,6 +231,15 @@
       font-size: 14px;
     }
 
+    .discuss {
+      width: 130px;
+    }
+
+    @media (max-width: 840px) {
+      .statistics {
+        display: none;
+      }
+    }
 
     @media (max-width: 479px) {
         .ask {
@@ -249,7 +259,7 @@
             text-align: center;
         }
         .postsearchparent {
-            height: 95px;
+            height: 8px;
             padding-bottom: 0px;
             padding-right: 0px;
             padding-left: 0px;
@@ -284,7 +294,7 @@
         .emoji-tabbed {
             margin-right: auto;
             margin-left: auto;
-            margin-top: -25px;
+            margin-top: 0px;
         }
         .a_title {
             font-size: 11px;
@@ -305,14 +315,21 @@
     }
 </style>
 <div class="mdl-grid postsearchparent">
-    <!-- 
-    
+    <!--
+
     -->
     <div class="mdl-cell mdl-cell--3-col ask">
         <form action="{% url 'ask' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
-      Submit a Post <i class="material-icons">question_answer</i>
-    </button>
+                +Question?
+            </button>
+        </form>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col ask discuss">
+        <form action="{% url 'ask' %}">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
+                +Dicuss!
+            </button>
         </form>
     </div>
 
