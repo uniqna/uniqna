@@ -243,6 +243,10 @@
        display:inline;
     }
 
+    .emoji-tabbed-form {
+      display: inline;
+    }
+
     @media (max-width: 840px) {
       .statistics {
         display: none;
@@ -348,27 +352,35 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--2-col emoji-tabbed">
-  <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect emoji-active">
+  <form class="emoji-tabbed-form" action="{% url 'home' %}">
+  <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "home" %}emoji-active{% endif %}">
     <i class="twa twa-2x twa-fire"></i>
   </button>
+  </form>
   <div class="mdl-tooltip" data-mdl-for="hot">
     Hot
   </div>
-  <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <form class="emoji-tabbed-form" action="{% url 'tab' 'qna' %}">
+  <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "qna" %}emoji-active{% endif %}">
     <i class="twa twa-2x twa-thinking thinking-align"></i>
   </button>
+  </form>
   <div class="mdl-tooltip" data-mdl-for="qna">
     Q&A
   </div>
-  <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <form class="emoji-tabbed-form" action="{% url 'tab' 'nsy' %}">
+  <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "nsy" %}emoji-active{% endif %}">
     <i class="twa twa-2x twa-confounded"></i>
   </button>
+  </form>
   <div class="mdl-tooltip" data-mdl-for="nsy">
     Not Solved Yet
   </div>
-  <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect">
+  <form class="emoji-tabbed-form" action="{% url 'tab' 'disc' %}">
+  <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "disc" %}emoji-active{% endif %}">
     <i class="twa twa-2x twa-thought-balloon"></i>
   </button>
+  </form>
   <div class="mdl-tooltip" data-mdl-for="discussions">
     Discussions
   </div>
@@ -398,7 +410,7 @@
             <div class="title">
                 <div class="date"><div class="metatype">{% if x.metatype == "question" %}Asked{% else %}Submitted{% endif %}</div>&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} {% if x.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
                 </div>
-                <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True %}
+                <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True and x.metatype == "question" %}
                 <i class="material-icons solved">check</i> {% endif %}
                 <div class="tags">
                     {% for t in x.tags.all %}
