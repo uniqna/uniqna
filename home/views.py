@@ -31,14 +31,19 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('home'))
 
 
-def home(request):
-    print("outside")
+def home(request, tab="home"):
     if request.method == 'GET':
         if request.user.is_authenticated:
             username = request.user.username
             question.objects.PopUpdate()
-            print("Pop updated")
-            question_list = question.objects.order_by("-popularity")
+            if tab == "home":
+                question_list = question.objects.order_by("-popularity")
+            if tab == "qna":
+                question_list = question.objects.filter(metatype="question").order_by("-popularity")
+            if tab == "nsy":
+                question_list = question.objects.filter(solved=False).order_by("-popularity")
+            if tab == "disc":
+                question_list = question.objects.filter(metatype="discussion").order_by("-popularity")
             no_of_questions = question.objects.all().count()
             no_of_answers = answer.objects.all().count()
             no_of_solved = question.objects.filter(solved=True).count()
@@ -46,6 +51,7 @@ def home(request):
             return render(request,
                           'home_templates/home.html',
                           {'username': username,
+                           'tab': tab,
                            'question_list': question_list,
                            'no_of_questions': no_of_questions,
                            'no_of_answers': no_of_answers,

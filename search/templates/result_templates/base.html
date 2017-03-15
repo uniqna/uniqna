@@ -86,7 +86,7 @@
                 </a>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                {% with ansnotifs=request.user.notifications.answers  %}
+                {% with ansnotifs=request.user.notifications.answers %}
                 {% if ansnotifs.all %}
                 <nav class="mdl-navigation">
                     <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
@@ -97,7 +97,7 @@
                     {% endif %}
                     </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                    {% for ans in ansnotifs.sort_read %}
+                    {% for ans in ansnotifs.sort_read|slice:":10" %}
                     <a href="{% url 'notif' ans.id %}">
                         <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
                         <p class="notif-inside">

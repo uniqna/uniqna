@@ -182,12 +182,12 @@
     }
 
     .answer {
-        width: calc(100% - 65px);
+        width: calc(100% - 50px);
         padding: 10px;
         color: #424242;
         padding-top: 5px;
         padding-bottom: 0px;
-        padding-left: 15px;
+        padding-left: 0px;
         position: relative;
     }
 
@@ -435,10 +435,11 @@
             font-size: 12px;
         }
         .answer {
-            width: calc(100% - 50px);
+            width: calc(100% - 42px);
             padding-top: 5px;
             padding-bottom: 0px;
             padding-left: 0px;
+            padding-right: 0px;
         }
         ul {
             font-size: 12px;
@@ -498,7 +499,7 @@
                     {% endif %}
                     </button>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect notifs" for="demo-menu-lower-left">
-                        {% for ans in ansnotifs.sort_read %}
+                        {% for ans in ansnotifs.sort_read|slice:":10" %}
                         <a href="{% url 'notif' ans.id %}">
                             <li class="mdl-menu__item {% if not ans.read %}unread{% endif %}">
                                 <p class="notif-inside">

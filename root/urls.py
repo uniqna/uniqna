@@ -34,11 +34,12 @@ sitemaps = {
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
+    url(r'^(?P<tab>(qna|nsy|disc))/$', views.home, name="tab"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
-    url(r'^ask/', include('ask.urls')),
+    url(r'^new/', include('ask.urls')),
     url(r'^writeanswer/', views.write_answer_view, name='writeanswer'),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),

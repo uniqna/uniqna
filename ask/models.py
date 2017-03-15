@@ -19,6 +19,7 @@ class tag(models.Model):
 
 
 class question(models.Model):
+    metatype = models.CharField(max_length=20, default="question", blank=False)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     answers = models.IntegerField(default=0)
