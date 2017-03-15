@@ -35,14 +35,13 @@
         // 1 - its closed
         // 0 - its open
         $(".hidden-fab").hide();
-        // Creating an overlay div which covers the entire screen 
-        // to prevent the clicking of links 
+        // Creating an overlay div which covers the entire screen
+        // to prevent the clicking of links
         $(".overlay").css({
-            "position": "absolute", 
-            "width": $(document).width(), 
-            "height": $(document).height(),
-            "z-index": -9, 
-        }); 
+            "position": "absolute",
+            "width": $(document).width(),
+            "z-index": -9,
+        });
         $(".create-fab").click("on", function(){
             if (fabState===1){
                 $(".wrapper")[0].style.opacity=0.3;

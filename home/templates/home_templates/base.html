@@ -107,6 +107,10 @@
         box-shadow: none;
     }
 
+    .overlay {
+      height: 100%;
+    }
+
     @media (max-width: 320px) {
         .title .date {
             font-size: 9px;
@@ -212,7 +216,7 @@
                 <i class="material-icons help_align_fix">help_outline</i>
             </button>
         </div>
-        <div class="discuss-fab hidden-fab" data-url="{% url 'ask' %}">
+        <div class="discuss-fab hidden-fab" data-url="{% url 'discuss' %}">
             Start a discussion!
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
               <i class="material-icons">question_answer</i>

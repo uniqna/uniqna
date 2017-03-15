@@ -1,24 +1,18 @@
 {% extends 'ask_templates/base.html' %} {% load widget_tweaks %} {% load staticfiles %}{% block content %}
-<form action="{% url 'question_submit' %}" method="post">
+<form action="{% url 'submit' metatype %}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
         <div id="title_label">
+          {% if metatype == "question" %}
             <label class="mdl-textfield__label" for="sample3">Title of your Question?</label>
+          {% else %}
+            <label class="mdl-textfield__label" for="sample3">Title of your Discussion?</label>
+          {% endif %}
         </div>
     </div>
     <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
         {{ form.description }} {% csrf_token %}
     </div>
-    <div class="mdl-cell mdl-cell--3-col answer_discussion_choice">
-    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect radio_question" for="option-1">
-  <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-  <span class="mdl-radio__label">Question</span>
-</label>
-<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-  <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
-  <span class="mdl-radio__label">Discussion</span>
-</label>
-</div>
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
             <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">

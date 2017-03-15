@@ -35,12 +35,20 @@
         // 1 - its closed
         // 0 - its open
         $(".hidden-fab").hide();
+        // Creating an overlay div which covers the entire screen
+        // to prevent the clicking of links
+        $(".overlay").css({
+            "position": "absolute",
+            "width": $(document).width(),
+            "z-index": -9,
+        });
         $(".create-fab").click("on", function(){
             if (fabState===1){
                 $(".wrapper")[0].style.opacity=0.3;
                 $(".hidden-fab").show();
                 $(".create-fab")[0].style.background = "#eee";
                 $(".create-fab")[0].style.color = "#aaa";
+                $(".overlay")[0].style.zIndex = 9;
                 fabState = 0;
             }
             else if (fabState===0){
@@ -48,10 +56,15 @@
                 $(".create-fab")[0].style.color = "#fff";
                 $(".hidden-fab").hide()
                 $(".wrapper")[0].style.opacity=1;
+                $(".overlay")[0].style.zIndex = -9;
                 fabState = 1;
             }
         });
-
+        // Link redirection
+        $(".hidden-fab").on("click", function(){
+            re_url = $(this).data("url");
+            document.location = re_url;
+        });
 
 
 // G-Analytics

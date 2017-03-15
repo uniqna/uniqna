@@ -235,6 +235,10 @@
       width: 130px;
     }
 
+    .overlay_height {
+        height: 100%;
+    }
+
     @media (max-width: 840px) {
       .statistics {
         display: none;
@@ -318,17 +322,17 @@
     <!--
 
     -->
-    <div class="mdl-cell mdl-cell--3-col ask">
+    <div class="mdl-cell mdl-cell--2-col ask">
         <form action="{% url 'ask' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
                 +Question?
             </button>
         </form>
     </div>
-    <div class="mdl-cell mdl-cell--3-col ask discuss">
-        <form action="{% url 'ask' %}">
+    <div class="mdl-cell mdl-cell--2-col ask ">
+        <form action="{% url 'discuss' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
-                +Dicuss!
+                +Discuss!
             </button>
         </form>
     </div>
