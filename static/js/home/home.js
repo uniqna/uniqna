@@ -11,6 +11,7 @@
                 curr_page += 1;
             }
         });
+
 // Voting script
         $(".upvote").click(function() {
             vote_url = $(this).data("url");
@@ -30,6 +31,7 @@
                 $("#score" + id).children()[0].textContent = data.points;
             });
         });
+
 // Floating button script
         var fabState = 1; // Variable denoting the state of the fab
         // 1 - its closed
