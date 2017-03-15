@@ -20,7 +20,7 @@
         </div>
 
         <div class="title">
-            <div class="date">Asked&nbsp{{ instance.question.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.question.answers }} Answers</small>
+            <div class="date">{% if instance.question.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ instance.question.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.question.answers }} {% if instance.question.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
             </div>
             <a href="{% url 'thread' instance.question.pk %}" class="a_title">{{ instance.question.title }}</a> {% if instance.question.solved == True %}
             <i class="material-icons solved">check</i> {% endif %}
@@ -85,7 +85,7 @@
       </div>
 
       <div class="title">
-          <div class="date">Asked&nbsp{{ instance.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.answers }} Answers</small>
+          <div class="date">{% if instance.question.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ instance.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.answers }} {% if instance.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
           </div>
           <a href="{% url 'thread' instance.pk %}" class="a_title">{{ instance.title }}</a> {% if instance.solved == True %}
           <i class="material-icons solved">check</i> {% endif %}

@@ -482,8 +482,8 @@
     <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
         <div class="mdl-tabs__tab-bar">
             <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
-            <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
-            <a href="#answers-panel" class="mdl-tabs__tab">Answers</a>
+            <a href="#questions-panel" class="mdl-tabs__tab">Posts</a>
+            <a href="#answers-panel" class="mdl-tabs__tab">Replies</a>
         </div>
         <div class="mdl-tabs__panel is-active" id="all-panel">
             {% if allqa %} {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %} {% if questions|length > 10 %}
