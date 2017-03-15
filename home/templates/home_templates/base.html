@@ -206,13 +206,13 @@
         </div>
     </div>
     <div class="fab-buttons mdl-cell--hide-desktop">
-        <div class="question-fab hidden-fab">
+        <div class="question-fab hidden-fab" data-url="{% url 'ask' %}">
             Ask a question?
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
                 <i class="material-icons help_align_fix">help_outline</i>
             </button>
         </div>
-        <div class="discuss-fab hidden-fab">
+        <div class="discuss-fab hidden-fab" data-url="{% url 'ask' %}">
             Start a discussion!
             <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
               <i class="material-icons">question_answer</i>

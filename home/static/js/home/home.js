@@ -61,7 +61,11 @@
                 fabState = 1;
             }
         });
-
+        // Link redirection
+        $(".hidden-fab").on("click", function(){
+            re_url = $(this).data("url");
+            document.location = re_url;
+        });
 
 
 // G-Analytics
