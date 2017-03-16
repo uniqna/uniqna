@@ -42,8 +42,6 @@ def submit(request, metatype):
             instance = submitted_form.save(commit=False)
             instance.author = request.user.username
             instance.metatype = metatype
-            if(metatype == "discussion"):
-                instance.solved = True
             instance.save()
             instance.ups.add(request.user)
             if request.POST['selectedtags']:

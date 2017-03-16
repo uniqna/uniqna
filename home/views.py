@@ -41,12 +41,12 @@ def home(request, tab="home"):
             if tab == "qna":
                 question_list = question.objects.filter(metatype="question").order_by("-popularity")
             if tab == "nsy":
-                question_list = question.objects.filter(solved=False).order_by("-popularity")
+                question_list = question.objects.filter(metatype="question", solved=False).order_by("-popularity")
             if tab == "disc":
                 question_list = question.objects.filter(metatype="discussion").order_by("-popularity")
-            no_of_questions = question.objects.all().count()
-            no_of_answers = answer.objects.all().count()
-            no_of_solved = question.objects.filter(solved=True).count()
+            no_of_questions = question.objects.filter(metatype="question").count()
+            no_of_answers = answer.objects.filter(metatype="question").count()
+            no_of_solved = question.objects.filter(metatype="question", solved=True).count()
             no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
             return render(request,
                           'home_templates/home.html',

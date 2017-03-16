@@ -16,6 +16,7 @@ class ManagerExtender(models.Manager):
 
 class answer(models.Model):
     question = models.ForeignKey(question)
+    metatype = models.CharField(max_length=20, default="question", blank=False)
     description = models.TextField(blank=True)
     answer_author = models.CharField("Author", max_length=100, default="anon")
     created_time = models.DateTimeField(default=timezone.now)

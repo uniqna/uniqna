@@ -34,10 +34,12 @@ def thread(request, thread_id):
 def submit_answer(request, question_id):
     if request.method == 'POST' and request.POST:
         question_answered = get_object_or_404(question, pk=question_id)
+        question_metatype = question_answered.metatype
         submitted_answer = answer_form(request.POST)
         if submitted_answer.is_valid():
             instance = submitted_answer.save(commit=False)
             instance.question = question_answered
+            instance.metatype = question_metatype
             instance.answer_author = request.user.username
             instance.save()
             instance.ups.add(request.user)
