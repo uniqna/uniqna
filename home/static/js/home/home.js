@@ -42,7 +42,6 @@
         // to prevent the clicking of links
         $(".overlay").css({
             "position": "absolute",
-            "width": $(document).width(),
             "z-index": -9,
         });
         $(".create-fab").click("on", function(){

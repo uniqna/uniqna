@@ -12,7 +12,7 @@
 
     <!-- Stylesheets -->
     {% load staticfiles %}
-    <link rel="icon" href="{% static 'favicon.png' %}">
+    {% load staticfiles %} {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -58,6 +58,11 @@
 
     .mdl-badge[data-badge]:after {
       font-family: 'Montserrat', sans-serif;
+    }
+
+    @media screen and (max-width: 1024px) {}
+        .mdl-layout__header-row {
+            height: 64px;
     }
 
     @media (max-width: 479px) {
