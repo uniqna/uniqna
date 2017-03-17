@@ -20,7 +20,7 @@ The initial commits of uniqna began as a test project on which I would tinker ar
 
 After developing the authentication system, I started working on a tiny Q&A module where users could post questions and contribute to answers. Furthemore, the front page was developed to list all the questions and sort them according to their popularity. It was fun learning how to connect the dots between the database, the templates and the python engine.
 
-When the website was quite stable and worked seamlessly (just kidding), I was struck by an epiphany that this could actually be used by real users. So I met along with my fellow good developer friend [Sriram](https://github.com/digi0ps) and discussed about the type of users who would want to use this platform and how we could work as a team for further development of the codebase. We realised how much this could have helped us and the other students during our freshman year of undergrad when none of us knew what was happening around and what was to be expected when we entered the university. There simply didn't exist a medium where students could be updated with the latest news, discussion, events, or let alone get their questions answered about a coursework, assignment, faculty, etc. Since students are scattered into different classes and departments, there is a minimal chance of meeting new people and sharing ideas with each toher. Due to this, collaboration among the students cease to exist.
+When the website was quite stable and worked seamlessly (just kidding), I was struck by an epiphany that this could actually be used by real users. So I met along with my fellow good developer friend [Sriram](https://github.com/digi0ps) and discussed about the type of users who would want to use this platform and how we could work as a team for further development of the codebase. We realised how much this could have helped us and the other students during our freshman year of undergrad when none of us knew what was happening around and what was to be expected when we entered the university. There simply didn't exist a medium where students could be updated with the latest news, discussion, events, or let alone get their questions answered about a coursework, assignment, faculty, etc. Since students are scattered into different classes and departments, there is a minimal chance of meeting new people and sharing ideas with each other. Due to this, collaboration among the students cease to exist.
 
 So we put on our magical hats and, fast forward through all the slack discussions, all nighters, merge conflicts and intensive coding sessions, together we've developed an "actually working" online platform that kicks off a collaborative and a diverse student driven community for universities out there. We call it uniqna (Pronounced uni-queue-n-a).
 
@@ -30,7 +30,7 @@ We're currently powering the student community at VIT University, India. We're w
 
 To set up your own instance of uniqna to develop with, refer to our Install Guide (Will be updated)
 
-Thanks for wanting to make uniqna better! Please read more on contributions in CONTRIBUTING.md
+Thanks for wanting to make uniqna better! Please read more on contributions in CONTRIBUTING.md (Will be updated)
 
 If you're new to contributing to Open Source on Github, [this guide](https://guides.github.com/activities/contributing-to-open-source/) can help you get started. Contributing to Open Source can seem very indimidating at first, but I promise it'll be fun :)
 
