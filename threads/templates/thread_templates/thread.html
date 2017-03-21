@@ -1,4 +1,4 @@
-{% extends 'thread_templates/base.html' %} {% load bleach_tags %} {% block question %}
+{% extends 'thread_templates/base.html' %} {% load bleach_tags %} {% load timesince_upto %} {% block question %}
 
 <center>
     {% if question.solved == False %}
@@ -127,10 +127,10 @@ var anonFlag = 0;
         <div class="answer">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
                 {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
-                <a class="answer_meta_time">{{ x.created_time }}*</a>
+                <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago*</a>
                 <!--<br>Edited on {{x.get_edited_time}}-->
                 {% else %}
-                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}</a> {% endif %}
+                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago</a> {% endif %}
                 <a id="clipboard_{{ x.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}" data-id="{{x.pk}}">
                 <i class="material-icons link_clipboard">link</i>
               </a>
