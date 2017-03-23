@@ -27,7 +27,7 @@ class question(models.Model):
     created_time = models.DateTimeField(default=timezone.now)
     ups = models.ManyToManyField(User, related_name='question_upvotes', blank=True)
     downs = models.ManyToManyField(User, related_name='question_downvotes', blank=True)
-    popularity = models.DecimalField(default=0, max_digits=20, decimal_places=17)
+    hot = models.DecimalField(default=1000.123, max_digits=11, decimal_places=7, blank=True)
     points = models.IntegerField(default=1)
     solved = models.BooleanField(default=False)
     tags = models.ManyToManyField(tag, blank=True)
@@ -41,8 +41,9 @@ class question(models.Model):
             return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
 
     def set_popularity(self):
-            self.points = self.ups.count() - self.downs.count()
-            self.popularity = _popularity(self)
+            ups = self.ups.count()
+            downs = self.downs.count()
+            self.hot = _popularity(ups, downs, self.created_time)
             self.save()
 
     def get_absolute_url(self):
