@@ -57,11 +57,17 @@ def home(request, tab="home"):
                            'no_of_answers': no_of_answers,
                            'no_of_solved_percentage': no_of_solved_percentage})
         else:
+            question_list = question.objects.all()[:3]
+            no_of_questions = question.objects.filter(metatype="question").count()
+            no_of_answers = answer.objects.filter(metatype="question").count()
+            no_of_solved = question.objects.filter(metatype="question", solved=True).count()
+            no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
             return render(request,
-                          'login_templates/login.html',)
+                          'login_templates/login.html',
+                          {'tab': tab,
+                           'question_list': question_list, })
 
     if request.method == 'POST' and request.POST:
-        print("inside")
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
@@ -69,7 +75,10 @@ def home(request, tab="home"):
             login(request, user)
             return HttpResponseRedirect(reverse('home'))
         else:
-            return render(request, "login_templates/login.html", {"failed": 1})
+            question_list = question.objects.all()[:3]
+            return render(request, "login_templates/login.html", {"failed": 1,
+                                                                  'question_list': question_list,
+                                                                  })
 
 
 def register(request):
@@ -102,12 +111,6 @@ def register(request):
                       {'regform': reg_form})
 
 
-def welcome(request):  # Not being used for now.
-    return render(request,
-                  'login_templates/welcome.html',
-                  {'username': username})
-
-
 def tag_view(request, tagname):
     try:
         tagname = str(tagname)
@@ -128,10 +131,3 @@ def notif_redirect(request, pk):
     ans = ans_notif.theanswer.id
     return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
 
-
-def write_answer_view(request):
-    unanswered = question.objects.filter(answers=0)
-    # Right now am sorting based on the created date
-    # Older questions come up first
-    unanswered_sorted = sorted(unanswered, key=lambda x: x.created_time)
-    return render(request, "write_answer_templates/writeanswer.html", {"unans_list": unanswered_sorted})

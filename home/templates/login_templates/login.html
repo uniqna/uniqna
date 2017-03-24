@@ -5,16 +5,24 @@
   <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
     <img src="{% static 'assets/logo_colored.svg' %}"/>
 </div>
-{% if failed %}
-    <center>
-   <div class="fail">
-       <p class="mdl-button mdl-button--accent">Incorrect Username or Password</p>
-   </div>
-   </center>
-{% endif %}
+
 <div class="mdl-grid" id="formdiv">
-    <div class="login_form mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
+  <div class="login_form mdl-cell mdl-cell--5-col">
+    <center><p class="talking">What VITians are talking about right now <i class="twa twa-2x twa-mega"></i></p></center>
+    {% for x in question_list %}
+    {% include 'login_templates/top_questions.html' %}
+    {% endfor %}
+  </div>
+    <div class="login_form mdl-cell mdl-cell--5-col">
+      <center></center>
         <form method="post" action="">
+          {% if failed %}
+              <center>
+             <div class="fail">
+                 <p class="mdl-button mdl-button--accent">Incorrect Username or Password</p>
+             </div>
+             </center>
+          {% endif %}
             <center>
                 {% csrf_token %}
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -36,6 +44,7 @@
         </center>
     </div>
 </div>
+
 <style type="text/css">
     #formdiv {
         margin: auto 0px;
