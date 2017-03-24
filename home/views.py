@@ -68,7 +68,6 @@ def home(request, tab="home"):
                            'question_list': question_list, })
 
     if request.method == 'POST' and request.POST:
-        print("inside")
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
@@ -112,12 +111,6 @@ def register(request):
                       {'regform': reg_form})
 
 
-def welcome(request):  # Not being used for now.
-    return render(request,
-                  'login_templates/welcome.html',
-                  {'username': username})
-
-
 def tag_view(request, tagname):
     try:
         tagname = str(tagname)
@@ -138,10 +131,3 @@ def notif_redirect(request, pk):
     ans = ans_notif.theanswer.id
     return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
 
-
-def write_answer_view(request):
-    unanswered = question.objects.filter(answers=0)
-    # Right now am sorting based on the created date
-    # Older questions come up first
-    unanswered_sorted = sorted(unanswered, key=lambda x: x.created_time)
-    return render(request, "write_answer_templates/writeanswer.html", {"unans_list": unanswered_sorted})
