@@ -57,7 +57,7 @@ def home(request, tab="home"):
                            'no_of_answers': no_of_answers,
                            'no_of_solved_percentage': no_of_solved_percentage})
         else:
-            question_list = question.objects.all()[:3]
+            question_list = question.objects.all().order_by("-hot")[:3]
             no_of_questions = question.objects.filter(metatype="question").count()
             no_of_answers = answer.objects.filter(metatype="question").count()
             no_of_solved = question.objects.filter(metatype="question", solved=True).count()
@@ -130,4 +130,3 @@ def notif_redirect(request, pk):
     ques = ans_notif.theanswer.question.id
     ans = ans_notif.theanswer.id
     return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
-
