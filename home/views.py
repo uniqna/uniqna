@@ -57,8 +57,15 @@ def home(request, tab="home"):
                            'no_of_answers': no_of_answers,
                            'no_of_solved_percentage': no_of_solved_percentage})
         else:
+            question_list = question.objects.all()[:3]
+            no_of_questions = question.objects.filter(metatype="question").count()
+            no_of_answers = answer.objects.filter(metatype="question").count()
+            no_of_solved = question.objects.filter(metatype="question", solved=True).count()
+            no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
             return render(request,
-                          'login_templates/login.html',)
+                          'login_templates/login.html',
+                          {'tab': tab,
+                           'question_list': question_list, })
 
     if request.method == 'POST' and request.POST:
         print("inside")
@@ -69,7 +76,10 @@ def home(request, tab="home"):
             login(request, user)
             return HttpResponseRedirect(reverse('home'))
         else:
-            return render(request, "login_templates/login.html", {"failed": 1})
+            question_list = question.objects.all()[:3]
+            return render(request, "login_templates/login.html", {"failed": 1,
+                                                                  'question_list': question_list,
+                                                                  })
 
 
 def register(request):

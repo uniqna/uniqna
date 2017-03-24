@@ -1,0 +1,332 @@
+{% load timesince_upto %}
+<style>
+.mdl-cell--12-col {
+    background-color: #EEEEEE;
+    height: 80px;
+}
+
+.platform {
+    padding: 0px;
+    height: 80px;
+}
+
+.title {
+    margin-left: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0px;
+    font-size: 18px;
+    width: calc(100% - 50px);
+    color: #424242;
+}
+
+.meta {
+    margin: 0px;
+    width: 90%;
+}
+
+.a_title {
+    color: #424242;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.votes {
+    width: 43px;
+    margin: 0px;
+    margin-left: 9px;
+}
+
+.score {
+    width: 100%;
+    margin-top: 30.5px;
+    font-size: 27px;
+    color: #424242;
+}
+
+.voting {
+    padding: 0px;
+    margin: 0px;
+    width: 50px;
+    height: 100%;
+}
+
+.solved {
+    color: #009688;
+    font-size: 18px;
+    position: absolute;
+    padding-left: 5px;
+}
+
+.searchparent {
+    padding: 5px;
+    margin: 0px;
+    height: 75px;
+    background-color: #F5F5F5;
+}
+
+.search {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.searchform {
+    height: 100%;
+}
+
+.searchbottommargin {
+    padding: 22px 0;
+}
+
+.searchbottommargin2 {
+    border-bottom: none;
+}
+
+.postsearchparent {
+    height: 40px;
+    padding-bottom: 0px;
+}
+
+.postsearch {
+    height: 100%;
+    margin: 0px;
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-left: auto;
+}
+
+.statistics {
+    color: #009688;
+    font-size: 14px;
+    width: 265px;
+    margin-right: 7px;
+    margin-left: 7px;
+    float: right;
+}
+
+.ask {
+    width: 135px;
+    /* margin-right: auto; */
+    margin-top: 5px;
+    margin-left: 0px;
+    text-align: center;
+}
+
+.askbutton {
+    width: 100%;
+    font-size: 14px;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: #009688;
+}
+
+.date {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    color: #D81B60;
+}
+
+.author {
+    float: right;
+    color: #D81B60;
+}
+
+.authorlink {
+    color: #D81B60;
+}
+
+.answers {
+    margin-left: 0px;
+    font-size: 11px;
+    color: #009688;
+}
+
+.tags {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    color: #673AB7;
+}
+
+.mdl-layout__header {
+    box-shadow: none;
+}
+
+.endless_page_link {
+    color: #424242;
+    font-size: 30px;
+}
+
+.pagination {
+    height: 60px;
+    background: #FFFFFF;
+}
+
+.extra {
+    padding: 80px;
+}
+
+.jscroll-inner {
+    width: 100%;
+}
+
+.padding-fix {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.pagination .mdl-button {
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    background-color: #64B5F6;
+}
+
+.vote-default {
+    color: #424242;
+}
+
+.vote-success {
+    color: #4CAF50;
+}
+
+.vote-danger {
+    color: #F44336;
+}
+
+.emoji-tabbed {
+    width: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -32px;
+    margin-bottom: 0px;
+}
+
+.tags a {
+    color: #673AB7;
+}
+
+.twa-fire {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.emoji-active {
+    background-color: rgba(158,158,158,.4);
+}
+
+.thinking-align {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.twa-confounded {
+    margin: 1px;
+}
+
+.twa-thought-balloon {
+    margin-left: 3px;
+    margin-right: 2px;
+}
+
+.emoji-buttons {
+  font-size: 14px;
+}
+
+.overlay_height {
+    height: 100%;
+}
+
+.metatype {
+   display:inline;
+}
+
+.emoji-tabbed-form {
+  display: inline;
+}
+
+@media (max-width: 840px) {
+  .statistics {
+    display: none;
+  }
+  .discuss {
+    display: none;
+  }
+  .ask {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+    .postsearchparent {
+        height: 8px;
+        padding-bottom: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .postsearch {
+        height: 30.5px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -47px;
+    }
+    .a_title {
+        font-size: 12px;
+    }
+    .mdl-textfield__input {
+        font-size: 15px;
+        padding: 17px 0;
+    }
+    .answer p {
+        font-size: 12px;
+    }
+    .answer_author_meta {
+        font-size: 12px;
+    }
+    .emoji-tabbed {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 0px;
+    }
+    .a_title {
+        font-size: 11px;
+    }
+    .tags {
+        font-size: 11px;
+        padding-top: 3px;
+    }
+    .answers {
+        font-size: 9px;
+    }
+    body {
+        line-height: 15px;
+    }
+    .postsearchparent .mdl-button {
+      text-transform: none;
+    }
+}
+</style>
+
+<div class="mdl-cell mdl-cell--12-col iquestion">
+    <div class="mdl-grid platform">
+        <div class="mdl-cell mdl-cell--1-col voting">
+            <div class="mdl-grid voting">
+                <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
+                    <center>{{ x.points }}</center>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <div class="date">{% if x.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} {% if x.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
+            </div>
+            <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True and x.metatype == "question" %}
+            <i class="material-icons solved">check</i> {% endif %}
+            <div class="tags">
+                {% for t in x.tags.all %}
+                <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+            </div>
+        </div>
+    </div>
+</div>

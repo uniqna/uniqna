@@ -1,0 +1,33 @@
+{% load timesince_upto %}
+<div class="mdl-cell mdl-cell--12-col iquestion">
+    <div class="mdl-grid platform">
+        <div class="mdl-cell mdl-cell--1-col voting">
+            <div class="mdl-grid voting">
+                <div class="mdl-cell mdl-cell--1-col votes">
+                    <button data-url="{% url 'question_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote" data-id="{{x.pk}}">
+                <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ x.pk }}">expand_less</i>
+                </button>
+                </div>
+                <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
+                    <center>{{ x.points }}</center>
+                </div>
+                <div class="mdl-cell mdl-cell--1-col votes">
+                    <button data-url="{% url 'question_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{x.pk}}">
+                <i class="material-icons votecolor {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{x.pk}}">expand_more</i>
+                </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <div class="date">{% if x.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} {% if x.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
+            </div>
+            <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True and x.metatype == "question" %}
+            <i class="material-icons solved">check</i> {% endif %}
+            <div class="tags">
+                {% for t in x.tags.all %}
+                <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+            </div>
+        </div>
+    </div>
+</div>
