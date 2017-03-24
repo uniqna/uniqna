@@ -40,7 +40,6 @@ urlpatterns = [
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
     url(r'^new/', include('ask.urls')),
-    url(r'^writeanswer/', views.write_answer_view, name='writeanswer'),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
