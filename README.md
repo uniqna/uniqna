@@ -26,6 +26,8 @@ So we put on our magical hats and, fast forward through all the slack discussion
 
 We're currently powering the student community at VIT University, India. We're working really hard to power more universities soon.
 
+For more information about uniqna, [click here](https://gist.github.com/jeremyphilemon/063f1f890ddffc1b5d0e1d035835fb1b).
+
 ## Setup and Contribution Guidelines
 
 To set up your own instance of uniqna to develop with, refer to our Install Guide (Will be updated)
