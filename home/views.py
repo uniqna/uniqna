@@ -75,7 +75,7 @@ def home(request, tab="home"):
             login(request, user)
             return HttpResponseRedirect(reverse('home'))
         else:
-            question_list = question.objects.all()[:3]
+            question_list = question.objects.all().order_by("-hot")[:3]
             return render(request, "login_templates/login.html", {"failed": 1,
                                                                   'question_list': question_list,
                                                                   })

@@ -6,7 +6,7 @@
     <img src="{% static 'assets/logo_colored.svg' %}"/>
 </div>
 
-<div class="mdl-grid" id="formdiv">
+<div class="mdl-grid main-login">
   <div class="login_form mdl-cell mdl-cell--5-col">
     <center><p class="talking">What VITians are talking about right now <i class="twa twa-2x twa-mega"></i></p></center>
     {% for x in question_list %}
@@ -22,6 +22,7 @@
                  <p class="mdl-button mdl-button--accent">Incorrect Username or Password</p>
              </div>
              </center>
+          {% else %}
           {% endif %}
             <center>
                 {% csrf_token %}
@@ -46,9 +47,6 @@
 </div>
 
 <style type="text/css">
-    #formdiv {
-        margin: auto 0px;
-    }
     .register {
         color: #E91E63;
     }
