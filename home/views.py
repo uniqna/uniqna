@@ -52,9 +52,8 @@ def home(request, tab="home"):
             else:
                 no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
             return render(request,
-                          'home_templates/home.html',
-                          {'username': username,
-                           'tab': tab,
+                          'home_templates/newhome.html',
+                          {'tab': tab,
                            'question_list': question_list,
                            'no_of_questions': no_of_questions,
                            'no_of_answers': no_of_answers,
