@@ -24,7 +24,7 @@ def thread(request, thread_id):
     for x in all_answers:
         x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
     return render(request,
-                  'thread_templates/thread.html',
+                  'thread_templates/newthread.html',
                   {'question': question_requested,
                    'description': description,
                    'form': unsubmitted_answer,
@@ -101,7 +101,7 @@ def edit_answer(request, thread_id, answer_id):
         data = {'description': description}
         prefilled_form = answer_form(data)
         return render(request,
-                      'edit_templates/edit.html',
+                      'thread_templates/newedit.html',
                       {'username': request.user.username,
                        'form': prefilled_form,
                        'thread_id': thread_id,
