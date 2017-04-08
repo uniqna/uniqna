@@ -117,7 +117,7 @@ def tag_view(request, tagname):
         raise Http404()
     if request.user.is_authenticated:
         tag_instance = get_object_or_404(tag, name=tagname)
-        return render(request, "tag_templates/tags.html", {'tags': tag_instance})
+        return render(request, "home_templates/newtags.html", {'tags': tag_instance})
     else:
         return HttpResponseRedirect(reverse('home'))
 
