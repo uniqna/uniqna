@@ -1,0 +1,120 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load bleach_tags %}
+{% load el_pagination_tags %}
+{% block title %}
+@{{ user_instance.username }}
+{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/user/user.css' %}">
+{% endblock head %}
+{% block content %}
+<center>
+    <div class="user_parent about mdl-cell mdl-cell--6-col">
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="about mdl-cell mdl-cell--12-col">
+                {% if request.user.username == user_instance.username %}
+                <div class="edit_profile_parent mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
+                        <center>
+                            <a href="{% url 'edit_profile' user_instance.username %}" class="edit_button mdl-button mdl-button--primary">Edit Profile</a>
+                            <center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
+                        <center>
+                            <a href="{% url 'change_password' user_instance.username %}" class="change_password_button mdl-button mdl-button--primary">Change Password</a>
+                            <center>
+                    </div>
+                </div>
+                {% endif %}
+                <h3 class="username">@{{user_instance.username}}
+              {% if user_instance.is_superuser %}
+                {% include 'user_templates/verified.html' %}
+                <div class="mdl-tooltip" data-mdl-for="verified">
+                  Verified
+                </div>
+              {% endif %}
+            </h3>
+                <p>{{ user_instance.student.bio }}</p>
+                <div class="university">
+                    <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
+                </div>
+                <i class="twa twa-mortar-board"></i>
+                <p> Class of {{user_instance.student.grad_year}}.</p>
+                <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
+            </div>
+        </div>
+    </div>
+    </center>
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-tabs__tab-bar">
+            <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
+            <a href="#questions-panel" class="mdl-tabs__tab">Posts</a>
+            <a href="#answers-panel" class="mdl-tabs__tab">Replies</a>
+        </div>
+        <div class="mdl-tabs__panel is-active" id="all-panel">
+            {% if allqa %} {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %} {% if questions|length > 10 %}
+            <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
+                <center>
+                    <br> {{ pages.next }}</center>
+            </div>
+            {% endif %} {% else %}
+            <center>
+                <br>
+                <p>Nothing here. :/</p>
+            </center>
+            {% endif %}
+        </div>
+        <div class="mdl-tabs__panel" id="questions-panel">
+            {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
+            <center>
+                {% get_pages %} {% if questions|length > 10 %}
+                <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
+                    <br> {{ pages.next }}
+                </div>
+                {% endif %}
+            </center>
+            {% else %}
+            <center>
+                <br>
+                <p>No posts yet.</p>
+            </center>
+            {% endif %}
+        </div>
+        <div class="mdl-tabs__panel" id="answers-panel">
+            {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
+            <center>
+                {% get_pages %} {% if questions|length > 10 %}
+                <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
+                    <br> {{ pages.next }}
+                </div>
+                {% endif %}
+            </center>
+            {% else %}
+            <center>
+                <br>
+                <p>No replies yet.</p>
+            </center>
+            {% endif %}
+        </div>
+    </div>
+    {% if user.is_anonymous %}
+    <script>
+        var anonFlag = 1;
+    </script>
+    <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+    {% else %}
+    <script>
+        var anonFlag = 0;
+    </script>
+    {% endif %}
+{% endblock content %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
+<script src="{% static 'js/user/user.js' %}"></script>
+{% endblock js %}

@@ -26,7 +26,7 @@ def UserPage(request, usr):
         x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
     # Combining questions and answers
     all_list = sorted(list(chain(user_questions, user_answers)), key=lambda instance: instance.created_time)
-    return render(request, "user_templates/userpage.html",
+    return render(request, "user_templates/newuserpage.html",
                   {"user_instance": requested_user,
                    "questions": user_questions,
                    "answers": user_answers,
