@@ -13,7 +13,7 @@ def search(request):
         submitted_query = request.GET['query']
         filtered_questions = question.objects.filter(title__search=submitted_query)
         return render(request,
-                      'result_templates/results.html',
+                      'result_templates/newresults.html',
                       {'query': submitted_query,
                        'results': filtered_questions,
                        'username': request.user.username,

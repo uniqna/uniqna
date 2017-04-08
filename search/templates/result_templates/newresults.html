@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}
+Search Results
+{% endblock title %}
+
+{% block content %}
+   <div class="mdl-cell mdl-cell--2-col ask">
+        <form action="{% url 'ask' %}">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
+                +Question?
+            </button>
+        </form>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col ask discuss">
+        <form action="{% url 'discuss' %}">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
+                +Discussion!
+            </button>
+        </form>
+    </div>
+
+    <div class="mdl-cell mdl-cell--3-col postsearch">
+        <div class="mdl-cell mdl-cell--3-col statistics">
+            {{ no_of_questions }} Questions {{ no_of_answers }} Answers {{ no_of_solved_percentage }}% Solved
+        </div>
+    </div>
+</div>
+
+<div class="mdl-cell mdl-cell--10-col results_query">
+  {% if results %}
+  <center><small class="results_true"> Showing results for "{{ query }}"</small></center>
+  {% else %}
+  <center>No results found for "{{ query }}" <br> You can always ask a new question :D</center>
+  {% endif %}
+</div>
+
+<div class="mdl-grid">
+    {% paginate results %} {% for x in results %}
+        {% include "user_templates/ques_ans.html" with instance=x divclass="searchresults" %}
+    {% endfor %} {% get_pages %}
+    {% if results %}
+    <div class="mdl-cell mdl-cell--12-col pagination">
+        <center>{{ pages.previous }} {{ pages.next }} </center>
+        <center>Showing entries {{ pages.current_start_index }}-{{ pages.current_end_index }}</center>
+    </div>
+    {% else %}
+    {% endif %}
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/home/home.js' %}"></script>
+{% endblock js %}
