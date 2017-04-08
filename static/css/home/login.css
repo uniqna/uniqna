@@ -1,0 +1,124 @@
+.mdl-textfield__label {
+    font-size: 20px;
+}
+
+.mdl-button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.brand {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.motto p {
+    color: #ffe082;
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+.motto {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -30px;
+}
+
+.login_form {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register {
+    margin-left: auto;
+    margin-right: auto;
+    color: #E91E63;
+}
+
+.uname_error {
+    color: #C51162;
+    font-size: 13px;
+}
+
+.mdl-layout__header {
+    background-color: #FFD54F;
+    box-shadow: none;
+}
+
+.p_margin_fix {
+    margin-bottom: 0px;
+}
+
+.talking {
+    margin: 0px;
+    color: #226699;
+}
+
+.main-login {
+    margin-top: -20px;
+}
+
+.mdl-layout__title,
+.mdl-layout-title {
+    line-height: 1.6;
+}
+
+.notyf {
+    bottom: 110px;
+}
+
+@media (max-width: 900px) {
+    .notyf {
+        bottom: 50px;
+        width: 40%;
+    }
+}
+
+@media (max-width: 400px) {
+    .notyf {
+        bottom: 30px;
+        font-size: 12px;
+        width: 50%;
+    }
+}
+
+@media (max-width: 320px) {
+    .title .date {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 479px) {
+    .mdl-textfield__input {
+        font-size: 12px;
+        text-align: center;
+    }
+    .mdl-textfield {
+        font-size: 12px;
+    }
+    .mdl-textfield.is-invalid .mdl-textfield__input {
+        font-size: 12px;
+    }
+    .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+        font-size: 12px;
+    }
+    .mdl-textfield__label {
+        font-size: 12px;
+    }
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list {
+        display: block;
+    }
+    .mdl-mini-footer--link-list,
+    .mdl-mini-footer__link-list a {
+        white-space: normal;
+    }
+    .motto p {
+        font-size: 16px;
+    }
+    .mdl-textfield__label {
+        font-size: 15px;
+    }
+    .brand {
+        width: calc(100% - 80px);
+    }
+}
