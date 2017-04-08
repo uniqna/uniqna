@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block meta %}
-     <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />   
+     <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />
+     <meta name="theme-color" content="#3F51B5 ">
     {% endblock meta %}
-    <meta name="theme-color" content="#3F51B5 ">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>
         {% block titlename %} uniqna {% endblock titlename %}
@@ -48,9 +48,12 @@
                         </div>
                     </a>
                     <div class="mdl-layout-spacer"></div>
+                    
+                    <!-- Navigation -->
+                    {% if request.user.is_authenticated %}
                     <!-- Notification counter -->
                     <nav class="mdl-navigation">
-                    <a href="{% url 'home' %}">
+                        <a href="{% url 'home' %}">
                         <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
                             {% if request.user.notifications.answers.unread_count %}
                             <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
@@ -59,7 +62,7 @@
                         </button>
                     </a>
                     </nav>
-                    <!-- Navigation -->
+                    
                     <nav class="mdl-navigation">
                         <a> {{ request.user.username }} </a>
                         <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
@@ -77,6 +80,7 @@
                             </li>
                         </ul>
                     </nav>
+                    {% endif %}
                 </div>
             </header>
             <main class="mdl-layout__content">
@@ -105,6 +109,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
+    <script type="text/javascript">
+        // G-Analytics
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-91622346-1', 'auto');
+        ga('send', 'pageview');
+    </script>
     {% block js %}
     <!-- All the extra javascript files to be attached goes here -->
     {% endblock js %}

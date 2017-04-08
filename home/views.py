@@ -61,7 +61,7 @@ def home(request, tab="home"):
         else:
             question_list = question.objects.all().order_by("-hot")[:3]
             return render(request,
-                          'login_templates/login.html',
+                          'home_templates/newlogin.html',
                           {'tab': tab,
                            'question_list': question_list, })
 
@@ -74,9 +74,10 @@ def home(request, tab="home"):
             return HttpResponseRedirect(reverse('home'))
         else:
             question_list = question.objects.all().order_by("-hot")[:3]
-            return render(request, "login_templates/login.html", {"failed": 1,
-                                                                  'question_list': question_list,
-                                                                  })
+            return render(request, "home_templates/newlogin.html", {
+                "failed": 1,
+                "question_list": question_list,
+            })
 
 
 def register(request):
@@ -96,7 +97,7 @@ def register(request):
             return HttpResponseRedirect(reverse('home'))
         else:
             return render(request,
-                          'login_templates/register.html',
+                          'home_templates/newregister.html',
                           {
                               'regform': reg_form,
                               'errors': reg_form.errors})
@@ -105,7 +106,7 @@ def register(request):
     else:
         reg_form = registration()
         return render(request,
-                      'login_templates/register.html',
+                      'home_templates/newregister.html',
                       {'regform': reg_form})
 
 
