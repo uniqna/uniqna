@@ -227,6 +227,16 @@
     display: inline;
 }
 
+.vote-default {
+    color: #424242;
+}
+.vote-success {
+    color: #4CAF50;
+}
+.vote-danger {
+    color: #F44336;
+}
+
 @media (max-width: 840px) {
     .statistics {
         display: none;

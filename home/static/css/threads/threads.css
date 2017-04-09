@@ -269,6 +269,16 @@ td {
     padding-right: 5px;
 }
 
+.vote-default {
+    color: #424242;
+}
+.vote-success {
+    color: #4CAF50;
+}
+.vote-danger {
+    color: #F44336;
+}
+
 .mdl-badge[data-badge]:after {
     font-family: 'Montserrat', sans-serif;
 }
