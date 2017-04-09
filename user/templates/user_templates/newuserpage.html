@@ -2,9 +2,9 @@
 {% load staticfiles %}
 {% load bleach_tags %}
 {% load el_pagination_tags %}
-{% block title %}
+{% block titlename %}
 @{{ user_instance.username }}
-{% endblock title %}
+{% endblock titlename %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/user/user.css' %}">
