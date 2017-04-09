@@ -21,7 +21,7 @@ def validation(request):
         if user is not None:
             login(request, user)
         else:
-            return render(request, "login_templates/login.html", {"failed": 1})
+            return render(request, "home_templates/login.html", {"failed": 1})
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -39,20 +39,26 @@ def home(request, tab="home"):
             if tab == "home":
                 question_list = question.objects.order_by("-hot")
             if tab == "qna":
-                question_list = question.objects.filter(metatype="question").order_by("-hot")
+                question_list = question.objects.filter(
+                    metatype="question").order_by("-hot")
             if tab == "nsy":
-                question_list = question.objects.filter(metatype="question", solved=False).order_by("-hot")
+                question_list = question.objects.filter(
+                    metatype="question", solved=False).order_by("-hot")
             if tab == "disc":
-                question_list = question.objects.filter(metatype="discussion").order_by("-hot")
-            no_of_questions = question.objects.filter(metatype="question").count()
+                question_list = question.objects.filter(
+                    metatype="discussion").order_by("-hot")
+            no_of_questions = question.objects.filter(
+                metatype="question").count()
             no_of_answers = answer.objects.filter(metatype="question").count()
-            no_of_solved = question.objects.filter(metatype="question", solved=True).count()
+            no_of_solved = question.objects.filter(
+                metatype="question", solved=True).count()
             if not no_of_questions:
                 no_of_solved_percentage
             else:
-                no_of_solved_percentage = round((no_of_solved / no_of_questions) * 100)
+                no_of_solved_percentage = round(
+                    (no_of_solved / no_of_questions) * 100)
             return render(request,
-                          'home_templates/newhome.html',
+                          'home_templates/home.html',
                           {'tab': tab,
                            'question_list': question_list,
                            'no_of_questions': no_of_questions,
@@ -61,7 +67,7 @@ def home(request, tab="home"):
         else:
             question_list = question.objects.all().order_by("-hot")[:3]
             return render(request,
-                          'home_templates/newlogin.html',
+                          'home_templates/login.html',
                           {'tab': tab,
                            'question_list': question_list, })
 
@@ -74,7 +80,7 @@ def home(request, tab="home"):
             return HttpResponseRedirect(reverse('home'))
         else:
             question_list = question.objects.all().order_by("-hot")[:3]
-            return render(request, "home_templates/newlogin.html", {
+            return render(request, "home_templates/login.html", {
                 "failed": 1,
                 "question_list": question_list,
             })
@@ -85,8 +91,10 @@ def register(request):
         reg_form = registration(request.POST)
         if reg_form.is_valid():
             cd = reg_form.cleaned_data
-            new_user = User.objects.create_user(username=cd["username"], email=cd["email"], password=cd["password"])
-            new_profile = student(bio=cd["bio"], university=cd["university"], course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
+            new_user = User.objects.create_user(
+                username=cd["username"], email=cd["email"], password=cd["password"])
+            new_profile = student(bio=cd["bio"], university=cd["university"],
+                                  course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
             new_profile.user = new_user
             new_profile.unique_username = cd["username"].lower()
             new_profile.save()
@@ -97,7 +105,7 @@ def register(request):
             return HttpResponseRedirect(reverse('home'))
         else:
             return render(request,
-                          'home_templates/newregister.html',
+                          'home_templates/register.html',
                           {
                               'regform': reg_form,
                               'errors': reg_form.errors})
@@ -106,7 +114,7 @@ def register(request):
     else:
         reg_form = registration()
         return render(request,
-                      'home_templates/newregister.html',
+                      'home_templates/register.html',
                       {'regform': reg_form})
 
 
@@ -117,7 +125,7 @@ def tag_view(request, tagname):
         raise Http404()
     if request.user.is_authenticated:
         tag_instance = get_object_or_404(tag, name=tagname)
-        return render(request, "home_templates/newtags.html", {'tags': tag_instance})
+        return render(request, "home_templates/tags.html", {'tags': tag_instance})
     else:
         return HttpResponseRedirect(reverse('home'))
 

@@ -45,8 +45,7 @@ urlpatterns = [
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
     url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^robots.txt', include('robots.urls')),
 ]
 

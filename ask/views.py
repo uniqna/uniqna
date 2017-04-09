@@ -12,7 +12,7 @@ def ask(request):
         username = request.user.username
         unsubmitted_form = ask_form()
         return render(request,
-                      'ask_templates/newask.html',
+                      'ask_templates/ask.html',
                       {'metatype': metatype,
                        'tags': tag.objects.all(),
                        'form': unsubmitted_form})
@@ -26,7 +26,7 @@ def discuss(request):
         username = request.user.username
         unsubmitted_form = ask_form()
         return render(request,
-                      'ask_templates/newask.html',
+                      'ask_templates/ask.html',
                       {'metatype': metatype,
                        'tags': tag.objects.all(),
                        'form': unsubmitted_form})
@@ -56,9 +56,11 @@ def submit(request, metatype):
                     instance.tags.add(selected_tag)
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
-            return render(request, "ask_templates/newask.html", {"username": request.user.username,
-                                                              "tags": tag.objects.all(),
-                                                              "form": submitted_form,
-                                                              "errors": submitted_form.errors})
+            return render(request,
+                          "ask_templates/ask.html",
+                          {"username": request.user.username,
+                           "tags": tag.objects.all(),
+                           "form": submitted_form,
+                           "errors": submitted_form.errors})
     else:
         return HttpResponseRedirect(reverse('home'))

@@ -11,7 +11,6 @@ from django.core.mail import EmailMessage
 from user.models import Notifications
 from django.core.exceptions import ObjectDoesNotExist
 import markdown2
-# Create your views here.
 
 
 def UserPage(request, usr):
@@ -26,7 +25,7 @@ def UserPage(request, usr):
         x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
     # Combining questions and answers
     all_list = sorted(list(chain(user_questions, user_answers)), key=lambda instance: instance.created_time)
-    return render(request, "user_templates/newuserpage.html",
+    return render(request, "user_templates/userpage.html",
                   {"user_instance": requested_user,
                    "questions": user_questions,
                    "answers": user_answers,
@@ -66,7 +65,7 @@ def EditProfile(request, usr):
             "grad_year": requested_user.student.grad_year,
         }
         profile_form = editForm(data)
-        return render(request, "user_templates/newedit.html", {"regform": profile_form})
+        return render(request, "user_templates/edit.html", {"regform": profile_form})
 
 
 def ChangePassword(request, usr):
@@ -82,13 +81,13 @@ def ChangePassword(request, usr):
                 login(request, a_user)
                 return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "success": 1})
             else:
-                return render(request, "user_templates/newchangepassword.html", {"user_instance": req_user, "changeform": cp_form, "failed": 1})
+                return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "changeform": cp_form, "failed": 1})
         else:
-            return render(request, "user_templates/newchangepassword.html", {"user_instance": req_user, "changeform": cp_form})
+            return render(request, "user_templates/changepassword.html", {"user_instance": req_user, "changeform": cp_form})
 
     else:
         cp_form = changePasswordForm()
-        return render(request, "user_templates/newchangepassword.html", {"changeform": cp_form, "user_instance": req_user})
+        return render(request, "user_templates/changepassword.html", {"changeform": cp_form, "user_instance": req_user})
 
 
 def forgot_password_view(request):
@@ -100,7 +99,7 @@ def forgot_password_view(request):
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
-                return render(request, "user_templates/newforgotpassword.html", {"emailform": emf, "notexist": 1})
+                return render(request, "user_templates/forgotpassword.html", {"emailform": emf, "notexist": 1})
             # Generating all the lowercase and uppercase chars
             chars = [chr(i) for i in range(65, 123)]
             # Randomising the length of the password
@@ -117,12 +116,12 @@ def forgot_password_view(request):
             email_user = EmailMessage("Reset your password - uniqna.com", body, to=[email])
             if email_user.send():
                 print("Success.")
-                return render(request, "user_templates/newforgotpassword.html", {"success": 1})
+                return render(request, "user_templates/forgotpassword.html", {"success": 1})
         else:
-            return render(request, "user_templates/newforgotpassword.html", {"emailform": emf})
+            return render(request, "user_templates/forgotpassword.html", {"emailform": emf})
     else:
         emf = emailForm()
-        return render(request, "user_templates/newforgotpassword.html", {"emailform": emf})
+        return render(request, "user_templates/forgotpassword.html", {"emailform": emf})
 
 
 def update_all(request):
