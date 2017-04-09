@@ -90,7 +90,7 @@ html, body {
 
 .score {
     font-size: 20px;
-    margin-top: 35px;
+    margin-top: 37.5px;
 }
 
 .platform {
@@ -103,6 +103,10 @@ html, body {
 
 .tags {
     margin-top: 1.5px;
+}
+
+.date {
+    margin-top: 4px;
 }
 
 @media (max-width: 900px) {
@@ -133,22 +137,7 @@ html, body {
 }
 
 @media (max-width: 479px) {
-    .mdl-textfield__input {
-        font-size: 12px;
-        text-align: center;
-    }
-    .mdl-textfield {
-        font-size: 12px;
-    }
-    .mdl-textfield.is-invalid .mdl-textfield__input {
-        font-size: 12px;
-    }
-    .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-        font-size: 12px;
-    }
-    .mdl-textfield__label {
-        font-size: 12px;
-    }
+
     .mdl-mini-footer--link-list,
     .mdl-mini-footer__link-list {
         display: block;
@@ -159,9 +148,6 @@ html, body {
     }
     .motto p {
         font-size: 16px;
-    }
-    .mdl-textfield__label {
-        font-size: 15px;
     }
     .brand {
         width: calc(100% - 80px);
