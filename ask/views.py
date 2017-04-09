@@ -56,9 +56,11 @@ def submit(request, metatype):
                     instance.tags.add(selected_tag)
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
-            return render(request, "ask_templates/ask.html", {"username": request.user.username,
-                                                              "tags": tag.objects.all(),
-                                                              "form": submitted_form,
-                                                              "errors": submitted_form.errors})
+            return render(request,
+                          "ask_templates/ask.html",
+                          {"username": request.user.username,
+                           "tags": tag.objects.all(),
+                           "form": submitted_form,
+                           "errors": submitted_form.errors})
     else:
         return HttpResponseRedirect(reverse('home'))

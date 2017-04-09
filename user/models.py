@@ -14,7 +14,8 @@ class ManagerExtender(models.Manager):
 
     def sort_read(self):
         unsorted = self.all()
-        srted = sorted(unsorted, key=lambda x: (x.theanswer.created_time, x.read), reverse=True)
+        srted = sorted(unsorted, key=lambda x: (
+            x.theanswer.created_time, x.read), reverse=True)
         return srted
 
 
@@ -51,15 +52,20 @@ class student(models.Model):
     )
 
     university_choices = (
-        ("Vellore Institute of Technology, Chennai", "Vellore Institute of Technology, Chennai"),
-        ("Vellore Institute of Technology, Vellore", "Vellore Institute of Technology, Vellore"),
+        ("Vellore Institute of Technology, Chennai",
+         "Vellore Institute of Technology, Chennai"),
+        ("Vellore Institute of Technology, Vellore",
+         "Vellore Institute of Technology, Vellore"),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=15, default="")
     bio = models.CharField(max_length=240, blank=True, default="")
-    course = models.CharField(max_length=6, choices=course_choices, default="B.Tech")
-    school = models.CharField(max_length=6, choices=school_choices, default="SCSE")
-    grad_year = models.CharField(max_length=6, choices=grad_year_choices, default="2020")
+    course = models.CharField(
+        max_length=6, choices=course_choices, default="B.Tech")
+    school = models.CharField(
+        max_length=6, choices=school_choices, default="SCSE")
+    grad_year = models.CharField(
+        max_length=6, choices=grad_year_choices, default="2020")
     university = models.CharField(max_length=100, choices=university_choices)
 
 
@@ -74,4 +80,5 @@ class Answered(models.Model):
 
 class Notifications(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    answers = models.ManyToManyField(Answered, related_name="answered_questions")
+    answers = models.ManyToManyField(
+        Answered, related_name="answered_questions")

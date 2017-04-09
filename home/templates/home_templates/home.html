@@ -1,313 +1,15 @@
-{% extends 'home_templates/base.html' %} {% block frontpage %} {% load timesince_upto %} {% load el_pagination_tags %}
-<style>
-    .mdl-cell--12-col {
-        background-color: #EEEEEE;
-        height: 100px;
-    }
+{% extends 'base/base.html' %} {% load timesince_upto %} {% load el_pagination_tags %} {% load staticfiles %}
+<!--
+Here the blocks title and desc have the default values
+-->
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/search.css' %}">
 
-    .platform {
-        padding: 0px;
-        height: 100px;
-    }
-
-    .title {
-        margin-left: 0px;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-right: 0px;
-        font-size: 18px;
-        width: calc(100% - 50px);
-        color: #424242;
-    }
-
-    .meta {
-        margin: 0px;
-        width: 90%;
-    }
-
-    .a_title {
-        color: #424242;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 18px;
-        font-weight: 100;
-    }
-
-    .votes {
-        width: 43px;
-        margin: 0px;
-        margin-left: 9px;
-    }
-
-    .score {
-        width: 100%;
-    }
-
-    .voting {
-        padding: 0px;
-        margin: 0px;
-        width: 50px;
-        height: 100%;
-    }
-
-    .solved {
-        color: #009688;
-        font-size: 18px;
-        position: absolute;
-        padding-left: 5px;
-    }
-
-    .searchparent {
-        padding: 5px;
-        margin: 0px;
-        height: 75px;
-        background-color: #F5F5F5;
-    }
-
-    .search {
-        margin: 0px;
-        height: 100%;
-        width: 100%;
-        background-color: #FFFFFF;
-    }
-
-    .searchform {
-        height: 100%;
-    }
-
-    .searchbottommargin {
-        padding: 22px 0;
-    }
-
-    .searchbottommargin2 {
-        border-bottom: none;
-    }
-
-    .postsearchparent {
-        height: 40px;
-        padding-bottom: 0px;
-    }
-
-    .postsearch {
-        height: 100%;
-        margin: 0px;
-        margin-right: 0px;
-        margin-top: 5px;
-        margin-left: auto;
-    }
-
-    .statistics {
-        color: #009688;
-        font-size: 14px;
-        width: 265px;
-        margin-right: 7px;
-        margin-left: 7px;
-        float: right;
-    }
-
-    .ask {
-        width: 135px;
-        /* margin-right: auto; */
-        margin-top: 5px;
-        margin-left: 0px;
-        text-align: center;
-    }
-
-    .askbutton {
-        width: 100%;
-        font-size: 14px;
-        height: 100%;
-        font-family: 'Montserrat', sans-serif;
-        color: #009688;
-    }
-
-    .date {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 11px;
-        color: #D81B60;
-    }
-
-    .author {
-        float: right;
-        color: #D81B60;
-    }
-
-    .authorlink {
-        color: #D81B60;
-    }
-
-    .answers {
-        margin-left: 0px;
-        font-size: 11px;
-        color: #009688;
-    }
-
-    .tags {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 11px;
-        color: #673AB7;
-    }
-
-    .mdl-layout__header {
-        box-shadow: none;
-    }
-
-    .endless_page_link {
-        color: #424242;
-        font-size: 30px;
-    }
-
-    .pagination {
-        height: 60px;
-        background: #FFFFFF;
-    }
-
-    .extra {
-        padding: 80px;
-    }
-
-    .jscroll-inner {
-        width: 100%;
-    }
-
-    .padding-fix {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .pagination .mdl-button {
-        font-family: 'Montserrat', sans-serif;
-        color: #FFFFFF;
-        background-color: #64B5F6;
-    }
-
-    .vote-default {
-        color: #424242;
-    }
-
-    .vote-success {
-        color: #4CAF50;
-    }
-
-    .vote-danger {
-        color: #F44336;
-    }
-
-    .emoji-tabbed {
-        width: 140px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -32px;
-        margin-bottom: 0px;
-    }
-
-    .tags a {
-        color: #673AB7;
-    }
-
-    .twa-fire {
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-
-    .emoji-active {
-        background-color: rgba(158,158,158,.4);
-    }
-
-    .thinking-align {
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-
-    .twa-confounded {
-        margin: 1px;
-    }
-
-    .twa-thought-balloon {
-        margin-left: 3px;
-        margin-right: 2px;
-    }
-
-    .emoji-buttons {
-      font-size: 14px;
-    }
-
-    .overlay_height {
-        height: 100%;
-    }
-
-    .metatype {
-       display:inline;
-    }
-
-    .emoji-tabbed-form {
-      display: inline;
-    }
-
-    @media (max-width: 840px) {
-      .statistics {
-        display: none;
-      }
-      .discuss {
-        display: none;
-      }
-      .ask {
-        display: none;
-      }
-    }
-
-    @media (max-width: 479px) {
-        .postsearchparent {
-            height: 8px;
-            padding-bottom: 0px;
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        .postsearch {
-            height: 30.5px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: -47px;
-        }
-        .a_title {
-            font-size: 12px;
-        }
-        .mdl-textfield__input {
-            font-size: 15px;
-            padding: 17px 0;
-        }
-        .answer p {
-            font-size: 12px;
-        }
-        .answer_author_meta {
-            font-size: 12px;
-        }
-        .emoji-tabbed {
-            margin-right: auto;
-            margin-left: auto;
-            margin-top: 0px;
-        }
-        .a_title {
-            font-size: 11px;
-        }
-        .tags {
-            font-size: 11px;
-            padding-top: 3px;
-        }
-        .answers {
-            font-size: 9px;
-        }
-        body {
-            line-height: 15px;
-        }
-        .postsearchparent .mdl-button {
-          text-transform: none;
-        }
-    }
-</style>
+{% endblock head %}{% block content %}
+{% include 'home_templates/search.html' %}
 <div class="mdl-grid postsearchparent">
-    <!--
-
-    -->
     <div class="mdl-cell mdl-cell--2-col ask">
         <form action="{% url 'ask' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
@@ -322,7 +24,6 @@
             </button>
         </form>
     </div>
-
     <div class="mdl-cell mdl-cell--3-col postsearch">
         <div class="mdl-cell mdl-cell--3-col statistics">
             {{ no_of_questions }} Questions {{ no_of_answers }} Answers {{ no_of_solved_percentage }}% Solved
@@ -330,45 +31,67 @@
     </div>
 </div>
 <div class="mdl-cell mdl-cell--2-col emoji-tabbed">
-  <form class="emoji-tabbed-form" action="{% url 'home' %}">
-  <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "home" %}emoji-active{% endif %}">
-    <i class="twa twa-2x twa-fire"></i>
-  </button>
-  </form>
-  <div class="mdl-tooltip" data-mdl-for="hot">
-    Hot
-  </div>
-  <form class="emoji-tabbed-form" action="{% url 'tab' 'qna' %}">
-  <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "qna" %}emoji-active{% endif %}">
-    <i class="twa twa-2x twa-thinking thinking-align"></i>
-  </button>
-  </form>
-  <div class="mdl-tooltip" data-mdl-for="qna">
-    Q&A
-  </div>
-  <form class="emoji-tabbed-form" action="{% url 'tab' 'nsy' %}">
-  <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "nsy" %}emoji-active{% endif %}">
-    <i class="twa twa-2x twa-confounded"></i>
-  </button>
-  </form>
-  <div class="mdl-tooltip" data-mdl-for="nsy">
-    Not Solved Yet
-  </div>
-  <form class="emoji-tabbed-form" action="{% url 'tab' 'disc' %}">
-  <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "disc" %}emoji-active{% endif %}">
-    <i class="twa twa-2x twa-thought-balloon"></i>
-  </button>
-  </form>
-  <div class="mdl-tooltip" data-mdl-for="discussions">
-    Discussions
-  </div>
-</div>
-<div class="mdl-grid padding-fix" id="infini">
-    {% paginate question_list%} {% for x in question_list %}
-      {% include 'home_templates/questions.html' %}
-    {% endfor %} {% get_pages %}
-    <div class="mdl-cell mdl-cell--12-col pagination iquestion" id="pagination">
-        <center><br> {{ pages.next }} </center>
+    <form class="emoji-tabbed-form" action="{% url 'home' %}">
+        <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "home" %}emoji-active{% endif %}">
+            <i class="twa twa-2x twa-fire"></i>
+        </button>
+    </form>
+    <div class="mdl-tooltip" data-mdl-for="hot">
+        Hot
+    </div>
+    <form class="emoji-tabbed-form" action="{% url 'tab' 'qna' %}">
+        <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "qna" %}emoji-active{% endif %}">
+            <i class="twa twa-2x twa-thinking thinking-align"></i>
+        </button>
+    </form>
+    <div class="mdl-tooltip" data-mdl-for="qna">
+        Q&A
+    </div>
+    <form class="emoji-tabbed-form" action="{% url 'tab' 'nsy' %}">
+        <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "nsy" %}emoji-active{% endif %}">
+            <i class="twa twa-2x twa-confounded"></i>
+        </button>
+    </form>
+    <div class="mdl-tooltip" data-mdl-for="nsy">
+        Not Solved Yet
+    </div>
+    <form class="emoji-tabbed-form" action="{% url 'tab' 'disc' %}">
+        <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "disc" %}emoji-active{% endif %}">
+            <i class="twa twa-2x twa-thought-balloon"></i>
+        </button>
+    </form>
+    <div class="mdl-tooltip" data-mdl-for="discussions">
+        Discussions
     </div>
 </div>
-{% endblock %}
+<div class="mdl-grid padding-fix" id="infini">
+    {% paginate question_list%} {% for x in question_list %} {% include 'home_templates/questions.html' %} {% endfor %} {% get_pages %}
+    <div class="mdl-cell mdl-cell--12-col pagination iquestion" id="pagination">
+        <center>
+            <br> {{ pages.next }} </center>
+    </div>
+</div>
+{% endblock content %} {% block afterfooter %}
+<div class="fab-buttons mdl-cell--hide-desktop">
+    <div class="question-fab hidden-fab" data-url="{% url 'ask' %}">
+        Ask a question?
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
+            <i class="material-icons help_align_fix">help_outline</i>
+        </button>
+    </div>
+    <div class="discuss-fab hidden-fab" data-url="{% url 'discuss' %}">
+        Start a discussion!
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab-button">
+            <i class="material-icons">question_answer</i>
+        </button>
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored create-fab">
+        <i class="material-icons">mode_edit</i>
+    </button>
+</div>
+<div class="overlay"></div>
+{% endblock afterfooter %} {% block js %}
+<script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/home/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
+{% endblock js %}

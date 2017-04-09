@@ -15,7 +15,8 @@
                 element: $("#MyID")[0],
                 hideIcons: ["quote", "fullscreen", "side-by-side"],
                 spellChecker: false,
-                placeholder: "Type here...",
+                placeholder: "This is where you type...",
+                forceSync: true,
                 renderingConfig: {
                     singleLineBreaks: false,
                     codeSyntaxHighlighting: true,

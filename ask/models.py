@@ -34,17 +34,19 @@ class question(models.Model):
     objects = ManagerExtender()
 
     def __str__(self):
-            return (self.title)
+        return (self.title)
 
     def get_time(self):
-            t = timezone.localtime(self.created_time)
-            return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
+        t = timezone.localtime(self.created_time)
+        return "{}-{}-{} {}:{}".format(t.day, t.month,
+                                       t.year, t.hour,
+                                       t.minute)
 
     def set_popularity(self):
-            ups = self.ups.count()
-            downs = self.downs.count()
-            self.hot = _popularity(ups, downs, self.created_time)
-            self.save()
+        ups = self.ups.count()
+        downs = self.downs.count()
+        self.hot = _popularity(ups, downs, self.created_time)
+        self.save()
 
     def get_absolute_url(self):
         return reverse('thread', args=[str(self.pk)])

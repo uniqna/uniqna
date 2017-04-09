@@ -1,5 +1,24 @@
-{% extends 'thread_templates/base.html' %} {% load bleach_tags %} {% load timesince_upto %} {% block question %}
-
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load timesince_upto %}
+{% load bleach_tags %}
+{% block meta %}
+<meta name="description" content="{{question.description|truncatechars:100}} Answers: {{question.answers}}">
+<meta name="author" content="{{question.author}}">
+<meta name="theme-color" content="#3F51B5 ">
+{% endblock meta %}
+{% block titlename %}
+{{ question.title }} - uniqna
+{% endblock titlename %}
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<link rel="stylesheet" href="{% static 'css/threads/threads.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/search.css' %}">
+{% endblock head %}
+{% block content %}
+{% include 'home_templates/search.html' %}
+<!-- The question and answers -->
 <center>
     {% if question.solved == False %}
     <div class="question_title mdl-cell mdl-cell--12-col">
@@ -153,16 +172,12 @@ var anonFlag = 0;
     </div>
 </div>
 {% endfor %}
-<style type="text/css">
-    .vote-default {
-        color: #424242;
-    }
-    .vote-success {
-        color: #4CAF50;
-    }
-    .vote-danger {
-        color: #F44336;
-    }
-</style>
-<!-- -->
-{% endblock %}
+{% endblock content %}
+{% block js %}
+<script src='{% static "js/notyf.js" %}'></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src='{% static "js/clipboard.min.js" %}'></script>
+<script src='{% static "js/threads/thread.js" %}'></script>
+<script src='{% static "js/threads/thread.js" %}'>
+{% endblock js %}

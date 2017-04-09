@@ -4,7 +4,6 @@ from django.db import models
 from ask.models import question
 from django.contrib.auth.models import User
 from root.algorithms import vote_score
-# Create your models here.
 
 
 class ManagerExtender(models.Manager):
@@ -45,5 +44,6 @@ class answer(models.Model):
 
     def set_score(self):
         self.points = self.ups.count() - self.downs.count()
-        self.score = vote_score.confidence(self.ups.count(), self.downs.count())
+        self.score = vote_score.confidence(
+            self.ups.count(), self.downs.count())
         self.save()

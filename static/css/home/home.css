@@ -1,17 +1,11 @@
-{% load timesince_upto %}
-<style>
 .mdl-cell--12-col {
     background-color: #EEEEEE;
-    height: 80px;
+    height: 100px;
 }
 
 .platform {
     padding: 0px;
-    height: 85px;
-}
-
-.iquestion {
-  height: 85px;
+    height: 100px;
 }
 
 .title {
@@ -20,20 +14,16 @@
     margin-bottom: auto;
     margin-right: 0px;
     font-size: 18px;
-    width: calc(100% - 50px);
+    width: calc(100% - 60px);
     color: #424242;
-}
-
-.meta {
-    margin: 0px;
-    width: 90%;
 }
 
 .a_title {
     color: #424242;
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 100;
+    word-wrap: break-word;
 }
 
 .votes {
@@ -44,9 +34,6 @@
 
 .score {
     width: 100%;
-    margin-top: 32.5px;
-    font-size: 27px;
-    color: #424242;
 }
 
 .voting {
@@ -61,45 +48,6 @@
     font-size: 18px;
     position: absolute;
     padding-left: 5px;
-}
-
-.searchparent {
-    padding: 5px;
-    margin: 0px;
-    height: 75px;
-    background-color: #F5F5F5;
-}
-
-.search {
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: #FFFFFF;
-}
-
-.searchform {
-    height: 100%;
-}
-
-.searchbottommargin {
-    padding: 22px 0;
-}
-
-.searchbottommargin2 {
-    border-bottom: none;
-}
-
-.postsearchparent {
-    height: 40px;
-    padding-bottom: 0px;
-}
-
-.postsearch {
-    height: 100%;
-    margin: 0px;
-    margin-right: 0px;
-    margin-top: 5px;
-    margin-left: auto;
 }
 
 .statistics {
@@ -133,11 +81,6 @@
     color: #D81B60;
 }
 
-.author {
-    float: right;
-    color: #D81B60;
-}
-
 .authorlink {
     color: #D81B60;
 }
@@ -166,10 +109,7 @@
 .pagination {
     height: 60px;
     background: #FFFFFF;
-}
-
-.extra {
-    padding: 80px;
+    margin-bottom: 15px;
 }
 
 .jscroll-inner {
@@ -217,7 +157,7 @@
 }
 
 .emoji-active {
-    background-color: rgba(158,158,158,.4);
+    background-color: rgba(158, 158, 158, .4);
 }
 
 .thinking-align {
@@ -235,55 +175,84 @@
 }
 
 .emoji-buttons {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .overlay_height {
     height: 100%;
 }
 
-.metatype {
-   display:inline;
+.create-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    font-weight: 500;
+    transition: all 0.20s ease-in;
+    -webkit-transition: all 0.20s ease-in;
+}
+
+.question-fab {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 10;
+    font-weight: 500;
+    font-size: 12px;
+    color: #424242;
+}
+
+.discuss-fab {
+    position: fixed;
+    bottom: 180px;
+    right: 20px;
+    z-index: 10;
+    font-size: 12px;
+    color: #424242;
+}
+
+.fab-button {
+    margin-left: 10px;
+}
+
+.help_align_fix {
+    left: 48%;
+}
+
+.mdl-button--fab.mdl-button--colored {
+    background: rgb(255, 204, 77);
+    box-shadow: none;
 }
 
 .emoji-tabbed-form {
-  display: inline;
+    display: inline;
+}
+
+.vote-default {
+    color: #424242;
+}
+.vote-success {
+    color: #4CAF50;
+}
+.vote-danger {
+    color: #F44336;
 }
 
 @media (max-width: 840px) {
-  .statistics {
-    display: none;
-  }
-  .discuss {
-    display: none;
-  }
-  .ask {
-    display: none;
-  }
-  .login_form {
-    width: 100%;
-  }
+    .statistics {
+        display: none;
+    }
+    .discuss {
+        display: none;
+    }
+    .ask {
+        display: none;
+    }
 }
 
 @media (max-width: 479px) {
-    .postsearchparent {
-        height: 8px;
-        padding-bottom: 0px;
-        padding-right: 0px;
-        padding-left: 0px;
-    }
-    .postsearch {
-        height: 30.5px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -47px;
-    }
     .a_title {
         font-size: 12px;
-    }
-    .mdl-textfield__input {
-        font-size: 15px;
-        padding: 17px 0;
     }
     .answer p {
         font-size: 12px;
@@ -301,7 +270,7 @@
     }
     .tags {
         font-size: 11px;
-        padding-top: 1px;
+        padding-top: 3px;
     }
     .answers {
         font-size: 9px;
@@ -310,30 +279,9 @@
         line-height: 15px;
     }
     .postsearchparent .mdl-button {
-      text-transform: none;
+        text-transform: none;
+    }
+    .pagination {
+      margin-bottom: 5px;
     }
 }
-</style>
-
-<div class="mdl-cell mdl-cell--12-col iquestion">
-    <div class="mdl-grid platform">
-        <div class="mdl-cell mdl-cell--1-col voting">
-            <div class="mdl-grid voting">
-                <div class="mdl-cell mdl-cell--1-col score" id="score{{x.pk}}">
-                    <center>{{ x.points }}</center>
-                </div>
-            </div>
-        </div>
-
-        <div class="title">
-            <div class="date">{% if x.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} {% if x.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
-            </div>
-            <a href="{% url 'thread' x.pk %}" class="a_title">{{ x.title }}</a> {% if x.solved == True and x.metatype == "question" %}
-            <i class="material-icons solved">check</i> {% endif %}
-            <div class="tags">
-                {% for t in x.tags.all %}
-                <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
-            </div>
-        </div>
-    </div>
-</div>

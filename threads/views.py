@@ -17,12 +17,14 @@ def thread(request, thread_id):
     except ValueError:
         raise Http404()
     question_requested = get_object_or_404(question, pk=thread_id)
-    description = markdown2.markdown(question_requested.description, extras=["tables", "cuddled-lists"])
+    description = markdown2.markdown(question_requested.description, extras=[
+                                     "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
     all_answers = answer.objects.filter(question=thread_id).order_by("-score")
     for x in all_answers:
-        x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
+        x.description = markdown2.markdown(
+            x.description, extras=["tables", "cuddled-lists"])
     return render(request,
                   'thread_templates/thread.html',
                   {'question': question_requested,
@@ -43,12 +45,14 @@ def submit_answer(request, question_id):
             instance.answer_author = request.user.username
             instance.save()
             instance.ups.add(request.user)
-            question_answered.answers = answer.objects.filter(question=question_id).count()
+            question_answered.answers = answer.objects.filter(
+                question=question_id).count()
             question_answered.save()
             ans_notif = Answered()
             ans_notif.theanswer = instance
             ans_notif.save()
-            question_author = get_object_or_404(User, username=question_answered.author)
+            question_author = get_object_or_404(
+                User, username=question_answered.author)
             question_author.notifications.answers.add(ans_notif)
             return HttpResponseRedirect("/thread/" + str(question_id))
 
@@ -81,7 +85,8 @@ def delete_answer(request, thread_id, answer_id):
     author = answer_requested.answer_author
     if author == username:
         answer_requested.delete()
-        question_requested.answers = answer.objects.filter(question=thread_id).count()
+        question_requested.answers = answer.objects.filter(
+            question=thread_id).count()
         question_requested.save()
         return HttpResponseRedirect("/thread/" + str(thread_id))
     else:
@@ -101,7 +106,7 @@ def edit_answer(request, thread_id, answer_id):
         data = {'description': description}
         prefilled_form = answer_form(data)
         return render(request,
-                      'edit_templates/edit.html',
+                      'thread_templates/edit.html',
                       {'username': request.user.username,
                        'form': prefilled_form,
                        'thread_id': thread_id,
