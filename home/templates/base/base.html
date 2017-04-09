@@ -56,13 +56,12 @@
                         <a href="{% url 'home' %}">
                         <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
                             {% if request.user.notifications.answers.unread_count %}
-                            <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ ansnotifs.unread_count }}">notifications</div>
+                            <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div>
                             {% else %}
                             <i class="material-icons">notifications</i> {% endif %}
                         </button>
                     </a>
                     </nav>
-                    
                     <nav class="mdl-navigation">
                         <a> {{ request.user.username }} </a>
                         <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>

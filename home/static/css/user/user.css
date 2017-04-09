@@ -26,6 +26,18 @@
         margin-left: 9px;
     }
     
+    .vote-default {
+        color: #424242;
+    }
+    
+    .vote-success {
+        color: #4CAF50;
+    }
+    
+    .vote-danger {
+        color: #F44336;
+    }
+    
     .score {
         width: 32px;
         margin: 0px;
@@ -325,6 +337,7 @@
         height: 16px;
         width: 16px;
     }
+    
     .mdl-snackbar__text {
         font-family: 'Montserrat', sans-serif;
         color: #EEEEEE;
@@ -338,15 +351,17 @@
         padding-left: 5px;
         padding-right: 5px;
     }
+    
     .hljs {
-    background: #EEEEEE;
-    padding-bottom: 20px;
-    padding-top: 0px;
+        background: #EEEEEE;
+        padding-bottom: 20px;
+        padding-top: 0px;
     }
+    
     .answer_align_fix {
-    margin: 0px;
+        margin: 0px;
     }
-
+    
     @media (max-width: 479px) {
         .ask {
             position: relative;
@@ -414,4 +429,3 @@
             line-height: 15px;
         }
     }
-    
