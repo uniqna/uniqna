@@ -1,10 +1,28 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
+{% load el_pagination_tags %}
 {% block title %}
 Search Results
 {% endblock title %}
-
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/search/search.css' %}">  
+{% endblock head %}
+{% block style %}
+<style type="text/css">
+    .vote-default {
+        color: #424242;
+    }
+    .vote-success{
+        color: #4CAF50;
+    }
+    .vote-danger{
+        color: #F44336;
+    }
+</style>
+{% endblock style %}
 {% block content %}
+{% include 'home_templates/search.html' %}
+<div class="mdl-grid postsearchparent">
    <div class="mdl-cell mdl-cell--2-col ask">
         <form action="{% url 'ask' %}">
             <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
@@ -47,8 +65,10 @@ Search Results
     {% else %}
     {% endif %}
 </div>
+
 {% endblock content %}
 {% block js %}
 <script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'js/home/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/home/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
 {% endblock js %}

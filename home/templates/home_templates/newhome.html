@@ -7,6 +7,7 @@ Here the blocks title and desc have the default values
 <link rel="stylesheet" href="{% static 'css/home/home.css' %}"> 
 
 {% endblock head %}{% block content %}
+{% include 'home_templates/search.html' %}
 <div class="mdl-grid postsearchparent">
     <div class="mdl-cell mdl-cell--2-col ask">
         <form action="{% url 'ask' %}">
