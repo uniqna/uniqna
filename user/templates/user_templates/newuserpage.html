@@ -7,27 +7,10 @@
 {% endblock titlename %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'css/user/user.css' %}">
 {% endblock head %}
 {% block style %}
-<style>
-/* 
-Apparently there's some bug in the way css is rendered.
-If these 3 css rules are present in user.css they don't seem to work.
-Need to find why!
-*/
-.vote-default {
-    color: #424242;
-}
-
-.vote-success {
-    color: #4CAF50;
-}
-
-.vote-danger {
-    color: #F44336;
-}
-</style>
 {% endblock style %}
 {% block content %}
 <center>

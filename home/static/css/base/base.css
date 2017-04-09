@@ -40,6 +40,9 @@
     .title .date {
         font-size: 9px;
     }
+    .mdl-layout__header-row {
+        padding: 0 10px 0 55px;
+    }
 }
 
 @media (max-width: 479px) {

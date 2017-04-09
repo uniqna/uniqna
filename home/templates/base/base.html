@@ -4,11 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block meta %}
-     <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />
-     <meta name="theme-color" content="#3F51B5 ">
-    {% endblock meta %}
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {% block meta %}
+    <meta name="description" content="A forum where students can ask and contribute to questions about anything that’s happening around our university all day all night." />
+    <meta name="theme-color" content="#3F51B5 "> {% endblock meta %}
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>
         {% block titlename %} uniqna {% endblock titlename %}
@@ -29,13 +27,13 @@
     {% block head %}
     <!-- Extra Head content goes here -->
     <!-- This must contain all the external stylesheets, fonts etc -->
-    {% endblock head %}
-    {% block style %}
+    {% endblock head %} {% block style %}
     <!-- Inline styling goes here -->
     <!-- Different blocknames just for easier usage -->
     <!-- Start with a style tag inside -->
     {% endblock style %}
 </head>
+
 <body>
     <!-- header -->
     <div class="wrapper">
@@ -54,13 +52,13 @@
                     <!-- Notification counter -->
                     <nav class="mdl-navigation">
                         <a href="{% url 'home' %}">
-                        <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
+                            <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
                             {% if request.user.notifications.answers.unread_count %}
                             <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div>
                             {% else %}
                             <i class="material-icons">notifications</i> {% endif %}
                         </button>
-                    </a>
+                        </a>
                     </nav>
                     <nav class="mdl-navigation">
                         <a>&nbsp {{ request.user.username }} &nbsp</a>
@@ -78,8 +76,15 @@
                                 </form>
                             </li>
                         </ul>
+                        {% else %}
+                        <button class="mdl-button mdl-js-button button-responsive-fix">
+                          <a href="{% url 'home' %}" class="anon-login"> Login </a>
+                        </button>
+                        <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
+                          <a href="{% url 'register' %}" class="anon-register"> Register </a>
+                        </button>
+                        {% endif %}
                     </nav>
-                    {% endif %}
                 </div>
             </header>
             <main class="mdl-layout__content">
