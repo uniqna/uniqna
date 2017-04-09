@@ -1,3 +1,7 @@
+html, body {
+    line-height: 15px;
+}
+
 .mdl-textfield__label {
     font-size: 20px;
 }
@@ -66,10 +70,51 @@
     bottom: 110px;
 }
 
+.mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: #C51162;
+    font-size: 20px;
+    text-align: center;
+}
+
+.mdl-textfield__label {
+    font-size: 17px;
+}
+
+.a_title {
+    font-size: 12px;
+}
+
+.votes {
+    display: none;
+}
+
+.score {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.platform {
+    height: 75px;
+}
+
+.mdl-cell--12-col {
+    height: 80px;
+}
+
+.tags {
+    margin-top: 1.5px;
+}
+
 @media (max-width: 900px) {
     .notyf {
         bottom: 50px;
         width: 40%;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 480px) {
+    .login_form {
+      width: 100%;
     }
 }
 
@@ -120,5 +165,8 @@
     }
     .brand {
         width: calc(100% - 80px);
+    }
+    .tags {
+        margin-top: -1.5px;
     }
 }

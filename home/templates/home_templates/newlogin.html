@@ -8,22 +8,24 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/notyf.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/home/home.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/home/login.css' %}">
+
 {% endblock head %}
 
 {% block content %}
-<div class="motto mdl-cell mdl-cell--6-col mdl-cell--6-offset mdl-cell--middle">
+<div class="motto mdl-cell mdl-cell--10-col">
 <br><center><p>Your university's online community <i class="twa twa-2x twa-100"></i></p></center><br>
 </div>
-  <div class="brand mdl-cell mdl-cell--4-col mdl-cell--4-offset mdl-cell--middle">
+  <div class="brand mdl-cell mdl-cell--5-col">
     <img src="{% static 'assets/logo_colored.svg' %}"/>
 </div>
 
 <div class="mdl-grid main-login">
-  <div class="login_form mdl-cell mdl-cell--5-col">
+  <div class="login_form mdl-cell mdl-cell--5-col question-margin-fix">
     <center><p class="talking">What VITians are talking about right now <i class="twa twa-2x twa-mega"></i></p></center>
     {% for x in question_list %}
-    {% include 'login_templates/top_questions.html' %}
+    {% include 'home_templates/questions.html' %}
     {% endfor %}
   </div>
     <div class="login_form mdl-cell mdl-cell--5-col">

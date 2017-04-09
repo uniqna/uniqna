@@ -29,7 +29,7 @@
     {% block head %}
     <!-- Extra Head content goes here -->
     <!-- This must contain all the external stylesheets, fonts etc -->
-    {% endblock head %} 
+    {% endblock head %}
     {% block style %}
     <!-- Inline styling goes here -->
     <!-- Different blocknames just for easier usage -->
@@ -48,7 +48,7 @@
                         </div>
                     </a>
                     <div class="mdl-layout-spacer"></div>
-                    
+
                     <!-- Navigation -->
                     {% if request.user.is_authenticated %}
                     <!-- Notification counter -->
@@ -63,7 +63,7 @@
                     </a>
                     </nav>
                     <nav class="mdl-navigation">
-                        <a> {{ request.user.username }} </a>
+                        <a>&nbsp {{ request.user.username }} &nbsp</a>
                         <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                             <li class="mdl-menu__item">
@@ -94,7 +94,7 @@
                     <div class="mdl-mini-footer__left-section">
                         <div class="mdl-logo">uniqna © 2017</div>
                         <ul class="mdl-mini-footer__link-list">
-                            <li><a href="http://bit.ly/foundabug">Found a Bug?</a>&nbsp&nbsp&nbsp&nbsp |</li>
+                            <li><a href="mailto:superheroes@uniqna.com">Need to tell us something?&nbsp&nbsp&nbsp&nbsp |</a></li>
                             <li><a href="https://creativecommons.org/licenses/by-sa/3.0/">User contributions licensed under cc by-sa 3.0 with attribution required</a></li>
                         </ul>
                     </div>

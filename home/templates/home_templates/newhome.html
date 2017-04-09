@@ -1,10 +1,11 @@
 {% extends 'base/base.html' %} {% load timesince_upto %} {% load el_pagination_tags %} {% load staticfiles %}
-<!-- 
-Here the blocks title and desc have the default values 
+<!--
+Here the blocks title and desc have the default values
 -->
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}"> 
-<link rel="stylesheet" href="{% static 'css/home/home.css' %}"> 
+<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/search.css' %}">
 
 {% endblock head %}{% block content %}
 {% include 'home_templates/search.html' %}
@@ -31,7 +32,7 @@ Here the blocks title and desc have the default values
 </div>
 <div class="mdl-cell mdl-cell--2-col emoji-tabbed">
     <form class="emoji-tabbed-form" action="{% url 'home' %}">
-        <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == " home " %}emoji-active{% endif %}">
+        <button id="hot" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "home" %}emoji-active{% endif %}">
             <i class="twa twa-2x twa-fire"></i>
         </button>
     </form>
@@ -39,7 +40,7 @@ Here the blocks title and desc have the default values
         Hot
     </div>
     <form class="emoji-tabbed-form" action="{% url 'tab' 'qna' %}">
-        <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == " qna " %}emoji-active{% endif %}">
+        <button id="qna" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "qna" %}emoji-active{% endif %}">
             <i class="twa twa-2x twa-thinking thinking-align"></i>
         </button>
     </form>
@@ -47,7 +48,7 @@ Here the blocks title and desc have the default values
         Q&A
     </div>
     <form class="emoji-tabbed-form" action="{% url 'tab' 'nsy' %}">
-        <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == " nsy " %}emoji-active{% endif %}">
+        <button id="nsy" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "nsy" %}emoji-active{% endif %}">
             <i class="twa twa-2x twa-confounded"></i>
         </button>
     </form>
@@ -55,7 +56,7 @@ Here the blocks title and desc have the default values
         Not Solved Yet
     </div>
     <form class="emoji-tabbed-form" action="{% url 'tab' 'disc' %}">
-        <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == " disc " %}emoji-active{% endif %}">
+        <button id="discussions" class="mdl-button mdl-js-button mdl-button--icon emoji-buttons mdl-js-ripple-effect {% if tab == "disc" %}emoji-active{% endif %}">
             <i class="twa twa-2x twa-thought-balloon"></i>
         </button>
     </form>
