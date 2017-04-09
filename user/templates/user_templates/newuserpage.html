@@ -3,12 +3,12 @@
 {% load bleach_tags %}
 {% load el_pagination_tags %}
 {% block titlename %}
-@{{ user_instance.username }}
+@{{ user_instance.username }} - uniqna
 {% endblock titlename %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'css/user/user.css' %}">
+<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
 {% endblock head %}
 {% block style %}
 {% endblock style %}
@@ -35,18 +35,20 @@
               {% if user_instance.is_superuser %}
                 {% include 'user_templates/verified.html' %}
                 <div class="mdl-tooltip" data-mdl-for="verified">
-                  Verified
+                  Admin
                 </div>
               {% endif %}
             </h3>
                 <p>{{ user_instance.student.bio }}</p>
                 <div class="university">
-                    <p><i class="twa twa-school"></i> {{ user_instance.student.university }}</p>
+                    <p><i class="twa twa-lg twa-school"></i> {{ user_instance.student.university }}</p>
                 </div>
-                <i class="twa twa-mortar-board"></i>
+                <i class="twa twa-lg twa-mortar-board"></i>
                 <p> Class of {{user_instance.student.grad_year}}.</p>
                 <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
-            </div>
+                <div class="university">
+                  <p><i class="twa twa-lg twa-rosetta"></i> 12345</p>
+                </div>
         </div>
     </div>
     </center>

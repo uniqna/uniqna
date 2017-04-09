@@ -41,7 +41,11 @@
         font-size: 9px;
     }
     .mdl-layout__header-row {
-        padding: 0 10px 0 55px;
+        padding: 0 10px 0 58px;
+    }
+    .button-responsive-fix {
+        margin-left: -35px;
+        margin-right: 30px;
     }
 }
 
