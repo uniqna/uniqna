@@ -72,10 +72,10 @@
  });
 
  //Create Tag
- var purl = "{% url 'CreateTag' %}";
- console.log(purl)
  var fail;
  $("#create_tag").click(function() {
+    var purl = $(this).data("url");
+    console.log(purl);
      var data = {
          "name": $("#newtag").val()
      }
@@ -100,7 +100,7 @@
  });
 
  //Get suggested tags and append to #suggested.
- var surl = "{% url 'SuggestTag' %}";
+ var surl = $(".suggest-url").data("url");
  $(".mdl-textfield__input").blur(function() {
      if ($(this).val()) {
          $("#p3")[0].MaterialProgress.setBuffer(50);

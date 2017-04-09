@@ -14,6 +14,7 @@ Ask a question!
 {% block content %}
 <div id="p3" class="mdl-progress mdl-js-progress"></div>
 <form action="{% url 'submit' metatype %}" method="post">
+	<div class="suggest-url" style="display:none" data-url="{% url 'SuggestTag' %}"></div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         {% render_field form.title class+="mdl-textfield__input" %}
         <div id="title_label">
@@ -49,7 +50,7 @@ Ask a question!
                     <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag" style="text-transform: lowercase;" pattern=".{1,15}">
                     <label class="tags_label mdl-textfield__label" for="sample3">Enter new tag name</label>
                 </div><br>
-                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag">Add tag</a>
+                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag" data-url="{% url 'CreateTag' %}">Add tag</a>
             </div>
         </div>
         <input type="submit" name="submit" class="submit" value="Ask!">
