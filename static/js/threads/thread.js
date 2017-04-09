@@ -1,42 +1,44 @@
         //Answer voting
-        if (anonFlag == 1) {
-            (function() {
+        if(anonFlag == 1){
+            (function(){
                 'use strict';
                 var data = {
                     message: 'Please log in to vote'
                 };
-                $(".snackbar_show").on("click", function() {
+                $(".snackbar_show").on("click", function(){
                     $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
                 });
-            }());
-        } else {
+             }());
+        }
+        else{
             var simplemde = new SimpleMDE({
                 element: $("#MyID")[0],
                 hideIcons: ["quote", "fullscreen", "side-by-side"],
                 spellChecker: false,
-                placeholder: "Type here...",
+                placeholder: "This is where you type...",
+                forceSync: true,
                 renderingConfig: {
                     singleLineBreaks: false,
                     codeSyntaxHighlighting: true,
                 },
             });
-            $(".upvote").click(function() {
+            $(".upvote").click(function(){
                 vote_url = $(this).data("url");
                 id = $(this).data("id");
-                $.get(vote_url, function(data, status) {
-                    $("#up" + id).toggleClass("vote-default").toggleClass("vote-success");
-                    $("#down" + id).removeClass("vote-danger").addClass("vote-default")
-                    $("#score" + id).children()[0].textContent = data.points;
+                $.get(vote_url, function(data, status){
+                    $("#up"+id).toggleClass("vote-default").toggleClass("vote-success");
+                    $("#down"+id).removeClass("vote-danger").addClass("vote-default")
+                    $("#score"+id).children()[0].textContent = data.points;
                 });
             });
-            $(".downvote").click(function() {
+            $(".downvote").click(function(){
                 vote_url = $(this).data("url");
                 id = $(this).data("id");
-                $.get(vote_url, function(data, status) {
-                    $("#down" + id).toggleClass("vote-default").toggleClass("vote-danger");
-                    $("#up" + id).removeClass("vote-success").addClass("vote-default");
-                    $("#score" + id).children()[0].textContent = data.points;
-                });
+               $.get(vote_url, function(data, status){
+                    $("#down"+id).toggleClass("vote-default").toggleClass("vote-danger");
+                    $("#up"+id).removeClass("vote-success").addClass("vote-default");
+                    $("#score"+id).children()[0].textContent = data.points;
+               });
             });
             $(".ansUpvote").click(function() {
                 vote_url = $(this).data("url");

@@ -14,7 +14,7 @@
     margin-bottom: auto;
     margin-right: 0px;
     font-size: 18px;
-    width: calc(100% - 55px);
+    width: calc(100% - 60px);
     color: #424242;
 }
 
@@ -23,6 +23,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     font-weight: 100;
+    word-wrap: break-word;
 }
 
 .votes {
