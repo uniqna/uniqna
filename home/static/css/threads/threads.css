@@ -4,6 +4,7 @@
     line-height: 42px;
     padding-top: 25px;
     color: #424242;
+    word-wrap: break-word;
 }
 
 .question_title_solved {
@@ -12,6 +13,7 @@
     line-height: 42px;
     padding-top: 25px;
     color: #009688;
+    word-wrap: break-word;
 }
 
 .question_meta {

@@ -90,15 +90,15 @@ html, body {
 
 .score {
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 .platform {
-    height: 75px;
+    height: 85px;
 }
 
 .mdl-cell--12-col {
-    height: 80px;
+    height: 90px;
 }
 
 .tags {
@@ -168,5 +168,8 @@ html, body {
     }
     .tags {
         margin-top: -1.5px;
+    }
+    .mdl-grid {
+        padding: 0px;
     }
 }
