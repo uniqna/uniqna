@@ -1,11 +1,25 @@
 from django.utils import timezone
+from datetime import datetime, timedelta
 from math import log
+import pytz
+
+epoch = datetime(1970, 1, 1, 0, 0, 0, 0)
+epoch_localized = epoch.replace(tzinfo=pytz.utc)
 
 
-def _popularity(ques):
-    scores = [x.score for x in ques.answer_set.all()]
-    scores_sum = sum(scores)
-    time_diff = timezone.now() - timezone.localtime(ques.created_time)
-    time_diff_seconds = time_diff.days * 24 * 60 * 60 + time_diff.seconds
-    P = float(scores_sum + ques.points) / float(log(time_diff_seconds + 1, 10))
-    return P
+def epoch_seconds(created_time):
+    td = created_time - epoch_localized
+    return td.days * 86400 + td.seconds + (float(td.microseconds) / 1000000)
+
+
+def score(ups, downs):
+    return ups - downs
+
+
+def _popularity(ups, downs, created_time):
+    s = score(ups, downs)
+    order = log(max(abs(s), 1), 10)
+    sign = 1 if s > 0 else -1 if s < 0 else 0
+    seconds = epoch_seconds(created_time) - 1134028003
+    # print(round(sign * order + seconds / 45000, 7))
+    return round(sign * order + seconds / 45000, 7)

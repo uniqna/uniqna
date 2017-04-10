@@ -14,7 +14,7 @@
 
     <!-- Stylesheets -->
     {% load staticfiles %}
-    <link rel="icon" href="{% static 'favicon.png' %}">
+    {% include 'home_templates/favicon.html' %}
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -61,6 +61,10 @@
 
     .notifications_ago {
 
+    }
+
+    .mdl-layout__title, .mdl-layout-title {
+      line-height: 1.6;
     }
 
     @media (max-width: 320px) {

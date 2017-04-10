@@ -11,7 +11,6 @@ from django.core.mail import EmailMessage
 from user.models import Notifications
 from django.core.exceptions import ObjectDoesNotExist
 import markdown2
-# Create your views here.
 
 
 def UserPage(request, usr):

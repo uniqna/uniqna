@@ -1,247 +1,43 @@
-{% extends 'result_templates/base.html' %} {% block frontpage %} {% load el_pagination_tags %}
-<style>
-    .mdl-cell--12-col {
-        background-color: #EEEEEE;
-        height: 100px;
-    }
-
-    .platform {
-        padding: 0px;
-        height: 100px;
-    }
-
-    .title {
-        margin-left: 0px;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-right: 0px;
-        font-size: 18px;
-        width: calc(100% - 50px);
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load el_pagination_tags %}
+{% block titlename %}
+Search Results
+{% endblock titlename %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/search/search.css' %}">
+{% endblock head %}
+{% block style %}
+<style type="text/css">
+    .vote-default {
         color: #424242;
     }
-
-    .meta {
-        margin: 0px;
-        width: 90%;
+    .vote-success{
+        color: #4CAF50;
     }
-
-    .a_title {
-        color: #424242;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 18px;
-        font-weight: 100;
+    .vote-danger{
+        color: #F44336;
     }
-
-    .votes {
-        width: 43px;
-        margin: 0px;
-        margin-left: 9px;
-    }
-
-    .score {
-        width: 100%;
-    }
-
-    .voting {
-        padding: 0px;
-        margin: 0px;
-        width: 50px;
-    }
-
-    .solved {
-        color: #009688;
-        font-size: 18px;
-        position: absolute;
-        padding-left: 5px;
-
-    }
-
-    .votecolor {
-        color: #424242;
-    }
-
-    .searchparent {
-        padding: 5px;
-        margin: 0px;
-        height: 75px;
-        background-color: #F5F5F5;
-    }
-
-    .search {
-        margin: 0px;
-        height: 100%;
-        width: 100%;
-        background-color: #FFFFFF;
-    }
-
-    .searchform {
-        height: 100%;
-    }
-
-    .searchbottommargin {
-        padding: 22px 0;
-    }
-
-    .searchbottommargin2 {
-        border-bottom: none;
-    }
-
-    .postsearchparent {
-        height: 40px;
-        padding-bottom: 0px;
-    }
-
-    .postsearch {
-        height: 100%;
-        margin: 0px;
-        margin-right: 0px;
-        margin-top: 5px;
-        margin-left: auto;
-    }
-
-    .statistics {
-        color: #009688;
-        font-size: 14px;
-        width: 265px;
-        margin-right: 7px;
-        margin-left: 7px;
-        float: right;
-    }
-
-    .ask {
-        width: 184px;
-        margin-right: auto;
-        margin-top: 5px;
-        margin-left: 0px;
-    }
-
-    .askbutton {
-        width: 100%;
-        font-size: 14px;
-        height: 100%;
-        font-family: 'Montserrat', sans-serif;
-        color: #009688;
-    }
-
-    .date {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 11px;
-        color: #D81B60;
-    }
-
-    .author {
-        float: right;
-        color: #D81B60;
-    }
-
-    .authorlink {
-        color: #D81B60;
-    }
-
-    .answers {
-        margin-left: 0px;
-        font-size: 11px;
-        color: #009688;
-    }
-
-    .tags {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 11px;
-        color: #673AB7;
-    }
-
-    .mdl-layout__header {
-        box-shadow: none;
-    }
-
-    .endless_page_link {
-        color: #424242;
-    }
-
-    .pagination {
-        height: 55px;
-        background-color: #FFFFFF;
-    }
-
-    .results_query {
-      margin-left: auto;
-      margin-right: auto;
-      color: #D81B60;
-    }
-
-    .results_true {
-      font-size: 14px;
-      color: #009688;
-    }
-
-    .tags a {
-      color: #673AB7;
-    }
-
-    @media (max-width: 479px) {
-        .ask {
-            position: relative;
-            margin: 0px;
-            width: 100%;
-            height: 56px;
-            padding-top: 17px;
-        }
-        .statistics {
-            color: #009688;
-            width: 100%;
-            margin-right: auto;
-            margin-left: auto;
-            font-size: 12px;
-            text-align: center;
-        }
-        .postsearchparent {
-            height: 95px;
-            padding-bottom: 0px;
-            padding-right: 0px;
-            padding-left: 0px;
-        }
-        .postsearch {
-            height: 37.5px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .askbutton {
-            width: 100%;
-            font-size: 12px;
-            height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 23px;
-            color: #009688;
-        }
-        .a_title {
-            font-size: 12px;
-        }
-        .mdl-textfield__input {
-            font-size: 15px;
-            padding: 17px 0;
-        }
-    }
-
-    @media (max-width: 479px) {
-      .a_title {
-        font-size: 11px;
-      }
-
-      body {
-        line-height: 15px;
-      }
-    }
-
 </style>
-
+{% endblock style %}
+{% block content %}
+{% include 'home_templates/search.html' %}
 <div class="mdl-grid postsearchparent">
-    <div class="mdl-cell mdl-cell--3-col ask">
+   <div class="mdl-cell mdl-cell--2-col ask">
         <form action="{% url 'ask' %}">
-            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect">
-      Ask a Question <i class="material-icons">question_answer</i>
-    </button>
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
+                +Question?
+            </button>
         </form>
     </div>
+    <div class="mdl-cell mdl-cell--2-col ask discuss">
+        <form action="{% url 'discuss' %}">
+            <button type="submit" class="mdl-button mdl-js-button askbutton mdl-js-ripple-effect mdl-cell--hide-tablet mdl-cell--hide-phone">
+                +Discussion!
+            </button>
+        </form>
+    </div>
+
     <div class="mdl-cell mdl-cell--3-col postsearch">
         <div class="mdl-cell mdl-cell--3-col statistics">
             {{ no_of_questions }} Questions {{ no_of_answers }} Answers {{ no_of_solved_percentage }}% Solved
@@ -249,11 +45,11 @@
     </div>
 </div>
 
-<div class="mdl-cell mdl-cell--3-col results_query">
+<div class="mdl-cell mdl-cell--10-col results_query">
   {% if results %}
   <center><small class="results_true"> Showing results for "{{ query }}"</small></center>
   {% else %}
-  <center>No results found for "{{ query }}" <br> You can always ask a new question :D</center>
+  <center>No results found for "{{ query }}" <br> You can always ask a new question or start a new discussion :D</center>
   {% endif %}
 </div>
 
@@ -269,15 +65,10 @@
     {% else %}
     {% endif %}
 </div>
-<style type="text/css">
-    .vote-default {
-        color: #424242;
-    }
-    .vote-success{
-        color: #4CAF50;
-    }
-    .vote-danger{
-        color: #F44336;
-    }
-</style>
-{% endblock %}
+
+{% endblock content %}
+{% block js %}
+<script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/home/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
+{% endblock js %}

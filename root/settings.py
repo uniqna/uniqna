@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     'home',
     'ask',
     'threads',
@@ -49,8 +51,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'RestApi',
     'search',
-    'django_user_agents'
+    'django_user_agents',
+    'robots'
 ]
+
+SITE_ID = 2
 
 CACHES = {
     'default': {
@@ -123,8 +128,8 @@ else:
         }
     }
     DEBUG = True
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Credentials
@@ -186,9 +191,9 @@ TIME_ZONE = 'Asia/Kolkata'
 STATIC_URL = '/static/'
 # Django Bleach settings
 # Which HTML tags are allowed
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre']
+BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre', 'img']
 # Which HTML attributes are allowed
-BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name']
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
 BLEACH_STRIP_TAGS = True
 
 EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">Load More</button>"""

@@ -1,5 +1,24 @@
-{% extends 'thread_templates/base.html' %} {% load bleach_tags %} {% block question %}
-
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load timesince_upto %}
+{% load bleach_tags %}
+{% block meta %}
+<meta name="description" content="{{question.description|truncatechars:100}} Answers: {{question.answers}}">
+<meta name="author" content="{{question.author}}">
+<meta name="theme-color" content="#3F51B5 ">
+{% endblock meta %}
+{% block titlename %}
+{{ question.title }} - uniqna
+{% endblock titlename %}
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<link rel="stylesheet" href="{% static 'css/threads/threads.css' %}">
+<link rel="stylesheet" href="{% static 'css/base/search.css' %}">
+{% endblock head %}
+{% block content %}
+{% include 'home_templates/search.html' %}
+<!-- The question and answers -->
 <center>
     {% if question.solved == False %}
     <div class="question_title mdl-cell mdl-cell--12-col">
@@ -12,7 +31,7 @@
     {% endif %}
 
     <div class="question_meta mdl-cell mdl-cell--12-col">
-        <p> Asked {{ question.created_time|timesince }} ago by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
+        <p> {% if question.metatype == "question" %}Asked{% else %}Submitted{% endif %} on {{ question.created_time|date:"d M, Y" }} by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
     </div>
     {% if question.tags.all %}
     <div class="question_meta_tags mdl-cell mdl-cell--12-col">
@@ -27,9 +46,9 @@
 -->
 </center>
 
-{% if question.author == username %}
+{% if question.author == request.user.username %}
 <center><a class="question_delete" href="{% url 'delete_question' question.pk %}">Delete?</a></center>
-{% if question.solved == False %}
+{% if question.metatype == "question" and question.solved == False %}
 <center><a class="question_solved" href="{% url 'mark_answer_solved' question.pk %}">Mark as Solved?</a></center>
 {% endif %} {% endif %}
 
@@ -43,17 +62,26 @@
     <div class="mdl-cell mdl-cell--2-col voting">
         <div class="mdl-grid voting">
             <div class="mdl-cell mdl-cell--1-col votesu">
-                <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote" data-id="{{question.pk}}">
+                <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{question.pk}}">
                     <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
-                    </button>
+                </button>
+                {% if user.is_anonymous %}
+                <script>
+                var anonFlag = 1;
+                </script>
+                <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+                  <div class="mdl-snackbar__text"></div>
+                  <button class="mdl-snackbar__action" type="button"></button>
+                </div>
+                {% endif %}
             </div>
             <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
                 <center>{{ question.points }}</center>
             </div>
             <div class="mdl-cell mdl-cell--1-col votesd">
-                <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote" data-id="{{question.pk}}">
+                <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote mdl-snackbar__action snackbar_show" data-id="{{question.pk}}">
                     <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
-                    </button>
+                </button>
             </div>
         </div>
     </div>
@@ -61,9 +89,20 @@
 
 <center>
     <div class="can_you_help">
+      {% if user.is_anonymous %}
+        <p>Please <a href="{% url 'home' %}" style="color:#3f51b5">login</a> to contribute to this discussion!<p>
+      {% elif question.metatype == "question" %}
         <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
+      {% else %}
+        <p>This forum depends on everyone sharing their ideas. If you're able to contribute to this discussion, please do!</p>
+      {% endif %}
     </div>
 </center>
+
+{% if user.is_authenticated %}
+<script>
+var anonFlag = 0;
+</script>
 <div class="writeanswer">
     <form action="answer/" method="post">
         <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
@@ -79,7 +118,10 @@
         </center>
     </form>
 </div>
-<br><br> {% load bleach_tags %} {% for x in all_answers %}
+<br>
+{% endif %}
+<br>
+{% load bleach_tags %} {% for x in all_answers %}
 
 <!-- -->
 
@@ -88,7 +130,7 @@
         <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
             <div class="mdl-grid voting-align">
                 <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote" data-id="{{x.pk}}">
+                    <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{x.pk}}">
                     <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
                     </button>
                 </div>
@@ -96,7 +138,7 @@
                     <center>{{ x.points }}</center>
                 </div>
                 <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote" data-id="{{x.pk}}">
+                    <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{x.pk}}">
                     <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
                     </button>
                 </div>
@@ -106,10 +148,10 @@
         <div class="answer">
             <div class="mdl-cell mdl-cell--5-col answer_author_meta">
                 {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
-                <a class="answer_meta_time">{{ x.created_time }}*</a>
+                <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago*</a>
                 <!--<br>Edited on {{x.get_edited_time}}-->
                 {% else %}
-                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time }}</a> {% endif %}
+                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago</a> {% endif %}
                 <a id="clipboard_{{ x.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}" data-id="{{x.pk}}">
                 <i class="material-icons link_clipboard">link</i>
               </a>
@@ -120,7 +162,7 @@
             <div class="answer_description" id="a{{x.pk}}">
                 <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>
             </div>
-            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == username %}
+            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == request.user.username %}
             <div class="meta_parent">
                 <div class="answer_user">
                     <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
@@ -132,18 +174,12 @@
     </div>
 </div>
 {% endfor %}
-<style type="text/css">
-    .vote-default {
-        color: #424242;
-    }
-
-    .vote-success {
-        color: #4CAF50;
-    }
-
-    .vote-danger {
-        color: #F44336;
-    }
-</style>
-<!-- -->
-{% endblock %}
+{% endblock content %}
+{% block js %}
+<script src='{% static "js/notyf.js" %}'></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src='{% static "js/clipboard.min.js" %}'></script>
+<script src='{% static "js/threads/thread.js" %}'></script>
+<script src='{% static "js/threads/thread.js" %}'>
+{% endblock js %}

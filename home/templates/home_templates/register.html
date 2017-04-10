@@ -1,0 +1,136 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block meta %}
+<meta name="description" content="A forum where students can ask questions or start discussions about anything that’s happening around your university all day errday!"/>
+<meta name="theme-color" content="#FFD54F">
+{% endblock meta %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/notyf.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/twemoji-awesome.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/home/login.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="mdl-grid">
+    <div class="register mdl-cell mdl-cell--4-col mdl-cell--4-offset">
+        <form action="/register/" method="post">
+            {% csrf_token %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.username class+="mdl-textfield__input" autocapitalize="none"%}
+                {% if regform.username.errors %}
+                <br>
+                    {% for err in regform.username.errors %}
+                    <center>
+                        <p class="uname_error">{{err|escape}}</p>
+                        </center>
+                    {% endfor %}
+                {% endif %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Username</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.email class+="mdl-textfield__input" %}
+                {{ regform.email.errors }}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Email</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="color: #424242;">
+                    <!-- Multiline Tooltip -->
+                    <div id="tt4" class="icon material-icons">lock</div>
+                    <div class="mdl-tooltip" for="tt4">
+                    Your passwords are hashed,<br>salted, and safe!
+                    </div>
+                {% render_field regform.password class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Password</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.confirm_password class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Confirm Password</label>
+                </div>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% render_field regform.bio class+="mdl-textfield__input" %}
+                <div id="title_label">
+                    <label class="mdl-textfield__label" for="sample3">Tell us about yourself in one line?</label>
+                </div>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.course class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Course</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.school class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">School</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.grad_year class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">Class of?</label>
+            </div>
+
+            <div class="university mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                {% render_field regform.university class+="mdl-textfield__input" %}
+                <label for="sample1" class="mdl-textfield__label">University</label>
+            </div>
+
+            <center>
+            <div class="ask1">
+            <button class="submit mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary">Register</button>
+              <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" type="submit" value="Register">
+                <i class="ask_icon material-icons">send</i>
+              </button>
+            </div>
+          </center>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'js/notyf.js' %}"></script>
+<script type="text/javascript">
+    var n = new Notyf({delay:5000});
+    $(".ask").hide();
+    $('.submit').on("click", function(e){
+        e.preventDefault();
+        flag = 1;
+        userName = $("#id_username").val();
+        if(userName==""){
+            n.alert("Username is blank.")
+            flag=0;
+        }
+        if(userName.length<4 || userName.length>15){
+            n.alert("Username's character length must be between 4 and 15.")
+            flag=0;
+        }
+        if($("#id_email").val()==""){
+            n.alert("Email is blank.")
+            flag=0;
+        }
+        if($("#id_password").val()==""){
+            n.alert("Password is blank.")
+            flag=0;
+        }
+        if($("#id_confirm_password").val()==""){
+            n.alert("Confirm Password is blank.")
+            flag=0;
+        }
+        if($("#id_bio").val()==""){
+            n.alert("Bio is blank.")
+            flag=0;
+        }
+        if(flag){
+            $(".ask").click();
+        }
+
+    });
+</script>
+{% endblock js %}

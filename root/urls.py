@@ -24,22 +24,30 @@ from RestApi import urls
 from root import settings
 from search import urls
 from user.views import forgot_password_view
+from django.contrib.sitemaps.views import sitemap
+from home.sitemaps import ThreadsSitemap
+
+sitemaps = {
+    'thread': ThreadsSitemap()
+}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name="home"),
+    url(r'^(?P<tab>(qna|nsy|disc))/$', views.home, name="tab"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^notifications/$', views.notifications_view, name='notifications'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
-    url(r'^ask/', include('ask.urls')),
-    url(r'^writeanswer/', views.write_answer_view, name='writeanswer'),
+    url(r'^new/', include('ask.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
     url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^robots.txt', include('robots.urls')),
 ]
 
 if settings.DEBUG is True:
