@@ -13,7 +13,7 @@ a {
     margin-bottom: auto;
     margin-right: 0px;
     font-size: 18px;
-    width: calc(100% - 60px);
+    width: calc(100% - 65px);
     color: #424242;
 }
 
@@ -74,6 +74,7 @@ a {
     font-family: 'Open Sans', sans-serif;
     font-size: 11px;
     color: #673AB7;
+    padding-top: 1px;
 }
 
 .mdl-layout__header {
@@ -102,7 +103,7 @@ a {
 
 .about p {
     color: #01579B;
-    margin: 8px;
+    margin: 0px;
 }
 
 .mdl-tabs__tab-bar {
@@ -276,6 +277,21 @@ h3 {
 .mdl-snackbar__text {
     font-family: 'Montserrat', sans-serif;
     color: #EEEEEE;
+}
+
+.karma {
+    display: inline;
+    vertical-align: 2px;
+    color: #553788;
+}
+
+.user-meta {
+    display: inline;
+    vertical-align: 3px;
+}
+
+.karma-parent{
+    margin-top: 5px;
 }
 
 @media (max-width: 479px) {

@@ -1,18 +1,7 @@
-{% extends "base/base.html" %}
-{% load staticfiles %}
-{% load bleach_tags %}
-{% load el_pagination_tags %}
-{% block titlename %}
-@{{ user_instance.username }} - uniqna
-{% endblock titlename %}
-{% block head %}
+{% extends "base/base.html" %} {% load staticfiles %} {% load bleach_tags %} {% load el_pagination_tags %} {% block titlename %} @{{ user_instance.username }} - uniqna {% endblock titlename %} {% block head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'css/user/user.css' %}">
-<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-{% endblock head %}
-{% block style %}
-{% endblock style %}
-{% block content %}
+<link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}"> {% endblock head %} {% block style %} {% endblock style %} {% block content %}
 <center>
     <div class="user_parent about mdl-cell mdl-cell--6-col">
         <div class="demo-card-wide mdl-card mdl-shadow--2dp">
@@ -41,85 +30,85 @@
             </h3>
                 <p>{{ user_instance.student.bio }}</p>
                 <div class="university">
-                    <p><i class="twa twa-lg twa-school"></i> {{ user_instance.student.university }}</p>
+                    <i class="twa twa-lg twa-school"></i>
+                    <p class="user-meta">{{ user_instance.student.university }}</p>
                 </div>
                 <i class="twa twa-lg twa-mortar-board"></i>
-                <p> Class of {{user_instance.student.grad_year}}.</p>
-                <p>{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
-                <div class="university">
-                  <p><i class="twa twa-lg twa-rosetta"></i> 12345</p>
+                <p class="user-meta"> Class of {{user_instance.student.grad_year}}.</p>
+                <p class="user-meta">{{ user_instance.student.course }} | {{ user_instance.student.school }}</p>
+                <div class="karma-parent">
+                    <i class="twa twa-lg twa-rosetta"></i>
+                    <div class="karma">{{ karma }}</div>
                 </div>
-        </div>
-    </div>
-    </center>
-    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-            <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
-            <a href="#questions-panel" class="mdl-tabs__tab">Posts</a>
-            <a href="#answers-panel" class="mdl-tabs__tab">Replies</a>
-        </div>
-        <div class="mdl-tabs__panel is-active" id="all-panel">
-            {% if allqa %} {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %} {% if questions|length > 10 %}
-            <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
-                <center>
-                    <br> {{ pages.next }}</center>
             </div>
-            {% endif %} {% else %}
-            <center>
-                <br>
-                <p>Nothing here. :/</p>
-            </center>
-            {% endif %}
         </div>
-        <div class="mdl-tabs__panel" id="questions-panel">
-            {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
-            <center>
-                {% get_pages %} {% if questions|length > 10 %}
-                <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
-                    <br> {{ pages.next }}
+        </center>
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#all-panel" class="mdl-tabs__tab is-active">All</a>
+                <a href="#questions-panel" class="mdl-tabs__tab">Posts</a>
+                <a href="#answers-panel" class="mdl-tabs__tab">Replies</a>
+            </div>
+            <div class="mdl-tabs__panel is-active" id="all-panel">
+                {% if allqa %} {% paginate allqa using "all" %} {% for a in allqa %} {% include "user_templates/ques_ans.html" with instance=a divclass="all_content" %} {% endfor %} {% get_pages %} {% if questions|length > 10 %}
+                <div class="mdl-cell mdl-cell--12-col pagination all_content" id="pagination">
+                    <center>
+                        <br> {{ pages.next }}</center>
                 </div>
+                {% endif %} {% else %}
+                <center>
+                    <br>
+                    <p>Nothing here. :/</p>
+                </center>
                 {% endif %}
-            </center>
-            {% else %}
-            <center>
-                <br>
-                <p>No posts yet.</p>
-            </center>
-            {% endif %}
-        </div>
-        <div class="mdl-tabs__panel" id="answers-panel">
-            {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
-            <center>
-                {% get_pages %} {% if questions|length > 10 %}
-                <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
-                    <br> {{ pages.next }}
-                </div>
+            </div>
+            <div class="mdl-tabs__panel" id="questions-panel">
+                {% if questions %} {% paginate questions using "ques" %} {% for x in questions %} {% include "user_templates/ques_ans.html" with instance=x divclass="questions_content" %} {% endfor %}
+                <center>
+                    {% get_pages %} {% if questions|length > 10 %}
+                    <div class="mdl-cell mdl-cell--12-col pagination questions_content" id="pagination">
+                        <br> {{ pages.next }}
+                    </div>
+                    {% endif %}
+                </center>
+                {% else %}
+                <center>
+                    <br>
+                    <p>No posts yet.</p>
+                </center>
                 {% endif %}
-            </center>
-            {% else %}
-            <center>
-                <br>
-                <p>No replies yet.</p>
-            </center>
-            {% endif %}
+            </div>
+            <div class="mdl-tabs__panel" id="answers-panel">
+                {% if answers %} {% paginate answers using "ans" %} {% for a in answers %} {% include "user_templates/ques_ans.html" with instance=a divclass="answers_content" %} {% endfor %}
+                <center>
+                    {% get_pages %} {% if questions|length > 10 %}
+                    <div class="mdl-cell mdl-cell--12-col pagination answers_content" id="pagination">
+                        <br> {{ pages.next }}
+                    </div>
+                    {% endif %}
+                </center>
+                {% else %}
+                <center>
+                    <br>
+                    <p>No replies yet.</p>
+                </center>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    {% if user.is_anonymous %}
-    <script>
-        var anonFlag = 1;
-    </script>
-    <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-    {% else %}
-    <script>
-        var anonFlag = 0;
-    </script>
-    {% endif %}
-{% endblock content %}
-{% block js %}
-<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-<script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
-<script src="{% static 'js/user/user.js' %}"></script>
-{% endblock js %}
+        {% if user.is_anonymous %}
+        <script>
+            var anonFlag = 1;
+        </script>
+        <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+        {% else %}
+        <script>
+            var anonFlag = 0;
+        </script>
+        {% endif %} {% endblock content %} {% block js %}
+        <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+        <script src="{% static 'js/jquery.jscroll.min.js' %}"></script>
+        <script src="{% static 'js/user/user.js' %}"></script>
+        {% endblock js %}
