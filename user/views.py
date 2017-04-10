@@ -20,16 +20,26 @@ def UserPage(request, usr):
     user_questions = question.objects.filter(author=usr)
     user_answers = answer.objects.filter(answer_author=usr)
     for x in user_answers:
-        x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
+        x.description = markdown2.markdown(x.description,
+                                           extras=["tables", "cuddled-lists"])
     for x in user_questions:
-        x.description = markdown2.markdown(x.description, extras=["tables", "cuddled-lists"])
+        x.description = markdown2.markdown(x.description,
+                                           extras=["tables", "cuddled-lists"])
     # Combining questions and answers
-    all_list = sorted(list(chain(user_questions, user_answers)), key=lambda instance: instance.created_time)
+    all_list = sorted(list(chain(user_questions, user_answers)),
+                      key=lambda instance: instance.created_time)
+    # Calculating the user's Karma
+    post_score = sum([x.points for x in question.objects.filter(
+        author=requested_user.username) if x.points > 1])
+    reply_score = sum([x.points for x in answer.objects.filter(
+        answer_author=requested_user.username) if x.points > 1])
+    karma = round((post_score * 1.732) + reply_score)
     return render(request, "user_templates/userpage.html",
                   {"user_instance": requested_user,
                    "questions": user_questions,
                    "answers": user_answers,
                    "allqa": all_list[::-1],
+                   "karma": karma,
                    })
 
 
