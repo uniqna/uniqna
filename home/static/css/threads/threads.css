@@ -274,11 +274,41 @@ td {
 .vote-default {
     color: #424242;
 }
+
 .vote-success {
     color: #4CAF50;
 }
+
 .vote-danger {
     color: #F44336;
+}
+
+.can_you_help {
+  padding: 1px;
+}
+
+.ask1 {
+   font-family: 'Montserrat', sans-serif;
+   color: #009688;
+   font-size: 25px;
+   font-size: 40px;
+   min-width: 65px;
+   height: 50px;
+   width: 55px;
+   min-width: 0px;
+}
+
+.ask_icon {
+   font-size: 40px;
+   left: 40%;
+}
+
+.ask:hover {
+   background-color: 0;
+}
+
+.ask1 .mdl-button--icon .material-icons {
+   left: 40%;
 }
 
 .mdl-badge[data-badge]:after {

@@ -158,4 +158,7 @@ html, body {
     .mdl-grid {
         padding: 0px;
     }
+    .a_title {
+        font-size: 11px;
+    }
 }

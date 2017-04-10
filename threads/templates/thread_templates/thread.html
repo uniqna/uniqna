@@ -91,8 +91,10 @@
     <div class="can_you_help">
       {% if user.is_anonymous %}
         <p>Please <a href="{% url 'home' %}" style="color:#3f51b5">login</a> to contribute to this discussion!<p>
-      {% else %}
+      {% elif question.metatype == "question" %}
         <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
+      {% else %}
+        <p>This forum depends on everyone sharing their ideas. If you're able to contribute to this discussion, please do!</p>
       {% endif %}
     </div>
 </center>
