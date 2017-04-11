@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'testpost/$', views.TestPost.as_view(), name="testpost"),
     url(r'suggest/$', views.SuggestTag.as_view(), name="SuggestTag"),
     url(r'tags/$', views.GetTags.as_view(), name="GetTags"),
+    url(r'availability/$', views.CheckUsername.as_view(), name="availability"),
 ]

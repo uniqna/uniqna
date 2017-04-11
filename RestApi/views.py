@@ -2,19 +2,40 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer
+from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, UsernameSerializer
+from .models import UsernameSnippet
 from rest_framework.decorators import api_view
 from threads.models import answer
 from ask.models import tag, question
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def TestView(request):
-    return render(request, "test.html")
+    result = {"available": True}
+    return Response(result)
 
 
 class TestPost(APIView):
     def post(self):
         pass
+
+
+class CheckUsername(APIView):
+    def get(self, request):
+        uname = request.data["username"]
+        try:
+            u = User.objects.get(username=uname)
+            if u:
+                snippet = UsernameSnippet(available=False)
+                snippet.save()
+                serializer = UsernameSerializer(snippet)
+                return Response(serializer.data)
+        except ObjectDoesNotExist:
+                snippet = UsernameSnippet(available=True)
+                snippet.save()
+                serializer = UsernameSerializer(snippet)
+                return Response(serializer.data)
 
 
 class SuggestTag(APIView):
@@ -52,11 +73,8 @@ class CreateTag(APIView):
         ldata = {"name": request.data["name"].lower()}
         serializer = TagSerializer(data=ldata)
         print(ldata["name"])
-        print("data received")
         if serializer.is_valid():
-            print("tag is valid")
             serializer.save()
-            print("tag creaed")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
