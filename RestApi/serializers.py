@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from threads.models import answer
 from ask.models import tag, question
+from .models import UsernameSnippet
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -24,4 +25,10 @@ class QuestionSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = tag
+        fields = '__all__'
+
+
+class UsernameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsernameSnippet
         fields = '__all__'
