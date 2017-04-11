@@ -12,8 +12,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 def TestView(request):
-    result = {"available": True}
-    return Response(result)
+    def get():
+        pass
 
 
 class TestPost(APIView):
@@ -24,7 +24,6 @@ class TestPost(APIView):
 class CheckUsername(APIView):
     def post(self, request):
         uname = request.data["username"]
-        print(uname)
         try:
             u = User.objects.get(username=uname)
             if u:
@@ -48,7 +47,6 @@ class SuggestTag(APIView):
             x for x in tag_names for y in words if x.lower() == y.lower()]
         sugg_tags = [tag.objects.get(name=x) for x in sugg_tag_names]
         serializer = TagSerializer(sugg_tags, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
 
@@ -73,7 +71,6 @@ class CreateTag(APIView):
     def post(self, request):
         ldata = {"name": request.data["name"].lower()}
         serializer = TagSerializer(data=ldata)
-        print(ldata["name"])
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -103,21 +100,17 @@ class AnswerVote(APIView):
     def Vote(self, request, pk, ud):
         ans = self.GetAnswer(pk)
         if ud == 'u':
-            print("up")
             vote_on = ans.ups
             vote_on_other = ans.downs
         elif ud == 'd':
-            print("down")
             vote_on = ans.downs
             vote_on_other = ans.ups
         if request.user not in vote_on.all():
-            print("adding ")
             vote_on.add(request.user)
             vote_on_other.remove(request.user)
         else:
             vote_on.remove(request.user)
         ans.set_score()
-        print("saved")
         ans.save()
         return ans
 
@@ -141,20 +134,16 @@ class QuestionVote(APIView):
     def Vote(self, request, pk, ud):
         ques = self.GetQuestion(pk)
         if ud == 'u':
-            print("up")
             vote_on = ques.ups
             vote_on_other = ques.downs
         elif ud == 'd':
-            print("down")
             vote_on = ques.downs
             vote_on_other = ques.ups
         if request.user not in vote_on.all():
-            print("adding ")
             vote_on.add(request.user)
             vote_on_other.remove(request.user)
         else:
             vote_on.remove(request.user)
-        print("saved")
         ques.points = ques.ups.count() - ques.downs.count()
         ques.save()
         return ques
