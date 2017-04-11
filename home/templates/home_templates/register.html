@@ -17,7 +17,7 @@
     <div class="register mdl-cell mdl-cell--4-col mdl-cell--4-offset">
         <form action="/register/" method="post">
             {% csrf_token %}
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="userparent" data-url="{% url 'availability' %}">
                 {% render_field regform.username class+="mdl-textfield__input" autocapitalize="none"%}
                 {% if regform.username.errors %}
                 <br>
@@ -49,7 +49,7 @@
                     <label class="mdl-textfield__label" for="sample3">Password</label>
                 </div>
             </div>
-            
+
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% render_field regform.confirm_password class+="mdl-textfield__input" %}
                 <div id="title_label">
