@@ -27,6 +27,9 @@ const vellore_school_choices = {
     "VFIT": "VFIT"
 }
 
+// Username available flag 
+// 1 - available, 0 - unavailable
+var uflag = 1;
 function update_select(selector, options) {
     // Removes all the options first
     // Then appends the new ones from the options
@@ -80,8 +83,66 @@ $('.submit').on("click", function(e) {
         n.alert("Bio is blank.")
         flag = 0;
     }
+    if (!uflag){
+        n.alert("Username is not available!");
+    }
     if (flag) {
         $(".ask").click();
     }
 
 });
+
+// Check username availability :
+
+ //Getting csrf token from stored cookie
+ function getCookie(name) {
+     var cookieValue = null;
+     if (document.cookie && document.cookie !== '') {
+         var cookies = document.cookie.split(';');
+         for (var i = 0; i < cookies.length; i++) {
+             var cookie = jQuery.trim(cookies[i]);
+             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                 break;
+             }
+         }
+     }
+     return cookieValue;
+ }
+ var csrftoken = getCookie('csrftoken');
+ //Attachign the token to the rest header
+ function csrfSafeMethod(method) {
+     // these HTTP methods do not require CSRF protection
+     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+ }
+ $.ajaxSetup({
+     beforeSend: function(xhr, settings) {
+         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+         }
+     }
+ });
+
+ $("#id_username").on("blur", function(e){
+    var parent = $("#userparent");
+    var purl = parent.data("url");
+    if (this.value=="" || this.value==" "){
+        return;
+    }
+    var data = {
+        "username": this.value
+    }
+    $.post(purl, data, function(data, status){
+        result = data.available;
+        if (result){
+            uflag=1;
+            n.confirm("Username available");
+            parent.removeClass("is-invalid");
+        }
+        else {
+            uflag=0;
+            n.alert("Username not available");
+            parent.addClass("is-invalid");
+        }
+    });
+ });

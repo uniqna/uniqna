@@ -22,8 +22,9 @@ class TestPost(APIView):
 
 
 class CheckUsername(APIView):
-    def get(self, request):
+    def post(self, request):
         uname = request.data["username"]
+        print(uname)
         try:
             u = User.objects.get(username=uname)
             if u:
