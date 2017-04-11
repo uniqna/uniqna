@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Form Modules
 from django.forms import ModelForm
-# Notificaition modules
+# Notification modules
 from threads.models import answer
 
 
