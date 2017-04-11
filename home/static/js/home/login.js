@@ -16,3 +16,14 @@ $('.submit').on("click", function(e) {
         $(".login").click();
     }
 });
+
+//Shifting field focus
+$("#username").on("keypress", function(e){
+    // Whenever enter is pressed this shifts the focus to 
+    // password input instead of submitting
+    if (e.which == 13){
+        e.preventDefault();
+        e.stopPropagation();
+        $("#password").focus();
+    }
+});
