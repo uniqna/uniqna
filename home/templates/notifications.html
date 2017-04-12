@@ -1,47 +1,43 @@
-{% extends "base/base.html" %}
-{% block titlename %}
-	Notifications
-{% endblock titlename %}
-{% block style %}
+{% extends "base/base.html" %} {% block titlename %} Notifications {% endblock titlename %} {% block style %}
 <style>
-    .header {
-        color: #3F51B5;
-        font-size:;
-    }
-    .notification-container {
-        padding: 20px;
-    }
-    .notif-inside {
-        color: #010;
-        font-family: "Lucida Grande", sans-serif;
-        border-bottom: 1px solid #aaa;
-        padding-bottom: 5px;
-    }
-    .read .notif-inside {
-        color: #aaa;
-    }
+	.header {
+		color: #01579B;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 30px;
+		margin-bottom: -15px;
+	}
+
+	.notification-container {
+		padding: 20px;
+	}
+
+	.notif-inside {
+		color: #009688;
+		font-family: 'Montserrat', sans-serif;
+		border-bottom: 3px dotted #7986CB;
+		padding-bottom: 5px;
+	}
+
+	.read .notif-inside {
+		color: #424242;
+	}
 </style>
-{% endblock style %}
-{% block content %}
-	 {% with ansnotifs=request.user.notifications.answers %} 
-	 {% if ansnotifs.all %}
-	<center>
-    <h4 class="header">Notifications</h4>
-        <div class="notification-container mdl-cell mdl-cell--8-col">
-                {% for ans in ansnotifs.sort_read %}
-                <a href="{% url 'notif' ans.id %}">
-                    <div class="{% if ans.read %}read{% endif %}">
-                        <p class="notif-inside">
-                            <span class="username">{{ ans.theanswer.answer_author }}</span> answered your question "{{ ans.theanswer.question.title|truncatechars:40}}"
-                            <br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
-                        </p>
-                    </div>
-                </a>
-                {% endfor %}
+{% endblock style %} {% block content %} {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
+<center>
+	<h4 class="header">Notifications</h4>	<i class="twa twa-lg twa-fire"></i>
+	<div class="notification-container mdl-cell mdl-cell--8-col">
+		{% for ans in ansnotifs.sort_read %}
+		<a href="{% url 'notif' ans.id %}">
+			<div class="{% if ans.read %}read{% endif %}">
+				<p class="notif-inside">
+					<span class="username">{{ ans.theanswer.answer_author }}</span> answered your question "{{ ans.theanswer.question.title|truncatechars:40}}"
+					<br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
+				</p>
 			</div>
-	</center>
-    {% else %}
-    <p> We are sorry, but you have no notifications. :( </p>
-    {% endif %}
-     {% endwith %}
-{% endblock content %}
+		</a>
+		{% endfor %}
+	</div>
+</center>
+{% else %}
+<p> We are sorry, but you have no notifications. :( </p>
+{% endif %} {% endwith %} {% endblock content %}
