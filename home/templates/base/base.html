@@ -49,18 +49,20 @@
 
                     <!-- Navigation -->
                     {% if request.user.is_authenticated %}
-                    <!-- Notification counter -->
+
                     <nav class="mdl-navigation">
-                        <a href="{% url 'notifications' %}">
-                            <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
-                            {% if request.user.notifications.answers.unread_count %}
-                            <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div>
-                            {% else %}
-                            <i class="material-icons">notifications</i> {% endif %}
-                        </button>
-                        </a>
+
                     </nav>
                     <nav class="mdl-navigation">
+                      <!-- Notification counter -->
+                      <a href="{% url 'notifications' %}">
+                      <button class="notifications mdl-button mdl-js-button mdl-button--icon" id="demo-menu-lower-left">
+                          {% if request.user.notifications.answers.unread_count %}
+                          <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="{{ request.user.notifications.answers.unread_count }}">notifications</div>
+                          {% else %}
+                          <i class="material-icons">notifications</i> {% endif %}
+                      </button>
+                        </a>
                         <a>&nbsp {{ request.user.username }} &nbsp</a>
                         <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
@@ -68,7 +70,7 @@
                                 <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
                             </li>
                             <li class="mdl-menu__item">
-                                <form method="post" action="/logout/">
+                                <form method="post" action="{% url 'logout' %}">
                                     {% csrf_token %}
                                     <center>
                                         <input type="submit" value="Logout" class="mdl-menu__item" />
@@ -82,8 +84,7 @@
                         </button>
                         <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
                           <a href="{% url 'register' %}" class="anon-register"> Register </a>
-                        </button>
-                        {% endif %}
+                        </button> {% endif %}
                     </nav>
                 </div>
             </header>
