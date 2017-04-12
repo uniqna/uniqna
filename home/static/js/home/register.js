@@ -146,3 +146,16 @@ $('.submit').on("click", function(e) {
         }
     });
  });
+
+ $(".mdl-textfield__input").on("keypress", function(e){
+    if (e.which==13 && e.target.id!="id_grad_year"){
+        e.preventDefault();
+        e.stopPropagation();
+        $(e.target).closest(".mdl-textfield").next(".mdl-textfield").find(".mdl-textfield__input").focus();
+    }
+    else if (e.target.id=="id_grad_year"){
+        e.preventDefault();
+        e.stopPropagation();
+        $(".submit").click();
+    }
+ });
