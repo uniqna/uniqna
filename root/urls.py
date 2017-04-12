@@ -37,6 +37,7 @@ urlpatterns = [
     url(r'^(?P<tab>(qna|nsy|disc))/$', views.home, name="tab"),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^notifications/$', views.notifications_view, name='notifications'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
     url(r'^new/', include('ask.urls')),
