@@ -21,6 +21,11 @@
 	.read .notif-inside {
 		color: #424242;
 	}
+
+	.no-notification {
+		margin-top: 20px;
+		color: #424242;
+	}
 </style>
 {% endblock style %} {% block content %} {% with ansnotifs=request.user.notifications.answers %} {% if ansnotifs.all %}
 <center>
@@ -39,5 +44,5 @@
 	</div>
 </center>
 {% else %}
-<p> We are sorry, but you have no notifications. :( </p>
+<center><p class="no-notification"> We are sorry, but you have no notifications. :( </p></center>
 {% endif %} {% endwith %} {% endblock content %}
