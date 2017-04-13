@@ -22,7 +22,14 @@
         // to prevent the clicking of links
         $(".overlay").css({
             "position": "absolute",
+            "width": window.innerWidth,
+            "height": window.innerHeight,
             "z-index": -9,
+        });
+        // Close the floating buttons if
+        // the background is clicked.
+        $(".overlay").on("click", function(){
+            $(".create-fab").click();
         });
         $(".create-fab").click("on", function(){
             if (fabState===1){

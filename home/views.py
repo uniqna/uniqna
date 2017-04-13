@@ -130,6 +130,12 @@ def tag_view(request, tagname):
         return HttpResponseRedirect(reverse('home'))
 
 
+def notifications_view(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect("/")
+    return render(request, "notifications.html")
+
+
 def notif_redirect(request, pk):
     ans_notif = get_object_or_404(Answered, pk=pk)
     ans_notif.read = True
