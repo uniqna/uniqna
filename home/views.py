@@ -32,7 +32,6 @@ def logout_view(request):
 
 
 def home(request, tab="home"):
-    print(request.debug)
     if request.method == 'GET':
         if request.user.is_authenticated:
             username = request.user.username
