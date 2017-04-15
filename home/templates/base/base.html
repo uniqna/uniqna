@@ -49,10 +49,6 @@
 
                     <!-- Navigation -->
                     {% if request.user.is_authenticated %}
-
-                    <nav class="mdl-navigation">
-
-                    </nav>
                     <nav class="mdl-navigation">
                       <!-- Notification counter -->
                       <a href="{% url 'notifications' %}">
@@ -79,12 +75,13 @@
                             </li>
                         </ul>
                         {% else %}
+                        {% if  request.path != '/'%}
                         <button class="mdl-button mdl-js-button button-responsive-fix">
                           <a href="{% url 'home' %}" class="anon-login"> Login </a>
                         </button>
                         <button class="mdl-button mdl-js-button button-responsive-fix register-padding">
                           <a href="{% url 'register' %}" class="anon-register"> Register </a>
-                        </button> {% endif %}
+                        </button> {% endif %} {% endif %}
                     </nav>
                 </div>
             </header>
