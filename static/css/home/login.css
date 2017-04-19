@@ -1,164 +1,141 @@
 html, body {
-    line-height: 15px;
+  line-height: 15px;
 }
 
 .mdl-textfield__label {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .mdl-button {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .brand {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .motto p {
-    color: #ffe082;
-    font-size: 20px;
-    margin-bottom: 0px;
+  color: #ffe082;
+  font-size: 20px;
+  margin-bottom: 0px;
 }
 
 .motto {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: -30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -30px;
 }
 
 .login_form {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .register {
-    margin-left: auto;
-    margin-right: auto;
-    color: #E91E63;
+  margin-left: auto;
+  margin-right: auto;
+  color: #E91E63;
 }
 
 .uname_error {
-    color: #C51162;
-    font-size: 13px;
+  color: #C51162;
+  font-size: 13px;
 }
 
 .mdl-layout__header {
-    background-color: #FFD54F;
-    box-shadow: none;
+  background-color: #FFD54F;
+  box-shadow: none;
 }
 
 .p_margin_fix {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .talking {
-    margin: 0px;
-    color: #226699;
+  margin: 0px;
+  color: #226699;
 }
 
 .main-login {
-    margin-top: -20px;
+  margin-top: -20px;
 }
 
-.mdl-layout__title,
-.mdl-layout-title {
-    line-height: 1.6;
-}
-
-.notyf {
-    bottom: 110px;
+.mdl-layout__title, .mdl-layout-title {
+  line-height: 1.6;
 }
 
 .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-    color: #C51162;
-    font-size: 20px;
-    text-align: center;
+  color: #C51162;
+  font-size: 20px;
+  text-align: center;
 }
 
 .mdl-textfield__label {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .a_title {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .votes {
-    display: none;
+  display: none;
 }
 
 .score {
-    font-size: 20px;
-    margin-top: 37.5px;
+  font-size: 20px;
+  margin-top: 37.5px;
 }
 
 .platform {
-    height: 85px;
+  height: 85px;
 }
 
 .mdl-cell--12-col {
-    height: 90px;
+  height: 90px;
 }
 
 .tags {
-    margin-top: 1.5px;
+  margin-top: 1.5px;
 }
 
 .date {
-    margin-top: 4px;
-}
-
-@media (max-width: 900px) {
-    .notyf {
-        bottom: 50px;
-        width: 40%;
-    }
+  margin-top: 4px;
 }
 
 @media (max-width: 600px) and (min-width: 480px) {
-    .login_form {
-      width: 100%;
-    }
-}
-
-@media (max-width: 400px) {
-    .notyf {
-        bottom: 30px;
-        font-size: 12px;
-        width: 50%;
-    }
+  .login_form {
+    width: 100%;
+  }
 }
 
 @media (max-width: 320px) {
-    .title .date {
-        font-size: 9px;
-    }
+  .title .date {
+    font-size: 9px;
+  }
 }
 
 @media (max-width: 479px) {
-
-    .mdl-mini-footer--link-list,
-    .mdl-mini-footer__link-list {
-        display: block;
-    }
-    .mdl-mini-footer--link-list,
-    .mdl-mini-footer__link-list a {
-        white-space: normal;
-    }
-    .motto p {
-        font-size: 16px;
-    }
-    .brand {
-        width: calc(100% - 80px);
-    }
-    .tags {
-        margin-top: -1.5px;
-    }
-    .mdl-grid {
-        padding: 0px;
-    }
-    .a_title {
-        font-size: 11px;
-    }
+  .mdl-mini-footer--link-list, .mdl-mini-footer__link-list {
+    display: block;
+  }
+  .mdl-mini-footer--link-list, .mdl-mini-footer__link-list a {
+    white-space: normal;
+  }
+  .motto p {
+    font-size: 16px;
+  }
+  .brand {
+    width: calc(100% - 80px);
+  }
+  .tags {
+    margin-top: -1.5px;
+  }
+  .mdl-grid {
+    padding: 0px;
+  }
+  .a_title {
+    font-size: 11px;
+  }
 }

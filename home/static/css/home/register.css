@@ -1,0 +1,17 @@
+@media (max-width: 479px) {
+  .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    font-size: 14px;
+  }
+
+  .mdl-textfield__input {
+    font-size: 14px;
+  }
+
+  .mdl-textfield {
+    font-size: 14px;
+  }
+}
+
+.submit {
+  font-size: 20px;
+}
