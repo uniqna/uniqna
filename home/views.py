@@ -10,13 +10,12 @@ from user.models import student, Notifications, Answered
 from home.forms import registration
 from threads.models import answer
 
+'''
+~ This piece of code is preserved for historic reasons ~
 token = False  # An error token - True when it encounters invalid credentials.
-
-
 def validation(request):
     if request.method == 'POST' and request.POST:
         username = request.POST['username']
-        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -24,6 +23,7 @@ def validation(request):
             return render(request, "home_templates/login.html", {"failed": 1})
     else:
         return HttpResponseRedirect(reverse('home'))
+'''
 
 
 def logout_view(request):
@@ -74,9 +74,14 @@ def home(request, tab="home"):
     if request.method == 'POST' and request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
+        try:
+            user = User._default_manager.get(username__iexact=username)
+        except User.DoesNotExist:
+            user = None
+        print(user.password)
+        user_auth = authenticate(username=user.username, password=password)
+        if user_auth is not None:
+            login(request, user_auth)
             return HttpResponseRedirect(reverse('home'))
         else:
             question_list = question.objects.all().order_by("-hot")[:3]
@@ -96,7 +101,6 @@ def register(request):
             new_profile = student(bio=cd["bio"], university=cd["university"],
                                   course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
             new_profile.user = new_user
-            new_profile.unique_username = cd["username"].lower()
             new_profile.save()
             notif = Notifications()
             notif.user = new_user
