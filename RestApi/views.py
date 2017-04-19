@@ -25,7 +25,7 @@ class CheckUsername(APIView):
     def post(self, request):
         uname = request.data["username"]
         try:
-            u = User.objects.get(username=uname)
+            u = User.objects.get(username__iexact=uname)
             if u:
                 snippet = UsernameSnippet(available=False)
                 snippet.save()
