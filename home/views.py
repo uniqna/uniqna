@@ -76,10 +76,9 @@ def home(request, tab="home"):
         password = request.POST['password']
         try:
             user = User._default_manager.get(username__iexact=username)
+            user_auth = authenticate(username=user.username, password=password)
         except User.DoesNotExist:
-            user = None
-        print(user.password)
-        user_auth = authenticate(username=user.username, password=password)
+            user_auth = None
         if user_auth is not None:
             login(request, user_auth)
             return HttpResponseRedirect(reverse('home'))

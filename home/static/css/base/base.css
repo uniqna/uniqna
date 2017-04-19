@@ -102,3 +102,7 @@ a {
 .mdl-menu__item {
     font-family: 'Montserrat', sans-serif;
 }
+
+.mdl-layout__header-row .mdl-navigation {
+    margin-left: -60px;
+}
