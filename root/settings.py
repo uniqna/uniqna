@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'RestApi',
     'search',
     'django_user_agents',
-    'robots'
+    'robots',
+    'mptt'
 ]
 
 SITE_ID = 2
