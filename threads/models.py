@@ -4,6 +4,7 @@ from django.db import models
 from ask.models import question
 from django.contrib.auth.models import User
 from root.algorithms import vote_score
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class ManagerExtender(models.Manager):
@@ -13,8 +14,9 @@ class ManagerExtender(models.Manager):
             a.set_score()
 
 
-class answer(models.Model):
+class answer(MPTTModel):
     question = models.ForeignKey(question)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     metatype = models.CharField(max_length=20, default="question", blank=False)
     description = models.TextField(blank=True)
     answer_author = models.CharField("Author", max_length=100, default="anon")
@@ -28,7 +30,7 @@ class answer(models.Model):
     objects = ManagerExtender()
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.description)
 
     def get_time(self):
         t = timezone.localtime(self.created_time)
@@ -47,3 +49,6 @@ class answer(models.Model):
         self.score = vote_score.confidence(
             self.ups.count(), self.downs.count())
         self.save()
+
+    class MPTTMeta:
+        order_insertion_by = ['score']

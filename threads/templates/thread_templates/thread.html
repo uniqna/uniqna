@@ -1,49 +1,37 @@
-{% extends "base/base.html" %}
-{% load staticfiles %}
-{% load timesince_upto %}
-{% load bleach_tags %}
-{% block meta %}
+{% extends "base/base.html" %} {% load staticfiles %} {% load timesince_upto %} {% load bleach_tags %} {% block meta %}
 <meta name="description" content="{{question.description|truncatechars:100}} Answers: {{question.answers}}">
 <meta name="author" content="{{question.author}}">
-<meta name="theme-color" content="#3F51B5 ">
-{% endblock meta %}
-{% block titlename %}
-{{ question.title }} - uniqna
-{% endblock titlename %}
-{% block head %}
+<meta name="theme-color" content="#3F51B5 "> {% endblock meta %} {% block titlename %} {{ question.title }} - uniqna {% endblock titlename %} {% block head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
 <link rel="stylesheet" href="{% static 'css/threads/threads.css' %}">
-<link rel="stylesheet" href="{% static 'css/base/search.css' %}">
-{% endblock head %}
-{% block content %}
-{% include 'home_templates/search.html' %}
+<link rel="stylesheet" href="{% static 'css/base/search.css' %}"> {% endblock head %} {% block content %} {% include 'home_templates/search.html' %}
 <!-- The question and answers -->
 <center>
-    {% if question.solved == False %}
-    <div class="question_title mdl-cell mdl-cell--12-col">
-        {{ question.title }}
-    </div>
-    {% else %}
-    <div class="question_title_solved mdl-cell mdl-cell--12-col">
-        {{ question.title }}
-    </div>
-    {% endif %}
+  {% if question.solved == False %}
+  <div class="question_title mdl-cell mdl-cell--12-col">
+    {{ question.title }}
+  </div>
+  {% else %}
+  <div class="question_title_solved mdl-cell mdl-cell--12-col">
+    {{ question.title }}
+  </div>
+  {% endif %}
 
-    <div class="question_meta mdl-cell mdl-cell--12-col">
-        <p> {% if question.metatype == "question" %}Asked{% else %}Submitted{% endif %} on {{ question.created_time|date:"d M, Y" }} by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
+  <div class="question_meta mdl-cell mdl-cell--12-col">
+    <p> {% if question.metatype == "question" %}Asked{% else %}Submitted{% endif %} on {{ question.created_time|date:"d M, Y" }} by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
+  </div>
+  {% if question.tags.all %}
+  <div class="question_meta_tags mdl-cell mdl-cell--12-col">
+    {% for t in question.tags.all %}
+    <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+  </div>
+  {% endif %}
+      <!--
+      <div class="question_meta_answers mdl-cell mdl-cell--12-col">
+      {{ question.views}}
     </div>
-    {% if question.tags.all %}
-    <div class="question_meta_tags mdl-cell mdl-cell--12-col">
-        {% for t in question.tags.all %}
-        <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
-    </div>
-    {% endif %}
-    <!--
-    <div class="question_meta_answers mdl-cell mdl-cell--12-col">
-        {{ question.views}}
-    </div>
--->
+    -->
 </center>
 
 {% if question.author == request.user.username %}
@@ -53,133 +41,163 @@
 {% endif %} {% endif %}
 
 <div class="question_description_parent mdl-cell mdl-cell--10-col">
-    <div class="question_description mdl-cell mdl-cell--10-col">
-        {{ description|bleach }}
-    </div>
+  <div class="question_description mdl-cell mdl-cell--10-col">
+    {{ description|bleach }}
+  </div>
 </div>
 
 <div class="mdl-cell mdl-cell--12-col">
-    <div class="mdl-cell mdl-cell--2-col voting">
-        <div class="mdl-grid voting">
-            <div class="mdl-cell mdl-cell--1-col votesu">
-                <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{question.pk}}">
-                    <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
-                </button>
-                {% if user.is_anonymous %}
-                <script>
-                var anonFlag = 1;
-                </script>
-                <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
-                  <div class="mdl-snackbar__text"></div>
-                  <button class="mdl-snackbar__action" type="button"></button>
-                </div>
-                {% endif %}
-            </div>
-            <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
-                <center>{{ question.points }}</center>
-            </div>
-            <div class="mdl-cell mdl-cell--1-col votesd">
-                <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote mdl-snackbar__action snackbar_show" data-id="{{question.pk}}">
-                    <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
-                </button>
-            </div>
+  <div class="mdl-cell mdl-cell--2-col voting">
+    <div class="mdl-grid voting">
+      <div class="mdl-cell mdl-cell--1-col votesu">
+        <button data-url="{% url 'question_vote' question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{question.pk}}">
+          <i class="material-icons votecolor {% if request.user in question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ question.pk }}">expand_less</i>
+        </button> {% if user.is_anonymous %}
+        <script>
+        var anonFlag = 1;
+        </script>
+        <div id="snackbar_reveals" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
         </div>
+        {% endif %}
+      </div>
+      <div class="mdl-cell mdl-cell--1-col score" id="score{{question.pk}}">
+        <center>{{ question.points }}</center>
+      </div>
+      <div class="mdl-cell mdl-cell--1-col votesd">
+        <button data-url="{% url 'question_vote' question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote mdl-snackbar__action snackbar_show" data-id="{{question.pk}}">
+          <i class="material-icons votecolor {% if request.user in question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{question.pk}}">expand_more</i>
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
 <center>
-    <div class="can_you_help">
-      {% if user.is_anonymous %}
-        <p>Please <a href="{% url 'home' %}" style="color:#3f51b5">login</a> to contribute to this discussion!<p>
-      {% elif question.metatype == "question" %}
+  <div class="can_you_help">
+    {% if user.is_anonymous %}
+    <p>Please <a href="{% url 'home' %}" style="color:#3f51b5">login</a> to contribute to this discussion!
+      <p>
+        {% elif question.metatype == "question" %}
         <p>Can you help? This forum depends on everyone sharing their knowledge. If you're able to answer this question, please do!</p>
-      {% else %}
+        {% else %}
         <p>This forum depends on everyone sharing their ideas. If you're able to contribute to this discussion, please do!</p>
-      {% endif %}
-    </div>
-</center>
+        {% endif %}
+      </div>
+    </center>
 
-{% if user.is_authenticated %}
-<script>
-var anonFlag = 0;
-</script>
-<div class="writeanswer">
-    <form action="answer/" method="post">
+    {% if user.is_authenticated %}
+    <script>
+    var anonFlag = 0;
+    </script>
+    <div class="writeanswer">
+      <form action="answer/" method="post">
         <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
-            {{ form.description }} {% csrf_token %}
+          {{ form.description }} {% csrf_token %}
         </div>
         <center>
-            <div class="ask1">
-            <input type="submit" name="submit" class="submit" value="">
+          <div class="ask1">
             <button class="ask mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="submitdummy" value="Ask">
-            <i class="ask_icon material-icons">send</i>
+              <i class="ask_icon material-icons">send</i>
             </button>
-            </div>
+          </div>
         </center>
-    </form>
-</div>
-<br>
-{% endif %}
-<br>
-{% load bleach_tags %} {% for x in all_answers %}
+      </form>
+    </div>
+    <br> {% endif %}
+    <br> {% load bleach_tags %}
 
-<!-- -->
+    <!-- Answers -->
 
-<div class="mdl-cell mdl-cell--12-col">
-    <div class="mdl-grid platform answer_parent">
-        <div class="answer_voting_parent mdl-cell mdl-cell--1-col">
-            <div class="mdl-grid voting-align">
-                <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ x.pk }}">expand_less</i>
-                    </button>
-                </div>
-                <div class="mdl-cell mdl-cell--1-col score answer_score_size" id="ansScore{{x.pk}}">
-                    <center>{{ x.points }}</center>
-                </div>
-                <div class="mdl-cell mdl-cell--1-col votes voting_align answer_vote_size">
-                    <button data-url="{% url 'answer_vote' x.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{x.pk}}">
-                    <i class="material-icons votecolor{% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{x.pk}}">expand_more</i>
-                    </button>
-                </div>
+    {% load mptt_tags %} {% recursetree nodes %}
+    <div class="mdl-cell mdl-cell--12-col answercontainer">
+      <div class="mdl-grid platform answer_parent">
+
+        <div class="answer_voting_parent mdl-cell mdl-cell--1-col" id="voteparent{{node.id}}">
+          <div class="mdl-grid voting-align">
+            <div class="mdl-cell mdl-cell--1-col voting_align answer_vote_size">
+              <button data-url="{% url 'answer_vote' node.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{node.pk}}">
+                <i class="material-icons votecolor {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ node.pk }}">expand_less</i>
+              </button>
             </div>
+            <div class="mdl-cell mdl-cell--1-col score answer_score_size" id="ansScore{{node.pk}}">
+              <center>{{ node.points }}</center>
+            </div>
+            <div class="mdl-cell mdl-cell--1-col voting_align answer_vote_size">
+              <button data-url="{% url 'answer_vote' node.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{node.pk}}">
+                <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{node.pk}}">expand_more</i>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="answer">
-            <div class="mdl-cell mdl-cell--5-col answer_author_meta">
-                {% if x.edited %}@<a href="{% url 'user' x.answer_author %}" class="userlinks">{{ x.answer_author }}</a>
-                <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago*</a>
-                <!--<br>Edited on {{x.get_edited_time}}-->
-                {% else %}
-                <a href="{% url 'user' x.answer_author %}" class="userlinks">@{{ x.answer_author }}</a> <a class="answer_meta_time">{{ x.created_time|timesince|upto:"," }} ago</a> {% endif %}
-                <a id="clipboard_{{ x.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{x.pk}}" data-id="{{x.pk}}">
-                <i class="material-icons link_clipboard">link</i>
-              </a>
-                <div class="mdl-tooltip" for="clipboard_{{ x.pk }}">
-                  <span id="aspan{{x.pk}}">Permalink</span>
-                </div>
+
+          <div class="mdl-cell mdl-cell--5-col answer_author_meta">
+            <div class="minimise" data-id="{{node.id}}"><a>[-]</a></div>
+            {% if node.edited %}@<a href="{% url 'user' node.answer_author %}" class="userlinks">{{ nodenode.answer_author }}</a>
+            <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago*</a>
+            <br>Edited on {{node.get_edited_time}} {% else %}
+            <a href="{% url 'user' node.answer_author %}" class="userlinks">@{{ node.answer_author }}</a> <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago</a> {% endif %}
+            <a id="clipboard_{{ node.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{node.pk}}" data-id="{{node.pk}}">
+              <i class="material-icons link_clipboard">link</i>
+            </a>
+            <div class="mdl-tooltip" for="clipboard_{{ node.pk }}">
+              <span id="aspan{{node.pk}}">Permalink</span>
             </div>
-            <div class="answer_description" id="a{{x.pk}}">
-                <br> <div class="answer_description_align"> {{ x.description|bleach }} </div>
-            </div>
-            {% if x.edited == True%}<br>{% endif %} {% if x.answer_author == request.user.username %}
-            <div class="meta_parent">
+          </div>
+
+          <br>
+
+          <div class="answer_description" id="answerdesc{{node.id}}">
+            <div class="answer_description_align {% if node.is_leaf_node %} leaf-node {% endif %}"> {{ node.description|bleach }}
+              <br>
+              {% if node.edited == True%}<br>{% endif %} {% if node.answer_author == request.user.username %}
+              <div class="meta_parent">
                 <div class="answer_user">
-                    <a class="question_delete" href="{% url 'delete_answer' question.pk x.pk %}" class="btn btn-danger">Delete</a> |
-                    <a style="color: #757575; " href="{% url 'edit_answer' question.pk x.pk %}" class="btn btn-success">Edit</a>
+                  <a class="question_delete" href="{% url 'delete_answer' question.pk node.pk %}" class="btn btn-danger">Delete</a> |
+                  <a style="color: #757575; " href="{% url 'edit_answer' question.pk node.pk %}" class="btn btn-success">Edit</a>
                 </div>
+              </div>
+              {% endif %}
+              <div class="reply"><a>Reply</a></div>
+              <div class="childVoteParent" id="childVoteParent{{node.id}}">
+                <button data-url="{% url 'answer_vote' node.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{node.pk}}">
+                  <i class="material-icons vote">keyboard_arrow_up</i>
+                </button>
+                <div class="child-score">{{ node.points }}</div>
+                <button data-url="{% url 'answer_vote' node.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{node.pk}}">
+                  <i class="material-icons vote">keyboard_arrow_down</i>
+                </button>
+              </div>
+              <textarea class="textarea-reply" placeholder="Be nice and Markdown is supported :)"></textarea>
+              <div class="reply-submit">
+                <button class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">send</i>
+                </button>
+              </div>
+            </div>
+
+            {% if not node.is_leaf_node %}
+            <div class="answer_description reply_parent">
+              <div class="answer_description_align child"> {{ children }}
+              </div>
             </div>
             {% endif %}
+          </div>
+
         </div>
+      </div>
     </div>
-</div>
-{% endfor %}
-{% endblock content %}
-{% block js %}
-<script src='{% static "js/notyf.js" %}'></script>
-<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script src='{% static "js/clipboard.min.js" %}'></script>
-<script src='{% static "js/threads/thread.js" %}'></script>
-<script src='{% static "js/threads/thread.js" %}'>
-{% endblock js %}
+    {% endrecursetree %} {% endblock content %}
+
+    {% block js %}
+    <script src='{% static "js/notyf.js" %}'></script>
+    <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src='{% static "js/clipboard.min.js" %}'></script>
+    <script src='{% static "js/threads/thread.js" %}'></script>
+    <script src='{% static "js/threads/thread.js" %}'>
+    {% endblock js %}
+    </script>

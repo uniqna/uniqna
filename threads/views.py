@@ -30,7 +30,8 @@ def thread(request, thread_id):
                   {'question': question_requested,
                    'description': description,
                    'form': unsubmitted_answer,
-                   'all_answers': all_answers})
+                   'all_answers': all_answers,
+                   'nodes':answer.objects.filter(question=question_id)})
 
 
 def submit_answer(request, question_id):
