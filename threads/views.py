@@ -21,7 +21,7 @@ def thread(request, thread_id):
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
-    all_answers = answer.objects.filter(question=thread_id).order_by("-score")
+    all_answers = answer.objects.filter(question=thread_id)
     for x in all_answers:
         x.description = markdown2.markdown(
             x.description, extras=["tables", "cuddled-lists"])
@@ -31,7 +31,7 @@ def thread(request, thread_id):
                    'description': description,
                    'form': unsubmitted_answer,
                    'all_answers': all_answers,
-                   'nodes':answer.objects.filter(question=question_id)})
+                   'nodes': answer.objects.filter(question=question_requested).order_by('created_time')})
 
 
 def submit_answer(request, question_id):
@@ -56,6 +56,21 @@ def submit_answer(request, question_id):
                 User, username=question_answered.author)
             question_author.notifications.answers.add(ans_notif)
             return HttpResponseRedirect("/thread/" + str(question_id))
+
+
+def submit_reply(request, answer_id):
+    if request.method == "POST" and request.POST:
+        parent = answer.objects.filter(pk=answer_id).select_related('question')[0]
+        print(type(parent))
+        submitted_reply = answer_form(request.POST)
+        if submitted_reply.is_valid():
+            reply = submitted_reply.save(commit=False)
+            reply.parent = parent
+            reply.question = parent.question
+            reply.metatype = parent.question.metatype
+            reply.answer_author = request.user.username
+            reply.save()
+            return HttpResponseRedirect("/thread/" + str(parent.question.id))
 
 
 def delete_question(request, thread_id):
