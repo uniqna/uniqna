@@ -21,7 +21,7 @@ def thread(request, thread_id):
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
-    all_answers = answer.objects.filter(question=thread_id)
+    all_answers = answer.objects.filter(question=question_requested).order_by('-tree_id', 'lft', 'score')
     for x in all_answers:
         x.description = markdown2.markdown(
             x.description, extras=["tables", "cuddled-lists"])
@@ -30,8 +30,7 @@ def thread(request, thread_id):
                   {'question': question_requested,
                    'description': description,
                    'form': unsubmitted_answer,
-                   'all_answers': all_answers,
-                   'nodes': answer.objects.filter(question=question_requested).order_by('created_time')})
+                   'nodes': all_answers})
 
 
 def submit_answer(request, question_id):
