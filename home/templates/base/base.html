@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- If the server is in debug mode, uses files stored in the repo 
+    <!-- If the server is in debug mode, uses files stored in the repo
          If its in production uses CDN instead -->
     {% if request.debug %}
     <link rel="stylesheet" href="{% static 'css/material.indigo-pink.min.css' %}">
@@ -65,17 +65,17 @@
                           <i class="material-icons">notifications</i> {% endif %}
                       </button>
                         </a>
-                        <a>&nbsp {{ request.user.username }} &nbsp</a>
+                        <a> {{ request.user.username }} &nbsp</a>
                         <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">face</i></button>
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
                             <li class="mdl-menu__item">
                                 <center><a href="{% url 'user' request.user.username %}" class="mdl-menu__item">View Profile</a></center>
                             </li>
                             <li class="mdl-menu__item">
-                                <form method="post" action="{% url 'logout' %}">
+                                <form method="post" action="{% url 'logout' %}" class="mdl-menu__item">
                                     {% csrf_token %}
                                     <center>
-                                        <input type="submit" value="Logout" class="mdl-menu__item" />
+                                      <a href="{% url 'logout' %}" class="mdl-menu__item logout">Logout</a>
                                     </center>
                                 </form>
                             </li>
