@@ -40,23 +40,23 @@
             });
           });
           $(".ansUpvote").click(function() {
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-            $.get(vote_url, function(data, status) {
-              $("#ansUp" + id).toggleClass("vote-default").toggleClass("vote-success");
-              $("#ansDown" + id).removeClass("vote-danger").addClass("vote-default")
-              $("#ansScore" + id).children()[0].textContent = data.points;
+                vote_url = $(this).data("url");
+                id = $(this).data("id");
+                $.get(vote_url, function(data, status) {
+                    $(".ansUp" + id).toggleClass("vote-default").toggleClass("vote-success");
+                    $(".ansDown" + id).removeClass("vote-danger").addClass("vote-default")
+                    $(".ansScore" + id).children()[0].textContent = data.points;
+                });
             });
-          });
-          $(".ansDownvote").click(function() {
-            vote_url = $(this).data("url");
-            id = $(this).data("id");
-            $.get(vote_url, function(data, status) {
-              $("#ansDown" + id).toggleClass("vote-default").toggleClass("vote-danger");
-              $("#ansUp" + id).removeClass("vote-success").addClass("vote-default");
-              $("#ansScore" + id).children()[0].textContent = data.points;
+            $(".ansDownvote").click(function() {
+                vote_url = $(this).data("url");
+                id = $(this).data("id");
+                $.get(vote_url, function(data, status) {
+                    $(".ansDown" + id).toggleClass("vote-default").toggleClass("vote-danger");
+                    $(".ansUp" + id).removeClass("vote-success").addClass("vote-default");
+                    $(".ansScore" + id).children()[0].textContent = data.points;
+                });
             });
-          });
         }
 
         //Clipboard
