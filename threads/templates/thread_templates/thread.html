@@ -119,15 +119,15 @@
           <div class="mdl-grid voting-align">
             <div class="mdl-cell mdl-cell--1-col voting_align answer_vote_size">
               <button data-url="{% url 'answer_vote' node.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{node.pk}}">
-                <i class="material-icons votecolor {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %}" id="ansUp{{ node.pk }}">expand_less</i>
+                <i class="material-icons votecolor {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %} ansUp{{ node.pk }}">expand_less</i>
               </button>
             </div>
-            <div class="mdl-cell mdl-cell--1-col score answer_score_size" id="ansScore{{node.pk}}">
-              <center>{{ node.points }}</center>
+            <div class="mdl-cell mdl-cell--1-col score answer_score_size">
+              <center class="ansScore{{node.pk}}">{{ node.points }}</center>
             </div>
             <div class="mdl-cell mdl-cell--1-col voting_align answer_vote_size">
               <button data-url="{% url 'answer_vote' node.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{node.pk}}">
-                <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ansDown{{node.pk}}">expand_more</i>
+                <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{node.pk}}">expand_more</i>
               </button>
             </div>
           </div>
@@ -167,7 +167,7 @@
                 <button data-url="{% url 'answer_vote' node.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{node.pk}}">
                 <i class="material-icons votecolor {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %} ansUp{{ node.pk }}">expand_less</i>
               </button>
-                <div class="child-score ansScore{{node.pk}}"><center>{{ node.points }}</center></div>
+                <div class="child-score ansScore{{node.pk}}"><center class="ansScore{{node.pk}}">{{ node.points }}</center></div>
                 <button data-url="{% url 'answer_vote' node.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{node.pk}}">
                 <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{node.pk}}">expand_more</i>
               </button>
