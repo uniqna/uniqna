@@ -54,7 +54,7 @@
                 $.get(vote_url, function(data, status) {
                     $(".ansDown" + id).toggleClass("vote-default").toggleClass("vote-danger");
                     $(".ansUp" + id).removeClass("vote-success").addClass("vote-default");
-                    $(".ansScore" + id).children()[0].textContent = data.points;
+                    $(".ansScore" + id).text(data.points)
                 });
             });
         }
