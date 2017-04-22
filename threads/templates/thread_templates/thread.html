@@ -172,11 +172,16 @@
                 <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{node.pk}}">expand_more</i>
               </button>
               </div>
-              <textarea class="textarea-reply" placeholder="Be nice and Markdown is supported :)"></textarea>
-              <div class="reply-submit">
-                <button class="mdl-button mdl-js-button mdl-button--icon">
-                  <i class="material-icons">send</i>
-                </button>
+              <div class="reply-container">
+                <form action="{% url 'submitreply' node.id %}" method="POST" class="reply-form">
+                  {% csrf_token %}
+                  <textarea class="textarea-reply" placeholder="Be nice and Markdown is supported :)" name="description" id="id_description"></textarea>
+                  <div class="reply-submit">
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon">
+                      <i class="material-icons">send</i>
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
 
