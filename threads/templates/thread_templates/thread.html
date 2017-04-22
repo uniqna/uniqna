@@ -165,12 +165,12 @@
               <div class="reply"><a>Reply</a></div>
               <div class="childVoteParent" id="childVoteParent{{node.id}}">
                 <button data-url="{% url 'answer_vote' node.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansUpvote snackbar_show" data-id="{{node.pk}}">
-                  <i class="material-icons vote">keyboard_arrow_up</i>
-                </button>
-                <div class="child-score">{{ node.points }}</div>
+                <i class="material-icons votecolor {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %} ansUp{{ node.pk }}">expand_less</i>
+              </button>
+                <div class="child-score ansScore{{node.pk}}"><center>{{ node.points }}</center></div>
                 <button data-url="{% url 'answer_vote' node.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect ansDownvote snackbar_show" data-id="{{node.pk}}">
-                  <i class="material-icons vote">keyboard_arrow_down</i>
-                </button>
+                <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{node.pk}}">expand_more</i>
+              </button>
               </div>
               <textarea class="textarea-reply" placeholder="Be nice and Markdown is supported :)"></textarea>
               <div class="reply-submit">
