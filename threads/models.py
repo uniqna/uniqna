@@ -51,4 +51,4 @@ class answer(MPTTModel):
         self.save()
 
     class MPTTMeta:
-        order_insertion_by = ['score']
+        order_insertion_by = ['-score']

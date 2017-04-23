@@ -137,10 +137,8 @@
 
           <div class="mdl-cell mdl-cell--5-col answer_author_meta">
             <div class="minimise" data-id="{{node.id}}"><a>[-]</a></div>
-            {% if node.edited %}@<a href="{% url 'user' node.answer_author %}" class="userlinks">{{ nodenode.answer_author }}</a>
-            <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago*</a>
-            <br>Edited on {{node.get_edited_time}} {% else %}
-            <a href="{% url 'user' node.answer_author %}" class="userlinks">@{{ node.answer_author }}</a> <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago</a> {% endif %}
+            @<a href="{% url 'user' node.answer_author %}" class="userlinks">{{ node.answer_author }}</a>
+            <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago{% if node.edited %}*{% endif %}</a>
             <a id="clipboard_{{ node.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{node.pk}}" data-id="{{node.pk}}">
               <i class="material-icons link_clipboard">link</i>
             </a>
@@ -152,8 +150,7 @@
           <br>
 
           <div class="answer_description" id="answerdesc{{node.id}}">
-            <div class="answer_description_align {% if node.is_leaf_node %} leaf-node {% endif %}">{{ node.score }} {{ node.description|bleach }}
-              <br>
+            <div class="answer_description_align {% if node.is_leaf_node %} leaf-node {% endif %}">{{ node.description|bleach }}
               {% if node.edited == True%}<br>{% endif %} {% if node.answer_author == request.user.username %}
               <div class="meta_parent">
                 <div class="answer_user">
