@@ -112,7 +112,7 @@
     <!-- Answers -->
 
     {% load mptt_tags %} {% recursetree nodes %}
-    <div class="mdl-cell mdl-cell--12-col answercontainer">
+    <div class="mdl-cell mdl-cell--12-col answercontainer" id="a{{node.pk}}">
       <div class="mdl-grid platform answer_parent">
 
         <div class="answer_voting_parent mdl-cell mdl-cell--1-col" id="voteparent{{node.id}}">
