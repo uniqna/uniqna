@@ -4,6 +4,7 @@
 <meta name="theme-color" content="#3F51B5 "> {% endblock meta %} {% block titlename %} {{ question.title }} - uniqna {% endblock titlename %} {% block head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<link rel="stylesheet" href="{% static 'css/notyf.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/threads/threads.css' %}">
 <link rel="stylesheet" href="{% static 'css/base/search.css' %}"> {% endblock head %} {% block content %} {% include 'home_templates/search.html' %}
 <!-- The question and answers -->
@@ -170,11 +171,11 @@
               </button>
               </div>
               <div class="reply-container">
-                <form action="{% url 'submitreply' node.id %}" method="POST" class="reply-form">
+                <form action="{% url 'submitreply' node.id %}" method="POST" class="reply-form" id="reply-form{{node.id}}">
                   {% csrf_token %}
                   <textarea class="textarea-reply" placeholder="Be nice and Markdown is supported :)" name="description" id="id_description"></textarea>
                   <div class="reply-submit">
-                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon">
+                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon submit-reply" data-id="{{ node.id }}">
                       <i class="material-icons">send</i>
                     </button>
                   </div>
@@ -201,6 +202,4 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script src='{% static "js/clipboard.min.js" %}'></script>
     <script src='{% static "js/threads/thread.js" %}'></script>
-    <script src='{% static "js/threads/thread.js" %}'>
     {% endblock js %}
-    </script>

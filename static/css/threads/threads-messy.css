@@ -54,11 +54,9 @@
 .answer_description_align .question_delete {
 	color: #E53935;
 }
+
 .question_delete {
 	color: #E53935;
-}
-.answer_description_align p {
-	margin-bottom: 0px;
 }
 
 @media (max-width: 320px) {
@@ -245,8 +243,8 @@ table,th,td {
 }
 .meta_parent {
 	width: 100%;
-	display: inline-block;
-	margin-top: 10px;
+  display: inline-block;
+  margin-top: 10px;
 }
 .writeanswerbtn {
 	font-family: 'Montserrat', sans-serif;
@@ -356,9 +354,6 @@ textarea {
 }
 .reply {
 	cursor: pointer;
-	margin-top: 5px;
-	display: inline-block;
-	color: #2979FF;
 }
 .mdl-grid {
 	padding-right: 0px;
@@ -367,8 +362,8 @@ textarea {
 	padding-top: 0px;
 	vertical-align: -7px;
 	font-size: 20px;
-	padding-left: 0.5px;
-	padding-right: 0.5px;
+  padding-left: 0.5px;
+  padding-right: 0.5px;
 	color: #424242;
 	display: none;
 }
@@ -376,11 +371,11 @@ textarea {
 	margin-left: -6px;
 }
 .reply-submit {
-	float: right;
-	color: #009688;
+  float: right;
+  color: #009688;
 }
 .reply-submit .material-icons {
-	width: 28px;
+    width: 28px;
 }
 .child .answer_voting_parent {
 	display: none;
@@ -393,6 +388,11 @@ textarea {
 }
 .child .answer_meta_time {
 	color: #9E9E9E;
+}
+.reply {
+  margin-top: 5px;
+  display: inline-block;
+  color: #2979FF;
 }
 .answer_description .reply a {
 	color: #2979FF;
@@ -417,13 +417,13 @@ textarea {
 }
 .minimise a {
 	color: #9E9E9E;
-	cursor: pointer;
+  cursor: pointer;
 }
 .childVoteParent {
-	display: none;
+  display: none;
 }
 .child .childVoteParent {
-	display: inline-block;
+  display: inline-block;
 }
 .answer_voting_parent {
 	width: 40px;
@@ -431,7 +431,6 @@ textarea {
 }
 
 @media (max-width: 479px) {
-
 	.answer_author_meta {
 		float: left;
 	}
@@ -481,7 +480,6 @@ textarea {
 	}
 }
 
-
 @media (max-width: 479px) {
 
 	.answer_author_meta {
@@ -530,14 +528,15 @@ textarea {
 	.can_you_help p {
 		font-size: 14px;
 	}
-	.answer_description_align {
-		padding-top: 12px;
-	}
+  .answer_description_align {
+    padding-top: 12px;
+  }
+	.answer_description_align p{
+    margin-bottom: 0px;
+  }
 }
 
-
 @media (max-width: 320px) {
-
 	html,body,p {
 		font-size: 12px;
 	}
