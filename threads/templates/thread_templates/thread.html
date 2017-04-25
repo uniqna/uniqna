@@ -184,7 +184,7 @@
             </div>
 
             {% if not node.is_leaf_node %}
-            <div class="answer_description reply_parent">
+            <div class="answer_description reply_parent" data-url="{% url 'reply' node.question.id node.id%}">
               <div class="answer_description_align child"> {{ children }}
               </div>
             </div>

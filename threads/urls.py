@@ -11,6 +11,7 @@ reply url above the thread entry.
 """
 
 urlpatterns = [
+	url(r'(\d{1,5})/reply/(\d{1,5})/$', views.reply, name='reply'),
 	url(r'reply/(\d{1,5})/$', views.submit_reply, name="submitreply"),
 	url(r'(\d{1,5})/$', views.thread, name='thread'),
 	# url(r'api/$', views.VotesView.as_view()),

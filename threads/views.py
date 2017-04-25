@@ -34,6 +34,24 @@ def thread(request, thread_id):
                    'nodes': all_answers})
 
 
+def reply(request, thread_id, answer_id):
+    try:
+        answer_id = int(answer_id)
+    except ValueError:
+        raise Http404()
+    parent_ques = get_object_or_404(question, pk=thread_id)
+    answer._tree_manager.rebuild()
+    answer_req = get_object_or_404(answer, pk=answer_id)
+    replies = answer_req.get_descendants()
+    answer._tree_manager.rebuild()
+    replies = replies.order_by('tree_id', 'lft')
+    return render(request, 'thread_templates/thread.html', {
+        'question': parent_ques,
+        'nodes': replies
+    })
+
+
+
 def submit_answer(request, question_id):
     if request.method == 'POST' and request.POST:
         question_answered = get_object_or_404(question, pk=question_id)
