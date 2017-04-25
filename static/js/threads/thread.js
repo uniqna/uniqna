@@ -130,7 +130,7 @@
         $.each(leafs, function(index, leaf) {
           var parentNodes = $(leaf).parents(".child");
           var level = parentNodes.length + 1;
-          var readThreadElement = "<a class='readthread'>Read the full train [ " + (level - threshold) + ((level - threshold) > 1 ? " Replies" : " Reply") + " ]</a>";
+          var replyUrl = $
           if (level > threshold) {
             // parentNodes[level-threshold-1] will always be a 3rd level node
             // we want to remove every node after that level
@@ -141,6 +141,8 @@
             var container = $(parentNodes[level - threshold - 1]).closest(".reply_parent");
             //Check whether a "read Thread" link is already present
             if (container.children(".readthread").length == 0) {
+              var reply_url = $(container).data("url");
+              var readThreadElement = "<a class='readthread' href='" + reply_url + "''>Read the full train [ " + (level - threshold) + ((level - threshold) > 1 ? " Replies" : " Reply") + " ]</a>";
               container.append($(readThreadElement));
             }
           }
