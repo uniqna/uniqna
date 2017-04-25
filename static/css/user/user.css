@@ -116,6 +116,15 @@ a {
     margin-right: 7px;
 }
 
+.answer a {
+    color: #3949AB;
+    font-size: 12px;
+}
+
+a.viewans {
+    font-size: 14px;
+}
+
 .platform {
     background-color: #EEEEEE;
 }
@@ -142,11 +151,6 @@ a {
     margin: 0px;
 }
 
-.answer a {
-    color: #3949AB;
-    font-size: 12px;
-}
-
 .answer_user {
     float: left;
 }
@@ -168,6 +172,7 @@ a {
 .username {
     color: #01579B;
     font-family: 'Montserrat', sans-serif;
+    margin: 15px;
 }
 
 .jscroll-inner {
@@ -313,14 +318,20 @@ h3 {
     .pagination {
         height: 65px;
     }
+    ul, ol {
+      font-size: 12px;
+    }
 }
 
 @media (max-width: 479px) {
     .a_title {
-        font-size: 11px;
+        font-size: 12px;
     }
     body {
         line-height: 15px;
+    }
+    a.viewans {
+        font-size: 12px;
     }
 }
 
@@ -347,6 +358,9 @@ h3 {
     }
     .answers {
         font-size: 10px;
+    }
+    .username {
+        font-size: 25px;
     }
 }
 

@@ -103,7 +103,7 @@
           e.preventDefault();
           flag = 1;
           if (simplemde.value() == "") {
-            alert("C'mon! Your thoughts can't be this empty...");
+            not.alert("C'mon! Your thoughts can't be this empty...");
             // not.alert("Please write the answer.")
             flag = 0;
           }
@@ -111,6 +111,19 @@
             $(".submit").click();
           }
         });
+
+        // Empty reply notifications
+        $(".submit-reply").on("click", function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          var textarea = $(this).parent(".reply-submit").siblings(".textarea-reply");
+          var reply = textarea.val().trim();
+          if (reply == ""){
+            not.alert("C'mon! your thoughts can't be this empty...");
+            return;
+          }
+          $(this).closest(".reply-form").submit();
+        })
 
         var leafs = $(".leaf-node");
         var threshold = 3;
@@ -184,19 +197,19 @@
           }
         })
 
-        $(".textarea-reply").hide();
+        $(".reply-container").hide();
         $(".reply-submit").hide();
         $(".reply").on("click", function() {
-          var textarea = $(this).siblings(".textarea-reply");
-          var replysubmit = $(this).siblings(".reply-submit");
-          if (textarea.css("display") == "none") {
-            $(".textarea-reply").fadeOut(100);
+          var container = $(this).siblings(".reply-container");
+          var replysubmit = container.find(".reply-submit");
+          if (container.css("display") == "none") {
+            $(".reply-container").fadeOut(100);
             $(".reply-submit").fadeOut(100);
-            textarea.fadeIn(100);
+            container.fadeIn(100);
             replysubmit.fadeIn(100);
             $(this).text("Close");
           } else {
-            textarea.fadeOut(100);
+            container.fadeOut(100);
             replysubmit.fadeOut(100);
             $(this).text("Reply")
           }
