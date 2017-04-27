@@ -45,9 +45,11 @@ def reply(request, thread_id, answer_id):
     replies = answer_req.get_descendants()
     answer._tree_manager.rebuild()
     replies = replies.order_by('tree_id', 'lft')
+    description = parent_ques.description
     return render(request, 'thread_templates/thread.html', {
         'question': parent_ques,
-        'nodes': replies
+        'nodes': replies,
+        'description': description,
     })
 
 
