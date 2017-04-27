@@ -42,7 +42,7 @@ def reply(request, thread_id, answer_id):
     parent_ques = get_object_or_404(question, pk=thread_id)
     answer._tree_manager.rebuild()
     answer_req = get_object_or_404(answer, pk=answer_id)
-    replies = answer_req.get_descendants()
+    replies = answer_req.get_descendants(True)
     answer._tree_manager.rebuild()
     replies = replies.order_by('tree_id', 'lft')
     description = parent_ques.description
