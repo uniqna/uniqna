@@ -206,9 +206,7 @@
               var data = {
                 message: 'Please log in to reply.'
               };
-              $(".reply").on("click", function() {
-                $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
-              });
+              $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
             }());
           }
           else {
