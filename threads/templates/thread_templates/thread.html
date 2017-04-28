@@ -170,6 +170,8 @@
                 <i class="material-icons votecolor{% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %} ansDown{{node.pk}}">expand_more</i>
               </button>
               </div>
+              <script> var reply_anon_flag = 1; </script>
+              {% if user.is_authenticated %}
               <div class="reply-container">
                 <form action="{% url 'submitreply' node.id %}" method="POST" class="reply-form" id="reply-form{{node.id}}">
                   {% csrf_token %}
@@ -181,6 +183,7 @@
                   </div>
                 </form>
               </div>
+              {% endif %}
             </div>
 
             {% if not node.is_leaf_node %}

@@ -199,20 +199,33 @@
           }
         })
 
+        $(".reply").on("click", function() {
+          if (reply_anon_flag){
+            (function() {
+              'use strict';
+              var data = {
+                message: 'Please log in to reply.'
+              };
+              $(".reply").on("click", function() {
+                $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
+              });
+            }());
+          }
+          else {
+            var container = $(this).siblings(".reply-container");
+            var replysubmit = container.find(".reply-submit");
+            if (container.css("display") == "none") {
+              $(".reply-container").fadeOut(100);
+              $(".reply-submit").fadeOut(100);
+              container.fadeIn(100);
+              replysubmit.fadeIn(100);
+              $(this).text("Close");
+            } else {
+              container.fadeOut(100);
+              replysubmit.fadeOut(100);
+              $(this).text("Reply")
+            }
+         }
+        });
         $(".reply-container").hide();
         $(".reply-submit").hide();
-        $(".reply").on("click", function() {
-          var container = $(this).siblings(".reply-container");
-          var replysubmit = container.find(".reply-submit");
-          if (container.css("display") == "none") {
-            $(".reply-container").fadeOut(100);
-            $(".reply-submit").fadeOut(100);
-            container.fadeIn(100);
-            replysubmit.fadeIn(100);
-            $(this).text("Close");
-          } else {
-            container.fadeOut(100);
-            replysubmit.fadeOut(100);
-            $(this).text("Reply")
-          }
-        });
