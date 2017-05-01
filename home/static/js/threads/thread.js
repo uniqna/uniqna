@@ -9,9 +9,9 @@
               $("#snackbar_reveals")[0].MaterialSnackbar.showSnackbar(data);
             });
           }());
-        } else {
+        } else if($(".answer-textbox").length) {
           var simplemde = new SimpleMDE({
-            element: $("#MyID")[0],
+            element: $("#id_description")[0],
             hideIcons: ["quote", "fullscreen", "side-by-side"],
             spellChecker: false,
             placeholder: "This is where you type...",

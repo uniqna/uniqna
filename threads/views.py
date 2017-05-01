@@ -50,8 +50,8 @@ def reply(request, thread_id, answer_id):
         'question': parent_ques,
         'nodes': replies,
         'description': description,
+        'reply': True
     })
-
 
 
 def submit_answer(request, question_id):

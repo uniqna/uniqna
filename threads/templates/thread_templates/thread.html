@@ -92,9 +92,10 @@
     <script>
     var anonFlag = 0;
     </script>
+    {% if not reply %}
     <div class="writeanswer">
       <form action="answer/" method="post">
-        <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone">
+        <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone answer-textbox">
           {{ form.description }} {% csrf_token %}
         </div>
         <center>
@@ -107,6 +108,7 @@
         </center>
       </form>
     </div>
+    {% endif %}
     <br> {% endif %}
     <br> {% load bleach_tags %}
 
