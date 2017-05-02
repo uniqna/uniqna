@@ -21,7 +21,7 @@ def thread(request, thread_id):
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
     question_id = question_requested.pk
-    answer._tree_manager.rebuild()
+    answer._tree_manager.rebuild() # You rebuild the tree and then query.
     all_answers = answer.objects.filter(question=question_requested).order_by('tree_id', 'lft')
     for x in all_answers:
         x.description = markdown2.markdown(
@@ -43,7 +43,6 @@ def reply(request, thread_id, answer_id):
     answer._tree_manager.rebuild()
     answer_req = get_object_or_404(answer, pk=answer_id)
     replies = answer_req.get_descendants(True)
-    answer._tree_manager.rebuild()
     replies = replies.order_by('tree_id', 'lft')
     description = parent_ques.description
     return render(request, 'thread_templates/thread.html', {
