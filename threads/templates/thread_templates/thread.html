@@ -1,5 +1,5 @@
 {% extends "base/base.html" %} {% load staticfiles %} {% load timesince_upto %} {% load bleach_tags %} {% block meta %}
-<meta name="description" content="{{question.description|truncatechars:100}} Answers: {{question.answers}}">
+<meta name="description" content="{{question.description|truncatechars:180}}">
 <meta name="author" content="{{question.author}}">
 <meta name="theme-color" content="#3F51B5 "> {% endblock meta %} {% block titlename %} {{ question.title }} - uniqna {% endblock titlename %} {% block head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{% static 'css/threads/threads.css' %}">
 <link rel="stylesheet" href="{% static 'css/base/search.css' %}"> {% endblock head %} {% block content %} {% include 'home_templates/search.html' %}
 <!-- The question and answers -->
+
 <center>
   {% if question.flair != Null %}
   <div class="flair">

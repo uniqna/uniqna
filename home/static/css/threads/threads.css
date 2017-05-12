@@ -83,11 +83,12 @@
 	margin-top: 10px;
 	margin-bottom: -30px;
 	color: #4caf50;
+	cursor: default;
 }
 
 .flair p {
 	display: inline;
-	vertical-align: 5px;
+	vertical-align: 6px;
 }
 
 @media (max-width: 320px) {
