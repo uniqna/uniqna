@@ -231,11 +231,24 @@
 .vote-default {
     color: #424242;
 }
+
 .vote-success {
     color: #4CAF50;
 }
+
 .vote-danger {
     color: #F44336;
+}
+
+.flair {
+    position: absolute;
+    right: 10px;
+    margin-top: 3px;
+    color: #bdbdbd;
+}
+
+.flair i {
+  font-size: 20px;
 }
 
 @media (max-width: 840px) {

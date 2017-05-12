@@ -9,6 +9,13 @@
 <link rel="stylesheet" href="{% static 'css/base/search.css' %}"> {% endblock head %} {% block content %} {% include 'home_templates/search.html' %}
 <!-- The question and answers -->
 <center>
+  {% if question.flair != Null %}
+  <div class="flair">
+    <i class="material-icons">{{ question.flair_icon }}</i>
+    <p>{{ question.flair }}</p>
+  </div>
+  {% endif %}
+
   {% if question.solved == False %}
   <div class="question_title mdl-cell mdl-cell--12-col">
     {{ question.title }}
