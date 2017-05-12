@@ -173,6 +173,7 @@ a.viewans {
     color: #01579B;
     font-family: 'Montserrat', sans-serif;
     margin: 15px;
+    margin-bottom: 15px;
 }
 
 .jscroll-inner {
@@ -202,6 +203,7 @@ a.viewans {
 .mdl-card {
     width: 100%;
     margin-top: 10px;
+    min-height: 0px;
 }
 
 .university p {
@@ -295,7 +297,7 @@ h3 {
     vertical-align: 3px;
 }
 
-.karma-parent{
+.karma-parent {
     margin-top: 5px;
 }
 

@@ -250,7 +250,7 @@
     }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 479px) and (min-width: 320px) {
     .a_title {
         font-size: 12px;
     }
@@ -283,5 +283,11 @@
     }
     .pagination {
       margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .a_title {
+      font-size: 10px;
     }
 }

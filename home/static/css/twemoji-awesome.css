@@ -1199,7 +1199,9 @@
   background-image: url("https://twemoji.maxcdn.com/svg/1f364.svg"); }
 
 .twa-fries {
-  background-image: url("https://twemoji.maxcdn.com/svg/1f35f.svg"); }
+  background-image: url("https://twemoji.maxcdn.com/svg/1f35f.svg");
+  margin-top: -15px; /* Fix for admin top margin inconsistency */
+  }
 
 .twa-game-die {
   background-image: url("https://twemoji.maxcdn.com/svg/1f3b2.svg"); }

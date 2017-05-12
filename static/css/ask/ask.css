@@ -26,9 +26,6 @@
      height: 20px;
      font-family: 'Montserrat', sans-serif;
      font-size: 15px;
-     outline: none;
-     border: 2px dashed #009688 !important;
-     border-radius: 5px;
      padding: 5px !important;
  }
 
@@ -53,10 +50,11 @@
  .flexdatalist-multiple li.input-container,
  .flexdatalist-multiple li.input-container input {
      width: calc(100% - 12px);
+     outline: none;
  }
 
  .flexdatalist-multiple {
-     width: calc(100% - 12px);
+     width: calc(100% - 10px);
  }
 
  .tags_label {
@@ -86,9 +84,14 @@
      width: 100%;
  }
 
-  .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+ .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
       font-size: 20px;
   }
+
+  ul.flexdatalist-multiple {
+    border-color: #aaaaaa !important;
+    border-style: solid !important;
+}
 
  @media (max-width: 320px) {
      .notyf {

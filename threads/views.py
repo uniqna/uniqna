@@ -80,7 +80,8 @@ def submit_answer(request, question_id):
 def submit_reply(request, answer_id):
     if request.method == "POST" and request.POST:
         parent = answer.objects.filter(pk=answer_id).select_related('question')[0]
-        print(type(parent))
+        question_instance = parent.question
+        question_id = question_instance.pk
         submitted_reply = answer_form(request.POST)
         if submitted_reply.is_valid():
             reply = submitted_reply.save(commit=False)
@@ -89,6 +90,10 @@ def submit_reply(request, answer_id):
             reply.metatype = parent.question.metatype
             reply.answer_author = request.user.username
             reply.save()
+            reply.ups.add(request.user)
+            question_instance.answers = answer.objects.filter(
+                question=question_id).count()
+            question_instance.save()
             return HttpResponseRedirect("/thread/" + str(parent.question.id))
 
 
