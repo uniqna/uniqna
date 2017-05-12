@@ -5,6 +5,10 @@ branch-defaults:
   master:
     environment: production-env
     group_suffix: null
+environment-defaults:
+  production-env:
+    branch: null
+    repository: null
 global:
   application_name: qnaprod
   branch: null

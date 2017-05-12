@@ -30,6 +30,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+PREPEND_WWW = True
 
 # Application definition
 
