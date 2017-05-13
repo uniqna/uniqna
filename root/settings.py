@@ -161,6 +161,9 @@ else:
     EMAIL_HOST_PASSWORD = secret_settings.EMAIL_HOST_PASSWORD
     DEFAULT_FROM_EMAIL = secret_settings.DEFAULT_FROM_EMAIL
     SERVER_EMAIL = secret_settings.SERVER_EMAIL
+    MG_KEY = secret_settings.MG_KEY
+    MG_URL = secret_settings.MG_URL
+    MG_FROM = secret_settings.MG_FROM
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
