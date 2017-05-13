@@ -30,6 +30,14 @@ class NotificationExtender(models.Manager):
             object_id=answer.pk
         )
 
+    def create_reply_notification(self, user, reply):
+        notif_template = "<span class='username'>{0} replied to your answer \"{1}\"."
+        self.create(
+            user=user,
+            content=notif_template.format(user.username, reply.parent.description),
+            notification_type="replied",
+            object_id=reply.pk
+        )
 
 
 class student(models.Model):
