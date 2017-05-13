@@ -16,7 +16,7 @@ class ManagerExtender(models.Manager):
     def sort_read(self):
         unsorted = self.all()
         srted = sorted(unsorted, key=lambda x: (
-            x.theanswer.created_time, x.read), reverse=True)
+            x.notification_time, x.read), reverse=True)
         return srted
 
 
@@ -93,6 +93,7 @@ class Notifications(models.Model):
 New model for storing notifications
 -----------------------------------
 content -> The notification string
+notification_time -> Time of posting the notification
 notification_type -> The type of the notification
 ( Like answered, voted etc.)
 object_id -> The id of the related object

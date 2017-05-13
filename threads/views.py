@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from root.algorithms import vote_score
 from threads.forms import answer_form
 from threads.models import answer
-from user.models import Answered
+from user.models import Notification
 from ask.models import question
 from datetime import datetime
 import markdown2
@@ -68,12 +68,13 @@ def submit_answer(request, question_id):
             question_answered.answers = answer.objects.filter(
                 question=question_id).count()
             question_answered.save()
-            ans_notif = Answered()
-            ans_notif.theanswer = instance
-            ans_notif.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
-            question_author.notifications.answers.add(ans_notif)
+            notif = Notification(notification_type="answered")
+            notif.object_id = instance.pk
+            notif.content = "{0} answered your question {1}.".format(request.user.username, question_answered.title[:30])
+            notif.user = question_author
+            notif.save()
             return HttpResponseRedirect("/thread/" + str(question_id))
 
 
