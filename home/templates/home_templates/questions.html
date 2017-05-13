@@ -19,6 +19,13 @@
             </div>
         </div>
 
+        {% if x.flair != Null %}
+        <div id="flair-{{ x.pk }}" class="flair"><i class="material-icons">{{ x.flair_icon }}</i></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="flair-{{ x.pk }}">
+          {{ x.flair }}
+        </div>
+        {% endif %}
+
         <div class="title">
             <div class="date">{% if x.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ x.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' x.author %}" class="authorlink">{{ x.author }}</a>&nbsp&nbsp<small class="answers">{{ x.answers }} {% if x.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
             </div>

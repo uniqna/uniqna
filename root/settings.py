@@ -198,7 +198,7 @@ TIME_ZONE = 'Asia/Kolkata'
 STATIC_URL = '/static/'
 # Django Bleach settings
 # Which HTML tags are allowed
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre', 'img']
+BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre', 'img', 'b', 'br']
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
 BLEACH_STRIP_TAGS = True

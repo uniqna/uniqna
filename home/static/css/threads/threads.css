@@ -79,6 +79,18 @@
 	padding-right: 2.5px;
 }
 
+.flair {
+	margin-top: 10px;
+	margin-bottom: -30px;
+	color: #4caf50;
+	cursor: default;
+}
+
+.flair p {
+	display: inline;
+	vertical-align: 6px;
+}
+
 @media (max-width: 320px) {
 
 	.title .date {

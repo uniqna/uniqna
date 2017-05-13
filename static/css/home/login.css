@@ -89,19 +89,11 @@ html, body {
 }
 
 .platform {
-  height: 85px;
+  height: 90px;
 }
 
 .mdl-cell--12-col {
   height: 90px;
-}
-
-.tags {
-  margin-top: 1.5px;
-}
-
-.date {
-  margin-top: 4px;
 }
 
 @media (max-width: 600px) and (min-width: 480px) {

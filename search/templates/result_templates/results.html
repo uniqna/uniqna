@@ -53,7 +53,7 @@ Search Results
   {% endif %}
 </div>
 
-<div class="mdl-grid">
+<div class="mdl-grid question-parent">
     {% paginate results %} {% for x in results %}
         {% include "user_templates/ques_ans.html" with instance=x divclass="searchresults" %}
     {% endfor %} {% get_pages %}

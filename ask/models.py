@@ -31,6 +31,8 @@ class question(models.Model):
     points = models.IntegerField(default=1)
     solved = models.BooleanField(default=False)
     tags = models.ManyToManyField(tag, blank=True)
+    flair_icon = models.CharField(max_length=25, null=True)
+    flair = models.CharField(max_length=180, null=True)
     objects = ManagerExtender()
 
     def __str__(self):
