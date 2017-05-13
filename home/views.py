@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404, render_to_resp
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question, tag
-from user.models import student, Notifications, Answered
+from user.models import student, Notification
 from home.forms import registration
 from threads.models import answer
 
@@ -101,9 +101,6 @@ def register(request):
                                   course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
             new_profile.user = new_user
             new_profile.save()
-            notif = Notifications()
-            notif.user = new_user
-            notif.save()
             login(request, new_user)
             return HttpResponseRedirect(reverse('home'))
         else:
@@ -140,9 +137,10 @@ def notifications_view(request):
 
 
 def notif_redirect(request, pk):
-    ans_notif = get_object_or_404(Answered, pk=pk)
-    ans_notif.read = True
-    ans_notif.save()
-    ques = ans_notif.theanswer.question.id
-    ans = ans_notif.theanswer.id
-    return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(ans))
+    notif = get_object_or_404(Notification, pk=pk)
+    notif.read = True
+    notif.save()
+    if notif.notification_type == "answered":
+        notif_ans = get_object_or_404(answer, pk=notif.object_id)
+        ques = notif_ans.question.id
+        return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(notif_ans.id))
