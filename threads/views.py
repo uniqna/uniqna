@@ -70,11 +70,14 @@ def submit_answer(request, question_id):
             question_answered.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
+            """
             notif = Notification(notification_type="answered")
             notif.object_id = instance.pk
             notif.content = "{0} answered your question {1}.".format(request.user.username, question_answered.title[:30])
             notif.user = question_author
             notif.save()
+            """
+            Notification.objects.create_answer_notification(request.user, instance)
             return HttpResponseRedirect("/thread/" + str(question_id))
 
 

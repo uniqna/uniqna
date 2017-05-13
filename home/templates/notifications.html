@@ -27,19 +27,16 @@
 		color: #424242;
 	}
 </style>
-{% endblock style %} {% block content %} {% with ansnotifs=request.user.notification_set %} {% if ansnotifs.all %}
+{% endblock style %} {% block content %} {% with notifs=request.user.notification_set %} {% if notifs.all %}
 <center>
 	<h4 class="header">Notifications</h4>	<i class="twa twa-lg twa-fire"></i>
 	<div class="notification-container mdl-cell mdl-cell--8-col">
-		{% for ans in ansnotifs.sort_read %}
-		<a href="{% url 'notif' ans.id %}">
-			<div class="{% if ans.read %}read{% endif %}">
+		{% for notif in notifs.sort_read %}
+		<a href="{% url 'notif' notif.id %}">
+			<div class="{% if notif.read %}read{% endif %}">
 				<p class="notif-inside">
-					<!--
-					<span class="username">{{ ans.theanswer.answer_author }}</span> answered your question "{{ ans.theanswer.question.title|truncatechars:40}}"
-					<br><small> {{ ans.theanswer.created_time|timesince }} ago.</small>
-					-->
-					{{ ans.content }}
+					{{ notif.content|safe }}
+					<br><small> {{ notif.notification_time|timesince }} ago.</small>
 				</p>
 			</div>
 		</a>
