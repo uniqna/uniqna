@@ -74,6 +74,7 @@ a {
 .tags {
     font-family: 'Open Sans', sans-serif;
     font-size: 11px;
+    margin-top: 1px;
     color: #673AB7;
 }
 
@@ -306,6 +307,7 @@ h3 {
     position: absolute;
     right: 0px;
     margin-top: 2px;
+    margin-right: 1px;
     color: #bdbdbd;
 }
 

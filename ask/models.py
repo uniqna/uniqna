@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from root.algorithms.popularity import _popularity
 from django.core.urlresolvers import reverse
+from root.algorithms.popularity import _popularity
+from django.template.defaultfilters import slugify
 
 
 class ManagerExtender(models.Manager):
@@ -51,4 +52,4 @@ class question(models.Model):
         self.save()
 
     def get_absolute_url(self):
-        return reverse('thread', args=[str(self.pk)])
+        return reverse('thread', args=[str(self.pk), slugify(self.title)])
