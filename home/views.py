@@ -140,7 +140,11 @@ def notif_redirect(request, pk):
     notif = get_object_or_404(Notification, pk=pk)
     notif.read = True
     notif.save()
+    notif_obj = get_object_or_404(answer, pk=notif.object_id)
+    ques = notif_obj.question.id
     if notif.notification_type == "answered":
-        notif_ans = get_object_or_404(answer, pk=notif.object_id)
-        ques = notif_ans.question.id
-        return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(notif_ans.id))
+        return HttpResponseRedirect("/thread/" + str(ques) + "/#a" + str(notif_obj.id))
+    elif notif.notification_type == "replied":
+        return HttpResponseRedirect("/thread/" + str(ques) + "/reply/" + str(notif_obj.id))
+
+

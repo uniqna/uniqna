@@ -98,6 +98,7 @@ def submit_reply(request, answer_id):
             question_instance.answers = answer.objects.filter(
                 question=question_id).count()
             question_instance.save()
+            Notification.objects.create_reply_notification(request.user, reply)
             return HttpResponseRedirect("/thread/" + str(parent.question.id))
 
 
