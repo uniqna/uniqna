@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 # Form Modules
 from django.forms import ModelForm
 # Notification modules
@@ -69,6 +70,11 @@ class student(models.Model):
     university = models.CharField(max_length=100, choices=university_choices)
 
 
+"""
+DEPRECETED 
+"""
+
+
 class Answered(models.Model):
     theanswer = models.ForeignKey(answer, related_name="writted_answer")
     read = models.BooleanField(default=False)
@@ -82,3 +88,25 @@ class Notifications(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     answers = models.ManyToManyField(
         Answered, related_name="answered_questions")
+
+"""
+New model for storing notifications
+-----------------------------------
+content -> The notification string
+notification_type -> The type of the notification
+( Like answered, voted etc.)
+object_id -> The id of the related object
+( Such as the question's id )
+objects -> Inherits the same object manager as the previous model
+-----------------------------------
+"""
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+    object_id = models.IntegerField()
+    notification_type = models.CharField(max_length=50)
+    notification_time = models.DateTimeField(default=timezone.now)
+    content = models.CharField(max_length=300)
+    objects = ManagerExtender()
