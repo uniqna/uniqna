@@ -37,7 +37,7 @@
     margin-left: auto;
 }
 
-@media (max-width: 479px) {
+@media (max-width: 479px) and (min-width: 320px) {
     .ask {
         position: relative;
         margin: 0px;
@@ -78,5 +78,26 @@
     .mdl-textfield__input {
         font-size: 15px;
         padding: 17px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    .answers {
+      font-size: 9px;
+    }
+    .tags {
+      font-size: 10px;
+    }
+    body {
+      font-size: 12px;
+    }
+    ul {
+      font-size: 12px;
+    }
+    .results_true {
+      font-size: 12px;
+    }
+    .a_title {
+      font-size: 11px;
     }
 }

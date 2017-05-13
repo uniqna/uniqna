@@ -19,6 +19,13 @@
             </div>
         </div>
 
+        {% if instance.question.flair != Null %}
+        <div id="flair-{{ instance.question.pk }}" class="flair"><i class="material-icons">{{ instance.question.flair_icon }}</i></div>
+        <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="flair-{{ instance.question.pk }}">
+          {{ instance.question.flair }}
+        </div>
+        {% endif %}
+
         <div class="title">
             <div class="date">{% if instance.question.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ instance.question.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.question.author %}" class="authorlink">{{ instance.question.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.question.answers }} {% if instance.question.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
             </div>
@@ -83,6 +90,13 @@
               </div>
           </div>
       </div>
+
+      {% if instance.flair != Null %}
+      <div id="flair-{{ instance.pk }}" class="flair"><i class="material-icons">{{ instance.flair_icon }}</i></div>
+      <div class="mdl-tooltip mdl-tooltip--left" data-mdl-for="flair-{{ instance.pk }}">
+        {{ instance.flair }}
+      </div>
+      {% endif %}
 
       <div class="title">
           <div class="date">{% if instance.question.metatype == "question" %}Asked{% else %}Submitted{% endif %}&nbsp{{ instance.created_time|timesince|upto:',' }} ago by <a href="{% url 'user' instance.author %}" class="authorlink">{{ instance.author }}</a>&nbsp&nbsp<small class="answers">{{ instance.answers }} {% if instance.metatype == "question" %}Answers{% else %}Replies{% endif %}</small>
