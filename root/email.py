@@ -1,5 +1,6 @@
-import requests
 from root.settings import MG_KEY, MG_URL, MG_FROM, BASE_DIR
+from django.template.loader import render_to_string
+import requests
 import os
 
 
@@ -14,11 +15,16 @@ def send_email(opts={}):
 		)
 
 
-def test_send_email():
-	template = open(os.path.join(BASE_DIR, "home", "templates", "email.html")).read()
-	body = template % ("Jeremy answered your question 'How are you?'.")
+def render_email(template, context):
+	temp = "email_templates/" + template
+	return render_to_string(temp, context)
+
+
+def test_send_email(to):
+	context = {"header": "Hey Sriram, you have a new notificaiton.", "content": "Jeremy answered your question 'Timeline enlightment?' "}
+	body = render_email("sample_email.html", context)
 	opts = {
-		"recipents": "sriru1998@gmail.com",
+		"recipents": to,
 		"subject": "You have got a new notification.",
 		"body": body
 	}
