@@ -74,7 +74,7 @@ def submit_answer(request, thread_id):
             question_author = get_object_or_404(
                 User, username=question_answered.author)
             question_author.notifications.answers.add(ans_notif)
-            return HttpResponseRedirect("/thread/" + str(thread_id))
+            return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
 def submit_reply(request, answer_id):
@@ -94,7 +94,7 @@ def submit_reply(request, answer_id):
             question_instance.answers = answer.objects.filter(
                 question=question_id).count()
             question_instance.save()
-            return HttpResponseRedirect("/thread/" + str(parent.question.id))
+            return HttpResponseRedirect(parent.question.get_absolute_url())
 
 
 def delete_question(request, thread_id):
