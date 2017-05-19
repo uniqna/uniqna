@@ -11,7 +11,7 @@ reply url above the thread entry.
 """
 
 urlpatterns = [
-	url(r'(?P<thread_id>\d{1,5})/reply/(\d{1,5})/$', views.reply, name='reply'),
+	url(r'(?P<thread_id>\d{1,5})/reply/(?P<answer_id>\d{1,5})/$', views.reply, name='reply'),
 	url(r'reply/(?P<answer_id>\d{1,5})/$', views.submit_reply, name="submitreply"),
 	url(r'(?P<thread_id>\d{1,5})/(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
 	url(r'(?P<thread_id>\d{1,5})-(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
