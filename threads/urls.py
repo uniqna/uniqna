@@ -15,14 +15,14 @@ urlpatterns = [
 	url(r'reply/(?P<answer_id>\d{1,5})/$', views.submit_reply, name="submitreply"),
 	url(r'(?P<thread_id>\d{1,5})/(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
 	url(r'(?P<thread_id>\d{1,5})-(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
-	# url(r'api/$', views.VotesView.as_view()),
-	# url(r'^api/(?P<pk>[0-9]+)$', views.vote_rest),
 	url(r'(?P<thread_id>\d{1,5})/answer/$', views.submit_answer, name='submit_answer'),
 	url(r'(?P<thread_id>\d{1,5})/delete/$', views.delete_question, name='delete_question'),
 	url(r'(?P<thread_id>\d{1,5})/solved/$', views.mark_answer_solved, name='mark_answer_solved'),
 	url(r'(?P<thread_id>\d{1,5})/delete/answer/(?P<answer_id>\d{1,5})$', views.delete_answer, name='delete_answer'),
 	url(r'(?P<thread_id>\d{1,5})/edit/answer/(?P<answer_id>\d{1,5})$', views.edit_answer, name='edit_answer'),
 	url(r'(?P<thread_id>\d{1,5})/edit/answer/(?P<answer_id>\d{1,5})/submit/$', views.edit_answer_submit, name='edit_answer_submit'),
+	# url(r'api/$', views.VotesView.as_view()),
+	# url(r'^api/(?P<pk>[0-9]+)$', views.vote_rest),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

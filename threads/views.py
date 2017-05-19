@@ -128,7 +128,7 @@ def delete_answer(request, thread_id, answer_id):
         question_requested.answers = answer.objects.filter(
             question=thread_id).count()
         question_requested.save()
-        return HttpResponseRedirect("/thread/" + str(thread_id))
+        return HttpResponseRedirect(question_requested.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -169,7 +169,7 @@ def edit_answer_submit(request, thread_id, answer_id):
             answer_requested.description = updated_answer.description
             answer_requested.set_edited_time()
             answer_requested.save()
-        return HttpResponseRedirect("/thread/" + str(thread_id))
+        return HttpResponseRedirect(answer_requested.question.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -185,6 +185,6 @@ def mark_answer_solved(request, thread_id):
     if author == username:
         question_requested.solved = True
         question_requested.save()
-        return redirect('/thread/' + str(thread_id) + '/')
+        return HttpResponseRedirect(question_requested.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))
