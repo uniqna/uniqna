@@ -93,7 +93,8 @@ def submit_reply(request, answer_id):
             question_instance.save()
             question_author = get_object_or_404(
                 User, username=question_instance.author)
-            Notification.objects.create_reply_notification(question_author, reply)
+            answer_author = get_object_or_404(User, username=parent.answer_author)
+            Notification.objects.create_reply_notification(answer_author, reply)
             return HttpResponseRedirect(parent.question.get_absolute_url())
 
 
