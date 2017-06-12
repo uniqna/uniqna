@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from ask.models import question
+from ask.models import Question
 from threads.models import answer
 from itertools import chain
 from home.forms import editForm, changePasswordForm, emailForm
@@ -17,7 +17,7 @@ def UserPage(request, usr):
     if usr == "anon":
         return render(request, "user_templates/userpage.html")
     requested_user = get_object_or_404(User, username=usr)
-    user_questions = question.objects.filter(author=usr)
+    user_questions = Question.objects.filter(author=usr)
     user_answers = answer.objects.filter(answer_author=usr)
     for x in user_answers:
         x.description = markdown2.markdown(x.description,
@@ -29,7 +29,7 @@ def UserPage(request, usr):
     all_list = sorted(list(chain(user_questions, user_answers)),
                       key=lambda instance: instance.created_time)
     # Calculating the user's Karma
-    post_score = sum([x.points for x in question.objects.filter(
+    post_score = sum([x.points for x in Question.objects.filter(
         author=requested_user.username) if x.points > 1])
     reply_score = sum([x.points for x in answer.objects.filter(
         answer_author=requested_user.username) if x.points > 1])

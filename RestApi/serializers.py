@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from threads.models import answer
-from ask.models import tag, question
+from ask.models import Channel, Question
 from .models import UsernameSnippet
 
 
@@ -18,13 +18,13 @@ class QuestionSerializer(serializers.ModelSerializer):
     downs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = question
+        model = Question
         fields = ("id", "ups", "downs", "points")
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = tag
+        model = Channel
         fields = '__all__'
 
 

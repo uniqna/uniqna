@@ -1,5 +1,5 @@
 from django.contrib import admin
-from ask.models import question, tag
+from ask.models import Channel, Question
 
 
 class question_admin(admin.ModelAdmin):
@@ -8,5 +8,5 @@ class question_admin(admin.ModelAdmin):
     filter_horizontal = ('ups',)
 
 
-admin.site.register(question, question_admin)
-admin.site.register(tag)
+admin.site.register(Question, question_admin)
+admin.site.register(Channel)

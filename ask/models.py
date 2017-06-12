@@ -2,24 +2,25 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from root.algorithms.popularity import _popularity
 from django.template.defaultfilters import slugify
 
-
-class ManagerExtender(models.Manager):
-    def PopUpdate(self):
-        for q in self.all():
-            q.set_popularity()
+from root.algorithms.popularity import _popularity
 
 
-class tag(models.Model):
+class question_extender(models.Manager):
+    def popularity_update(self):
+        for question in self.all():
+            question.set_popularity()
+
+
+class Channel(models.Model):
     name = models.CharField(max_length=15, unique=True)
 
     def __str__(self):
         return self.name
 
 
-class question(models.Model):
+class Question(models.Model):
     metatype = models.CharField(max_length=20, default="question", blank=False)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -31,10 +32,10 @@ class question(models.Model):
     hot = models.DecimalField(default=1000.123, max_digits=11, decimal_places=7, blank=True)
     points = models.IntegerField(default=1)
     solved = models.BooleanField(default=False)
-    tags = models.ManyToManyField(tag, blank=True)
+    tags = models.ManyToManyField(Channel, blank=True)
     flair_icon = models.CharField(max_length=25, null=True)
     flair = models.CharField(max_length=180, null=True)
-    objects = ManagerExtender()
+    objects = question_extender()
 
     def __str__(self):
         return (self.title)

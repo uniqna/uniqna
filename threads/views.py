@@ -6,7 +6,7 @@ from root.algorithms import vote_score
 from threads.forms import answer_form
 from threads.models import answer
 from user.models import Notification
-from ask.models import question
+from ask.models import Question
 from datetime import datetime
 import markdown2
 
@@ -16,7 +16,7 @@ def thread(request, thread_id, slug):
         thread_id = int(thread_id)
     except ValueError:
         raise Http404()
-    question_requested = get_object_or_404(question, pk=thread_id)
+    question_requested = get_object_or_404(Question, pk=thread_id)
     description = markdown2.markdown(question_requested.description, extras=[
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
@@ -39,7 +39,7 @@ def reply(request, thread_id, answer_id):
         answer_id = int(answer_id)
     except ValueError:
         raise Http404()
-    parent_ques = get_object_or_404(question, pk=thread_id)
+    parent_ques = get_object_or_404(Question, pk=thread_id)
     answer._tree_manager.rebuild()
     answer_req = get_object_or_404(answer, pk=answer_id)
     replies = answer_req.get_descendants(True)
@@ -55,7 +55,7 @@ def reply(request, thread_id, answer_id):
 
 def submit_answer(request, thread_id):
     if request.method == 'POST' and request.POST:
-        question_answered = get_object_or_404(question, pk=thread_id)
+        question_answered = get_object_or_404(Question, pk=thread_id)
         question_metatype = question_answered.metatype
         submitted_answer = answer_form(request.POST)
         if submitted_answer.is_valid():
@@ -104,7 +104,7 @@ def delete_question(request, thread_id):
     except ValueError:
         raise Http404()
     username = request.user.username
-    question_requested = get_object_or_404(question, pk=thread_id)
+    question_requested = get_object_or_404(Question, pk=thread_id)
     author = question_requested.author
     if author == username:
         question_requested.delete()
@@ -121,7 +121,7 @@ def delete_answer(request, thread_id, answer_id):
     except ValueError:
         raise Http404()
     username = request.user.username
-    question_requested = get_object_or_404(question, pk=thread_id)
+    question_requested = get_object_or_404(Question, pk=thread_id)
     answer_requested = answer.objects.get(id=answer_id)
     author = answer_requested.answer_author
     if author == username:
@@ -181,7 +181,7 @@ def mark_answer_solved(request, thread_id):
     except ValueError:
         raise Http404()
     username = request.user.username
-    question_requested = get_object_or_404(question, pk=thread_id)
+    question_requested = get_object_or_404(Question, pk=thread_id)
     author = question_requested.author
     if author == username:
         question_requested.solved = True

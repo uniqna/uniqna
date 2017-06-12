@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.utils import timezone
 from django.db import models
-from ask.models import question
+from ask.models import Question
 from django.contrib.auth.models import User
 from root.algorithms import vote_score
 from mptt.models import MPTTModel, TreeForeignKey
@@ -15,7 +15,7 @@ class ManagerExtender(models.Manager):
 
 
 class answer(MPTTModel):
-    question = models.ForeignKey(question)
+    question = models.ForeignKey(Question)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     metatype = models.CharField(max_length=20, default="question", blank=False)
     description = models.TextField(blank=True)

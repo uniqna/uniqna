@@ -6,7 +6,7 @@ from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, Us
 from .models import UsernameSnippet
 from rest_framework.decorators import api_view
 from threads.models import answer
-from ask.models import tag, question
+from ask.models import Channel, Question
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -42,29 +42,29 @@ class SuggestTag(APIView):
     def post(self, request):
         text = request.data["text"]
         words = text.split()
-        tag_names = [x.name for x in tag.objects.all()]
+        tag_names = [x.name for x in Channel.objects.all()]
         sugg_tag_names = [
             x for x in tag_names for y in words if x.lower() == y.lower()]
-        sugg_tags = [tag.objects.get(name=x) for x in sugg_tag_names]
+        sugg_tags = [Channel.objects.get(name=x) for x in sugg_tag_names]
         serializer = TagSerializer(sugg_tags, many=True)
         return Response(serializer.data)
 
 
 class GetTags(APIView):
     def get(self, request):
-        tags = tag.objects.all()
+        tags = Channel.objects.all()
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        tags = tag.objects.all()
+        tags = Channel.objects.all()
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
 
 
 class CreateTag(APIView):
     def get(self, request):
-        tags = tag.objects.all()
+        tags = Channel.objects.all()
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
 
@@ -127,8 +127,8 @@ class QuestionVote(APIView):
 
     def GetQuestion(self, pk):
         try:
-            return question.objects.get(pk=int(pk))
-        except question.DoesNotExist:
+            return Question.objects.get(pk=int(pk))
+        except Question.DoesNotExist:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def Vote(self, request, pk, ud):

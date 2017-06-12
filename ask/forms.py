@@ -1,9 +1,9 @@
 from django import forms
-from ask.models import question
+from ask.models import Question
 
 
 class ask_form(forms.ModelForm):
 
     class Meta:
-        model = question
+        model = Question
         fields = ('title', 'description',)

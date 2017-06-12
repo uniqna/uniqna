@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from ask.forms import ask_form
-from ask.models import question, tag
+from ask.models import Channel, Question
 
 
 def ask(request):
@@ -14,7 +14,7 @@ def ask(request):
         return render(request,
                       'ask_templates/ask.html',
                       {'metatype': metatype,
-                       'tags': tag.objects.all(),
+                       'tags': Channel.objects.all(),
                        'form': unsubmitted_form})
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -35,7 +35,6 @@ def discuss(request):
 
 
 def submit(request, metatype):
-    print(metatype)
     if request.method == 'POST' and request.POST:
         submitted_form = ask_form(request.POST)
         if submitted_form.is_valid():
@@ -46,7 +45,6 @@ def submit(request, metatype):
             instance.ups.add(request.user)
             if request.POST['selectedtags']:
                 selectedtags = request.POST['selectedtags']
-                print(selectedtags)
                 taglist = selectedtags.split(",")
                 # Filtering blank spaces
                 taglist = [x.lower() for x in taglist if x != '']
@@ -59,7 +57,7 @@ def submit(request, metatype):
             return render(request,
                           "ask_templates/ask.html",
                           {"username": request.user.username,
-                           "tags": tag.objects.all(),
+                           "tags": Channel.objects.all(),
                            "form": submitted_form,
                            "errors": submitted_form.errors})
     else:
