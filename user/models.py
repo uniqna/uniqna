@@ -2,10 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-# Form Modules
-from django.forms import ModelForm
-# Notification modules
 from threads.models import answer
+from root.email import send_notification_email
 
 
 class student(models.Model):
@@ -88,21 +86,23 @@ class NotificationExtender(models.Manager):
 
     def create_answer_notification(self, user, answer):
         notif_template = "{0} answered to your question \"{1}\"."
-        self.create(
+        notification = self.create(
             user=user,
             content=notif_template.format(answer.answer_author, answer.question.title[:40]),
             notification_type="answered",
             object_id=answer.pk
         )
+        send_notification_email(notification)
 
     def create_reply_notification(self, user, reply):
         notif_template = "{0} replied to your answer \"{1}\"."
-        self.create(
+        notification = self.create(
             user=user,
             content=notif_template.format(reply.answer_author, reply.parent.description),
             notification_type="replied",
             object_id=reply.pk
         )
+        send_notification_email(notification)
 
 
 class Notification(models.Model):
@@ -118,11 +118,4 @@ class Notification(models.Model):
         return self.content
 
     def get_absolute_url(self):
-        answer_instance = get_object_or_404(answer, pk=self.object_id)
-        question = answer_instance.question
-        url = question.get_absolute_url()
-        if self.notification_type == "answered":
-            url += "/#a{}"
-        elif self.notification_type == "replied":
-            url += "/reply/{}"
-        return url.format(answer_instance.id)
+        return "/notification/{}".format(self.pk)

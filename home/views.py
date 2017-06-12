@@ -141,5 +141,7 @@ def notif_redirect(request, pk):
     if not notif.read:
         notif.read = True
         notif.save()
-    url = notif.get_absolute_url()
+    # the answer object
+    answer_instance = get_object_or_404(answer, pk=notif.object_id)
+    url = answer_instance.get_absolute_url()
     return HttpResponseRedirect(url)
