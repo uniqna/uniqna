@@ -1,8 +1,6 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.template.loader import get_template
-from django.template import RequestContext
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from ask.models import question, tag
@@ -138,7 +136,10 @@ def notifications_view(request):
 
 def notif_redirect(request, pk):
     notif = get_object_or_404(Notification, pk=pk)
-    notif.read = True
-    notif.save()
+    if request.user != notif.user:
+        raise Http404()
+    if not notif.read:
+        notif.read = True
+        notif.save()
     url = notif.get_absolute_url()
     return HttpResponseRedirect(url)

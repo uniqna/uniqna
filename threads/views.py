@@ -70,7 +70,7 @@ def submit_answer(request, thread_id):
             question_answered.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
-            Notification.objects.create_answer_notification(request.user, instance)
+            Notification.objects.create_answer_notification(question_author, instance)
             return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
@@ -91,7 +91,9 @@ def submit_reply(request, answer_id):
             question_instance.answers = answer.objects.filter(
                 question=question_id).count()
             question_instance.save()
-            Notification.objects.create_reply_notification(request.user, reply)
+            question_author = get_object_or_404(
+                User, username=question_instance.author)
+            Notification.objects.create_reply_notification(question_author, reply)
             return HttpResponseRedirect(parent.question.get_absolute_url())
 
 

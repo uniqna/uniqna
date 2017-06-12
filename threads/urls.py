@@ -13,8 +13,8 @@ reply url above the thread entry.
 urlpatterns = [
 	url(r'(?P<thread_id>\d{1,5})/reply/(?P<answer_id>\d{1,5})/$', views.reply, name='reply'),
 	url(r'reply/(?P<answer_id>\d{1,5})/$', views.submit_reply, name="submitreply"),
-	url(r'(?P<thread_id>\d{1,5})/(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
-	url(r'(?P<thread_id>\d{1,5})-(?P<slug>[-\w\d]+)?$', views.thread, name='thread'),
+	url(r'(?P<thread_id>\d{1,5})/(?P<slug>[-\w\d]+)?', views.thread, name='thread'),
+	url(r'(?P<thread_id>\d{1,5})-(?P<slug>[-\w\d]+)?', views.thread, name='thread'),
 	url(r'(?P<thread_id>\d{1,5})/answer/$', views.submit_answer, name='submit_answer'),
 	url(r'(?P<thread_id>\d{1,5})/delete/$', views.delete_question, name='delete_question'),
 	url(r'(?P<thread_id>\d{1,5})/solved/$', views.mark_answer_solved, name='mark_answer_solved'),

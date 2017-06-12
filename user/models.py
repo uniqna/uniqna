@@ -87,19 +87,19 @@ class NotificationExtender(models.Manager):
         return srted
 
     def create_answer_notification(self, user, answer):
-        notif_template = "<span class='username'>{0}</span> answered your question \"{1}\"."
+        notif_template = "{0} answered to your question \"{1}\"."
         self.create(
             user=user,
-            content=notif_template.format(user.username, answer.question.title[:40]),
+            content=notif_template.format(answer.answer_author, answer.question.title[:40]),
             notification_type="answered",
             object_id=answer.pk
         )
 
     def create_reply_notification(self, user, reply):
-        notif_template = "<span class='username'>{0} replied to your answer \"{1}\"."
+        notif_template = "{0} replied to your answer \"{1}\"."
         self.create(
             user=user,
-            content=notif_template.format(user.username, reply.parent.description),
+            content=notif_template.format(reply.answer_author, reply.parent.description),
             notification_type="replied",
             object_id=reply.pk
         )
@@ -115,13 +115,14 @@ class Notification(models.Model):
     objects = NotificationExtender()
 
     def __str__(self):
-        return content
+        return self.content
 
     def get_absolute_url(self):
         answer_instance = get_object_or_404(answer, pk=self.object_id)
-        question_id = answer_instance.question.id
+        question = answer_instance.question
+        url = question.get_absolute_url()
         if self.notification_type == "answered":
-            url = "/thread/{}/#a{}"
+            url += "/#a{}"
         elif self.notification_type == "replied":
-            url = "/thread/{}/reply/{}"
-        return url.format(question_id, answer_instance.id)
+            url += "/reply/{}"
+        return url.format(answer_instance.id)
