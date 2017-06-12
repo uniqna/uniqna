@@ -11,7 +11,7 @@ from datetime import datetime
 import markdown2
 
 
-def thread(request, thread_id):
+def thread(request, thread_id, slug):
     try:
         thread_id = int(thread_id)
     except ValueError:
@@ -53,9 +53,9 @@ def reply(request, thread_id, answer_id):
     })
 
 
-def submit_answer(request, question_id):
+def submit_answer(request, thread_id):
     if request.method == 'POST' and request.POST:
-        question_answered = get_object_or_404(question, pk=question_id)
+        question_answered = get_object_or_404(question, pk=thread_id)
         question_metatype = question_answered.metatype
         submitted_answer = answer_form(request.POST)
         if submitted_answer.is_valid():
@@ -66,19 +66,12 @@ def submit_answer(request, question_id):
             instance.save()
             instance.ups.add(request.user)
             question_answered.answers = answer.objects.filter(
-                question=question_id).count()
+                question=thread_id).count()
             question_answered.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
-            """
-            notif = Notification(notification_type="answered")
-            notif.object_id = instance.pk
-            notif.content = "{0} answered your question {1}.".format(request.user.username, question_answered.title[:30])
-            notif.user = question_author
-            notif.save()
-            """
             Notification.objects.create_answer_notification(request.user, instance)
-            return HttpResponseRedirect("/thread/" + str(question_id))
+            return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
 def submit_reply(request, answer_id):
@@ -99,7 +92,7 @@ def submit_reply(request, answer_id):
                 question=question_id).count()
             question_instance.save()
             Notification.objects.create_reply_notification(request.user, reply)
-            return HttpResponseRedirect("/thread/" + str(parent.question.id))
+            return HttpResponseRedirect(parent.question.get_absolute_url())
 
 
 def delete_question(request, thread_id):
@@ -133,7 +126,7 @@ def delete_answer(request, thread_id, answer_id):
         question_requested.answers = answer.objects.filter(
             question=thread_id).count()
         question_requested.save()
-        return HttpResponseRedirect("/thread/" + str(thread_id))
+        return HttpResponseRedirect(question_requested.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -174,7 +167,7 @@ def edit_answer_submit(request, thread_id, answer_id):
             answer_requested.description = updated_answer.description
             answer_requested.set_edited_time()
             answer_requested.save()
-        return HttpResponseRedirect("/thread/" + str(thread_id))
+        return HttpResponseRedirect(answer_requested.question.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))
 
@@ -190,6 +183,6 @@ def mark_answer_solved(request, thread_id):
     if author == username:
         question_requested.solved = True
         question_requested.save()
-        return redirect('/thread/' + str(thread_id) + '/')
+        return HttpResponseRedirect(question_requested.get_absolute_url())
     else:
         return HttpResponseRedirect(reverse('home'))

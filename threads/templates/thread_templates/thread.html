@@ -102,7 +102,7 @@
     </script>
     {% if not reply %}
     <div class="writeanswer">
-      <form action="answer/" method="post">
+      <form action="{% url 'submit_answer' question.pk %}" method="post">
         <div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-cell--4-col-phone answer-textbox">
           {{ form.description }} {% csrf_token %}
         </div>
@@ -150,7 +150,7 @@
             <div class="minimise" data-id="{{node.id}}"><a>[-]</a></div>
             @<a href="{% url 'user' node.answer_author %}" class="userlinks">{{ node.answer_author }}</a>
             <a class="answer_meta_time">{{ node.created_time|timesince|upto:"," }} ago{% if node.edited %}*{% endif %}</a>
-            <a id="clipboard_{{ node.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk %}#a{{node.pk}}" data-id="{{node.pk}}">
+            <a id="clipboard_{{ node.pk }}" class="clipboard_button" data-clipboard-text="https://uniqna.com{% url 'thread' question.pk question.title|slugify %}#a{{node.pk}}" data-id="{{node.pk}}">
               <i class="material-icons link_clipboard">link</i>
             </a>
             <div class="mdl-tooltip" for="clipboard_{{ node.pk }}">
