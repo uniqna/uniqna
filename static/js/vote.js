@@ -1,5 +1,6 @@
 // Voting script
-$(".upvote").click(function() {
+
+$(".page-content").on('click', '.upvote', function() {
     vote_url = $(this).data("url");
     id = $(this).data("id");
     $.get(vote_url, function(data, status) {
@@ -8,7 +9,8 @@ $(".upvote").click(function() {
         $("#score" + id).children()[0].textContent = data.points;
     });
 });
-$(".downvote").click(function() {
+
+$(".page-content").on('click', '.downvote', function() {
     vote_url = $(this).data("url");
     id = $(this).data("id");
     $.get(vote_url, function(data, status) {
@@ -16,4 +18,5 @@ $(".downvote").click(function() {
         $("#up" + id).removeClass("vote-success").addClass("vote-default");
         $("#score" + id).children()[0].textContent = data.points;
     });
-});
+})
+
