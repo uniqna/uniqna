@@ -23,7 +23,8 @@ class registration(forms.Form):
         if re.match(r'^[_a-zA-Z0-9]{4,15}$', username):
             return username
         else:
-            raise forms.ValidationError('Username not valid.\nOnly use alphabets, numbers and underscore.')
+            raise forms.ValidationError(
+                'Username not valid.\nOnly use alphabets, numbers and underscore.')
 
     def clean_confirm_password(self):
         password1 = self.cleaned_data.get('password')

@@ -1,14 +1,16 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, UsernameSerializer
-from .models import UsernameSnippet
-from rest_framework.decorators import api_view
-from threads.models import answer
-from ask.models import Channel, Question
+from django.shortcuts import render  #  unused
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.decorators import api_view  # unused
+from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, UsernameSerializer
+from .models import UsernameSnippet
+
+from threads.models import answer
+from post.models import Channel, Question
 
 
 def TestView(request):
@@ -32,10 +34,10 @@ class CheckUsername(APIView):
                 serializer = UsernameSerializer(snippet)
                 return Response(serializer.data)
         except ObjectDoesNotExist:
-                snippet = UsernameSnippet(available=True)
-                snippet.save()
-                serializer = UsernameSerializer(snippet)
-                return Response(serializer.data)
+            snippet = UsernameSnippet(available=True)
+            snippet.save()
+            serializer = UsernameSerializer(snippet)
+            return Response(serializer.data)
 
 
 class SuggestTag(APIView):

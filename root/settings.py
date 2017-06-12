@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.sites',
     'home',
-    'ask',
+    'post',
     'threads',
     'django_bleach',
     'user',
@@ -102,7 +102,8 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.template.context_processors.request')
+TEMPLATES[0]['OPTIONS']['context_processors'].insert(
+    0, 'django.template.context_processors.request')
 
 WSGI_APPLICATION = 'root.wsgi.application'
 
@@ -202,7 +203,8 @@ TIME_ZONE = 'Asia/Kolkata'
 STATIC_URL = '/static/'
 # Django Bleach settings
 # Which HTML tags are allowed
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre', 'img', 'b', 'br']
+BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li', 'blockquote',
+                       'code', 'table', 'thead', 'tbody', 'td', 'th', 'tr', 'pre', 'img', 'b', 'br']
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
 BLEACH_STRIP_TAGS = True

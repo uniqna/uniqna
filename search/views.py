@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from ask.models import Question
+
+from post.models import Question
 from threads.models import answer
 
 

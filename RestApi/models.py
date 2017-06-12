@@ -3,4 +3,4 @@ from rest_framework import serializers
 
 
 class UsernameSnippet(models.Model):
-	available = models.BooleanField()
+    available = models.BooleanField()

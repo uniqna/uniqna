@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from threads.models import answer
-from ask.models import Channel, Question
 from .models import UsernameSnippet
+
+from post.models import Channel, Question
+from threads.models import answer
 
 
 class AnswerSerializer(serializers.ModelSerializer):

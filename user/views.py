@@ -1,16 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from itertools import chain
+from random import randint
+
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from ask.models import Question
-from threads.models import answer
-from itertools import chain
-from home.forms import editForm, changePasswordForm, emailForm
-from random import randint
-from django.core.mail import EmailMessage
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+
 import markdown2
+
+from home.forms import editForm, changePasswordForm, emailForm
+from post.models import Question
+from threads.models import Answer
 
 
 def UserPage(request, usr):
@@ -18,20 +19,18 @@ def UserPage(request, usr):
         return render(request, "user_templates/userpage.html")
     requested_user = get_object_or_404(User, username=usr)
     user_questions = Question.objects.filter(author=usr)
-    user_answers = answer.objects.filter(answer_author=usr)
+    user_answers = Answer.objects.filter(answer_author=usr)
     for x in user_answers:
         x.description = markdown2.markdown(x.description,
                                            extras=["tables", "cuddled-lists"])
     for x in user_questions:
         x.description = markdown2.markdown(x.description,
                                            extras=["tables", "cuddled-lists"])
-    # Combining questions and answers
     all_list = sorted(list(chain(user_questions, user_answers)),
                       key=lambda instance: instance.created_time)
-    # Calculating the user's Karma
     post_score = sum([x.points for x in Question.objects.filter(
         author=requested_user.username) if x.points > 1])
-    reply_score = sum([x.points for x in answer.objects.filter(
+    reply_score = sum([x.points for x in Answer.objects.filter(
         answer_author=requested_user.username) if x.points > 1])
     karma = round((post_score * 1.732) + reply_score)
     return render(request, "user_templates/userpage.html",
@@ -93,7 +92,8 @@ def ChangePassword(request, username):
         cp_form = changePasswordForm(request.POST)
         if cp_form.is_valid():
             cur_pass = cp_form.cleaned_data["current_password"]
-            a_user = authenticate(username=req_user.username, password=cur_pass)
+            a_user = authenticate(
+                username=req_user.username, password=cur_pass)
             if a_user is not None:
                 a_user.set_password(cp_form.cleaned_data["password"])
                 a_user.save()
@@ -114,7 +114,6 @@ def forgot_password_view(request):
         emf = emailForm(request.POST)
         if emf.is_valid():
             email = emf.cleaned_data["email"]
-            print("badumtss")
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
@@ -131,8 +130,10 @@ def forgot_password_view(request):
             user.set_password(pwdstring)
             user.save()
             # Mail the random password
-            body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + "\n\n\nGo here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
-            email_user = EmailMessage("Reset your password - uniqna.com", body, to=[email])
+            body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + \
+                "\n\n\nGo here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
+            email_user = EmailMessage(
+                "Reset your password - uniqna.com", body, to=[email])
             if email_user.send():
                 print("Success.")
                 return render(request, "user_templates/forgotpassword.html", {"success": 1})

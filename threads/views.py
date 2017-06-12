@@ -1,14 +1,14 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from root.algorithms import vote_score
+
+import markdown2
+
+from post.models import Question
 from threads.forms import answer_form
 from threads.models import answer
 from user.models import Notification
-from ask.models import Question
-from datetime import datetime
-import markdown2
 
 
 def thread(request, thread_id, slug):
@@ -20,9 +20,9 @@ def thread(request, thread_id, slug):
     description = markdown2.markdown(question_requested.description, extras=[
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
-    question_id = question_requested.pk
-    answer._tree_manager.rebuild() # You rebuild the tree and then query.
-    all_answers = answer.objects.filter(question=question_requested).order_by('tree_id', 'lft')
+    answer._tree_manager.rebuild()  # You rebuild the tree and then query.
+    all_answers = answer.objects.filter(
+        question=question_requested).order_by('tree_id', 'lft')
     for x in all_answers:
         x.description = markdown2.markdown(
             x.description, extras=["tables", "cuddled-lists"])
@@ -76,7 +76,8 @@ def submit_answer(request, thread_id):
 
 def submit_reply(request, answer_id):
     if request.method == "POST" and request.POST:
-        parent = answer.objects.filter(pk=answer_id).select_related('question')[0]
+        parent = answer.objects.filter(
+            pk=answer_id).select_related('question')[0]
         question_instance = parent.question
         question_id = question_instance.pk
         submitted_reply = answer_form(request.POST)

@@ -1,12 +1,13 @@
 from django.http import Http404, HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from ask.models import Channel, Question
-from user.models import student, Notification
+
 from home.forms import registration
+from post.models import Channel, Question
 from threads.models import Answer
+from user.models import student, Notification
 
 '''
 ~ This piece of code is preserved for historic reasons ~

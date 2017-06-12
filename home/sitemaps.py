@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
-from ask.models import Question
+
+from post.models import Question
 
 
 class ThreadsSitemap(Sitemap):

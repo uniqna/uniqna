@@ -40,13 +40,14 @@ urlpatterns = [
     url(r'^notifications/$', views.notifications_view, name='notifications'),
     url(r'^tag/(\w+)/$', views.tag_view, name='tags'),
     url(r'^notification/(\d+)/$', views.notif_redirect, name='notif'),
-    url(r'^new/', include('ask.urls')),
+    url(r'^new/', include('post.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^api/', include('RestApi.urls')),
     url(r'^search', include('search.urls')),
     url(r'^forgotpassword/$', forgot_password_view, name="forgot"),
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$', sitemap, {
+        'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^robots.txt', include('robots.urls')),
 ]
 
