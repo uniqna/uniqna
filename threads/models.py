@@ -32,6 +32,14 @@ class answer(MPTTModel):
     def __str__(self):
         return str(self.description)
 
+    def get_absolute_url(self):
+        url = self.question.get_absolute_url()
+        if self.parent:
+            url += "/reply/{}"
+        else:
+            url += "/#a{}"
+        return url.format(self.id)
+
     def get_time(self):
         t = timezone.localtime(self.created_time)
         return "{}-{}-{} {}:{}".format(t.day, t.month, t.year, t.hour, t.minute)
