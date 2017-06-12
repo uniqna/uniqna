@@ -8,7 +8,6 @@ from itertools import chain
 from home.forms import editForm, changePasswordForm, emailForm
 from random import randint
 from django.core.mail import EmailMessage
-from user.models import Notifications
 from django.core.exceptions import ObjectDoesNotExist
 import markdown2
 
@@ -132,24 +131,3 @@ def forgot_password_view(request):
     else:
         emf = emailForm()
         return render(request, "user_templates/forgotpassword.html", {"emailform": emf})
-
-
-def update_all(request):
-    # Code for adding notification objects to all users
-    # Delete after running it once
-    us = User.objects.all()
-    log = ""
-    cnt = 0
-    for u in us:
-        try:
-            print(u.notifications)
-            print(u.username)
-        except ObjectDoesNotExist:
-            n = Notifications()
-            n.user = u
-            n.save()
-            del n
-            log += "<br>-> " + u.username
-            cnt += 1
-            log += "<br>==== " + str(cnt) + " users updated ==="
-            return HttpResponse("<html>" + log + "</html>")
