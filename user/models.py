@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 # Form Modules
 from django.forms import ModelForm
 # Notification modules
 from threads.models import answer
 
+# Custom Manager for Notification models
 
-class ManagerExtender(models.Manager):
+
+class NotificationExtender(models.Manager):
     def unread_count(self):
         unread_list = [1 for o in self.all() if not o.read]
         unread_count = int(sum(unread_list))
@@ -15,8 +18,26 @@ class ManagerExtender(models.Manager):
     def sort_read(self):
         unsorted = self.all()
         srted = sorted(unsorted, key=lambda x: (
-            x.theanswer.created_time, x.read), reverse=True)
+            x.notification_time, x.read), reverse=True)
         return srted
+
+    def create_answer_notification(self, user, answer):
+        notif_template = "<span class='username'>{0}</span> answered your question \"{1}\"."
+        self.create(
+            user=user,
+            content=notif_template.format(user.username, answer.question.title[:40]),
+            notification_type="answered",
+            object_id=answer.pk
+        )
+
+    def create_reply_notification(self, user, reply):
+        notif_template = "<span class='username'>{0} replied to your answer \"{1}\"."
+        self.create(
+            user=user,
+            content=notif_template.format(user.username, reply.parent.description),
+            notification_type="replied",
+            object_id=reply.pk
+        )
 
 
 class student(models.Model):
@@ -69,10 +90,15 @@ class student(models.Model):
     university = models.CharField(max_length=100, choices=university_choices)
 
 
+"""
+DEPRECETED 
+"""
+
+
 class Answered(models.Model):
     theanswer = models.ForeignKey(answer, related_name="writted_answer")
     read = models.BooleanField(default=False)
-    objects = ManagerExtender()
+    objects = NotificationExtender()
 
     class Meta:
         ordering = ["-read"]
@@ -82,3 +108,26 @@ class Notifications(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     answers = models.ManyToManyField(
         Answered, related_name="answered_questions")
+
+"""
+New model for storing notifications
+-----------------------------------
+content -> The notification string
+notification_time -> Time of posting the notification
+notification_type -> The type of the notification
+( Like answered, voted etc.)
+object_id -> The id of the related object
+( Such as the question's id )
+objects -> Inherits the same object manager as the previous model
+-----------------------------------
+"""
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+    object_id = models.IntegerField()
+    notification_type = models.CharField(max_length=50)
+    notification_time = models.DateTimeField(default=timezone.now)
+    content = models.CharField(max_length=300)
+    objects = NotificationExtender()

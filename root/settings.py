@@ -137,6 +137,7 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
+    PREPEND_WWW = False
 
 
 # Credentials

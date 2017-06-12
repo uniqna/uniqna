@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from root.algorithms import vote_score
 from threads.forms import answer_form
 from threads.models import answer
-from user.models import Answered
+from user.models import Notification
 from ask.models import question
 from datetime import datetime
 import markdown2
@@ -68,12 +68,9 @@ def submit_answer(request, thread_id):
             question_answered.answers = answer.objects.filter(
                 question=thread_id).count()
             question_answered.save()
-            ans_notif = Answered()
-            ans_notif.theanswer = instance
-            ans_notif.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
-            question_author.notifications.answers.add(ans_notif)
+            Notification.objects.create_answer_notification(request.user, instance)
             return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
@@ -94,6 +91,7 @@ def submit_reply(request, answer_id):
             question_instance.answers = answer.objects.filter(
                 question=question_id).count()
             question_instance.save()
+            Notification.objects.create_reply_notification(request.user, reply)
             return HttpResponseRedirect(parent.question.get_absolute_url())
 
 
