@@ -1,19 +1,19 @@
-{% load bleach_tags %} {% load timesince_upto %} {% if instance.question %}
+.{% load bleach_tags %} {% load timesince_upto %} {% if instance.question %}
 <div class="mdl-cell mdl-cell--12-col {{divclass}}">
     <div class="mdl-grid platform">
         <div class="mdl-cell mdl-cell--1-col voting">
             <div class="mdl-grid voting">
                 <div class="mdl-cell mdl-cell--1-col votes upvote_margin">
                     <button data-url="{% url 'question_vote' instance.question.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{instance.question.pk}}">
-                    <i class="material-icons votecolor {% if request.user in instance.question.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{ instance.question.pk }}">expand_less</i>
+                    <i class="material-icons votecolor {% if request.user in instance.question.ups.all %} vote-success {% else %} vote-default {% endif %} up{{ instance.question.pk }}" id="up{{ instance.question.pk }}">expand_less</i>
                     </button>
                 </div>
-                <div class="mdl-cell mdl-cell--1-col score" id="score{{instance.question.pk}}">
+                <div class="mdl-cell mdl-cell--1-col score score{{instance.question.pk}}" id="score{{instance.question.pk}}">
                     <center>{{ instance.question.points }}</center>
                 </div>
                 <div class="mdl-cell mdl-cell--1-col votes">
                     <button data-url="{% url 'question_vote' instance.question.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote snackbar_show" data-id="{{instance.question.pk}}">
-                    <i class="material-icons votecolor {% if request.user in instance.question.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{instance.question.pk}}">expand_more</i>
+                    <i class="material-icons votecolor {% if request.user in instance.question.downs.all %} vote-danger {% else %} vote-default {% endif %} down{{instance.question.pk}}" id="down{{instance.question.pk}}">expand_more</i>
                     </button>
                 </div>
             </div>
@@ -77,15 +77,15 @@
           <div class="mdl-grid voting">
               <div class="mdl-cell mdl-cell--1-col votes upvote_margin">
                       <button data-url="{% url 'question_vote' instance.pk 'u' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect upvote snackbar_show" data-id="{{instance.pk}}">
-              <i class="material-icons votecolor {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %}"  id="up{{ instance.pk }}">expand_less</i>
+              <i class="material-icons votecolor {% if request.user in instance.ups.all %} vote-success {% else %} vote-default {% endif %} up{{ instance.pk }}"  id="up{{ instance.pk }}">expand_less</i>
               </button>
               </div>
-              <div class="mdl-cell mdl-cell--1-col score" id="score{{instance.pk}}">
+              <div class="mdl-cell mdl-cell--1-col score score{{instance.pk}}" id="score{{instance.pk}}">
                   <center>{{ instance.points }}</center>
               </div>
               <div class="mdl-cell mdl-cell--1-col votes">
                       <button data-url="{% url 'question_vote' instance.pk 'd' %}" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect downvote snackbar_show" data-id="{{instance.pk}}">
-              <i class="material-icons votecolor {% if request.user in instance.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{instance.pk}}">expand_more</i>
+              <i class="material-icons votecolor {% if request.user in instance.downs.all %} vote-danger {% else %} vote-default {% endif %} down{{instance.pk}}" id="down{{instance.pk}}">expand_more</i>
               </button>
               </div>
           </div>

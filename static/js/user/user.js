@@ -44,25 +44,25 @@
             });
         }());
     } else {
-        $(".upvote").on("click", function() {
+        $(".tab-container").on("click", ".upvote", function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
             $.get(vote_url, function(data, status) {
-                $("#up" + id).toggleClass("vote-default").toggleClass("vote-success");
-                $("#down" + id).removeClass("vote-danger").addClass("vote-default")
-                $("#score" + id).children()[0].textContent = data.points;
+                $(".up" + id).toggleClass("vote-default").toggleClass("vote-success");
+                $(".down" + id).removeClass("vote-danger").addClass("vote-default")
+                $(".score" + id).children()[0].textContent = data.points;
             });
         });
-        $(".downvote").on("click", function() {
+        $(".tab-container").on("click", ".downvote", function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
             $.get(vote_url, function(data, status) {
-                $("#down" + id).toggleClass("vote-default").toggleClass("vote-danger");
-                $("#up" + id).removeClass("vote-success").addClass("vote-default");
-                $("#score" + id).children()[0].textContent = data.points;
+                $(".down" + id).toggleClass("vote-default").toggleClass("vote-danger");
+                $(".up" + id).removeClass("vote-success").addClass("vote-default");
+                $(".score" + id).children()[0].textContent = data.points;
             });
         });
-        $(".ansUpvote").on("click", function() {
+        $(".tab-container").on("click", ".ansUpvote", function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
             $.get(vote_url, function(data, status) {
@@ -71,7 +71,7 @@
                 $(".ansScore" + id).children()[0].textContent = data.points;
             });
         });
-        $(".ansDownvote").on("click", function() {
+        $(".tab-container").on("click", ".ansDownvote", function() {
             vote_url = $(this).data("url");
             id = $(this).data("id");
             $.get(vote_url, function(data, status) {
