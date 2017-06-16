@@ -1,3 +1,5 @@
+(function(){
+
     // Pagination for All, Questions and Answers
     var all_page = 0;
     $('#all-panel').jscroll({
@@ -100,3 +102,5 @@
 
     ga('create', 'UA-91622346-1', 'auto');
     ga('send', 'pageview');
+
+})();
