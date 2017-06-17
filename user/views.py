@@ -14,12 +14,12 @@ from post.models import Question
 from threads.models import Answer
 
 
-def UserPage(request, usr):
-    if usr == "anon":
+def user_page(request, user):
+    if user == "anon":
         return render(request, "user_templates/userpage.html")
-    requested_user = get_object_or_404(User, username=usr)
-    user_questions = Question.objects.filter(author=usr)
-    user_answers = Answer.objects.filter(answer_author=usr)
+    requested_user = get_object_or_404(User, username=user)
+    user_questions = Question.objects.filter(author=user)
+    user_answers = Answer.objects.filter(answer_author=user)
     for x in user_answers:
         x.description = markdown2.markdown(x.description,
                                            extras=["tables", "cuddled-lists"])
@@ -44,11 +44,9 @@ def UserPage(request, usr):
 
 def edit_profile(request, user):
     if request.method == "POST" and request.POST:
-        print("inside post")
         requested_user = get_object_or_404(User, username=user)
         profile_form = editForm(request.POST)
         if profile_form.is_valid():
-            print("inside valid")
             requested_user.email = profile_form.cleaned_data["email"]
             requested_user.save()
             requested_user.student.bio = profile_form.cleaned_data["bio"]
@@ -57,10 +55,9 @@ def edit_profile(request, user):
             requested_user.student.school = profile_form.cleaned_data["school"]
             requested_user.student.grad_year = profile_form.cleaned_data["grad_year"]
             requested_user.student.save()
-            print("saved")
             return HttpResponseRedirect("/user/" + requested_user.username)
         else:
-            print("inside not valid")
+            print("not valid")
     else:
         if user == "anon":
             return render(request, "user_templates/userpage.html")
@@ -77,15 +74,15 @@ def edit_profile(request, user):
         return render(request, "user_templates/edit.html", {"regform": profile_form})
 
 
-def ChangePassword(request, username):
-    req_user = get_object_or_404(User, username=username)
+def change_password(request, user):
+    req_user = get_object_or_404(User, username=user)
 
     # Don't render page if the user isn't asking for
     # his own change password page
     if not req_user == request.user:
         return HttpResponseRedirect(reverse('user',
                                     kwargs={
-                                        "usr": username
+                                        "user": user
                                     }))
 
     if request.method == "POST" and request.POST:

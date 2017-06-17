@@ -32,8 +32,8 @@
             <a href="{% url 'thread' x.pk x.title|slugify %}" class="a_title">{{ x.title }}</a> {% if x.solved == True and x.metatype == "question" %}
             <i class="material-icons solved">check</i> {% endif %}
             <div class="tags">
-                {% for t in x.channels.all %}
-                <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+                {% for c in x.channels.all %}
+                <a href="{% url 'channel' c.name %}">#{{c.name}}</a> {% endfor %} &nbsp
             </div>
         </div>
     </div>

@@ -33,24 +33,24 @@ Submit a post - uniqna
             <input type='text' placeholder='Select the tags' id="tags_input" class='flexdatalist' data-min-length='1' data-selection-required="1" data-value-property='id' multiple='multiple' list='tags' name='selectedtags' width="200">
 
             <datalist id="tags">
-        {% for tag in tags %}
-            <option value="{{tag.id}}">{{tag.name}}</option>
+        {% for channel in channels %}
+            <option value="{{channel.id}}">{{channel.name}}</option>
         {% endfor %}
       </datalist>
         </div>
     </div>
     <center>
         <div class="mdl-cell mdl-cell--6-col">
-            <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new tag</a>
+            <a href="#" class="mdl-button mdl-button--primary mdl-js-button mdl-js-ripple-effect" id="addtag">   +Add new channel</a>
             <div class="tagcreated">
-                <p class="mdl-button mdl-button--accent">Tag Created</p>
+                <p class="mdl-button mdl-button--accent">Channel Created</p>
             </div>
             <div id="newtagdiv">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="new_tag" id="newtag" style="text-transform: lowercase;" pattern=".{1,15}">
-                    <label class="tags_label mdl-textfield__label" for="sample3">Enter new tag name</label>
+                    <label class="tags_label mdl-textfield__label" for="sample3">Enter new Channel name</label>
                 </div><br>
-                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag" data-url="{% url 'CreateTag' %}">Add tag</a>
+                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="create_tag" data-url="{% url 'CreateTag' %}">Add Channel</a>
             </div>
         </div>
         <input type="submit" name="submit" class="submit" value="Ask!">

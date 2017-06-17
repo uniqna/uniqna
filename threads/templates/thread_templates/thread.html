@@ -30,10 +30,10 @@
   <div class="question_meta mdl-cell mdl-cell--12-col">
     <p> {% if question.metatype == "question" %}Asked{% else %}Submitted{% endif %} on {{ question.created_time|date:"d M, Y" }} by <a href="{% url 'user' question.author %}" class="question_meta">{{ question.author }}</a> </p>
   </div>
-  {% if question.tags.all %}
+  {% if question.channels.all %}
   <div class="question_meta_tags mdl-cell mdl-cell--12-col">
-    {% for t in question.tags.all %}
-    <a href="{% url 'tags' t.name %}">#{{t.name}}</a> {% endfor %} &nbsp
+    {% for c in question.channels.all %}
+    <a href="{% url 'channel' c.name %}">#{{c.name}}</a> {% endfor %} &nbsp
   </div>
   {% endif %}
       <!--

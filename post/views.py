@@ -42,12 +42,12 @@ def submit(request, metatype):
             instance.save()
             instance.ups.add(request.user)
             if request.POST['selectedtags']:
-                selectedtags = request.POST['selectedtags']
-                taglist = selectedtags.split(",")
-                taglist = [x.lower() for x in taglist if x != '']
-                for tagname in taglist:
-                    selected_tag = Channel.objects.get(name=tagname)
-                    instance.tags.add(selected_tag)
+                selected_channels = request.POST['selectedtags']
+                channel_list = selected_channels.split(",")
+                channel_list = [x.lower() for x in channel_list if x != '']
+                for channel in channel_list:
+                    this_channel = Channel.objects.get(name=channel)
+                    instance.channels.add(this_channel)
             return HttpResponseRedirect("/thread/" + str(instance.pk))
         else:
             return render(request,
