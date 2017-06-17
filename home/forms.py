@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from user.models import student
+
 import re
+
+from user.models import student
 
 
 class registration(forms.Form):
@@ -52,7 +54,7 @@ class changePasswordForm(forms.Form):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('confirm_password')
         if password1 != password2:
-            raise forms.ValidationError("The passwords do not match.")
+            raise forms.ValidationError("Your passwords do not match.")
         return password2
 
 

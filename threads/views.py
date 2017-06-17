@@ -1,13 +1,12 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 
 import markdown2
 
 from post.models import Question
 from threads.forms import answer_form
-from threads.models import answer
+from threads.models import Answer
 from user.models import Notification
 
 
@@ -20,8 +19,8 @@ def thread(request, thread_id, slug):
     description = markdown2.markdown(question_requested.description, extras=[
                                      "tables", "cuddled-lists"])
     unsubmitted_answer = answer_form()
-    answer._tree_manager.rebuild()  # You rebuild the tree and then query.
-    all_answers = answer.objects.filter(
+    Answer._tree_manager.rebuild()  # You rebuild the tree and then query.
+    all_answers = Answer.objects.filter(
         question=question_requested).order_by('tree_id', 'lft')
     for x in all_answers:
         x.description = markdown2.markdown(
@@ -40,8 +39,8 @@ def reply(request, thread_id, answer_id):
     except ValueError:
         raise Http404()
     parent_ques = get_object_or_404(Question, pk=thread_id)
-    answer._tree_manager.rebuild()
-    answer_req = get_object_or_404(answer, pk=answer_id)
+    Answer._tree_manager.rebuild()
+    answer_req = get_object_or_404(Answer, pk=answer_id)
     replies = answer_req.get_descendants(True)
     replies = replies.order_by('tree_id', 'lft')
     description = parent_ques.description
@@ -65,18 +64,19 @@ def submit_answer(request, thread_id):
             instance.answer_author = request.user.username
             instance.save()
             instance.ups.add(request.user)
-            question_answered.answers = answer.objects.filter(
+            question_answered.answers = Answer.objects.filter(
                 question=thread_id).count()
             question_answered.save()
             question_author = get_object_or_404(
                 User, username=question_answered.author)
-            Notification.objects.create_answer_notification(question_author, instance)
+            Notification.objects.create_answer_notification(
+                question_author, instance)
             return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
 def submit_reply(request, answer_id):
     if request.method == "POST" and request.POST:
-        parent = answer.objects.filter(
+        parent = Answer.objects.filter(
             pk=answer_id).select_related('question')[0]
         question_instance = parent.question
         question_id = question_instance.pk
@@ -89,7 +89,7 @@ def submit_reply(request, answer_id):
             reply.answer_author = request.user.username
             reply.save()
             reply.ups.add(request.user)
-            question_instance.answers = answer.objects.filter(
+            question_instance.answers = Answer.objects.filter(
                 question=question_id).count()
             question_instance.save()
             question_author = get_object_or_404(
@@ -109,7 +109,7 @@ def delete_question(request, thread_id):
     author = question_requested.author
     if author == username:
         question_requested.delete()
-        answer.objects.filter(question=thread_id).delete()
+        Answer.objects.filter(question=thread_id).delete()
         return HttpResponseRedirect(reverse('home'))
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -123,11 +123,11 @@ def delete_answer(request, thread_id, answer_id):
         raise Http404()
     username = request.user.username
     question_requested = get_object_or_404(Question, pk=thread_id)
-    answer_requested = answer.objects.get(id=answer_id)
+    answer_requested = Answer.objects.get(id=answer_id)
     author = answer_requested.answer_author
     if author == username:
         answer_requested.delete()
-        question_requested.answers = answer.objects.filter(
+        question_requested.answers = Answer.objects.filter(
             question=thread_id).count()
         question_requested.save()
         return HttpResponseRedirect(question_requested.get_absolute_url())
@@ -141,7 +141,7 @@ def edit_answer(request, thread_id, answer_id):
         answer_id = int(answer_id)
     except ValueError:
         raise Http404()
-    answer_requested = get_object_or_404(answer, pk=answer_id)
+    answer_requested = get_object_or_404(Answer, pk=answer_id)
     author = answer_requested.answer_author
     if author == request.user.username:
         description = answer_requested.description
@@ -164,7 +164,7 @@ def edit_answer_submit(request, thread_id, answer_id):
     except ValueError:
         raise Http404()
     if request.method == 'POST' and request.POST:
-        answer_requested = get_object_or_404(answer, pk=answer_id)
+        answer_requested = get_object_or_404(Answer, pk=answer_id)
         edited_answer = answer_form(request.POST)
         if edited_answer.is_valid():
             updated_answer = edited_answer.save(commit=False)

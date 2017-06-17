@@ -42,10 +42,10 @@ def UserPage(request, usr):
                    })
 
 
-def EditProfile(request, usr):
+def edit_profile(request, user):
     if request.method == "POST" and request.POST:
         print("inside post")
-        requested_user = get_object_or_404(User, username=usr)
+        requested_user = get_object_or_404(User, username=user)
         profile_form = editForm(request.POST)
         if profile_form.is_valid():
             print("inside valid")
@@ -62,9 +62,9 @@ def EditProfile(request, usr):
         else:
             print("inside not valid")
     else:
-        if usr == "anon":
+        if user == "anon":
             return render(request, "user_templates/userpage.html")
-        requested_user = get_object_or_404(User, username=usr)
+        requested_user = get_object_or_404(User, username=user)
         data = {
             "email": requested_user.email,
             "bio": requested_user.student.bio,
@@ -92,8 +92,7 @@ def ChangePassword(request, username):
         cp_form = changePasswordForm(request.POST)
         if cp_form.is_valid():
             cur_pass = cp_form.cleaned_data["current_password"]
-            a_user = authenticate(
-                username=req_user.username, password=cur_pass)
+            a_user = authenticate(username=req_user.username, password=cur_pass)
             if a_user is not None:
                 a_user.set_password(cp_form.cleaned_data["password"])
                 a_user.save()
@@ -109,7 +108,7 @@ def ChangePassword(request, username):
         return render(request, "user_templates/changepassword.html", {"changeform": cp_form, "user_instance": req_user})
 
 
-def forgot_password_view(request):
+def forgot_password_process(request):
     if request.method == "POST" and request.POST:
         emf = emailForm(request.POST)
         if emf.is_valid():
@@ -118,18 +117,12 @@ def forgot_password_view(request):
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
                 return render(request, "user_templates/forgotpassword.html", {"emailform": emf, "notexist": 1})
-            # Generating all the lowercase and uppercase chars
             chars = [chr(i) for i in range(65, 123)]
-            # Randomising the length of the password
             length = randint(6, 8)
-            # Choosing the password
             pwd = [chars[randint(0, len(chars))] for i in range(0, length)]
-            # Generated password
             pwdstring = ''.join(pwd)
-            # Make the password as the users password
             user.set_password(pwdstring)
             user.save()
-            # Mail the random password
             body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + \
                 "\n\n\nGo here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
             email_user = EmailMessage(

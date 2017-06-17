@@ -45,7 +45,6 @@ class student(models.Model):
          "Vellore Institute of Technology, Vellore"),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    display_name = models.CharField(max_length=15, default="")
     bio = models.CharField(max_length=240, blank=True, default="")
     course = models.CharField(
         max_length=6, choices=course_choices, default="B.Tech")

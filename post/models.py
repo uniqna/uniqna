@@ -35,7 +35,7 @@ class Question(models.Model):
         default=1000.123, max_digits=11, decimal_places=7, blank=True)
     points = models.IntegerField(default=1)
     solved = models.BooleanField(default=False)
-    channel = models.ManyToManyField(Channel, blank=True)
+    channels = models.ManyToManyField(Channel, blank=True)
     flair_icon = models.CharField(max_length=25, null=True)
     flair = models.CharField(max_length=180, null=True)
     objects = question_extender()

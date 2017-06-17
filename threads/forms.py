@@ -1,10 +1,10 @@
 from django import forms
-from threads.models import answer
-from tinymce.models import HTMLField
+
+from threads.models import Answer
 
 
 class answer_form(forms.ModelForm):
 
     class Meta:
-        model = answer
+        model = Answer
         fields = ('description',)

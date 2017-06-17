@@ -1,6 +1,8 @@
 from django.conf.urls import url
-from threads import views
+
 from rest_framework.urlpatterns import format_suffix_patterns
+
+from threads import views
 
 """
 Weird bug in url.

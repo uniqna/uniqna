@@ -1,6 +1,8 @@
 from django.contrib import admin
-from threads.models import answer
+
 from mptt.admin import MPTTModelAdmin
+
+from threads.models import Answer
 
 
 class answer_admin(admin.ModelAdmin):
@@ -8,4 +10,4 @@ class answer_admin(admin.ModelAdmin):
                     'created_time', 'edited', 'edited_time', 'score')
 
 
-admin.site.register(answer, MPTTModelAdmin)
+admin.site.register(Answer, MPTTModelAdmin)

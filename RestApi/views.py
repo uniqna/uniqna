@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view  # unused
 from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, UsernameSerializer
 from .models import UsernameSnippet
 
-from threads.models import answer
+from threads.models import Answer
 from post.models import Channel, Question
 
 
@@ -82,7 +82,7 @@ class CreateTag(APIView):
 class VotesView(APIView):
 
     def get(self, request):
-        answer.objects.ScoreUpdate()
+        answer.objects.score_update()
         answers = answer.objects.order_by("-score")
         serializer = AnswerSerializer(answers, many=True)
         return Response(serializer.data)

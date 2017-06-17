@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from post.models import Question
-from threads.models import answer
+from threads.models import Answer
 
 
 def search(request):

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import UsernameSnippet
 
 from post.models import Channel, Question
-from threads.models import answer
+from threads.models import Answer
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class AnswerSerializer(serializers.ModelSerializer):
     downs = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = answer
+        model = Answer
         fields = ("id", "ups", "downs", "points")
 
 
