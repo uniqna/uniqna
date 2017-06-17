@@ -22,23 +22,36 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Answer',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('metatype', models.CharField(default='question', max_length=20)),
                 ('description', models.TextField(blank=True)),
-                ('answer_author', models.CharField(default='anon', max_length=100, verbose_name='Author')),
-                ('created_time', models.DateTimeField(default=django.utils.timezone.now)),
-                ('edited_time', models.DateTimeField(default=django.utils.timezone.now)),
+                ('answer_author', models.CharField(
+                    default='anon', max_length=100, verbose_name='Author')),
+                ('created_time', models.DateTimeField(
+                    default=django.utils.timezone.now)),
+                ('edited_time', models.DateTimeField(
+                    default=django.utils.timezone.now)),
                 ('edited', models.BooleanField(default=False)),
                 ('points', models.IntegerField(default=1)),
-                ('score', models.DecimalField(decimal_places=17, default=0, max_digits=20)),
-                ('lft', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('rght', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('tree_id', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('level', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('downs', models.ManyToManyField(blank=True, related_name='downvotes', to=settings.AUTH_USER_MODEL)),
-                ('parent', mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='threads.Answer')),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='post.Question')),
-                ('ups', models.ManyToManyField(blank=True, related_name='upvotes', to=settings.AUTH_USER_MODEL)),
+                ('score', models.DecimalField(
+                    decimal_places=17, default=0, max_digits=20)),
+                ('lft', models.PositiveIntegerField(
+                    db_index=True, editable=False)),
+                ('rght', models.PositiveIntegerField(
+                    db_index=True, editable=False)),
+                ('tree_id', models.PositiveIntegerField(
+                    db_index=True, editable=False)),
+                ('level', models.PositiveIntegerField(
+                    db_index=True, editable=False)),
+                ('downs', models.ManyToManyField(blank=True,
+                                                 related_name='downvotes', to=settings.AUTH_USER_MODEL)),
+                ('parent', mptt.fields.TreeForeignKey(blank=True, null=True,
+                                                      on_delete=django.db.models.deletion.CASCADE, related_name='children', to='threads.Answer')),
+                ('question', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='post.Question')),
+                ('ups', models.ManyToManyField(blank=True,
+                                               related_name='upvotes', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'abstract': False,

@@ -16,7 +16,7 @@ This is the primary codebase that powers the online community [uniqna.com](https
 
 ## About
 
-The initial commits of uniqna began as a test project on which I [Jeremy](https://github.com/jeremyphilemon) would tinker around with Django and experiment with its MVC Architecture. In fact, the very idea of building an online forum didn't cross my mind then.
+The initial commits of uniqna began as a test project on which I ([Jeremy](https://github.com/jeremyphilemon)) would tinker around with Django and experiment with its MVC Architecture. In fact, the very idea of building an online forum didn't cross my mind then.
 
 After developing the authentication system, I started working on a tiny Q&A module where users could post questions and contribute to answers. Furthermore, the front page was developed to list all the questions and sort them according to their popularity. It was fun learning how to connect the dots between the database, the templates and the python engine.
 

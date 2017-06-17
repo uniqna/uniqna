@@ -1,4 +1,4 @@
-from django.shortcuts import render  #  unused
+from django.shortcuts import render  # unused
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 

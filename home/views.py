@@ -77,9 +77,15 @@ def register(request):
         if reg_form.is_valid():
             cd = reg_form.cleaned_data
             new_user = User.objects.create_user(
-                username=cd["username"], email=cd["email"], password=cd["password"])
-            new_profile = student(bio=cd["bio"], university=cd["university"],
-                                  course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
+                username=cd["username"],
+                email=cd["email"],
+                password=cd["password"])
+            new_profile = student(
+                bio=cd["bio"],
+                university=cd["university"],
+                course=cd["course"],
+                school=cd["school"],
+                grad_year=cd["grad_year"])
             new_profile.user = new_user
             new_profile.save()
             login(request, new_user)
@@ -106,7 +112,9 @@ def channel_view(request, channel_name):
         raise Http404()
     if request.user.is_authenticated:
         channel_instance = get_object_or_404(Channel, name=channel_name)
-        return render(request, "home_templates/channel.html", {'channel': channel_instance})
+        return render(request,
+                      "home_templates/channel.html",
+                      {'channel': channel_instance})
     else:
         return HttpResponseRedirect(reverse('home'))
 
