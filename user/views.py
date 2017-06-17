@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from ask.models import question
@@ -77,8 +78,17 @@ def EditProfile(request, usr):
         return render(request, "user_templates/edit.html", {"regform": profile_form})
 
 
-def ChangePassword(request, usr):
-    req_user = get_object_or_404(User, username=usr)
+def ChangePassword(request, username):
+    req_user = get_object_or_404(User, username=username)
+
+    # Don't render page if the user isn't asking for
+    # his own change password page
+    if not req_user == request.user:
+        return HttpResponseRedirect(reverse('user',
+                                    kwargs={
+                                        "usr": username
+                                    }))
+
     if request.method == "POST" and request.POST:
         cp_form = changePasswordForm(request.POST)
         if cp_form.is_valid():
