@@ -1,0 +1,14 @@
+.nav {
+  background: #fafafa;
+}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+  padding: 10px;
+}

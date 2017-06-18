@@ -1,0 +1,37 @@
+{% load timesince_upto %}
+        <div class="box is-white">
+          <article class="media">
+            <div class="media-left">
+              <span class="upvote" data-url="{% url 'question_vote' x.pk 'u' %}" data-id="{{x.pk}}">
+                <i class="material-icons arrow-align {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{x.pk}}">keyboard_arrow_up</i>
+              </span>
+                  <div class="score" id="score{{x.pk}}"> {{ x.points }} </div>
+              <span class="downvote" data-url="{% url 'question_vote' x.pk 'd' %}" data-id="{{x.pk}}">
+                <i class="material-icons arrow-align {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{x.pk}}">keyboard_arrow_down</i>
+              </span>
+              {% if x.solved and x.metatype == "question" %}
+                <i class="material-icons tick">done</i>
+              {% endif %}
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <small class="author">@{{ x.author }}</small>
+                  <small class="meta">{{ x.created_time|timesince|upto:',' }} ago</small>
+                  <small class="replies">{{ x.answers }} replies</small>
+                  {% if x.flair %}
+                    <span class="tag is-success">{{ x.flair }}</span>
+                  {% endif %}
+                  <br>
+                    <strong>{{ x.title }}</strong>
+                  <br>
+                  {{ x.description|truncatechars:250 }}
+                  <br>
+                  {% for c in x.channels.all %}
+                    <small><a class="channel" href="{% url 'channel' c.name %}">#{{c.name}}</a></small>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>

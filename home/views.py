@@ -41,7 +41,7 @@ def home(request, tab="home"):
 				(no_of_solved / 1) * 100)
 			return render(
 				request,
-				'home_templates/home.html',
+				'base/home.html',
 				{
 					'tab': tab,
 					'question_list': question_list,
@@ -53,7 +53,7 @@ def home(request, tab="home"):
 			question_list = Question.objects.all().order_by("-hot")[:3]
 			return render(
 				request,
-				'home_templates/login.html',
+				'base/login.html',
 				{'tab': tab,
 					'question_list': question_list, })
 
@@ -70,7 +70,7 @@ def home(request, tab="home"):
 			return HttpResponseRedirect(reverse('home'))
 		else:
 			question_list = Question.objects.all().order_by("-hot")[:3]
-			return render(request, "home_templates/login.html", {
+			return render(request, "base/login.html", {
 				"failed": True,
 				"question_list": question_list,
 			})
