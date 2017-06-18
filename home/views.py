@@ -11,129 +11,138 @@ from user.models import student, Notification
 
 
 def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('home'))
+	logout(request)
+	return HttpResponseRedirect(reverse('home'))
 
 
 def home(request, tab="home"):
-    if request.method == 'GET':
-        if request.user.is_authenticated:
-            username = request.user.username
-            Question.objects.popularity_update()
-            if tab == "home":
-                question_list = Question.objects.order_by("-hot")
-            elif tab == "qna":
-                question_list = Question.objects.filter(
-                    metatype="question").order_by("-hot")
-            elif tab == "nsy":
-                question_list = Question.objects.filter(
-                    metatype="question", solved=False).order_by("-hot")
-            elif tab == "disc":
-                question_list = Question.objects.filter(
-                    metatype="discussion").order_by("-hot")
-            no_of_questions = Question.objects.filter(
-                metatype="question").count()
-            no_of_answers = Answer.objects.filter(metatype="question").count()
-            no_of_solved = Question.objects.filter(
-                metatype="question", solved=True).count()
-            no_of_solved_percentage = round(
-                (no_of_solved / 1) * 100)
-            return render(request,
-                          'home_templates/home.html',
-                          {'tab': tab,
-                           'question_list': question_list,
-                           'no_of_questions': no_of_questions,
-                           'no_of_answers': no_of_answers,
-                           'no_of_solved_percentage': no_of_solved_percentage})
-        else:
-            question_list = Question.objects.all().order_by("-hot")[:3]
-            return render(request,
-                          'home_templates/login.html',
-                          {'tab': tab,
-                           'question_list': question_list, })
+	if request.method == 'GET':
+		if request.user.is_authenticated:
+			username = request.user.username
+			Question.objects.popularity_update()
+			if tab == "home":
+				question_list = Question.objects.order_by("-hot")
+			elif tab == "qna":
+				question_list = Question.objects.filter(
+					metatype="question").order_by("-hot")
+			elif tab == "nsy":
+				question_list = Question.objects.filter(
+					metatype="question", solved=False).order_by("-hot")
+			elif tab == "disc":
+				question_list = Question.objects.filter(
+					metatype="discussion").order_by("-hot")
+			no_of_questions = Question.objects.filter(
+				metatype="question").count()
+			no_of_answers = Answer.objects.filter(metatype="question").count()
+			no_of_solved = Question.objects.filter(
+				metatype="question", solved=True).count()
+			no_of_solved_percentage = round(
+				(no_of_solved / 1) * 100)
+			return render(
+				request,
+				'home_templates/home.html',
+				{
+					'tab': tab,
+					'question_list': question_list,
+					'no_of_questions': no_of_questions,
+					'no_of_answers': no_of_answers,
+					'no_of_solved_percentage': no_of_solved_percentage
+				})
+		else:
+			question_list = Question.objects.all().order_by("-hot")[:3]
+			return render(
+				request,
+				'home_templates/login.html',
+				{'tab': tab,
+					'question_list': question_list, })
 
-    if request.method == 'POST' and request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        try:
-            user = User._default_manager.get(username__iexact=username)
-            user_auth = authenticate(username=user.username, password=password)
-        except User.DoesNotExist:
-            user_auth = None
-        if user_auth is not None:
-            login(request, user_auth)
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            question_list = Question.objects.all().order_by("-hot")[:3]
-            return render(request, "home_templates/login.html", {
-                "failed": True,
-                "question_list": question_list,
-            })
+	if request.method == 'POST' and request.POST:
+		username = request.POST['username']
+		password = request.POST['password']
+		try:
+			user = User._default_manager.get(username__iexact=username)
+			user_auth = authenticate(username=user.username, password=password)
+		except User.DoesNotExist:
+			user_auth = None
+		if user_auth is not None:
+			login(request, user_auth)
+			return HttpResponseRedirect(reverse('home'))
+		else:
+			question_list = Question.objects.all().order_by("-hot")[:3]
+			return render(request, "home_templates/login.html", {
+				"failed": True,
+				"question_list": question_list,
+			})
 
 
 def register(request):
-    if request.method == 'POST':
-        reg_form = registration(request.POST)
-        if reg_form.is_valid():
-            cd = reg_form.cleaned_data
-            new_user = User.objects.create_user(
-                username=cd["username"],
-                email=cd["email"],
-                password=cd["password"])
-            new_profile = student(
-                bio=cd["bio"],
-                university=cd["university"],
-                course=cd["course"],
-                school=cd["school"],
-                grad_year=cd["grad_year"])
-            new_profile.user = new_user
-            new_profile.save()
-            login(request, new_user)
-            return HttpResponseRedirect(reverse('home'))
-        else:
-            return render(request,
-                          'home_templates/register.html',
-                          {
-                              'regform': reg_form,
-                              'errors': reg_form.errors})
-    elif request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        reg_form = registration()
-        return render(request,
-                      'home_templates/register.html',
-                      {'regform': reg_form})
+	if request.method == 'POST':
+		reg_form = registration(request.POST)
+		if reg_form.is_valid():
+			cd = reg_form.cleaned_data
+			new_user = User.objects.create_user(
+				username=cd["username"],
+				email=cd["email"],
+				password=cd["password"])
+			new_profile = student(
+				bio=cd["bio"],
+				university=cd["university"],
+				course=cd["course"],
+				school=cd["school"],
+				grad_year=cd["grad_year"])
+			new_profile.user = new_user
+			new_profile.save()
+			login(request, new_user)
+			return HttpResponseRedirect(reverse('home'))
+		else:
+			return render(
+				request,
+				'home_templates/register.html',
+				{
+					'regform': reg_form,
+					'errors': reg_form.errors
+				})
+
+	elif request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('home'))
+	else:
+		reg_form = registration()
+		return render(
+			request,
+			'home_templates/register.html',
+			{'regform': reg_form})
 
 
 def channel_view(request, channel_name):
-    try:
-        channel_name = str(channel_name)
-    except ValueError:
-        raise Http404()
-    if request.user.is_authenticated:
-        channel_instance = get_object_or_404(Channel, name=channel_name)
-        return render(request,
-                      "home_templates/channel.html",
-                      {'channel': channel_instance})
-    else:
-        return HttpResponseRedirect(reverse('home'))
+	try:
+		channel_name = str(channel_name)
+	except ValueError:
+		raise Http404()
+	if request.user.is_authenticated:
+		channel_instance = get_object_or_404(Channel, name=channel_name)
+		return render(
+			request,
+			"home_templates/channel.html",
+			{'channel': channel_instance})
+	else:
+		return HttpResponseRedirect(reverse('home'))
 
 
 def notifications_view(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('home'))
-    else:
-        return render(request, "notifications.html")
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('home'))
+	else:
+		return render(request, "notifications.html")
 
 
 def notification_redirect(request, pk):
-    notif = get_object_or_404(Notification, pk=pk)
-    if request.user != notif.user:
-        raise Http404()
-    if not notif.read:
-        notif.read = True
-        notif.save()
-    # the answer object
-    answer_instance = get_object_or_404(Answer, pk=notif.object_id)
-    url = answer_instance.get_absolute_url()
-    return HttpResponseRedirect(url)
+	notif = get_object_or_404(Notification, pk=pk)
+	if request.user != notif.user:
+		raise Http404()
+	if not notif.read:
+		notif.read = True
+		notif.save()
+	# the answer object
+	answer_instance = get_object_or_404(Answer, pk=notif.object_id)
+	url = answer_instance.get_absolute_url()
+	return HttpResponseRedirect(url)
