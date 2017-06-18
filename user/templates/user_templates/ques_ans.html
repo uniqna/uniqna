@@ -32,7 +32,7 @@
             <a href="{% url 'thread' instance.question.pk instance.question.title|slugify %}" class="a_title">{{ instance.question.title }}</a> {% if instance.question.solved == True and instance.question.metatype == "question" %}
             <i class="material-icons solved">check</i> {% endif %}
             <div class="tags">
-                {% for tag in instance.question.tags.all %} <a href="{% url 'tags' tag.name %}">#{{tag.name}}</a> {% endfor %} &nbsp
+                {% for channel in instance.question.channels.all %} <a href="{% url 'channel' channel.name %}">#{{tag.name}}</a> {% endfor %} &nbsp
             </div>
         </div>
     </div>
@@ -104,8 +104,8 @@
           <a href="{% url 'thread' instance.pk instance.title|slugify %}" class="a_title">{{ instance.title }}</a> {% if instance.solved == True and instance.metatype == "question" %}
           <i class="material-icons solved">check</i> {% endif %}
           <div class="tags">
-           {% for t in instance.tags.all %}
-                   <a href="{% url 'tags' t.name %}">#{{t.name}}</a>
+           {% for channel in instance.channels.all %}
+                   <a href="{% url 'channel' channel.name %}">#{{channel.name}}</a>
               {% endfor %}
             &nbsp
           </div>

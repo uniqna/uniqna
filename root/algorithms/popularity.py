@@ -1,5 +1,4 @@
-from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import datetime
 from math import log
 import pytz
 
@@ -21,5 +20,4 @@ def _popularity(ups, downs, created_time):
     order = log(max(abs(s), 1), 10)
     sign = 1 if s > 0 else -1 if s < 0 else 0
     seconds = epoch_seconds(created_time) - 1134028003
-    # print(round(sign * order + seconds / 45000, 7))
     return round(sign * order + seconds / 45000, 7)

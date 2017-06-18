@@ -19,5 +19,6 @@ class NotificationInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (StudentInline, NotificationInline, )
 
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

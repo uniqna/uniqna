@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
-from threads.models import answer
+from django.contrib.auth.models import User
+
+from threads.models import Answer
 from root.email import send_notification_email
 
 
@@ -45,7 +45,6 @@ class student(models.Model):
          "Vellore Institute of Technology, Vellore"),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    display_name = models.CharField(max_length=15, default="")
     bio = models.CharField(max_length=240, blank=True, default="")
     course = models.CharField(
         max_length=6, choices=course_choices, default="B.Tech")
@@ -55,22 +54,6 @@ class student(models.Model):
         max_length=6, choices=grad_year_choices, default="2020")
     university = models.CharField(max_length=100, choices=university_choices)
 
-
-"""
-New model for storing notifications
------------------------------------
-content -> The notification string
-notification_time -> Time of posting the notification
-notification_type -> The type of the notification
-( Like answered, voted etc.)
-object_id -> The id of the related object
-( Such as the question's id )
-objects -> Inherits the same object manager as the previous model
------------------------------------
-"""
-
-
-# Custom Manager for Notification models
 
 class NotificationExtender(models.Manager):
     def unread_count(self):

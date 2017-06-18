@@ -1,22 +1,25 @@
 from __future__ import unicode_literals
-from django.utils import timezone
+
 from django.db import models
-from ask.models import question
+from django.utils import timezone
 from django.contrib.auth.models import User
-from root.algorithms import vote_score
+
 from mptt.models import MPTTModel, TreeForeignKey
+
+from post.models import Question
+from root.algorithms import vote_score
 
 
 class ManagerExtender(models.Manager):
-    def ScoreUpdate(self):
-        print("score Updating")
-        for a in self.all():
-            a.set_score()
+    def score_update(self):
+        for x in self.all():
+            x.set_score()
 
 
-class answer(MPTTModel):
-    question = models.ForeignKey(question)
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+class Answer(MPTTModel):
+    question = models.ForeignKey(Question)
+    parent = TreeForeignKey('self', null=True, blank=True,
+                            related_name='children', db_index=True)
     metatype = models.CharField(max_length=20, default="question", blank=False)
     description = models.TextField(blank=True)
     answer_author = models.CharField("Author", max_length=100, default="anon")

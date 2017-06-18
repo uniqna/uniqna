@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
-from ask.models import question
+
+from post.models import Question
 
 
 class ThreadsSitemap(Sitemap):
@@ -7,4 +8,4 @@ class ThreadsSitemap(Sitemap):
     priority = 1.0
 
     def items(self):
-        return question.objects.all()
+        return Question.objects.all()

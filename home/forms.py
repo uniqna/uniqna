@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from user.models import student
+
 import re
+
+from user.models import student
 
 
 class registration(forms.Form):
@@ -17,13 +19,15 @@ class registration(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if User.objects.filter(username__iexact=self.cleaned_data['username'].lower()).exists():
+        if User.objects.filter(
+                username__iexact=self.cleaned_data['username'].lower()).exists():
             raise forms.ValidationError(
                 'Username "%s" is already in use.' % username)
         if re.match(r'^[_a-zA-Z0-9]{4,15}$', username):
             return username
         else:
-            raise forms.ValidationError('Username not valid.\nOnly use alphabets, numbers and underscore.')
+            raise forms.ValidationError(
+                'Username not valid.\nOnly use alphabets, numbers and underscore.')
 
     def clean_confirm_password(self):
         password1 = self.cleaned_data.get('password')
@@ -51,7 +55,7 @@ class changePasswordForm(forms.Form):
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('confirm_password')
         if password1 != password2:
-            raise forms.ValidationError("The passwords do not match.")
+            raise forms.ValidationError("Your passwords do not match.")
         return password2
 
 

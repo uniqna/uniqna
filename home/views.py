@@ -1,27 +1,13 @@
 from django.http import Http404, HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from ask.models import question, tag
-from user.models import student, Notification
-from home.forms import registration
-from threads.models import answer
 
-'''
-~ This piece of code is preserved for historic reasons ~
-token = False  # An error token - True when it encounters invalid credentials.
-def validation(request):
-    if request.method == 'POST' and request.POST:
-        username = request.POST['username']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-        else:
-            return render(request, "home_templates/login.html", {"failed": 1})
-    else:
-        return HttpResponseRedirect(reverse('home'))
-'''
+from home.forms import registration
+from post.models import Channel, Question
+from threads.models import Answer
+from user.models import student, Notification
 
 
 def logout_view(request):
@@ -33,28 +19,25 @@ def home(request, tab="home"):
     if request.method == 'GET':
         if request.user.is_authenticated:
             username = request.user.username
-            question.objects.PopUpdate()
+            Question.objects.popularity_update()
             if tab == "home":
-                question_list = question.objects.order_by("-hot")
-            if tab == "qna":
-                question_list = question.objects.filter(
+                question_list = Question.objects.order_by("-hot")
+            elif tab == "qna":
+                question_list = Question.objects.filter(
                     metatype="question").order_by("-hot")
-            if tab == "nsy":
-                question_list = question.objects.filter(
+            elif tab == "nsy":
+                question_list = Question.objects.filter(
                     metatype="question", solved=False).order_by("-hot")
-            if tab == "disc":
-                question_list = question.objects.filter(
+            elif tab == "disc":
+                question_list = Question.objects.filter(
                     metatype="discussion").order_by("-hot")
-            no_of_questions = question.objects.filter(
+            no_of_questions = Question.objects.filter(
                 metatype="question").count()
-            no_of_answers = answer.objects.filter(metatype="question").count()
-            no_of_solved = question.objects.filter(
+            no_of_answers = Answer.objects.filter(metatype="question").count()
+            no_of_solved = Question.objects.filter(
                 metatype="question", solved=True).count()
-            if not no_of_questions:
-                no_of_solved_percentage
-            else:
-                no_of_solved_percentage = round(
-                    (no_of_solved / no_of_questions) * 100)
+            no_of_solved_percentage = round(
+                (no_of_solved / 1) * 100)
             return render(request,
                           'home_templates/home.html',
                           {'tab': tab,
@@ -63,7 +46,7 @@ def home(request, tab="home"):
                            'no_of_answers': no_of_answers,
                            'no_of_solved_percentage': no_of_solved_percentage})
         else:
-            question_list = question.objects.all().order_by("-hot")[:3]
+            question_list = Question.objects.all().order_by("-hot")[:3]
             return render(request,
                           'home_templates/login.html',
                           {'tab': tab,
@@ -81,9 +64,9 @@ def home(request, tab="home"):
             login(request, user_auth)
             return HttpResponseRedirect(reverse('home'))
         else:
-            question_list = question.objects.all().order_by("-hot")[:3]
+            question_list = Question.objects.all().order_by("-hot")[:3]
             return render(request, "home_templates/login.html", {
-                "failed": 1,
+                "failed": True,
                 "question_list": question_list,
             })
 
@@ -94,9 +77,15 @@ def register(request):
         if reg_form.is_valid():
             cd = reg_form.cleaned_data
             new_user = User.objects.create_user(
-                username=cd["username"], email=cd["email"], password=cd["password"])
-            new_profile = student(bio=cd["bio"], university=cd["university"],
-                                  course=cd["course"], school=cd["school"], grad_year=cd["grad_year"])
+                username=cd["username"],
+                email=cd["email"],
+                password=cd["password"])
+            new_profile = student(
+                bio=cd["bio"],
+                university=cd["university"],
+                course=cd["course"],
+                school=cd["school"],
+                grad_year=cd["grad_year"])
             new_profile.user = new_user
             new_profile.save()
             login(request, new_user)
@@ -116,25 +105,28 @@ def register(request):
                       {'regform': reg_form})
 
 
-def tag_view(request, tagname):
+def channel_view(request, channel_name):
     try:
-        tagname = str(tagname)
+        channel_name = str(channel_name)
     except ValueError:
         raise Http404()
     if request.user.is_authenticated:
-        tag_instance = get_object_or_404(tag, name=tagname)
-        return render(request, "home_templates/tags.html", {'tags': tag_instance})
+        channel_instance = get_object_or_404(Channel, name=channel_name)
+        return render(request,
+                      "home_templates/channel.html",
+                      {'channel': channel_instance})
     else:
         return HttpResponseRedirect(reverse('home'))
 
 
 def notifications_view(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect("/")
-    return render(request, "notifications.html")
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return render(request, "notifications.html")
 
 
-def notif_redirect(request, pk):
+def notification_redirect(request, pk):
     notif = get_object_or_404(Notification, pk=pk)
     if request.user != notif.user:
         raise Http404()
@@ -142,6 +134,6 @@ def notif_redirect(request, pk):
         notif.read = True
         notif.save()
     # the answer object
-    answer_instance = get_object_or_404(answer, pk=notif.object_id)
+    answer_instance = get_object_or_404(Answer, pk=notif.object_id)
     url = answer_instance.get_absolute_url()
     return HttpResponseRedirect(url)
