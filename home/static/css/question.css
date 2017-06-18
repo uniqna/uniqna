@@ -1,0 +1,41 @@
+.arrow-align {
+  display: block;
+}
+
+.score {
+  text-align: center;
+}
+
+.box {
+  border-radius: 0;
+  box-shadow: none;
+  background: #fafafa;
+}
+
+.author {
+  color: #d81b60;
+}
+
+.replies {
+  color: #009688;
+}
+
+.tick {
+  color: #009688;
+}
+
+.channel {
+  color: #673AB7;
+}
+
+.vote-default {
+  color: #424242;
+}
+
+.vote-success {
+  color: #4caf50;
+}
+
+.vote-danger {
+  color: #f44336;
+}

@@ -1,0 +1,30 @@
+
+    <nav class="nav">
+      <div class="container">
+        <div class="nav-left">
+          <a class="nav-item">
+              <img src="https://uniqna.com/static/favicons/apple-touch-icon.png" alt="uniqna logo">
+          </a>
+        </div>
+
+        <div class="nav-center">
+          <a class="nav-item">
+            @{{ request.user.username }}
+          </a>
+          <a class="nav-item">
+          <span class="uni">u/vitcc</span>
+          </a>
+        </div>
+
+        <span class="nav-toggle" v-on:click="toggleNav" v-bind:class="{'is-active': isActive }">
+        <span></span>
+        <span></span>
+        <span></span>
+        </span>
+
+        <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
+          <a class="nav-item is-tab" href="{% url 'user' request.user.username %}">Profile</a>
+          <a class="nav-item is-tab" href="{% url 'logout' %}">Log out</a>
+        </div>
+      </div>
+    </nav>

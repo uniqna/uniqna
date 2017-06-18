@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>uniqna</title>
+    <!-- Stylesheet -->{% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!-- Favicons -->
+    {% include 'base/favicons.html' %}
+    <!-- Open Graph -->
+  </head>
+
+  <body class="site">
+  <main class="site-content">
+
+    <section class="hero">
+
+      {% include 'base/statistics.html' %}
+
+      <div class="hero-body organisation">
+
+        <div class="container has-text-centered">
+          <div class="title">
+            <img src="https://www.uniqna.com/static/assets/logo_colored.svg" width="250px">
+          </div>
+          <h2 class="subtitle">
+              Your university's online community 💯
+            </h2>
+        </div>
+
+        <div class="tile is-ancestor">
+          <div class="tile">
+            <article class="tile is-child box">
+              <p class="title">What's buzzin</p>
+              <p class="subtitle">What is up?</p>
+              {% for x in question_list %}
+                {% include 'base/question.html' %}
+              {% endfor %}
+            </article>
+          </div>
+
+          <div class="tile is-5">
+            <article class="tile is-child box">
+              <p class="title">Login</p>
+              <p class="subtitle">to gain full access</p>
+                <div class="box is-white">
+                  <form method="post" action=""> {% csrf_token %}
+                    <div class="field">
+                      <label class="label">Username</label>
+                      <p class="control has-icons-left">
+                        <input class="input" type="text" name="username">
+                        <span class="icon is-small is-left">
+                          <i class="material-icons">account_box</i>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div class="field">
+                      <label class="label">Password</label>
+                      <p class="control has-icons-left">
+                        <input class="input" type="password" name="password">
+                        <span class="icon is-small is-left">
+                          <i class="material-icons">lock</i>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div class="field">
+                      <p class="control">
+                        <button class="button is-success" value="submit" name="submit">
+                          Login
+                        </button>
+                      </p>
+                    </div>
+
+                    <nav class="level is-mobile">
+                      <div class="level-item has-text-centered">
+                        <div>
+                          <p class="heading">Forgot Password?</p>
+                          <i class="twa twa-2x twa-thinking"></i>
+                        </div>
+                      </div>
+                      <div class="level-item has-text-centered">
+                        <div>
+                          <p class="heading">Register!</p>
+                          <i class="twa twa-2x twa-hatching-chick"></i>
+                        </div>
+                      </div>
+
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+    </section>
+  </main>
+
+
+      <footer class="footer">
+        <div class="container">
+          <div class="content has-text-centered">
+            <p>
+              Made with <img class="cardio" src="https://jeremyphilemon.github.io/blog/images/Heart.svg" style="vertical-align: -2.5px;"> by two beautiful monkeys 🙈
+            </p>
+          </div>
+        </div>
+      </footer>
+
+
+  <!-- Js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+</body>
+
+  </html>
