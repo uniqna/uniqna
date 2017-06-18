@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from home.forms import registration
 from post.models import Channel, Question
+from root.email import render_email, send_email
 from threads.models import Answer
 from user.models import student, Notification
 
@@ -93,6 +94,13 @@ def register(request):
 			new_profile.user = new_user
 			new_profile.save()
 			login(request, new_user)
+			mail_html = render_email("welcome_email.html", {"username": new_user.username})
+			opts = {
+				"recipents": new_user.email,
+				"subject": "Welcome aboard.",
+				"body": mail_html
+			}
+			send_email(opts)
 			return HttpResponseRedirect(reverse('home'))
 		else:
 			return render(
@@ -149,4 +157,4 @@ def notification_redirect(request, pk):
 
 
 def test_email_templates(request):
-	return render(request, "email_templates/forgot_password.html", {"password": "12dff1"})
+	return render(request, "email_templates/welcome_email.html")
