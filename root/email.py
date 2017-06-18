@@ -4,17 +4,28 @@ from root.settings import DEBUG
 import requests
 import os
 
+# Uncomment this if you wanna check out mails in action in debug mode
+# DEBUG = False
+
 
 def send_email(opts={}):
 	# (Dictionary: opts)
+	# Base email function to send emails.
+	# opts MUST contain recipents, subject and body
+	# body will be rendered by render_email()
 	if not opts:
 		return "To, Subject and Body required to send the mail."
-	else:
-		return requests.post(
-			MG_URL,
-			auth=("api", MG_KEY),
-			data={"from": MG_FROM, "to": opts["recipents"], "subject": opts["subject"], "html": opts["body"]},
-		)
+
+	return requests.post(
+		MG_URL,
+		auth=("api", MG_KEY),
+		data={
+			"from": MG_FROM,
+			"to": "uniqnamail@gmail.com",
+			"bcc": opts["recipents"],
+			"subject": opts["subject"],
+			"html": opts["body"]
+		})
 
 
 def render_email(template, context):
@@ -33,7 +44,7 @@ def test_send_email(to):
 		"subject": "You have got a new notification.",
 		"body": body
 	}
-	send_email(opts)
+	print(send_email(opts))
 
 
 def send_notification_email(notification):
@@ -41,10 +52,7 @@ def send_notification_email(notification):
 	to = notification.user.email
 	uname = notification.user.username
 	content = notification.content
-	if DEBUG:
-		url = "http://localhost:8000" + notification.get_absolute_url()
-	else:
-		url = "https://uniqna.com" + notification.get_absolute_url()
+	url = "https://uniqna.com" + notification.get_absolute_url()
 	context = {
 		"header": "Hey {}, you have a new notificaiton.".format(uname),
 		"content": content,
@@ -56,4 +64,14 @@ def send_notification_email(notification):
 		"subject": "Knock Knock. Mail from uniqna.",
 		"body": body
 	}
-	print(send_email(opts))
+	if DEBUG:
+		# Don't send emails if we are in debug mode
+		# Instead print them in the console
+		print("\n\n\n")
+		print("---------------------------------------")
+		print(opts)
+		print("---------------------------------------")
+		print("\n\n\n")
+		return True
+	else:
+		print(send_email(opts))

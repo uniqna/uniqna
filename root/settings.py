@@ -122,27 +122,13 @@ else:
     PREPEND_WWW = False
 
 
-# Mailing
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ['SECRET_KEY']
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_SSL = True
-    EMAIL_HOST = os.environ['EMAIL_HOST']
-    EMAIL_PORT = os.environ['EMAIL_PORT']
-    EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-    EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-    DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
-    SERVER_EMAIL = os.environ['SERVER_EMAIL']
+    MG_KEY = os.environ['MG_KEY']
+    MG_URL = os.environ['MG_URL']
+    MG_FROM = os.environ['SECRET_KEY']
 else:
     SECRET_KEY = secret_settings.SECRET_KEY
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_SSL = True
-    EMAIL_HOST = secret_settings.EMAIL_HOST
-    EMAIL_PORT = secret_settings.EMAIL_PORT
-    EMAIL_HOST_USER = secret_settings.EMAIL_HOST_USER
-    EMAIL_HOST_PASSWORD = secret_settings.EMAIL_HOST_PASSWORD
-    DEFAULT_FROM_EMAIL = secret_settings.DEFAULT_FROM_EMAIL
-    SERVER_EMAIL = secret_settings.SERVER_EMAIL
     MG_KEY = secret_settings.MG_KEY
     MG_URL = secret_settings.MG_URL
     MG_FROM = secret_settings.MG_FROM
