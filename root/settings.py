@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'threads',
     'user',
     'django_bleach',
-    'django_user_agents',
     'el_pagination',
     'mptt',
     'rest_framework',
@@ -63,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'root.middleware.UserAgentMiddleware',
     'root.middleware.DebugMiddleware'
 ]
 
