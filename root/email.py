@@ -5,7 +5,7 @@ import requests
 import os
 
 # Uncomment this if you wanna check out mails in action in debug mode
-DEBUG = False
+# DEBUG = False
 
 
 def send_email(opts={}):
@@ -16,16 +16,26 @@ def send_email(opts={}):
 	if not opts:
 		return "To, Subject and Body required to send the mail."
 
-	return requests.post(
-		MG_URL,
-		auth=("api", MG_KEY),
-		data={
-			"from": MG_FROM,
-			"to": "uniqnamail@gmail.com",
-			"bcc": opts["recipents"],
-			"subject": opts["subject"],
-			"html": opts["body"]
-		})
+	if DEBUG:
+		# Don't send emails if we are in debug mode
+		# Instead print them in the console
+		print("\n\n\n")
+		print("---------------------------------------")
+		print(opts)
+		print("---------------------------------------")
+		print("\n\n\n")
+		return True
+	else:
+		return requests.post(
+			MG_URL,
+			auth=("api", MG_KEY),
+			data={
+				"from": MG_FROM,
+				"to": "uniqnamail@gmail.com",
+				"bcc": opts["recipents"],
+				"subject": opts["subject"],
+				"html": opts["body"]
+			})
 
 
 def render_email(template, context):
@@ -38,7 +48,7 @@ def render_email(template, context):
 
 def test_send_email(to):
 	context = {"header": "Hey Sriram, you have a new notificaiton.", "content": "Jeremy answered your question 'Timeline enlightment?' "}
-	body = render_email("sample_email.html", context)
+	body = render_email("notification_email.html", context)
 	opts = {
 		"recipents": to,
 		"subject": "You have got a new notification.",
@@ -64,14 +74,4 @@ def send_notification_email(notification):
 		"subject": "Knock Knock. Mail from uniqna.",
 		"body": body
 	}
-	if DEBUG:
-		# Don't send emails if we are in debug mode
-		# Instead print them in the console
-		print("\n\n\n")
-		print("---------------------------------------")
-		print(opts)
-		print("---------------------------------------")
-		print("\n\n\n")
-		return True
-	else:
-		print(send_email(opts))
+	print(send_email(opts))

@@ -44,6 +44,7 @@ urlpatterns = [
 	url(r'^sitemap\.xml$', sitemap, {
 		'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 	url(r'^robots.txt', include('robots.urls')),
+	url(r'^test-email/$', views.test_email_templates)
 ]
 
 if settings.DEBUG is True:

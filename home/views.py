@@ -146,3 +146,7 @@ def notification_redirect(request, pk):
 	answer_instance = get_object_or_404(Answer, pk=notif.object_id)
 	url = answer_instance.get_absolute_url()
 	return HttpResponseRedirect(url)
+
+
+def test_email_templates(request):
+	return render(request, "email_templates/forgot_password.html", {"password": "12dff1"})

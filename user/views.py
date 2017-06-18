@@ -11,6 +11,7 @@ import markdown2
 
 from home.forms import editForm, changePasswordForm, emailForm
 from post.models import Question
+from root.email import render_email, send_email
 from threads.models import Answer
 from user.models import student
 
@@ -165,22 +166,22 @@ def forgot_password_process(request):
 
 			chars = [chr(i) for i in range(65, 123)]
 			length = randint(6, 8)
-			pwd = [chars[randint(0, len(chars))] for i in range(0, length)]
+			pwd = [chars[randint(0, len(chars) - 1)] for i in range(0, length)]
 			pwdstring = ''.join(pwd)
 			user.set_password(pwdstring)
 			user.save()
-			body = "Hey " + str(user.username) + ", your new password is\n\n\n" + pwdstring + \
-				"\n\n\nGo here and login with your new password: www.uniqna.com\nAnd make sure to change your password to a more secure one."
-			email_user = EmailMessage(
-				"Reset your password - uniqna.com", body, to=[email])
-
-			if email_user.send():
-				print("Success.")
-				return render(
-					request,
-					"user_templates/forgotpassword.html",
-					{"success": 1}
-				)
+			mail_html = render_email("forgot_password.html", {"password": pwdstring})
+			opts = {
+				"recipents": user.email,
+				"subject": "Recover your account - uniqna",
+				"body": mail_html
+			}
+			send_email(opts)
+			return render(
+				request,
+				"user_templates/forgotpassword.html",
+				{"success": 1}
+			)
 		else:
 			return render(
 				request,
