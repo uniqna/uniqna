@@ -1,6 +1,8 @@
 ####  
 <p align="center">
 <img src="https://uniqna.com/static/assets/logo_colored.svg" width="50%"/>
+<br>
+<a href="https://pyup.io/repos/github/uniqna/uniqna/"><img src="https://pyup.io/repos/github/uniqna/uniqna/shield.svg" alt="Updates" /></a>
 </p>
 
 Greetings!
@@ -9,10 +11,10 @@ This is the primary codebase that powers the online community [uniqna.com](https
 
 ## A TL;DR of our current live stack:
 
-1. Engine - Python v3.5.2 | Django v1.10.4
+1. Engine - Python v3.4 | Django v1.11.2
 2. Database - PostgreSQL
 3. Frontend - Google's Material Design Lite (extensively customised)
-4. Cloud server environment - AWS Elastic Beanstalk (64bit Linux)
+4. Cloud server environment - AWS Elastic Beanstalk (64bit Linux )
 
 ## About
 
