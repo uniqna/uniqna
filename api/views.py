@@ -6,21 +6,11 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view  # unused
-from .serializers import AnswerSerializer, TagSerializer, QuestionSerializer, UsernameSerializer
+from .serializers import AnswerSerializer, ChannelSerializer, QuestionSerializer, UsernameSerializer
 from .models import UsernameSnippet
 
 from threads.models import Answer
 from post.models import Channel, Question
-
-
-def TestView(request):
-    def get():
-        pass
-
-
-class TestPost(APIView):
-    def post(self):
-        pass
 
 
 class CheckUsername(APIView):
@@ -40,7 +30,7 @@ class CheckUsername(APIView):
             return Response(serializer.data)
 
 
-class SuggestTag(APIView):
+class SuggestChannel(APIView):
     def post(self, request):
         text = request.data["text"]
         words = text.split()
@@ -48,31 +38,31 @@ class SuggestTag(APIView):
         sugg_tag_names = [
             x for x in tag_names for y in words if x.lower() == y.lower()]
         sugg_tags = [Channel.objects.get(name=x) for x in sugg_tag_names]
-        serializer = TagSerializer(sugg_tags, many=True)
+        serializer = ChannelSerializer(sugg_tags, many=True)
         return Response(serializer.data)
 
 
-class GetTags(APIView):
+class GetChannels(APIView):
     def get(self, request):
         tags = Channel.objects.all()
-        serializer = TagSerializer(tags, many=True)
+        serializer = ChannelSerializer(tags, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         tags = Channel.objects.all()
-        serializer = TagSerializer(tags, many=True)
+        serializer = ChannelSerializer(tags, many=True)
         return Response(serializer.data)
 
 
-class CreateTag(APIView):
+class CreateChannel(APIView):
     def get(self, request):
         tags = Channel.objects.all()
-        serializer = TagSerializer(tags, many=True)
+        serializer = ChannelSerializer(tags, many=True)
         return Response(serializer.data)
 
     def post(self, request):
         ldata = {"name": request.data["name"].lower()}
-        serializer = TagSerializer(data=ldata)
+        serializer = ChannelSerializer(data=ldata)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -82,8 +72,8 @@ class CreateTag(APIView):
 class VotesView(APIView):
 
     def get(self, request):
-        answer.objects.score_update()
-        answers = answer.objects.order_by("-score")
+        Answer.objects.score_update()
+        answers = Answer.objects.order_by("-score")
         serializer = AnswerSerializer(answers, many=True)
         return Response(serializer.data)
 
@@ -95,8 +85,8 @@ class AnswerVote(APIView):
 
     def GetAnswer(self, pk):
         try:
-            return answer.objects.get(pk=int(pk))
-        except answer.DoesNotExist:
+            return Answer.objects.get(pk=int(pk))
+        except Answer.DoesNotExist:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def Vote(self, request, pk, ud):

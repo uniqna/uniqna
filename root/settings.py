@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'home',
     'post',
-    'RestApi',
+    'api',
     'search',
     'threads',
     'user',

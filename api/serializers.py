@@ -23,7 +23,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ("id", "ups", "downs", "points")
 
 
-class TagSerializer(serializers.ModelSerializer):
+class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Channel
         fields = '__all__'

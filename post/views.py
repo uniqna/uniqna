@@ -13,7 +13,7 @@ def ask(request):
         return render(request,
                       'post_templates/post.html',
                       {'metatype': metatype,
-                       'tags': Channel.objects.all(),
+                       'channels': Channel.objects.all(),
                        'form': unsubmitted_form})
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -26,7 +26,7 @@ def discuss(request):
         return render(request,
                       'post_templates/post.html',
                       {'metatype': metatype,
-                       'tags': Channel.objects.all(),
+                       'channels': Channel.objects.all(),
                        'form': unsubmitted_form})
     else:
         return HttpResponseRedirect(reverse('home'))
@@ -41,8 +41,8 @@ def submit(request, metatype):
             instance.metatype = metatype
             instance.save()
             instance.ups.add(request.user)
-            if request.POST['selectedtags']:
-                selected_channels = request.POST['selectedtags']
+            if request.POST['selectedchannels']:
+                selected_channels = request.POST['selectedchannels']
                 channel_list = selected_channels.split(",")
                 channel_list = [x.lower() for x in channel_list if x != '']
                 for channel in channel_list:

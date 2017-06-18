@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^new/', include('post.urls')),
     url(r'^thread/', include('threads.urls')),
     url(r'^user/', include('user.urls')),
-    url(r'^api/', include('RestApi.urls')),
+    url(r'^api/', include('api.urls')),
     url(r'^search/', include('search.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^sitemap\.xml$', sitemap, {
