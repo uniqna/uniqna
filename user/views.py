@@ -1,7 +1,7 @@
 from itertools import chain
 from random import randint
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -12,6 +12,7 @@ import markdown2
 from home.forms import editForm, changePasswordForm, emailForm
 from post.models import Question
 from threads.models import Answer
+from user.models import student
 
 
 def user_page(request, user):
@@ -193,3 +194,19 @@ def forgot_password_process(request):
 			"user_templates/forgotpassword.html",
 			{"emailform": emf}
 		)
+
+
+def toggle_email_notification(request, user):
+	if request.method == "POST" and request.POST:
+		if not request.user.username == user:
+			return Http404()
+
+		toggle = request.POST["toggle"]
+		# Javascript true
+		toggle = toggle[0].upper() + toggle[1:]
+		this_student = get_object_or_404(student, user=request.user)
+		this_student.notification_emails = toggle
+		this_student.save()
+		return HttpResponse(toggle)
+	else:
+		return Http404()

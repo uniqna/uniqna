@@ -11,12 +11,23 @@
                     <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
                         <center>
                             <a href="{% url 'edit_profile' user_instance.username %}" class="edit_button mdl-button mdl-button--primary">Edit Profile</a>
-                            <center>
+                            </center>
                     </div>
                     <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
                         <center>
                             <a href="{% url 'change_password' user_instance.username %}" class="change_password_button mdl-button mdl-button--primary">Change Password</a>
-                            <center>
+                            </center>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col-phone mdl-cell--6-col-desktop">
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="email_notification">
+                          <input type="hidden" id="toggle_url" value="{% url 'toggle_email' user.username%}" />
+                          {% if user.student.notification_emails %}
+                          <input type="checkbox" id="email_notification" class="mdl-switch__input" name="toggle" checked />
+                          {% else %}
+                          <input type="checkbox" id="email_notification" class="mdl-switch__input" name="toggle" />
+                          {% endif %}
+                          <span class="mdl-switch__label">Email notifications</span>
+                        </label>
                     </div>
                 </div>
                 {% endif %}

@@ -5,7 +5,7 @@ import requests
 import os
 
 # Uncomment this if you wanna check out mails in action in debug mode
-# DEBUG = False
+DEBUG = False
 
 
 def send_email(opts={}):

@@ -44,6 +44,7 @@ class student(models.Model):
 	)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio = models.CharField(max_length=240, blank=True, default="")
+	notification_emails = models.BooleanField(default=True)
 	course = models.CharField(
 		max_length=6, choices=course_choices, default="B.Tech")
 	school = models.CharField(
@@ -73,7 +74,8 @@ class NotificationExtender(models.Manager):
 			notification_type="answered",
 			object_id=answer.pk
 		)
-		send_notification_email(notification)
+		if user.student.notification_emails:
+			send_notification_email(notification)
 
 	def create_reply_notification(self, user, reply):
 		notif_template = "{0} replied to your answer \"{1}\"."
@@ -83,7 +85,8 @@ class NotificationExtender(models.Manager):
 			notification_type="replied",
 			object_id=reply.pk
 		)
-		send_notification_email(notification)
+		if user.student.notification_emails:
+			send_notification_email(notification)
 
 
 class Notification(models.Model):
