@@ -21,6 +21,7 @@ from home.sitemaps import ThreadsSitemap
 
 from root import settings
 from home import views
+from user.views import forgot
 
 sitemaps = {
 	'thread': ThreadsSitemap()
@@ -37,14 +38,13 @@ urlpatterns = [
 	url(r'^notification/(\d+)/$', views.notification_redirect, name='notif'),
 	url(r'^new/', include('post.urls')),
 	url(r'^thread/', include('threads.urls')),
-	url(r'^user/', include('user.urls')),
 	url(r'^api/', include('api.urls')),
 	url(r'^search/', include('search.urls')),
-	url(r'^user/', include('user.urls')),
-	url(r'^sitemap\.xml$', sitemap, {
-		'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+	url(r'^@', include('user.urls')),
+	url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 	url(r'^robots.txt', include('robots.urls')),
-	url(r'^test-email/$', views.test_email_templates)
+	url(r'^test-email/$', views.test_email_templates),
+	url(r'^forgot/$', forgot, name="forgot"),
 ]
 
 if settings.DEBUG is True:

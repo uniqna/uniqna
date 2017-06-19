@@ -9,6 +9,3 @@ new Vue({
     }
   }
 });
-
-window.sr = ScrollReveal();
-sr.reveal('.site-content');

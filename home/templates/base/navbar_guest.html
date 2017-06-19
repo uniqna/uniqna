@@ -9,10 +9,7 @@
 
         <div class="nav-center">
           <a class="nav-item">
-            @{{ request.user.username }}
-          </a>
-          <a class="nav-item">
-          <span class="uni">u/vitcc</span>
+            {{ navtext }}
           </a>
         </div>
 
@@ -23,8 +20,8 @@
         </span>
 
         <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
-          <a class="nav-item is-tab" href="{% url 'user' request.user.username %}">Profile</a>
-          <a class="nav-item is-tab" href="{% url 'logout' %}">Log out</a>
+          <a class="nav-item is-tab" href="{% url 'register' %}">Register</a>
+          <a class="nav-item is-tab" href="{% url 'home' %}">Log in</a>
         </div>
       </div>
     </nav>

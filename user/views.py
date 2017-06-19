@@ -44,7 +44,7 @@ def user_page(request, user):
 	karma = round((post_score * 1.732) + reply_score)
 
 	return render(
-		request, 
+		request,
 		"user_templates/userpage.html",
 		{
 			"user_instance": requested_user,
@@ -152,48 +152,37 @@ def change_password(request, user):
 			})
 
 
-def forgot_password_process(request):
+def forgot(request):
+	navtext = "Forgot Password?"
 	if request.method == "POST" and request.POST:
-		emf = emailForm(request.POST)
-
-		if emf.is_valid():
-			email = emf.cleaned_data["email"]
-
-			try:
-				user = User.objects.get(email=email)
-			except User.DoesNotExist:
-				return render(request, "user_templates/forgotpassword.html", {"emailform": emf, "notexist": 1})
-
-			chars = [chr(i) for i in range(65, 123)]
-			length = randint(6, 8)
-			pwd = [chars[randint(0, len(chars) - 1)] for i in range(0, length)]
-			pwdstring = ''.join(pwd)
-			user.set_password(pwdstring)
-			user.save()
-			mail_html = render_email("forgot_password.html", {"password": pwdstring})
-			opts = {
-				"recipents": user.email,
-				"subject": "Recover your account - uniqna",
-				"body": mail_html
-			}
-			send_email(opts)
-			return render(
-				request,
-				"user_templates/forgotpassword.html",
-				{"success": 1}
-			)
-		else:
-			return render(
-				request,
-				"user_templates/forgotpassword.html",
-				{"emailform": emf}
-			)
-	else:
-		emf = emailForm()
+		email = request.POST['email']
+		try:
+			user = User.objects.get(email=email)
+		except User.DoesNotExist:
+			return render(request, "base/forgot.html", {"notexist": True})
+		chars = [chr(i) for i in range(65, 123)]
+		length = randint(6, 8)
+		pwd = [chars[randint(0, len(chars) - 1)] for i in range(0, length)]
+		pwdstring = ''.join(pwd)
+		user.set_password(pwdstring)
+		user.save()
+		mail_html = render_email("forgot_password.html", {"password": pwdstring})
+		opts = {
+			"recipents": user.email,
+			"subject": "Recover your account - uniqna",
+			"body": mail_html
+		}
+		send_email(opts)
 		return render(
 			request,
-			"user_templates/forgotpassword.html",
-			{"emailform": emf}
+			"base/forgot.html",
+			{"success": True, "navtext": navtext}
+		)
+	else:
+		return render(
+			request,
+			"base/forgot.html",
+			{"navtext": navtext}
 		)
 
 

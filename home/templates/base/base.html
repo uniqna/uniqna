@@ -18,7 +18,11 @@
   </head>
 
   <body class="site">
-      {% include 'base/navbar.html' %}
+      {% if user.is_authenticated %}
+        {% include 'base/navbar.html' %}
+      {% else %}
+        {% include 'base/navbar_guest.html' %}
+      {% endif %}
     <main class="site-content">
       {% block content %} {% endblock %}
     </main>
@@ -27,7 +31,6 @@
     <!-- Js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
     <script src="{% static 'js/home.js' %}"></script> {% block js %} {% endblock %}
   </body>
 

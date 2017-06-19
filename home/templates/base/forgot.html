@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %} {% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forgot.css' %}">
+{% endblock head %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Forgot your username or your password?
+        </h1>
+        <h2 class="subtitle">
+          Chill dude. Its a no painnnner. Just enter your email :)
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+       <div class="box">
+
+         <form action="" method="POST"> {% csrf_token %}
+           <div class="field">
+             <label class="label">Email Address</label>
+             <p class="control has-icons-left">
+               <input class="input" type="email" name="email">
+               <span class="icon is-small is-left">
+                 <i class="material-icons">email</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field submit">
+             <p class="control">
+               <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                 Login
+               </button>
+             </p>
+           </div>
+         </form>
+
+       </div>
+
+       {% if notexist %}
+       <div class="notification is-danger" v-bind:style="{display: value}">
+         <button class="delete" v-on:click="triggerDelete"></button>
+           Uh oh! That email address does not belong to anyone :(
+        </div>
+       {% endif %}
+
+       {% if success %}
+       <div class="notification is-success" v-bind:style="{display: value}">
+         <button class="delete" v-on:click="triggerDelete"></button>
+           Yayy 🙌🏼 Check your mail for your credentials :D (your password has been reset)
+        </div>
+       {% endif %}
+
+     </div>
+   </div>
+
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/submit.js' %}"></script>
+  <script src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}
