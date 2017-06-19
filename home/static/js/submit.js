@@ -1,3 +1,12 @@
+function validateForm() {
+  var isValid = true;
+  $('.input').filter('[required]').each(function() {
+    if ( $(this).val() === '' )
+        isValid = false;
+  });
+  return isValid;
+}
+
 new Vue({
   el: '.submit',
   data: {
@@ -5,7 +14,9 @@ new Vue({
   },
   methods: {
     toggleLoading: function() {
-      this.isActive = true;
+      if (validateForm()) {
+        this.isActive = true;
+      }
     }
   }
 });

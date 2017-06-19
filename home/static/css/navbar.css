@@ -1,3 +1,19 @@
 .uni {
   color: #3f51b5;
 }
+
+.post {
+  margin-top: .5rem;
+  margin-right: .5rem;
+}
+
+@media (max-width: 768px) {
+  .post {
+    margin-top: 0;
+    margin-right: 0;
+  }
+  a.nav-item.is-tab.button.is-success.post {
+    padding: 1.75rem;
+    padding-left: .75rem;
+  }
+}
