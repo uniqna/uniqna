@@ -1,4 +1,4 @@
-{% load timesince_upto %}
+{% load timesince_upto %} {% load bleach_tags %}
         <div class="box is-white">
           <article class="media">
             <div class="media-left">
@@ -25,7 +25,7 @@
                   <br>
                     <strong>{{ x.title }}</strong>
                   <br>
-                  {{ x.description|truncatechars:250 }}
+                  {{ x.description|truncatechars:250|bleach }}
                   <br>
                   {% for c in x.channels.all %}
                     <small><a class="channel" href="{% url 'channel' c.name %}">#{{c.name}}</a></small>

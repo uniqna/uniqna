@@ -37,26 +37,29 @@
         </div>
 
         <div class="tile is-ancestor">
-          <div class="tile">
-            <article class="tile is-child box">
-              <p class="title">What's buzzin</p>
-              <p class="subtitle">What is up?</p>
-              {% for x in question_list %}
-                {% include 'base/question.html' %}
-              {% endfor %}
-            </article>
-          </div>
+
 
           <div class="tile is-5">
             <article class="tile is-child box">
               <p class="title">Login</p>
               <p class="subtitle">to gain full access</p>
+
+              {% if failed %}
+              <div class="notification is-danger" v-bind:style="{display: value}">
+                <button class="delete" v-on:click="triggerDelete"></button>
+                  Either you mistyped something, you forgot your password
+                  orrr you don't have an account yet.
+                  If you still cannot log in,
+                <a href="mailto:superheroes@uniqna.com">ping us.</a>
+              </div>
+              {% endif %}
+
                 <div class="box is-white">
                   <form action="" method="post"> {% csrf_token %}
                     <div class="field">
                       <label class="label">Username</label>
                       <p class="control has-icons-left">
-                        <input class="input" type="text" name="username">
+                        <input class="input" type="text" name="username" required>
                         <span class="icon is-small is-left">
                           <i class="material-icons">account_box</i>
                         </span>
@@ -66,7 +69,7 @@
                     <div class="field">
                       <label class="label">Password</label>
                       <p class="control has-icons-left">
-                        <input class="input" type="password" name="password">
+                        <input class="input" type="password" name="password" required>
                         <span class="icon is-small is-left">
                           <i class="material-icons">lock</i>
                         </span>
@@ -101,18 +104,19 @@
                       </div>
                     </nav>
 
-                    {% if failed %}
-                    <div class="notification is-danger" v-bind:style="{display: value}">
-                      <button class="delete" v-on:click="triggerDelete"></button>
-                        Either you mistyped something, you forgot your password
-                        orrr you don't have an account yet.
-                        If you still cannot log in,
-                      <a href="mailto:superheroes@uniqna.com">ping us.</a>
-                    </div>
-                    {% endif %}
-
                 </div>
               </div>
+
+              <div class="tile">
+                <article class="tile is-child box">
+                  <p class="title">What's buzzin</p>
+                  <p class="subtitle">What is up?</p>
+                  {% for x in question_list %}
+                    {% include 'base/question.html' %}
+                  {% endfor %}
+                </article>
+              </div>
+
             </article>
           </div>
         </div>

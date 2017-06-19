@@ -3,6 +3,7 @@
       <div class="container">
         <div class="nav-left">
           <a class="nav-item" href="{% url 'home' %}">
+              {% if tab != 'home' %} <i class="material-icons">arrow_back</i> {% endif %}
               <img src="https://uniqna.com/static/favicons/apple-touch-icon.png" alt="uniqna logo">
           </a>
         </div>
@@ -23,6 +24,7 @@
         </span>
 
         <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
+          <a class="nav-item is-tab button is-success post" href="{% url 'ask' %}">+Post</a>
           <a class="nav-item is-tab" href="{% url 'user' request.user.username %}">Profile</a>
           <a class="nav-item is-tab" href="{% url 'logout' %}">Log out</a>
         </div>

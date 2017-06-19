@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %} {% load static %} {% load widget_tweaks %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock head %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Join the community! :D
+        </h1>
+        <h2 class="subtitle">
+          Our fam is lit af 🔥
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+
+      {% if regform.errors %}
+      <div class="notification is-danger" v-bind:style="{display: value}">
+        <button class="delete" v-on:click="triggerDelete"></button>
+          {{ regform.username.errors }}
+          {{ regform.confirm_password.errors }}
+       </div>
+      {% endif %}
+
+       <div class="box">
+         <form action="" method="POST"> {% csrf_token %}
+
+           <div class="field">
+             <label class="label">Username</label>
+             <p class="control has-icons-left">
+               {% render_field regform.username type="username" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">account_box</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field">
+             <label class="label">Email Address</label>
+             <p class="control has-icons-left">
+               {% render_field regform.email type="email" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">email</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field">
+             <label class="label">Password</label>
+             <p class="control has-icons-left">
+               {% render_field regform.password type="password" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">lock</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field">
+             <label class="label">Confirm Password</label>
+             <p class="control has-icons-left">
+               {% render_field regform.confirm_password type="password" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">check_circle</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field">
+             <label class="label">A kutti bio</label>
+             <p class="control has-icons-left">
+               {% render_field regform.bio type="text" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">ac_unit</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field submit">
+             <p class="control">
+               <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                 Hop on Aboard!
+               </button>
+             </p>
+           </div>
+
+         </form>
+       </div>
+
+     </div>
+   </div>
+
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/submit.js' %}"></script>
+  <script src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}

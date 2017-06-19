@@ -77,7 +77,8 @@ def home(request, tab="home"):
 
 
 def register(request):
-	if request.method == 'POST':
+	navtext = "Register!"
+	if request.method == 'POST' and request.POST:
 		reg_form = registration(request.POST)
 		if reg_form.is_valid():
 			cd = reg_form.cleaned_data
@@ -86,11 +87,7 @@ def register(request):
 				email=cd["email"],
 				password=cd["password"])
 			new_profile = student(
-				bio=cd["bio"],
-				university=cd["university"],
-				course=cd["course"],
-				school=cd["school"],
-				grad_year=cd["grad_year"])
+				bio=cd["bio"],)
 			new_profile.user = new_user
 			new_profile.save()
 			login(request, new_user)
@@ -105,10 +102,10 @@ def register(request):
 		else:
 			return render(
 				request,
-				'home_templates/register.html',
+				'base/register.html',
 				{
 					'regform': reg_form,
-					'errors': reg_form.errors
+					'navtext': navtext
 				})
 
 	elif request.user.is_authenticated:
@@ -117,8 +114,8 @@ def register(request):
 		reg_form = registration()
 		return render(
 			request,
-			'home_templates/register.html',
-			{'regform': reg_form})
+			'base/register.html',
+			{'regform': reg_form, 'navtext': navtext})
 
 
 def channel_view(request, channel_name):

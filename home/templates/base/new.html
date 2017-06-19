@@ -1,0 +1,100 @@
+{% extends 'base/base.html' %} {% load static %} {% load widget_tweaks %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          {% if metatype == 'question' %}
+            Ask a Question?
+          {% else %}
+            Start a Discussion!
+          {% endif %}
+        </h1>
+        <h2 class="subtitle">
+          Ayyy lmaoo!
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+
+      {% if regform.errors %}
+      <div class="notification is-danger" v-bind:style="{display: value}">
+        <button class="delete" v-on:click="triggerDelete"></button>
+          {{ regform.title.errors }}
+          {{ regform.confirm_password.errors }}
+       </div>
+      {% endif %}
+
+       <div class="box">
+         <form action="" method="POST"> {% csrf_token %}
+
+           <div class="field">
+             <label class="label">Title (Speak your mind)</label>
+             <p class="control has-icons-left">
+               {% render_field form.title type="text" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">title</i>
+               </span>
+             </p>
+           </div>
+
+           <div class="field">
+              <label class="label">Description</label>
+              <p class="control">
+                {% render_field form.description type="username" class+="textarea" placeholder="A title is required, but expanding further here could be of clarity." %}
+              </p>
+            </div>
+
+          <div class="field">
+            <label class="label">Channels</label>
+            <p class="control has-icons-left">
+              {% render_field form.title type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">view_carousel</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="level is-mobile">
+            <span class="tag is-purple">
+              Example
+              <button class="delete is-small"></button>
+            </span>
+          </div>
+
+           <div class="field submit">
+             <p class="control">
+               <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                 Post
+               </button>
+             </p>
+           </div>
+
+         </form>
+       </div>
+
+       <div class="notification" v-bind:style="{display: value}">
+         <button class="delete" v-on:click="triggerDelete"></button>
+           <b>Formatting Guide</b><br>
+           Yada yada
+        </div>
+
+     </div>
+   </div>
+
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/submit.js' %}"></script>
+  <script src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}

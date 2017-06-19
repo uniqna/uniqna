@@ -12,7 +12,7 @@ def ask(request):
 		unsubmitted_form = post_form()
 		return render(
 			request,
-			'post_templates/post.html',
+			'base/new.html',
 			{
 				'metatype': metatype,
 				'channels': Channel.objects.all(),
@@ -28,7 +28,7 @@ def discuss(request):
 		unsubmitted_form = post_form()
 		return render(
 			request,
-			'post_templates/post.html',
+			'base/new.html',
 			{
 				'metatype': metatype,
 				'channels': Channel.objects.all(),
