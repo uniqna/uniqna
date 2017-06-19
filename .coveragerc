@@ -1,0 +1,13 @@
+[run]
+include = 
+	api/*
+	home/*
+	post/*
+	root/*
+	search/*
+	threads/*
+	user/*
+omit =
+	/*/tests/*
+	/*/__init__.py
+	/*/migratoins/*
