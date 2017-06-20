@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import markdown2
 
 from post.models import Question
-from threads.forms import answer_form
+from threads.forms import reply_form
 from threads.models import Answer
 from user.models import Notification
 
@@ -16,26 +16,26 @@ def thread(request, thread_id, slug="", answer_id=""):
 		thread_id = int(thread_id)
 	except ValueError:
 		raise Http404()
-	question_requested = get_object_or_404(Question, pk=thread_id)
+	post_requested = get_object_or_404(Question, pk=thread_id)
 	description = markdown2.markdown(
-		question_requested.description,
+		post_requested.description,
 		extras=["tables", "cuddled-lists"]
 	)
-	unsubmitted_answer = answer_form()
+	unsubmitted_reply = reply_form()
 	Answer._tree_manager.rebuild()  # You rebuild the tree and then query.
-	all_answers = Answer.objects.filter(
-		question=question_requested).order_by('tree_id', 'lft')
-	for x in all_answers:
+	all_replies = Answer.objects.filter(
+		question=post_requested).order_by('tree_id', 'lft')
+	for x in all_replies:
 		x.description = markdown2.markdown(
 			x.description, extras=["tables", "cuddled-lists"])
 	return render(
 		request,
-		'thread_templates/thread.html',
+		'base/thread.html',
 		{
-			'question': question_requested,
+			'post': post_requested,
 			'description': description,
-			'form': unsubmitted_answer,
-			'nodes': all_answers
+			'form': unsubmitted_reply,
+			'nodes': all_replies
 		})
 
 
@@ -50,7 +50,7 @@ def reply(request, thread_id, answer_id):
 	replies = answer_req.get_descendants(True)
 	replies = replies.order_by('tree_id', 'lft')
 	description = parent_ques.description
-	return render(request, 'thread_templates/thread.html', {
+	return render(request, 'base/thread.html', {
 		'question': parent_ques,
 		'nodes': replies,
 		'description': description,
@@ -98,8 +98,6 @@ def submit_reply(request, answer_id):
 			question_instance.answers = Answer.objects.filter(
 				question=question_id).count()
 			question_instance.save()
-			question_author = get_object_or_404(
-				User, username=question_instance.author)
 			answer_author = get_object_or_404(User, username=parent.answer_author)
 			Notification.objects.create_reply_notification(answer_author, reply)
 			return HttpResponseRedirect(parent.question.get_absolute_url())

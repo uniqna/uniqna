@@ -1,0 +1,38 @@
+<nav class="level is-mobile">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Edit</p>
+      <a class="button is-warning edit">
+        <i class="material-icons">mode_edit</i>
+      </a>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Mark as Solved</p>
+      <a class="button is-success solved" v-on:mouseover="changeText('solved')" {% if post.solved %}disabled{% endif %}>
+        <i class="material-icons">done</i>
+      </a>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Delete</p>
+      <a class="button is-danger trash" v-on:mouseover="changeText('delete')">
+        <i class="material-icons">delete</i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="modal author-panel">
+  <div class="modal-background" v-bind:style="{ background: bgcolor }"></div>
+  <div class="modal-content">
+    <h1 class="title is-white">[ message ]</h1>
+    <h2 class="subtitle is-white" style="margin-bottom: 5px;">[ subtitle ]</h2>
+    <a class="button is-success" v-bind:href="url">
+      [ button ]
+    </a>
+  </div>
+  <button class="modal-close"></button>
+</div>
