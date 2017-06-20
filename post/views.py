@@ -39,7 +39,7 @@ def discuss(request):
 
 
 def submit(request, metatype):
-	if request.method == 'POST' and request.POST:
+	if request.method == 'POST' and request.POST and request.user.is_authenticated:
 		submitted_form = post_form(request.POST)
 		if submitted_form.is_valid():
 			instance = submitted_form.save(commit=False)
