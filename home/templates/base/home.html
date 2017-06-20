@@ -8,7 +8,7 @@
 
 {% block content %}
   {% include 'base/tabbed-emoji.html' %}
-      <div  id="infini"> {% paginate question_list%} {% for x in question_list %} {% include 'base/question.html' %}{% endfor %} {% get_pages %}     </div>
+      <div  id="infini"> {% paginate question_list%} {% for x in question_list %} {% include 'base/question.html' %}{% endfor %} {% get_pages %}</div>
 {% endblock content %}
 
 {% block js %}
