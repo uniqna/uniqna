@@ -10,6 +10,9 @@ install:
   - pip install coveralls
 before_script:
   - psql -c 'create database uniqna;' -U postgres
+  - psql -c "CREATE ROLE moderator WITH LOGIN PASSWORD 'password';" -U postgres
+  - psql -c 'GRANT ALL PRIVILEGES ON DATABASE uniqna TO moderator;' -U postgres
+  - psql -c 'ALTER USER moderator CREATEDB;' -U postgres
 script:
   - coverage run --rcfile=.coveragerc manage.py test
 after_success:
