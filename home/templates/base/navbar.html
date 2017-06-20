@@ -24,9 +24,21 @@
         </span>
 
         <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
-          <a class="nav-item is-tab button is-success post" href="{% url 'ask' %}">+Post</a>
+          <a class="nav-item is-tab button is-success post" v-on:click.native="activateModal">+Post</a>
           <a class="nav-item is-tab" href="{% url 'user' request.user.username %}">Profile</a>
           <a class="nav-item is-tab" href="{% url 'logout' %}">Log out</a>
         </div>
       </div>
     </nav>
+
+    <div class="modal">
+      <div class="modal-background"></div>
+        <div class="modal-content">
+
+          <h1 class="title is-white">What are you posting? 🍃</h1>
+          <a class="button is-success is-medium" href="{% url 'ask' %}">+Question</a>
+          <a class="button is-success is-medium" href="{% url 'discuss' %}">+Discussion</a>
+
+        </div>
+      <button class="modal-close"></button>
+    </div>

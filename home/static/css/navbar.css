@@ -15,5 +15,6 @@
   a.nav-item.is-tab.button.is-success.post {
     padding: 1.75rem;
     padding-left: .75rem;
+    border-radius: 0;
   }
 }

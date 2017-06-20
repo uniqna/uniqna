@@ -38,8 +38,9 @@
        <div class="box">
          <form action="" method="POST"> {% csrf_token %}
 
+           <label class="label">Title (Speak your mind)</label>
            <div class="field">
-             <label class="label">Title (Speak your mind)</label>
+
              <p class="control has-icons-left">
                {% render_field form.title type="text" class+="input" %}
                <span class="icon is-small is-left">
@@ -51,7 +52,7 @@
            <div class="field">
               <label class="label">Description</label>
               <p class="control">
-                {% render_field form.description type="username" class+="textarea" placeholder="A title is required, but expanding further here could be of clarity." %}
+                {% render_field form.description type="textarea" class+="textarea" placeholder="A title is required, but expanding further here could be of clarity." %}
               </p>
             </div>
 
