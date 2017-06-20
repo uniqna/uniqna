@@ -24,10 +24,6 @@
   color: #009688;
 }
 
-.channel {
-  color: #673AB7;
-}
-
 .vote-default {
   color: #424242;
 }
@@ -38,4 +34,9 @@
 
 .vote-danger {
   color: #f44336;
+}
+
+.bg-is-purple {
+  background-color: #673AB7;
+  color: #fafafa;
 }

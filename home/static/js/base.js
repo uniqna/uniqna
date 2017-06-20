@@ -11,13 +11,13 @@ var nav = new Vue({
 });
 
 $(".post").click(function(){
-    $(".modal").addClass("is-active");
+    $(".modal-nav").addClass("is-active");
 });
 
 $(".modal-close").click(function(){
-    $(".modal").removeClass("is-active");
+    $(".modal-nav").removeClass("is-active");
 });
 
 $(".modal-background").click(function(){
-    $(".modal").removeClass("is-active");
+    $(".modal-nav").removeClass("is-active");
 });

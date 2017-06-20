@@ -1,0 +1,30 @@
+<section class="hero">
+  <div class="hero-body narrow-padding">
+    <div class="container">
+
+      {% for c in post.channels.all %}
+        <span class="tag is-purple">{{ c }}</span>
+      {% endfor %}
+
+      <h2 class="subtitle">
+        @{{ post.author }} submitted on {{  post.created_time|date:"d M, Y" }}
+      </h2>
+      <h1 class="title">
+        {{ post.title }}
+      </h1>
+
+    </div>
+  </div>
+</section>
+
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+
+  {% if post.description %}
+    <div class="box">
+      {{ post.description }}
+    </div>
+  {% endif %}
+
+  </div>
+</div>
