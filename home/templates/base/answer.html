@@ -1,0 +1,43 @@
+{% load mptt_tags %} {% recursetree nodes %} {% load timesince_upto %}  {% load bleach_tags %}
+
+    <div class="box is-unselectable">
+      <article class="media">
+
+        <div class="media-left">
+          <span class="upvote" data-url="{% url 'answer_vote' node.pk 'u' %}" data-id="{{node.pk}}">
+            <i class="material-icons arrow-align {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{node.pk}}">keyboard_arrow_up</i>
+          </span>
+              <div class="score" id="score{{node.pk}}"> {{ node.points }} </div>
+          <span class="downvote" data-url="{% url 'answer_vote' node.pk 'd' %}" data-id="{{node.pk}}">
+            <i class="material-icons arrow-align {% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{node.pk}}">keyboard_arrow_down</i>
+          </span>
+          <i class="material-icons link pulled-little-down">link</i>
+        </div>
+
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <small>[+]</small>
+              <small class="author is-pink">@{{ node.answer_author }}</small>
+              <small>{{ node.created_time|timesince|upto:"," }} ago</small>
+              <a class="is-indigo reply" v-on:click="giveUsername('{{ node.answer_author }}')">
+                <small class="click-reply">Reply</small>
+              </a>
+              <div class="description">{{ node.description|bleach }}</div>
+            </p>
+
+          </div>
+        </div>
+
+
+      </article>
+
+      {% if not node.is_leaf_node %}
+        <div class="children" data-url="{% url 'reply' node.question.id node.id%}">
+          {{ children }}
+        </div>
+      {% endif %}
+
+    </div>
+
+{% endrecursetree %}

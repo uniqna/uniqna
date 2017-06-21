@@ -33,3 +33,21 @@
 .is-purple {
   color: #673AB7;
 }
+
+.is-pink {
+  color: #d81b60;
+}
+
+.is-indigo {
+  color: #3f51b5;
+}
+
+.bg-is-purple {
+  background-color: #673AB7;
+  color: #fafafa;
+}
+
+.bg-is-indigo {
+  background-color: #3f51b5;
+  color: #fafafa;
+}

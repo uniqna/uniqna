@@ -1,3 +1,58 @@
 .narrow-padding {
   padding: 1rem 1.5rem;
 }
+
+.link {
+  line-height: 0px;
+  vertical-align: -6px;
+}
+
+.box {
+  border-radius: 0;
+  box-shadow: none;
+  background: #fafafa;
+}
+
+.input {
+  box-shadow: none;
+  border: 2px solid;
+  border-color: #b5b5b5;
+  height: 17.25em;
+}
+
+.description {
+  margin-top: -1em;
+}
+
+.score {
+  text-align: center;
+}
+
+.arrow-align {
+  display: block;
+}
+
+.solved-tick {
+  font-size: 42px;
+  color: #009688;
+  position: absolute;
+  right: 0.25em;
+}
+
+.children .box{
+  border-left-style: solid;
+  border-width: 2px;
+  border-left-color: #dbdbdb;
+}
+
+.is-shady {
+  background-color: rgba(10,10,10,.2);
+}
+
+.is-rounded {
+  border-radius: 5px;
+}
+
+.pulled-little-down {
+  vertical-align: -8px;
+}

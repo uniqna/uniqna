@@ -25,6 +25,7 @@ def thread(request, thread_id, slug="", answer_id=""):
 	Answer._tree_manager.rebuild()  # You rebuild the tree and then query.
 	all_replies = Answer.objects.filter(
 		question=post_requested).order_by('tree_id', 'lft')
+	replies_count = all_replies.count()
 	for x in all_replies:
 		x.description = markdown2.markdown(
 			x.description, extras=["tables", "cuddled-lists"])
@@ -35,7 +36,8 @@ def thread(request, thread_id, slug="", answer_id=""):
 			'post': post_requested,
 			'description': description,
 			'form': unsubmitted_reply,
-			'nodes': all_replies
+			'nodes': all_replies,
+			'replies': replies_count
 		})
 
 
@@ -62,7 +64,7 @@ def submit_answer(request, thread_id):
 	if request.method == 'POST' and request.POST:
 		question_answered = get_object_or_404(Question, pk=thread_id)
 		question_metatype = question_answered.metatype
-		submitted_answer = answer_form(request.POST)
+		submitted_answer = reply_form(request.POST)
 		if submitted_answer.is_valid():
 			instance = submitted_answer.save(commit=False)
 			instance.question = question_answered
@@ -86,7 +88,7 @@ def submit_reply(request, answer_id):
 			pk=answer_id).select_related('question')[0]
 		question_instance = parent.question
 		question_id = question_instance.pk
-		submitted_reply = answer_form(request.POST)
+		submitted_reply = reply_form(request.POST)
 		if submitted_reply.is_valid():
 			reply = submitted_reply.save(commit=False)
 			reply.parent = parent
@@ -150,7 +152,7 @@ def edit_answer(request, thread_id, answer_id):
 	if author == request.user.username:
 		description = answer_requested.description
 		data = {'description': description}
-		prefilled_form = answer_form(data)
+		prefilled_form = reply_form(data)
 		return render(
 			request,
 			'thread_templates/edit.html',
@@ -172,7 +174,7 @@ def edit_answer_submit(request, thread_id, answer_id):
 		raise Http404()
 	if request.method == 'POST' and request.POST:
 		answer_requested = get_object_or_404(Answer, pk=answer_id)
-		edited_answer = answer_form(request.POST)
+		edited_answer = reply_form(request.POST)
 		if edited_answer.is_valid():
 			updated_answer = edited_answer.save(commit=False)
 			answer_requested.description = updated_answer.description

@@ -1,0 +1,17 @@
+<div class="columns">
+  <div class="column is-two-thirds is-offset-2">
+    <h2 class="subtitle">
+      {{ replies }} repl{{ replies|pluralize:"y,ies" }}
+    </h2>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column is-two-thirds is-offset-2">
+    <span class="reply-vue">
+
+    {% include 'base/answer.html' %}
+
+    </span>
+  </div>
+</div>
