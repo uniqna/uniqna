@@ -2,7 +2,6 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
     <link rel="stylesheet" href="{% static 'css/thread.css' %}">
     <link rel="stylesheet" href="{% static 'css/thread_author_panel.css' %}">
 {% endblock head %}
@@ -14,12 +13,24 @@
   {% endif %}
 
   {% if post.flair %}<span class="tag is-success">{{ post.flair }}</span>{% endif %}
+  {% if post.solved %}<i class="material-icons is-pulled-right solved-tick">done</i>{% endif %}
 
   {% include 'base/thread_post.html' %}
+
+  {% include 'base/contribute_modal.html' %}
+
+  {% include 'base/thread_replies.html' %}
+
+  {% include 'base/reply_modal.html' %}
+
 
 {% endblock content %}
 
 {% block js %}
     <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/thread_author_panel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/contribute.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/reply_modal.js' %}"></script>
 {% endblock js %}

@@ -22,7 +22,7 @@ class Answer(MPTTModel):
 	question = models.ForeignKey(Question)
 	parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 	metatype = models.CharField(max_length=20, default="question", blank=False)
-	description = models.TextField(blank=True)
+	description = models.TextField(blank=False, null=False)
 	answer_author = models.CharField("Author", max_length=100, default="anon")
 	created_time = models.DateTimeField(default=timezone.now)
 	edited_time = models.DateTimeField(default=timezone.now, editable=True)
