@@ -56,3 +56,11 @@
 .pulled-little-down {
   vertical-align: -8px;
 }
+
+.font-is-light {
+  font-weight: normal;
+}
+
+.icon-is-small {
+  font-size: 20px;
+}

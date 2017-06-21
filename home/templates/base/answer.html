@@ -11,7 +11,7 @@
           <span class="downvote" data-url="{% url 'answer_vote' node.pk 'd' %}" data-id="{{node.pk}}">
             <i class="material-icons arrow-align {% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{node.pk}}">keyboard_arrow_down</i>
           </span>
-          <i class="material-icons link pulled-little-down">link</i>
+          <i class="material-icons link pulled-little-down">link</i><br>
         </div>
 
         <div class="media-content">
@@ -20,11 +20,20 @@
               <small>[+]</small>
               <small class="author is-pink">@{{ node.answer_author }}</small>
               <small>{{ node.created_time|timesince|upto:"," }} ago</small>
-              <a class="is-indigo reply" v-on:click="giveUsername('{{ node.answer_author }}')">
+              <a class="is-indigo reply" v-on:click="giveUsername('{{ node.answer_author }}', '{{ node.id }}')">
                 <small class="click-reply">Reply</small>
               </a>
               <div class="description">{{ node.description|bleach }}</div>
             </p>
+
+        {% if node.answer_author == request.user.username %}
+          <a class="button is-warning is-small" v-on:click="changeTextBro('edit')">
+            <i class="material-icons icon-is-small">mode_edit</i>
+          </a>
+          <a class="button is-danger is-small" v-on:click="changeTextBro('delete')">
+            <i class="material-icons icon-is-small">delete</i>
+          </a>
+        {% endif %}
 
           </div>
         </div>
