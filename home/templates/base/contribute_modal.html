@@ -8,7 +8,7 @@
       <form action="{% url 'submit_answer' post.pk %}" method="post"> {% csrf_token %}
 
         <div class="field">
-          <label class="label is-pink">@{{ request.user.username }}</label>
+          <label class="label is-pink font-is-light">@{{ request.user.username }}</label>
           <p class="control">
             {% render_field form.description type="textarea" class+="input" placeholder="Fomatting is supported and please be nice :D" %}
           </p>

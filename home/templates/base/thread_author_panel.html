@@ -2,7 +2,7 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Edit</p>
-      <a class="button is-warning edit" v-on:mouseover="changeText('edit')">
+      <a class="button is-warning edit" v-on:click="changeText('edit')">
         <i class="material-icons">mode_edit</i>
       </a>
     </div>
@@ -10,7 +10,7 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Mark as Solved</p>
-      <a class="button is-success solved" v-on:mouseover="changeText('solved')" {% if post.solved %}disabled{% endif %}>
+      <a class="button is-success solved" v-on:click="changeText('solved')" {% if post.solved %}disabled{% endif %}>
         <i class="material-icons">done</i>
       </a>
     </div>
@@ -18,7 +18,7 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Delete</p>
-      <a class="button is-danger trash" v-on:mouseover="changeText('delete')">
+      <a class="button is-danger trash" v-on:click="changeText('delete')">
         <i class="material-icons">delete</i>
       </a>
     </div>

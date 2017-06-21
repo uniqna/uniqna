@@ -5,24 +5,26 @@
   <div class="modal-content is-rounded">
     <div class="box">
 
-      <form action="" method="post"> {% csrf_token %}
+      <div class="replying">
+        <form v-bind:action="url" method="post"> {% csrf_token %}
 
-        <div class="field">
-          <label class="label is-pink">@{{ request.user.username }} -> @<span class="replying-to">[ username ]</span></label>
-          <p class="control">
-            {% render_field form.description type="textarea" class+="input" placeholder="Fomatting is supported and please be nice :D" %}
-          </p>
-        </div>
+          <div class="field">
+            <label class="label is-pink font-is-light">@{{ request.user.username }} -> @<span class="replying-to">[ username ]</span></label>
+            <p class="control">
+              {% render_field form.description type="textarea" class+="input" placeholder="Fomatting is supported and please be nice :D" %}
+            </p>
+          </div>
 
-        <div class="field submit is-pulled-right">
-          <p class="control">
-            <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
-              Make yer mark!
-            </button>
-          </p>
-        </div>
+          <div class="field submit is-pulled-right">
+            <p class="control">
+              <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                Make yer mark!
+              </button>
+            </p>
+          </div>
 
-      </form>
+        </form>
+      </div>
       <br><br>
 
       <div class="notification is-light" v-bind:style="{display: value}">
