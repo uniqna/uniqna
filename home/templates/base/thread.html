@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %} {% load timesince_upto %} {% load el_pagination_tags %} {% load static %}
+{% extends 'base/base.html' %} {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -35,5 +35,4 @@
     <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/contribute.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/reply_modal.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/reply_author_panel.js' %}"></script>
 {% endblock js %}

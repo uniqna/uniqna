@@ -21,21 +21,21 @@ def user_page(request, user):
 		return render(request, "user_templates/userpage.html")
 
 	requested_user = get_object_or_404(User, username=user)
-	user_questions = Question.objects.filter(author=user)
-	user_answers = Answer.objects.filter(answer_author=user)
+	user_posts = Question.objects.filter(author=user)
+	user_replies = Answer.objects.filter(answer_author=user)
 
-	for x in user_answers:
+	for x in user_replies:
 		x.description = markdown2.markdown(
 			x.description,
 			extras=["tables", "cuddled-lists"])
 
-	for x in user_questions:
+	for x in user_posts:
 		x.description = markdown2.markdown(
 			x.description,
 			extras=["tables", "cuddled-lists"])
 
 	all_list = sorted(
-		list(chain(user_questions, user_answers)),
+		list(chain(user_posts, user_replies)),
 		key=lambda instance: instance.created_time)
 	post_score = sum([x.points for x in Question.objects.filter(
 		author=requested_user.username) if x.points > 1])
@@ -45,12 +45,12 @@ def user_page(request, user):
 
 	return render(
 		request,
-		"user_templates/userpage.html",
+		"base/profile.html",
 		{
-			"user_instance": requested_user,
-			"questions": user_questions,
-			"answers": user_answers,
-			"allqa": all_list[::-1],
+			"user": requested_user,
+			"posts": user_posts,
+			"replies": user_replies,
+			"all": all_list[::-1],
 			"karma": karma,
 		})
 

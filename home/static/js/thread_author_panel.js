@@ -1,68 +1,82 @@
-var overlay = new Vue({
+var modal = new Vue({
   delimiters: ["[", "]"],
-  el: '.author-panel',
+  el: '.author-panel-modal',
   data: {
     bgcolor: '',
     content: '',
+    subtitle: '',
+    button: '',
+    url: '',
+    toggleEdit: '',
   }
 });
 
-var jargon = new Vue({
+new Vue({
   el: '.level',
+  data: {
+    url: ''
+  },
   methods: {
-    changeText: function(dingdong) {
+    changeText: function(dingdong, thread_id) {
       if (dingdong == 'solved') {
-        overlay.bgcolor = 'rgba(30, 215, 96, 0.9)';
-        overlay.content= `<h1 class="title is-white">Yayy mark it as solved!</h1>
-                            <h2 class="subtitle is-white" style="margin-bottom: 5px;">
-                              Marking your question as solved is not mandatory;
-                              do not feel compelled to accept the
-                              first answer you receive.
-                              Wait until you receive an answer
-                              that answers your question well.
-                            </h2>
-                            <a class="button is-success" href="{% url 'mark_answer_solved' post.pk %}">
-                              It\'s solved :D!
-                            </a>`;
+        modal.bgcolor = 'rgba(30, 215, 96, 0.9)';
+        var solved_url = window.location.origin + '/thread/' + thread_id + '/solved/';
+        modal.url = solved_url;
+        modal.button = 'It\'s solved :D!';
+        modal.content = 'Yayy mark it as solved!';
+        modal.subtitle = `  Marking your question as solved is not mandatory;
+                            do not feel compelled to accept the
+                            first answer you receive.
+                            Wait until you receive an answer
+                            that answers your question well.`;
+        modal.toggleEdit = flase;
+
       } else if (dingdong == 'delete') {
-        overlay.bgcolor = 'rgba(198, 40, 40, 0.9)';
-        overlay.content = `<h1 class="title is-white">Are you sure?</h1>
-                          <h2 class="subtitle is-white" style="margin-bottom: 5px;">
-                            This cannot be undone btw...
-                          </h2>
-                          <a class="button is-success" href="{% url 'delete_post' post.pk %}">
-                            Yeup!
-                          </a>`;
+        modal.bgcolor = 'rgba(198, 40, 40, 0.9)';
+        var delete_url = window.location.origin + '/thread/' + thread_id + '/delete/';
+        modal.url = delete_url;
+        modal.button = 'Yeup!';
+        modal.content = 'Are you sure?';
+        modal.subtitle = 'This cannot be undone btw...';
+        modal.toggleEdit = false;
       }
         else if (dingdong == 'edit') {
-        overlay.bgcolor = 'rgba(50, 115, 220, 0.9)';
-        overlay.content = `
-                          <div class="box">
-                            WIP
-                          </div>`;
+        modal.bgcolor = 'rgba(50, 115, 220, 0.9)';
+        modal.content = 'Your post will be marked as edited*';
+        modal.subtitle = `    Sorry, post titles cannot be edited.
+                              However, you can simply delete it and
+                              resubmit the post. The sooner you do
+                              this, the less likely you will lose
+                              any votes or comments`;
+        modal.button = 'Done';
+        modal.toggleEdit = true;
       }
     }
   }
 });
 
 $(".trash").click(function() {
-  $(".author-panel").addClass("is-active");
+  $(".author-panel-modal").addClass("is-active");
 });
 
 $(".edit").click(function() {
-  $(".author-panel").addClass("is-active");
+  $(".author-panel-modal").addClass("is-active");
 });
 
 $(".solved").click(function(){
   if(!$('.solved').is('[disabled=disabled]')) {
-    $(".author-panel").addClass("is-active");
+    $(".author-panel-modal").addClass("is-active");
   }
 });
 
 $(".modal-close").click(function() {
-  $(".author-panel").removeClass("is-active");
+  $(".author-panel-modal").removeClass("is-active");
 });
 
 $(".modal-background").click(function() {
-  $(".author-panel").removeClass("is-active");
+  $(".author-panel-modal").removeClass("is-active");
 });
+
+$('field').on( 'change keyup keydown paste cut', 'textarea', function (){
+    $(this).height(0).height(this.scrollHeight);
+}).find( 'textarea' ).change();

@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %} {% load static %} {% load widget_tweaks %} {% load timesince_upto %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_reply.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Typo? Grammar Nazis? OCD?
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+
+      {% if regform.errors %}
+      <div class="notification is-danger" v-bind:style="{display: value}">
+        <button class="delete" v-on:click="triggerDelete"></button>
+          {{ regform.title.errors }}
+          {{ regform.confirm_password.errors }}
+       </div>
+      {% endif %}
+
+       <div class="box">
+         <form action="{% url 'edit_answer_submit' thread_id reply.pk %}" method="POST"> {% csrf_token %}
+
+           <div class="field">
+              <label class="label is-pink font-is-light">
+                @{{ request.user.username }}
+                <span class="is-black">{{ reply.created_time }}*</span>
+              </label>
+              <p class="control">
+                {% render_field form.description type="textarea" class+="textarea" placeholder="A title is required, but expanding further here could be of clarity." %}
+              </p>
+            </div>
+
+           <div class="field submit">
+             <p class="control">
+               <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                 Done editing
+               </button>
+             </p>
+           </div>
+
+         </form>
+       </div>
+
+       <div class="notification" v-bind:style="{display: value}">
+         <button class="delete" v-on:click="triggerDelete"></button>
+           <b>Formatting Guide</b><br>
+           Yada yada
+        </div>
+
+     </div>
+   </div>
+
+{% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/submit.js' %}"></script>
+  <script src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}

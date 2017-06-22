@@ -1,7 +1,13 @@
 <div class="modal reply-author-panel">
   <div class="modal-background" v-bind:style="{ background: bgcolor }"></div>
   <div class="modal-content">
-    <div v-html="content"></div>
+    <h1 class="title is-white">Are you sure?</h1>
+    <h2 class="subtitle is-white" style="margin-bottom: 5px;">
+      This cannot be undone btw...
+    </h2>
+    <a class="button is-success" v-bind:href="url">
+      Yeup!
+    </a>
   </div>
   <button class="modal-close"></button>
 </div>
