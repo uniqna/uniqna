@@ -64,3 +64,11 @@
 .icon-is-small {
   font-size: 20px;
 }
+
+.textarea {
+  box-shadow: none;
+  border: 2px solid;
+  border-color: #b5b5b5;
+  height: auto;
+  max-height: 100%;
+}

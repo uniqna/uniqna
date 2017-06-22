@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %} {% load timesince_upto %} {% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+{% include 'base/user_statistics.html' %}
+
+{% include 'base/user_card.html' %}
+
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
+{% endblock js %}

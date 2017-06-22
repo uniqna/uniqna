@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 import markdown2
 
 from post.models import Question
+from post.forms import post_form
 from threads.forms import reply_form
 from threads.models import Answer
 from user.models import Notification
@@ -26,6 +27,8 @@ def thread(request, thread_id, slug="", answer_id=""):
 	all_replies = Answer.objects.filter(
 		question=post_requested).order_by('tree_id', 'lft')
 	replies_count = all_replies.count()
+	data = {'description': post_requested.description}
+	edit_form = post_form(data)
 	for x in all_replies:
 		x.description = markdown2.markdown(
 			x.description, extras=["tables", "cuddled-lists"])
@@ -37,7 +40,8 @@ def thread(request, thread_id, slug="", answer_id=""):
 			'description': description,
 			'form': unsubmitted_reply,
 			'nodes': all_replies,
-			'replies': replies_count
+			'replies': replies_count,
+			'edit_form': edit_form
 		})
 
 
@@ -147,20 +151,20 @@ def edit_answer(request, thread_id, answer_id):
 		answer_id = int(answer_id)
 	except ValueError:
 		raise Http404()
-	answer_requested = get_object_or_404(Answer, pk=answer_id)
-	author = answer_requested.answer_author
+	reply_requested = get_object_or_404(Answer, pk=answer_id)
+	author = reply_requested.answer_author
 	if author == request.user.username:
-		description = answer_requested.description
+		description = reply_requested.description
 		data = {'description': description}
 		prefilled_form = reply_form(data)
 		return render(
 			request,
-			'thread_templates/edit.html',
+			'base/edit_reply.html',
 			{
 				'username': request.user.username,
 				'form': prefilled_form,
 				'thread_id': thread_id,
-				'answer_id': answer_id
+				'reply': reply_requested
 			})
 	else:
 		return HttpResponseRedirect(reverse('home'))

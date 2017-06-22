@@ -1,0 +1,27 @@
+{% load timesince_upto %}
+<nav class="level is-mobile">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Posts</p>
+      <p class="title">{{ posts.count }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Karma</p>
+      <p class="title">{{ karma }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Replies</p>
+      <p class="title">{{ replies.count }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Existence</p>
+      <p class="title">{{ user.date_joined|timesince|upto:"," }}</p>
+    </div>
+  </div>
+</nav>

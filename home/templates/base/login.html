@@ -11,8 +11,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <!-- Favicons -->
     {% include 'base/favicons.html' %}
     <!-- Open Graph -->
@@ -54,7 +54,7 @@
               </div>
               {% endif %}
 
-                <div class="box is-white">
+                <div class="box login-bg-is-white">
                   <form action="" method="post"> {% csrf_token %}
                     <div class="field">
                       <label class="label">Username</label>

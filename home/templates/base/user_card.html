@@ -1,0 +1,15 @@
+<section class="hero is-unselectable">
+  <div class="hero-body narrow-padding">
+    <div class="container">
+      <h1 class="title">
+        @{{ user }}
+        {% if user.is_superuser %}
+          🍃
+        {% endif %}
+      </h1>
+      <h2 class="subtitle">
+        {{ user.student.bio }}
+      </h2>
+    </div>
+  </div>
+</section>
