@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %} {% load timesince_upto %} {% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+  <section class="hero">
+    <div class="hero-body narrow-padding">
+      <div class="container">
+        <h1 class="title">
+          Notifications 📮
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  {% with notifs=request.user.notification_set %}
+    {% if notifs.all %}
+
+    <div class="columns is-unselectable">
+      <div class="column is-half is-offset-one-quarter">
+        {% for notif in notifs.sort_read %}
+        <a href="{% url 'notif' notif.id %}" class="is-black">
+          <div class="notification {% if not notif.read %}is-primary{% endif %} add-margin-bottom">
+            {{ notif.content|safe }}
+            <small>{{ notif.notification_time|timesince }} ago.</small>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% endif %}
+  {% endwith %}
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}

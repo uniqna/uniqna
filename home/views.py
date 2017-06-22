@@ -137,7 +137,7 @@ def notifications_view(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('home'))
 	else:
-		return render(request, "notifications.html")
+		return render(request, "base/notifications.html")
 
 
 def notification_redirect(request, pk):

@@ -1,54 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base/base.html' %} {% load static %}
 
-{% block title %}
-	404 - Page Not Found
-{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock head %}
 
-<!-- created by http://codepen.io/nickspiel/ -->
+{% block content %}
 
-{% block body %}
-<style type="text/css">
+<div class="hero-body is-unselectable">
+    <div class="container has-text-centered">
+      <h1 class="title is-1">
+        400
+      </h1>
+      <h2 class="subtitle is-3">
+        Page not found 🤷🏻‍
+      </h2>
+    </div>
+  </div>
 
-	.message {
-	    font-size: 40px;
-	    background: none;
-	    font-family: 'Montserrat', sans-serif;
-	    color: #535353;
-	    width: 100%;
-	    left: calc(50% - 35px);
-	    top: 65%;
-		}
-
-	.followup {
-	    font-size: 20px;
-	    background: none;
-	    font-family: 'Montserrat', sans-serif;
-	    color: #535353;
-	    width: 100%;
-	    left: calc(50% - 75px);
-	    top: 70%;
-		}
-
-	.redirect {
-	    font-size: 20px;
-	    background: none;
-	    font-family: 'Montserrat', sans-serif;
-	    color: #535353;
-	    width: 100%;
-			left: calc(50% - 15px);
-			top: 75%;
-		}
-
-	.redirect a{
-		color: #535353;
-	}
-
-		body {
-			overflow: hidden;
-		}
-
-</style>
-<div class="message">404</div>
-<div class="followup">Page not found</div>
-<div class="redirect"><a href="{% url 'home' %}"><button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">home</i></button></a></div>
-{% endblock body %}
+{% endblock content %}
