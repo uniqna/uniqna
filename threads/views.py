@@ -11,7 +11,7 @@ from threads.models import Answer
 from user.models import Notification
 
 
-def thread(request, thread_id, slug):
+def thread(request, thread_id, slug="", answer_id=""):
 	try:
 		thread_id = int(thread_id)
 	except ValueError:

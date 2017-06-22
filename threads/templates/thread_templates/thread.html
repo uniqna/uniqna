@@ -44,7 +44,7 @@
 </center>
 
 {% if question.author == request.user.username %}
-<center><a class="question_delete" href="{% url 'delete_question' question.pk %}">Delete?</a></center>
+<center><a class="question_delete" href="{% url 'delete_post' question.pk %}">Delete?</a></center>
 {% if question.metatype == "question" and question.solved == False %}
 <center><a class="question_solved" href="{% url 'mark_answer_solved' question.pk %}">Mark as Solved?</a></center>
 {% endif %} {% endif %}

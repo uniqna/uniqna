@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.utils.encoding import uri_to_iri
 from django.contrib.auth.models import User
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -35,12 +37,14 @@ class Answer(MPTTModel):
 		return str(self.description)
 
 	def get_absolute_url(self):
-		url = self.question.get_absolute_url()
 		if self.parent:
-			url += "/reply/{}"
+			url = reverse("reply", args=[self.id])
 		else:
-			url += "/#a{}"
-		return url.format(self.id)
+			url = reverse("answer", args=[self.question.id, self.id])
+			# reverse() encodes the url characters such as # to %23
+			# uri_to_iri changes it back again
+			url = uri_to_iri(url)
+		return url
 
 	def get_time(self):
 		t = timezone.localtime(self.created_time)
