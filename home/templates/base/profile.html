@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="{% static 'css/user.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
     <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
+    <style>
+    .route {
+        display: none;
+    }
+    </style>
 {% endblock head %}
 
 {% block content %}
@@ -12,11 +17,20 @@
 {% include 'base/user_statistics.html' %}
 
 {% include 'base/user_card.html' %}
-<div class="tabs">
+<div class="tabs is-fullwidth">
   <ul>
-    <li class="is-active"><a>Posts</a></li>
-    <li><a>Replies</a></li>
+    <li class="is-active" data-to="posts"><a class="route-link">Posts</a></li>
+    <li data-to="replies"><a class="route-link">Replies</a></li>
   </ul>
+</div>
+<div class="loading">
+Loading...
+</div>
+<div class="route" id="posts">
+    POSTS
+</div>
+<div class="route" id="replies">
+    REPLIES
 </div>
 {% endblock content %}
 
