@@ -1,14 +1,14 @@
-{% load mptt_tags %} {% recursetree nodes %} {% load timesince_upto %}  {% load bleach_tags %}
+{% load mptt_tags %} {% load timesince_upto %}  {% load bleach_tags %}
 
     <div class="box is-unselectable">
       <article class="media">
 
         <div class="media-left">
-          <span class="upvote" data-url="{% url 'answer_vote' node.pk 'u' %}" data-id="{{node.pk}}">
+          <span class="upvote" data-url="" data-id="{{node.pk}}">
             <i class="material-icons arrow-align {% if request.user in node.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{node.pk}}">keyboard_arrow_up</i>
           </span>
               <div class="score" id="score{{node.pk}}"> {{ node.points }} </div>
-          <span class="downvote" data-url="{% url 'answer_vote' node.pk 'd' %}" data-id="{{node.pk}}">
+          <span class="downvote" data-url="" data-id="{{node.pk}}">
             <i class="material-icons arrow-align {% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{node.pk}}">keyboard_arrow_down</i>
           </span>
           <i class="material-icons link pulled-little-down">link</i><br>
@@ -28,7 +28,7 @@
 
         <div class="reply-author-vue">
         {% if node.answer_author == request.user.username %}
-          <a class="button is-warning is-small reply-edit" href="{% url 'edit_answer' post.pk node.pk %}">
+          <a class="button is-warning is-small reply-edit" href="{% url 'edit_answer' node.question.pk node.pk %}">
             <i class="material-icons icon-is-small">mode_edit</i>
           </a>
           <a class="button is-danger is-small reply-delete" v-on:click="getDeleteUrl('{{ node.question.pk }}', {{ node.pk }})">
@@ -50,5 +50,3 @@
       {% endif %}
 
     </div>
-
-{% endrecursetree %}

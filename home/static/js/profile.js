@@ -1,6 +1,6 @@
 (function(){
 
-var routes = ["posts", "replies"]
+var routes = ["posts", "replies"];
 
 function pathHandler() {
 	var paths = location.pathname.split("/");
@@ -29,12 +29,12 @@ function routeHandler(to) {
     	return;
 
     var href = location.pathname.split("/");
-    var n = 1
+    var n = 1;
 	if (href.length == 4){
 		href.pop();
 	}
 	if (to === "posts")
-        to = ""
+        to = "";
 	href[href.length - n] = to
 	var go_to = href.join("/");
 	console.log(go_to);
@@ -43,7 +43,7 @@ function routeHandler(to) {
 }
 
 function linkHandler() {
-	// all the tabs 
+	// all the tabs
 	var links = $(".route-link");
     if (!links.length)
         return;
@@ -86,3 +86,8 @@ function init() {
 
 init();
 })();
+
+$('.content p').contents().unwrap().siblings('p').remove();
+$('.reply-author-vue').addClass('is-pulled-down');
+$('.content p').contents().unwrap().siblings('p').remove();
+$('.reply').hide();

@@ -24,13 +24,18 @@
                   {% endif %}
                   <br>
                     <strong><a class="is-black" href="{% url 'thread' x.pk x.title|slugify %}">{{ x.title }}</a></strong>
-                  <br>
-                  {% if x.description %}{{ x.description|truncatechars:250|bleach }}<br>{% endif %}
+                  <span class="next-line">
+                  {% if x.description %}
+                    {{ x.description|truncatechars:250|bleach }}
+                  {% endif %}
+                  </span>
+                  <span class="next-line">
                   {% if x.channels.all %}
                     {% for c in x.channels.all %}
                       <small><a class="channel is-purple" href="{% url 'channel' c.name %}">#{{c.name}}</a></small>
                     {% endfor %}
                   {% endif %}
+                  </span>
                 </p>
               </div>
             </div>

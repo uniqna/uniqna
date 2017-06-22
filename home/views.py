@@ -127,7 +127,7 @@ def channel_view(request, channel_name):
 		channel_instance = get_object_or_404(Channel, name=channel_name)
 		return render(
 			request,
-			"home_templates/channel.html",
+			"base/channel.html",
 			{'channel': channel_instance})
 	else:
 		return HttpResponseRedirect(reverse('home'))

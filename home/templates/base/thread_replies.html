@@ -1,3 +1,4 @@
+{% load mptt_tags %}
 <div class="columns">
   <div class="column is-two-thirds is-offset-2">
     <h2 class="subtitle">
@@ -10,7 +11,9 @@
   <div class="column is-two-thirds is-offset-2">
     <span class="reply-vue">
 
+    {% recursetree nodes %}
     {% include 'base/answer.html' %}
+    {% endrecursetree %}
 
     </span>
   </div>

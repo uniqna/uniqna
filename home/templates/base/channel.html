@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %} {% load timesince_upto %} {% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/channel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+  <section class="hero">
+    <div class="hero-body narrow-padding">
+      <div class="container">
+        <h1 class="title">
+          <span class="tag bg-is-indigo is-large">
+            World
+          </span>
+        </h1>
+        <h2 class="subtitle">
+          {{channel.question_set.count}} conversation{{ channel.question_set.count|pluralize }} so far
+        </h2>
+      </div>
+    </div>
+  </section>
+
+{% for x in channel.question_set.all %}
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+    {% include 'base/question.html' %}
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
+{% endblock js %}

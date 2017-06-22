@@ -34,8 +34,6 @@ var replyAuthorModal = new Vue({
   }
 });
 
-// Modal is-active Handling
-
 $(".modal-close").click(function() {
   $(".reply-modal").removeClass("is-active");
 });
