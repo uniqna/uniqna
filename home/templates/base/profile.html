@@ -2,14 +2,9 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-    <style>
-    .route {
-        display: none;
-    }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/answer.css' %}">
 {% endblock head %}
 
 {% block content %}
@@ -17,21 +12,54 @@
 {% include 'base/user_statistics.html' %}
 
 {% include 'base/user_card.html' %}
-<div class="tabs is-fullwidth">
-  <ul>
-    <li class="is-active" data-to="posts"><a class="route-link">Posts</a></li>
-    <li data-to="replies"><a class="route-link">Replies</a></li>
-  </ul>
-</div>
-<div class="loading">
-Loading...
-</div>
-<div class="route" id="posts">
-    POSTS
-</div>
-<div class="route" id="replies">
-    REPLIES
-</div>
+
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <div class="tabs is-fullwidth">
+        <ul>
+          <li class="is-active" data-to="posts"><a class="route-link">Posts</a></li>
+          <li data-to="replies"><a class="route-link">Replies</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="loading">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        Fetching data from Voyager...
+      </div>
+    </div>
+  </div>
+
+
+  <div class="route" id="posts">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        {% for x in posts %}
+          {% include 'base/question.html' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <div class="route" id="replies">
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <span class="reply-vue">
+        {% for node in replies %}
+          {% include 'base/answer.html' %}
+        {% endfor %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  {% include 'base/reply_modal.html' %}
+  {% include 'base/reply_author_modal.html' %}
+
 {% endblock content %}
 
 {% block js %}
@@ -39,4 +67,5 @@ Loading...
     <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/reply_modal.js' %}"></script>
 {% endblock js %}

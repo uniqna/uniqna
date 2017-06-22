@@ -40,3 +40,7 @@
   background-color: #673AB7;
   color: #fafafa;
 }
+
+.next-line {
+  display: block;
+}

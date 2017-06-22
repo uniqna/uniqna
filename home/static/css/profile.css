@@ -1,0 +1,11 @@
+.narrow-padding {
+    padding: 1rem 1.5rem;
+}
+
+.route {
+    display: none;
+}
+
+.is-pulled-down {
+  padding-top: 1em;
+}

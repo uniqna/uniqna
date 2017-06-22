@@ -10,6 +10,10 @@
       <h2 class="subtitle">
         {{ user.student.bio }}
       </h2>
+
+      {% if user.username == request.user.username %}
+        <a class="button is-warning" href="{% url 'edit_profile' request.user %}"><i class="material-icons">settings</i>&nbspManage</a> 
+      {% endif %}
     </div>
   </div>
 </section>

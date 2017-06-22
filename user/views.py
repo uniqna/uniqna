@@ -59,7 +59,6 @@ def edit_profile(request, user):
 	if request.method == "POST" and request.POST:
 		requested_user = get_object_or_404(User, username=user)
 		profile_form = editForm(request.POST)
-
 		if profile_form.is_valid():
 			requested_user.email = profile_form.cleaned_data["email"]
 			requested_user.save()
@@ -71,12 +70,13 @@ def edit_profile(request, user):
 			requested_user.student.save()
 			return HttpResponseRedirect("/user/" + requested_user.username)
 		else:
-			print("not valid")
+			return render(
+				request,
+				"base/user_manage.html",
+				{"regform": profile_form, "error": True}
+			)
 
 	else:
-		if user == "anon":
-			return render(request, "user_templates/userpage.html")
-
 		requested_user = get_object_or_404(User, username=user)
 		data = {
 			"email": requested_user.email,
@@ -89,8 +89,8 @@ def edit_profile(request, user):
 		profile_form = editForm(data)
 		return render(
 			request,
-			"user_templates/edit.html",
-			{"regform": profile_form}
+			"base/user_manage.html",
+			{"regForm": profile_form}
 		)
 
 
