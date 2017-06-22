@@ -1,11 +1,18 @@
 var nav = new Vue({
   el: '.nav',
   data: {
-    isActive: false
+    isActive: false,
+    notification: `<i class="material-icons">notifications</i>`
   },
   methods: {
     toggleNav: function() {
       this.isActive = !this.isActive;
+      if(this.isActive) {
+        this.notification = 'Notifications';
+      }
+      else {
+        this.notification = `<i class="material-icons">notifications</i>`;
+      }
     }
   }
 });

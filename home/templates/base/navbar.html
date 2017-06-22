@@ -9,6 +9,9 @@
         </div>
 
         <div class="nav-center">
+          <a class="nav-item" href="{% url 'notifications' %}" >
+            <i class="material-icons">notifications</i>
+          </a>
           <a class="nav-item">
             @{{ request.user.username }}
           </a>

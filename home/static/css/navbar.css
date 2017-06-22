@@ -7,6 +7,10 @@
   margin-right: .5rem;
 }
 
+a.nav-item.is-tab.button.is-success.post:hover {
+  border-bottom-color: transparent;
+}
+
 @media (max-width: 768px) {
   .post {
     margin-top: 0;
