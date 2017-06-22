@@ -3,6 +3,7 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
     <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
 {% endblock head %}
 
@@ -11,11 +12,17 @@
 {% include 'base/user_statistics.html' %}
 
 {% include 'base/user_card.html' %}
-
+<div class="tabs">
+  <ul>
+    <li class="is-active"><a>Posts</a></li>
+    <li><a>Replies</a></li>
+  </ul>
+</div>
 {% endblock content %}
 
 {% block js %}
     <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
 {% endblock js %}
