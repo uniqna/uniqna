@@ -28,13 +28,12 @@ class TestPostViews(TestCase):
 		self.client.login(username="username", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "post_templates/post.html")
+		self.assertTemplateUsed(resp, "base/new.html")
 		# Context Variables
 		channels = str(Channel.objects.all())
 		self.assertEqual(resp.context["metatype"], "question")
 		self.assertEqual(str(resp.context["channels"]), channels)
 		self.assertIsInstance(resp.context["form"], post_form)
-		self.assertEqual(str(resp.context["form"]), str(post_form()))
 
 	def test_discuss(self):
 		url = reverse('discuss')
@@ -49,13 +48,12 @@ class TestPostViews(TestCase):
 		self.client.login(username="username", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "post_templates/post.html")
+		self.assertTemplateUsed(resp, "base/new.html")
 		# Context Variables
 		channels = str(Channel.objects.all())
 		self.assertEqual(resp.context["metatype"], "discussion")
 		self.assertEqual(str(resp.context["channels"]), channels)
 		self.assertIsInstance(resp.context["form"], post_form)
-		self.assertEqual(str(resp.context["form"]), str(post_form()))
 
 	def test_submit_get(self):
 		url = reverse('submit', kwargs={"metatype": "question"})
