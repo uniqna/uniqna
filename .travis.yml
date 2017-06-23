@@ -17,3 +17,5 @@ script:
   - coverage run --rcfile=.coveragerc manage.py test
 after_success:
   coveralls
+notifications:
+  slack: uniqna:pgBbsNzTmzw9koeX2jXX0vo6
