@@ -38,7 +38,7 @@ class Answer(MPTTModel):
 
 	def get_absolute_url(self):
 		if self.parent:
-			url = reverse("reply", args=[self.id])
+			url = reverse("reply", args=[self.question.id, self.id])
 		else:
 			url = reverse("answer", args=[self.question.id, self.id])
 			# reverse() encodes the url characters such as # to %23
