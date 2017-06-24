@@ -13,21 +13,21 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block head %} {% endblock %}
     <!-- Favicons -->
-    {% include 'base/favicons.html' %}
+    {% include 'favicons.html' %}
     <!-- Open Graph -->
   </head>
 
   <body class="site">
       {% if user.is_authenticated %}
-        {% include 'base/navbar.html' %}
+        {% include 'navbar.html' %}
       {% else %}
-        {% include 'base/navbar_guest.html' %}
+        {% include 'navbar_guest.html' %}
       {% endif %}
     <main class="site-content">
       {% block content %} {% endblock %}
     </main>
       <div class="level"></div>
-      {% include 'base/footer.html' %}
+      {% include 'footer.html' %}
 
     <!-- Js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -41,7 +41,7 @@ def home(request, tab="home"):
 				(no_of_solved / 1) * 100)
 			return render(
 				request,
-				'base/home.html',
+				'home.html',
 				{
 					'tab': tab,
 					'question_list': question_list,
@@ -53,7 +53,7 @@ def home(request, tab="home"):
 			question_list = Question.objects.all().order_by("-hot")[:3]
 			return render(
 				request,
-				'base/login.html',
+				'login.html',
 				{'tab': tab,
 					'question_list': question_list, })
 
@@ -70,7 +70,7 @@ def home(request, tab="home"):
 			return HttpResponseRedirect(reverse('home'))
 		else:
 			question_list = Question.objects.all().order_by("-hot")[:3]
-			return render(request, "base/login.html", {
+			return render(request, "login.html", {
 				"failed": True,
 				"question_list": question_list,
 			})
@@ -102,7 +102,7 @@ def register(request):
 		else:
 			return render(
 				request,
-				'base/register.html',
+				'register.html',
 				{
 					'regform': reg_form,
 					'navtext': navtext
@@ -114,7 +114,7 @@ def register(request):
 		reg_form = registration()
 		return render(
 			request,
-			'base/register.html',
+			'register.html',
 			{'regform': reg_form, 'navtext': navtext})
 
 
@@ -127,7 +127,7 @@ def channel_view(request, channel_name):
 		channel_instance = get_object_or_404(Channel, name=channel_name)
 		return render(
 			request,
-			"base/channel.html",
+			"channel.html",
 			{'channel': channel_instance})
 	else:
 		return HttpResponseRedirect(reverse('home'))
@@ -137,7 +137,7 @@ def notifications_view(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('home'))
 	else:
-		return render(request, "base/notifications.html")
+		return render(request, "notifications.html")
 
 
 def notification_redirect(request, pk):

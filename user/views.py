@@ -45,7 +45,7 @@ def user_page(request, user):
 
 	return render(
 		request,
-		"base/profile.html",
+		"profile.html",
 		{
 			"user": requested_user,
 			"posts": user_posts,
@@ -72,7 +72,7 @@ def edit_profile(request, user):
 		else:
 			return render(
 				request,
-				"base/user_manage.html",
+				"user_manage.html",
 				{"regform": profile_form, "error": True}
 			)
 
@@ -89,7 +89,7 @@ def edit_profile(request, user):
 		profile_form = editForm(data)
 		return render(
 			request,
-			"base/user_manage.html",
+			"user_manage.html",
 			{"regForm": profile_form}
 		)
 
@@ -159,7 +159,7 @@ def forgot(request):
 		try:
 			user = User.objects.get(email=email)
 		except User.DoesNotExist:
-			return render(request, "base/forgot.html", {"notexist": True})
+			return render(request, "forgot.html", {"notexist": True})
 		chars = [chr(i) for i in range(65, 123)]
 		length = randint(6, 8)
 		pwd = [chars[randint(0, len(chars) - 1)] for i in range(0, length)]
@@ -175,13 +175,13 @@ def forgot(request):
 		send_email(opts)
 		return render(
 			request,
-			"base/forgot.html",
+			"forgot.html",
 			{"success": True, "navtext": navtext}
 		)
 	else:
 		return render(
 			request,
-			"base/forgot.html",
+			"forgot.html",
 			{"navtext": navtext}
 		)
 

@@ -34,7 +34,7 @@ def thread(request, thread_id, slug="", answer_id=""):
 			x.description, extras=["tables", "cuddled-lists"])
 	return render(
 		request,
-		'base/thread.html',
+		'thread.html',
 		{
 			'post': post_requested,
 			'description': description,
@@ -56,7 +56,7 @@ def reply(request, thread_id, answer_id):
 	replies = answer_req.get_descendants(True)
 	replies = replies.order_by('tree_id', 'lft')
 	description = parent_ques.description
-	return render(request, 'base/thread.html', {
+	return render(request, 'thread.html', {
 		'question': parent_ques,
 		'nodes': replies,
 		'description': description,
@@ -159,7 +159,7 @@ def edit_answer(request, thread_id, answer_id):
 		prefilled_form = reply_form(data)
 		return render(
 			request,
-			'base/edit_reply.html',
+			'edit_reply.html',
 			{
 				'username': request.user.username,
 				'form': prefilled_form,

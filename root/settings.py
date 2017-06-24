@@ -16,7 +16,7 @@ ALLOWED_HOSTS = ['*']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 PREPEND_WWW = True
-SITE_ID = 2
+SITE_ID = 1
 STATIC_URL = '/static/'
 
 # Application definition
@@ -115,7 +115,6 @@ else:
         }
     }
     DEBUG = True
-    # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False

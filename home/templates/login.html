@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <!-- Favicons -->
-    {% include 'base/favicons.html' %}
+    {% include 'favicons.html' %}
     <!-- Open Graph -->
   </head>
 
@@ -23,7 +23,7 @@
 
     <section class="hero">
 
-      {% include 'base/statistics.html' %}
+      {% include 'statistics.html' %}
 
       <div class="hero-body organisation">
 
@@ -112,7 +112,7 @@
                   <p class="title">What's buzzin</p>
                   <p class="subtitle">What is up?</p>
                   {% for x in question_list %}
-                    {% include 'base/question.html' %}
+                    {% include 'question.html' %}
                   {% endfor %}
                 </article>
               </div>

@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %} {% load timesince_upto %} {% load static %}
+{% extends 'base.html' %} {% load timesince_upto %} {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -26,7 +26,7 @@
 {% for x in channel.question_set.all %}
   <div class="columns">
     <div class="column is-half is-offset-one-quarter">
-    {% include 'base/question.html' %}
+    {% include 'question.html' %}
     </div>
   </div>
 {% endfor %}

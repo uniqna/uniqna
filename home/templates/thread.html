@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %} {% load static %}
+{% extends 'base.html' %} {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -9,21 +9,21 @@
 {% block content %}
 
   {% if request.user.username == post.author %}
-    {% include 'base/thread_author_panel.html' %}
+    {% include 'thread_author_panel.html' %}
   {% endif %}
 
   {% if post.flair %}<span class="tag is-success">{{ post.flair }}</span>{% endif %}
   {% if post.solved %}<i class="material-icons is-pulled-right solved-tick">done</i>{% endif %}
 
-  {% include 'base/thread_post.html' %}
+  {% include 'thread_post.html' %}
 
-  {% include 'base/contribute_modal.html' %}
+  {% include 'contribute_modal.html' %}
 
-  {% include 'base/thread_replies.html' %}
+  {% include 'thread_replies.html' %}
 
-  {% include 'base/reply_modal.html' %}
+  {% include 'reply_modal.html' %}
 
-  {% include 'base/reply_author_modal.html' %}
+  {% include 'reply_author_modal.html' %}
 
 
 {% endblock content %}

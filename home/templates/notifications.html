@@ -1,48 +1,46 @@
-{% extends "base/base.html" %} {% block titlename %} Notifications {% endblock titlename %} {% block style %}
-<style>
-	.header {
-		color: #01579B;
-		font-family: 'Montserrat', sans-serif;
-		font-size: 30px;
-		margin-bottom: -15px;
-	}
+{% extends 'base.html' %} {% load timesince_upto %} {% load static %}
 
-	.notification-container {
-		padding: 20px;
-	}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+{% endblock head %}
 
-	.notif-inside {
-		color: #009688;
-		font-family: 'Montserrat', sans-serif;
-		border-bottom: 3px dotted #7986CB;
-		padding-bottom: 5px;
-	}
+{% block content %}
 
-	.read .notif-inside {
-		color: #424242;
-	}
+  <section class="hero">
+    <div class="hero-body narrow-padding">
+      <div class="container">
+        <h1 class="title">
+          Notifications 📮
+        </h1>
+        <h1 class="subtitle">
+        {% if not notifs.all %} Uhh you don't have any notifications yet :( {% endif %}
+        </h1>
+      </div>
+    </div>
+  </section>
 
-	.no-notification {
-		margin-top: 20px;
-		color: #424242;
-	}
-</style>
-{% endblock style %} {% block content %} {% with notifs=request.user.notification_set %} {% if notifs.all %}
-<center>
-	<h4 class="header">Notifications</h4>	<i class="twa twa-lg twa-fire"></i>
-	<div class="notification-container mdl-cell mdl-cell--8-col">
-		{% for notif in notifs.sort_read %}
-		<a href="{% url 'notif' notif.id %}">
-			<div class="{% if notif.read %}read{% endif %}">
-				<p class="notif-inside">
-					{{ notif.content|safe }}
-					<br><small> {{ notif.notification_time|timesince }} ago.</small>
-				</p>
-			</div>
-		</a>
-		{% endfor %}
-	</div>
-</center>
-{% else %}
-<center><p class="no-notification"> We are sorry, but you have no notifications. :( </p></center>
-{% endif %} {% endwith %} {% endblock content %}
+  {% with notifs=request.user.notification_set %}
+    {% if notifs.all %}
+
+    <div class="columns is-unselectable">
+      <div class="column is-half is-offset-one-quarter">
+        {% for notif in notifs.sort_read %}
+        <a href="{% url 'notif' notif.id %}" class="is-black">
+          <div class="notification {% if not notif.read %}is-primary{% endif %} add-margin-bottom">
+            {{ notif.content|safe }}
+            <small>{{ notif.notification_time|timesince }} ago.</small>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% endif %}
+  {% endwith %}
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
+{% endblock js %}
