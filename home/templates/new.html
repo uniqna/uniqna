@@ -1,8 +1,8 @@
-{% extends 'base/base.html' %} {% load static %} {% load widget_tweaks %} {% load timesince_upto %}
+{% extends 'base.html' %} {% load static %} {% load widget_tweaks %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/edit_reply.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
 {% endblock head %}
 
 {% block content %}
@@ -11,8 +11,15 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Typo? Grammar Nazis? OCD?
+          {% if metatype == 'question' %}
+            Ask a Question?
+          {% else %}
+            Start a Discussion!
+          {% endif %}
         </h1>
+        <h2 class="subtitle">
+          Ayyy lmaoo!
+        </h2>
       </div>
     </div>
   </section>
@@ -29,22 +36,47 @@
       {% endif %}
 
        <div class="box">
-         <form action="{% url 'edit_answer_submit' thread_id reply.pk %}" method="POST"> {% csrf_token %}
+         <form action="" method="POST"> {% csrf_token %}
+
+           <label class="label">Title (Speak your mind)</label>
+           <div class="field">
+
+             <p class="control has-icons-left">
+               {% render_field form.title type="text" class+="input" %}
+               <span class="icon is-small is-left">
+                 <i class="material-icons">title</i>
+               </span>
+             </p>
+           </div>
 
            <div class="field">
-              <label class="label is-pink font-is-light">
-                @{{ request.user.username }}
-                <span class="is-black">{{ reply.created_time }}*</span>
-              </label>
+              <label class="label">Description</label>
               <p class="control">
                 {% render_field form.description type="textarea" class+="textarea" placeholder="A title is required, but expanding further here could be of clarity." %}
               </p>
             </div>
 
+          <div class="field">
+            <label class="label">Channels</label>
+            <p class="control has-icons-left">
+              {% render_field form.title type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">view_carousel</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="level is-mobile">
+            <span class="tag bg-is-purple">
+              Example
+              <button class="delete is-small"></button>
+            </span>
+          </div>
+
            <div class="field submit">
              <p class="control">
                <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
-                 Done editing
+                 Post
                </button>
              </p>
            </div>

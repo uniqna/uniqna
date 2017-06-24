@@ -7,6 +7,10 @@
   margin-right: .5rem;
 }
 
+.nav {
+  background: whitesmoke;
+}
+
 a.nav-item.is-tab.button.is-success.post:hover {
   border-bottom-color: transparent;
 }

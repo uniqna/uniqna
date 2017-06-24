@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %} {% load timesince_upto %} {% load static %}
+{% extends 'base.html' %} {% load timesince_upto %} {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -9,9 +9,9 @@
 
 {% block content %}
 
-{% include 'base/user_statistics.html' %}
+{% include 'user_statistics.html' %}
 
-{% include 'base/user_card.html' %}
+{% include 'user_card.html' %}
 
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
@@ -38,7 +38,7 @@
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
         {% for x in posts %}
-          {% include 'base/question.html' %}
+          {% include 'question.html' %}
         {% endfor %}
       </div>
     </div>
@@ -50,15 +50,15 @@
       <div class="column is-half is-offset-one-quarter">
         <span class="reply-vue">
         {% for node in replies %}
-          {% include 'base/answer.html' %}
+          {% include 'answer.html' %}
         {% endfor %}
         </span>
       </div>
     </div>
   </div>
 
-  {% include 'base/reply_modal.html' %}
-  {% include 'base/reply_author_modal.html' %}
+  {% include 'reply_modal.html' %}
+  {% include 'reply_author_modal.html' %}
 
 {% endblock content %}
 
