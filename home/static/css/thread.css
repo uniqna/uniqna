@@ -16,6 +16,7 @@
 
 .description {
   margin-top: -1em;
+  min-height: 42px;
 }
 
 .score {

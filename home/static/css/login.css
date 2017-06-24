@@ -11,6 +11,11 @@
   margin-top: 10px;
 }
 
+.box {
+  box-shadow: none;
+  background: #fafafa;
+}
+
 .login-bg-is-white {
   background: #ffffff;
 }
