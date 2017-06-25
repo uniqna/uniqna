@@ -18,6 +18,8 @@ SESSION_COOKIE_SECURE = True
 PREPEND_WWW = True
 SITE_ID = 1
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -91,34 +93,16 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'uniqna',
+        'USER': 'moderator',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-    STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'uniqna',
-            'USER': 'moderator',
-            'PASSWORD': 'password',
-            'HOST': 'localhost',
-            'PORT': '',
-        }
-    }
-    DEBUG = True
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
-    PREPEND_WWW = False
+}
 
 
 if 'SECRET_KEY' in os.environ:
@@ -167,11 +151,7 @@ TIME_ZONE = 'Asia/Kolkata'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 # Bleach
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'em', 'strong', 'a', 'ul', 'ol', 'li',
+BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'strong', 'a', 'ul', 'ol', 'li',
                        'blockquote', 'code', 'table', 'thead', 'tbody', 'td',
-                       'th', 'tr', 'pre', 'img', 'b', 'br']
+                       'th', 'tr', 'pre', 'img', 'br']
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
-BLEACH_STRIP_TAGS = True
-
-# Pagination
-EL_PAGINATION_NEXT_LABEL = """<button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect">Load More</button>"""
