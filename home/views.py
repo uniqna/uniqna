@@ -32,30 +32,33 @@ def home(request, tab="home"):
 			elif tab == "discussions":
 				question_list = Question.objects.filter(
 					metatype="discussion").order_by("-hot")
-			no_of_questions = Question.objects.filter(
-				metatype="question").count()
-			no_of_answers = Answer.objects.filter(metatype="question").count()
-			no_of_solved = Question.objects.filter(
-				metatype="question", solved=True).count()
-			no_of_solved_percentage = round(
-				(no_of_solved / 1) * 100)
 			return render(
 				request,
 				'home.html',
 				{
 					'tab': tab,
 					'question_list': question_list,
-					'no_of_questions': no_of_questions,
-					'no_of_answers': no_of_answers,
-					'no_of_solved_percentage': no_of_solved_percentage
 				})
 		else:
 			question_list = Question.objects.all().order_by("-hot")[:3]
+			no_of_questions = Question.objects.filter(
+				metatype="question").count()
+			no_of_answers = Answer.objects.filter(
+				metatype="question").count()
+			no_of_discussions = Answer.objects.filter(metatype="discussion").count()
+			no_of_solved = Question.objects.filter(
+				metatype="question", solved=True).count()
+			no_of_solved_percentage = round(
+				(no_of_solved / 1) * 100)
 			return render(
 				request,
 				'login.html',
 				{'tab': tab,
-					'question_list': question_list, })
+					'question_list': question_list,
+					'no_of_questions': no_of_questions,
+					'no_of_answers': no_of_answers,
+					'no_of_discussions': no_of_discussions,
+					'no_of_solved_percentage': no_of_solved_percentage})
 
 	if request.method == 'POST' and request.POST:
 		username = request.POST['username']
