@@ -1,8 +1,7 @@
-{% extends 'base.html' %} {% load timesince_upto %} {% load static %}
+{% extends 'base.html' %} {% load timesince_upto %} {% load pipeline %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+  {% stylesheet 'notifications' %}
 {% endblock head %}
 
 {% block content %}
@@ -42,5 +41,5 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
+
 {% endblock js %}

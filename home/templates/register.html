@@ -1,8 +1,7 @@
-{% extends 'base.html' %} {% load static %} {% load widget_tweaks %}
+{% extends 'base.html' %} {% load pipeline %} {% load widget_tweaks %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  {% stylesheet 'register' %}
 {% endblock head %}
 
 {% block content %}
@@ -100,6 +99,5 @@
 {% endblock content %}
 
 {% block js %}
-  <script src="{% static 'js/submit.js' %}"></script>
-  <script src="{% static 'js/notif_delete.js' %}"></script>
+  {% javascript 'register' %}
 {% endblock js %}

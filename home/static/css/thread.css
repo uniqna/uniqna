@@ -30,14 +30,13 @@
 .solved-tick {
   font-size: 42px;
   color: #009688;
-  position: absolute;
-  right: 0.25em;
 }
 
 .children .box{
   border-left-style: solid;
   border-width: 2px;
   border-left-color: #dbdbdb;
+  border-radius: 0;
 }
 
 .is-shady {

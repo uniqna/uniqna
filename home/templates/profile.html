@@ -1,10 +1,7 @@
-{% extends 'base.html' %} {% load timesince_upto %} {% load static %}
+{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="{% static 'css/answer.css' %}">
+  {% stylesheet 'profile' %}
 {% endblock head %}
 
 {% block content %}
@@ -63,9 +60,5 @@
 {% endblock content %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/notif_delete.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/submit.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/reply_modal.js' %}"></script>
+  {% javascript 'profile' %}
 {% endblock js %}

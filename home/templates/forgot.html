@@ -1,8 +1,7 @@
-{% extends 'base.html' %} {% load static %}
+{% extends 'base.html' %} {% load pipeline %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/forgot.css' %}">
+  {% stylesheet 'forgot' %}
 {% endblock head %}
 
 {% block content %}
@@ -65,6 +64,5 @@
 {% endblock content %}
 
 {% block js %}
-  <script src="{% static 'js/submit.js' %}"></script>
-  <script src="{% static 'js/notif_delete.js' %}"></script>
+  {% javascript 'forgot' %}
 {% endblock js %}
