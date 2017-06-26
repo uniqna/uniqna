@@ -10,11 +10,11 @@ except ImportError:
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.uniqna.com', '.localhost']
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 PREPEND_WWW = True
 SITE_ID = 1
 STATIC_URL = '/static/'
@@ -234,7 +234,6 @@ PIPELINE = {
         'base': {
             'source_filenames': (
               'js/base.js',
-              'js/vue.js'
             ),
             'output_filename': 'js/base.js',
         },
