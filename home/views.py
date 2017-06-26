@@ -23,13 +23,13 @@ def home(request, tab="home"):
 			Question.objects.popularity_update()
 			if tab == "home":
 				question_list = Question.objects.order_by("-hot")
-			elif tab == "qna":
+			elif tab == "questions":
 				question_list = Question.objects.filter(
 					metatype="question").order_by("-hot")
-			elif tab == "nsy":
+			elif tab == "unsolved":
 				question_list = Question.objects.filter(
 					metatype="question", solved=False).order_by("-hot")
-			elif tab == "disc":
+			elif tab == "discussions":
 				question_list = Question.objects.filter(
 					metatype="discussion").order_by("-hot")
 			no_of_questions = Question.objects.filter(

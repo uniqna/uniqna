@@ -1,28 +1,28 @@
 
-    <nav class="nav">
-      <div class="container">
-        <div class="nav-left">
-          <a class="nav-item" href="{% url 'home' %}">
-              <i class="material-icons">arrow_back</i>
-              <img src="https://uniqna.com/static/favicons/apple-touch-icon.png" alt="uniqna logo">
-          </a>
-        </div>
-
-        <div class="nav-center">
-          <a class="nav-item">
-            {{ navtext }}
-          </a>
-        </div>
-
-        <span class="nav-toggle" v-on:click="toggleNav" v-bind:class="{'is-active': isActive}">
-        <span></span>
-        <span></span>
-        <span></span>
-        </span>
-
-        <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
-          <a class="nav-item is-tab" href="{% url 'register' %}">Register</a>
-          <a class="nav-item is-tab" href="{% url 'home' %}">Log in</a>
-        </div>
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-left">
+        <a class="nav-item" href="{% url 'home' %}">
+            <i class="material-icons">arrow_back</i>
+            <img src="https://uniqna.com/static/favicons/apple-touch-icon.png" alt="uniqna logo">
+        </a>
       </div>
-    </nav>
+
+      <div class="nav-center">
+        <a class="nav-item">
+          {{ navtext }}
+        </a>
+      </div>
+
+      <span class="nav-toggle" v-on:click="toggleNav" v-bind:class="{'is-active': isActive}">
+      <span></span>
+      <span></span>
+      <span></span>
+      </span>
+
+      <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
+        <a class="nav-item is-tab" href="{% url 'register' %}">Register</a>
+        <a class="nav-item is-tab" href="{% url 'home' %}">Log in</a>
+      </div>
+    </div>
+  </nav>

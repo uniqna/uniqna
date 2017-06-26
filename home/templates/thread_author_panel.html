@@ -11,7 +11,7 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Mark as Solved</p>
-      <a class="button is-success solved" v-on:click="changeText('solved', '{{ post.pk }}')" {% if post.solved %}disabled{% endif %}>
+      <a class="button is-success solved" v-on:click="changeText('solved', '{{ post.pk }}')" {% if post.solved or post.metatype != "question" %}disabled{% endif %}>
         <i class="material-icons">done</i>
       </a>
     </div>
@@ -35,7 +35,7 @@
       <div class="field">
         <label class="label is-white">Description</label>
         <p class="control">
-          {% render_field edit_form.description type="textarea" class+="textarea" %}
+          {% render_field edit_form.description type="textarea" class+="textarea" id="edit" %}
         </p>
       </div><br>
     </div>

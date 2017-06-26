@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.uniqna.com', '.localhost']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 PREPEND_WWW = True
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_bleach',
     'el_pagination',
     'mptt',
+    'pipeline',
     'rest_framework',
     'robots',
     'widget_tweaks',
@@ -155,3 +156,140 @@ BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'strong', 'a', 'ul', 'ol', 'li',
                        'blockquote', 'code', 'table', 'thead', 'tbody', 'td',
                        'th', 'tr', 'pre', 'img', 'br']
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
+
+# Pipeline
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE = {
+    'STYLESHEETS': {
+        'base': {
+            'source_filenames': (
+              'css/bulma.css',
+              'css/base.css',
+              'css/navbar.css',
+            ),
+            'output_filename': 'base.css',
+        },
+        'home': {
+            'source_filenames': (
+              'css/twemoji-awesome.css',
+              'css/question.css',
+            ),
+            'output_filename': 'home.css',
+        },
+        'new': {
+            'source_filenames': (
+              'css/new.css',
+            ),
+            'output_filename': 'new.css',
+        },
+        'thread': {
+            'source_filenames': (
+              'css/thread.css',
+              'css/thread_author_panel.css',
+            ),
+            'output_filename': 'thread.css',
+        },
+        'profile': {
+            'source_filenames': (
+              'css/profile.css',
+              'css/question.css',
+              'css/answer.css',
+            ),
+            'output_filename': 'profile.css',
+        },
+        'channel': {
+            'source_filenames': (
+              'css/channel.css',
+              'css/question.css',
+            ),
+            'output_filename': 'channel.css',
+        },
+        'register': {
+            'source_filenames': (
+              'css/register.css',
+              'css/question.css',
+            ),
+            'output_filename': 'register.css',
+        },
+        'forgot': {
+            'source_filenames': (
+              'css/forgot.css',
+            ),
+            'output_filename': 'forgot.css',
+        },
+        'notifications': {
+            'source_filenames': (
+              'css/notifications.css',
+            ),
+            'output_filename': 'notifications.css',
+        },
+    },
+    'JAVASCRIPT': {
+        'base': {
+            'source_filenames': (
+              'js/base.js',
+              'js/vue.js'
+            ),
+            'output_filename': 'base.js',
+        },
+        'home': {
+            'source_filenames': (
+              'js/vote.js',
+            ),
+            'output_filename': 'home.js',
+        },
+        'new': {
+            'source_filenames': (
+              'js/submit.js',
+              'js/notif_delete.js'
+            ),
+            'output_filename': 'new.js',
+        },
+        'thread': {
+            'source_filenames': (
+              'js/vote.js',
+              'js/thread_author_panel.js',
+              'js/notif_delete.js',
+              'js/submit.js',
+              'js/contribute.js',
+              'js/reply_modal.js',
+            ),
+            'output_filename': 'thread.js',
+        },
+        'profile': {
+            'source_filenames': (
+              'js/vote.js',
+              'js/notif_delete.js',
+              'js/submit.js',
+              'js/profile.js',
+            ),
+            'output_filename': 'profile.js',
+        },
+        'channel': {
+            'source_filenames': (
+              'js/vote.js',
+            ),
+            'output_filename': 'channel.js',
+        },
+        'register': {
+            'source_filenames': (
+              'js/submit.js',
+              'js/notif_delete.js'
+            ),
+            'output_filename': 'register.js',
+        },
+        'forgot': {
+            'source_filenames': (
+              'js/submit.js',
+              'js/notif_delete.js'
+            ),
+            'output_filename': 'forgot.js',
+        },
+    }
+}

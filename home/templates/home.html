@@ -1,9 +1,7 @@
-{% extends 'base.html' %} {% load timesince_upto %} {% load el_pagination_tags %} {% load static %}
+{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %} {% load el_pagination_tags %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+  {% stylesheet 'home' %}
 {% endblock head %}
 
 {% block content %}
@@ -12,5 +10,5 @@
 {% endblock content %}
 
 {% block js %}
-    <script type="text/javascript" src="{% static 'js/vote.js' %}"></script>
+  {% javascript 'home' %}
 {% endblock js %}

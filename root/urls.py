@@ -30,7 +30,7 @@ sitemaps = {
 urlpatterns = [
 	url(r'^$', views.home, name="home"),
 	url(r'^admin/', admin.site.urls),
-	url(r'^(?P<tab>(qna|nsy|disc))/$', views.home, name="tab"),
+	url(r'^(?P<tab>(questions|unsolved|discussions))/$', views.home, name="tab"),
 	url(r'^logout/$', views.logout_view, name='logout'),
 	url(r'^register/$', views.register, name='register'),
 	url(r'^notifications/$', views.notifications_view, name='notifications'),
