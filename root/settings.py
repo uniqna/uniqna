@@ -236,20 +236,20 @@ PIPELINE = {
               'js/base.js',
               'js/vue.js'
             ),
-            'output_filename': 'base.js',
+            'output_filename': 'js/base.js',
         },
         'home': {
             'source_filenames': (
               'js/vote.js',
             ),
-            'output_filename': 'home.js',
+            'output_filename': 'js/home.js',
         },
         'new': {
             'source_filenames': (
               'js/submit.js',
               'js/notif_delete.js'
             ),
-            'output_filename': 'new.js',
+            'output_filename': 'js/new.js',
         },
         'thread': {
             'source_filenames': (
@@ -260,7 +260,7 @@ PIPELINE = {
               'js/contribute.js',
               'js/reply_modal.js',
             ),
-            'output_filename': 'thread.js',
+            'output_filename': 'js/thread.js',
         },
         'profile': {
             'source_filenames': (
@@ -269,30 +269,30 @@ PIPELINE = {
               'js/submit.js',
               'js/profile.js',
             ),
-            'output_filename': 'profile.js',
+            'output_filename': 'js/profile.js',
         },
         'channel': {
             'source_filenames': (
               'js/vote.js',
             ),
-            'output_filename': 'channel.js',
+            'output_filename': 'js/channel.js',
         },
         'register': {
             'source_filenames': (
               'js/submit.js',
               'js/notif_delete.js'
             ),
-            'output_filename': 'register.js',
+            'output_filename': 'js/register.js',
         },
         'forgot': {
             'source_filenames': (
               'js/submit.js',
               'js/notif_delete.js'
             ),
-            'output_filename': 'forgot.js',
+            'output_filename': 'js/forgot.js',
         },
     }
 }
 
 PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
-PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.yuglify.YuglifyCompressor'
+PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
