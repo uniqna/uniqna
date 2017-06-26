@@ -49,7 +49,7 @@ def home(request, tab="home"):
 			no_of_solved = Question.objects.filter(
 				metatype="question", solved=True).count()
 			no_of_solved_percentage = round(
-				(no_of_solved / 1) * 100)
+				(no_of_solved / no_of_questions) * 100)
 			return render(
 				request,
 				'login.html',
