@@ -2,56 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-from threads.models import Answer
 from root.email import send_notification_email
 
 
 class student(models.Model):
-	course_choices = (
-		("B.Tech", "B.Tech"),
-		("M.Tech", "M.Tech"),
-		("F.Tech", "F.Tech"),
-		("B.Law", "B.Law"),
-	)
-	school_choices = (
-		("SCSE", "SCSE"),
-		("SENSE", "SENSE"),
-		("SAS", "SAS"),
-		("SELECT", "SELECT"),
-		("SMBS", "SMBS"),
-		("VITBS", "VITBS"),
-		("VITSOL", "VITSOL"),
-		("VFIT", "VFIT"),
-		("V-SPARC", "V-SPARC"),
-		("SBST", "SBST"),
-		("SCALE", "SCALE"),
-		("SCOPE", "SCOPE"),
-		("SITE", "SITE"),
-		("SMEC", "SMEC"),
-		("SSL", "SSL"),
-		("LAW", "LAW"),
-	)
-	grad_year_choices = (
-		("2017", "2017"),
-		("2018", "2018"),
-		("2019", "2019"),
-		("2020", "2020"),
-	)
-
-	university_choices = (
-		("Vellore Institute of Technology, Chennai", "Vellore Institute of Technology, Chennai"),
-		("Vellore Institute of Technology, Vellore", "Vellore Institute of Technology, Vellore"),
-	)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio = models.CharField(max_length=240, blank=True, default="")
+	bio = models.CharField(max_length=256, blank=True, default="")
 	notification_emails = models.BooleanField(default=True)
-	course = models.CharField(
-		max_length=6, choices=course_choices, default="B.Tech")
-	school = models.CharField(
-		max_length=6, choices=school_choices, default="SCSE")
-	grad_year = models.CharField(
-		max_length=6, choices=grad_year_choices, default="2020")
-	university = models.CharField(max_length=100, choices=university_choices)
 
 
 class NotificationExtender(models.Manager):
@@ -67,7 +24,7 @@ class NotificationExtender(models.Manager):
 		return srted
 
 	def create_answer_notification(self, user, answer):
-		notif_template = "@{0} replied \"{1}\"."
+		notif_template = "@{0} replied \"{1}\""
 		notification = self.create(
 			user=user,
 			content=notif_template.format(answer.answer_author, answer.question.title[:40]),

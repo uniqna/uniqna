@@ -60,15 +60,10 @@ def edit_profile(request, user):
 		requested_user = get_object_or_404(User, username=user)
 		profile_form = editForm(request.POST)
 		if profile_form.is_valid():
-			requested_user.email = profile_form.cleaned_data["email"]
 			requested_user.save()
 			requested_user.student.bio = profile_form.cleaned_data["bio"]
-			requested_user.student.university = profile_form.cleaned_data["university"]
-			requested_user.student.course = profile_form.cleaned_data["course"]
-			requested_user.student.school = profile_form.cleaned_data["school"]
-			requested_user.student.grad_year = profile_form.cleaned_data["grad_year"]
 			requested_user.student.save()
-			return HttpResponseRedirect("/user/" + requested_user.username)
+			return HttpResponseRedirect(reverse('user', kwargs={'user': user}))
 		else:
 			return render(
 				request,
@@ -79,18 +74,13 @@ def edit_profile(request, user):
 	else:
 		requested_user = get_object_or_404(User, username=user)
 		data = {
-			"email": requested_user.email,
 			"bio": requested_user.student.bio,
-			"university": requested_user.student.university,
-			"course": requested_user.student.course,
-			"school": requested_user.student.school,
-			"grad_year": requested_user.student.grad_year,
 		}
 		profile_form = editForm(data)
 		return render(
 			request,
 			"user_manage.html",
-			{"regForm": profile_form}
+			{"edit_form": profile_form}
 		)
 
 

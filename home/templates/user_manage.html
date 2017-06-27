@@ -1,9 +1,55 @@
-{% extends 'base.html' %}  {% load static %}
+{% extends 'base.html' %}  {% load pipeline %} {% load widget_tweaks %}
+
+{% block head %}
+  {% stylesheet 'register' %}
+{% endblock %}
 
 {% block content %}
-  Manage your profile
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Manage your account
+        </h1>
+        <h2 class="subtitle">
+          More options coming soon 🎈
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+
+      <div class="box">
+        <form action="" method="POST"> {% csrf_token %}
+
+          <div class="field">
+            <label class="label">Bio</label>
+            <p class="control has-icons-left">
+              {% render_field edit_form.bio type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">ac_unit</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field submit">
+            <p class="control">
+              <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                Update!
+              </button>
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
 {% endblock content %}
 
 {% block js %}
-
+  {% javascript 'register' %}
 {% endblock js %}
