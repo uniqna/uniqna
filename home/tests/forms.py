@@ -39,7 +39,7 @@ class TestRegisterForm(TestCase):
 		self.assertTrue("bio" in form.errors)
 		self.assertTrue("course" in form.errors)
 		self.assertTrue("password" in form.errors)
-		self.assertTrue("confirm_password" in form.errors)	
+		self.assertTrue("confirm_password" in form.errors)
 
 	def test_username_errors(self):
 		newdata = self.data.copy()

@@ -16,7 +16,7 @@
             <div class="media-content">
               <div class="content">
                 <p>
-                  <small class="author">@{{ x.author }}</small>
+                  <small><a  class="author" href="{% url 'user' x.author %}">@{{ x.author }}</a></small>
                   <small class="meta">{{ x.created_time|timesince|upto:',' }} ago</small>
                   <small class="replies">{{ x.answers }} replies</small>
                   {% if x.flair %}

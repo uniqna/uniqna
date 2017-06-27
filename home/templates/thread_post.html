@@ -10,7 +10,7 @@
         {% if post.solved %}<i class="material-icons is-pulled-right solved-tick">done</i>{% endif %}
 
         <h2 class="subtitle">
-          <span class="is-pink">@{{ post.author }}</span> <small> {{  post.created_time|date:"d M, Y" }}</small>
+          <a class="is-pink" href="{% url 'user' post.author %}">@{{ post.author }}</a><small> {{  post.created_time|date:"d M, Y" }}</small>
           <i class="material-icons link">link</i>
         </h2>
         <h1 class="title">
