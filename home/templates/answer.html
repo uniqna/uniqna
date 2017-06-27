@@ -18,7 +18,7 @@
           <div class="content">
             <p>
               <small>[+]</small>
-              <small class="author is-pink">@{{ node.answer_author }}</small>
+              <small><a class="is-pink" href="{% url 'user' node.answer_author %}">@{{ node.answer_author }}</a></small>
               <small>{{ node.created_time|timesince|upto:"," }} ago{% if node.edited %}*{% endif %}</small>
               <a class="is-indigo reply" v-on:click="getUserAndUrl('{{ node.answer_author }}', '{{ node.id }}')">
                 <small class="reply">Reply</small>
