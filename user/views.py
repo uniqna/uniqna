@@ -56,90 +56,53 @@ def user_page(request, user):
 
 
 def edit_profile(request, user):
+	requested_user = get_object_or_404(User, username=request.user)
+	data = {"bio": requested_user.student.bio, }
+	profile_form = editForm(data)
+	password_form = changePasswordForm()
 	if request.method == "POST" and request.POST:
-		requested_user = get_object_or_404(User, username=user)
 		profile_form = editForm(request.POST)
-		if profile_form.is_valid():
-			requested_user.save()
-			requested_user.student.bio = profile_form.cleaned_data["bio"]
-			requested_user.student.save()
-			return HttpResponseRedirect(reverse('user', kwargs={'user': user}))
-		else:
-			return render(
-				request,
-				"user_manage.html",
-				{"regform": profile_form, "error": True}
-			)
-
-	else:
-		requested_user = get_object_or_404(User, username=user)
-		data = {
-			"bio": requested_user.student.bio,
-		}
-		profile_form = editForm(data)
-		return render(
-			request,
-			"user_manage.html",
-			{"edit_form": profile_form}
-		)
-
-
-def change_password(request, user):
-	req_user = get_object_or_404(User, username=user)
-
-	# Don't render page if the user isn't asking for
-	# his own change password page
-	if not req_user == request.user:
-		return HttpResponseRedirect(reverse(
-			'user',
-			kwargs={"user": user}
-		))
-
-	if request.method == "POST" and request.POST:
-		cp_form = changePasswordForm(request.POST)
-
-		if cp_form.is_valid():
-			cur_pass = cp_form.cleaned_data["current_password"]
-			a_user = authenticate(username=req_user.username, password=cur_pass)
-
-			if a_user is not None:
-				a_user.set_password(cp_form.cleaned_data["password"])
-				a_user.save()
-				login(request, a_user)
-				return render(
-					request,
-					"user_templates/changepassword.html",
-					{
-						"user_instance": req_user,
-						"success": 1
-					})
+		if request.POST.get('manage'):
+			if profile_form.is_valid():
+				requested_user.save()
+				requested_user.student.bio = profile_form.cleaned_data["bio"]
+				requested_user.student.save()
+				return HttpResponseRedirect(reverse('user', kwargs={'user': user}))
 			else:
 				return render(
 					request,
-					"user_templates/changepassword.html",
-					{
-						"user_instance": req_user,
-						"changeform": cp_form,
-						"failed": 1
-					})
-		else:
-			return render(
-				request,
-				"user_templates/changepassword.html",
-				{
-					"user_instance": req_user,
-					"changeform": cp_form
-				})
-
+					"user_manage.html",
+					{"edit_form": profile_form, "password_form": password_form}
+				)
+		elif request.POST.get('password'):
+			submitted_form = changePasswordForm(request.POST)
+			if submitted_form.is_valid():
+				cd = submitted_form.cleaned_data
+				cur_pass = cd["current_password"]
+				a_user = authenticate(username=request.user.username, password=cur_pass)
+				if a_user is not None:
+					a_user.set_password(cd["new_password"])
+					a_user.save()
+					login(request, a_user)
+					return HttpResponseRedirect(reverse('user', kwargs={'user': user}))
+				else:
+					return render(
+						request,
+						"user_manage.html",
+						{"edit_form": profile_form, "password_form": password_form, "validation_failed": True}
+					)
+			else:
+				return render(
+					request,
+					"user_manage.html",
+					{"edit_form": profile_form, "password_form": submitted_form}
+				)
 	else:
-		cp_form = changePasswordForm()
 		return render(
 			request,
-			"user_templates/changepassword.html",
-			{
-				"changeform": cp_form,
-				"user_instance": req_user
-			})
+			"user_manage.html",
+			{"edit_form": profile_form, "password_form": password_form}
+		)
 
 
 def forgot(request):
