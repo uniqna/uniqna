@@ -22,7 +22,7 @@
   <div class="columns">
     <div class="column is-half is-offset-one-quarter">
 
-      <div class="box">
+      <div class="box is-unselectable">
         <form action="" method="POST"> {% csrf_token %}
 
           <div class="field">
@@ -37,8 +37,64 @@
 
           <div class="field submit">
             <p class="control">
-              <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
-                Update!
+              <button class="button is-success" value="submit" name="manage" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                Update
+              </button>
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+      {% if validation_failed %}
+      <div class="notification is-danger">
+        Uh that's not the right current password .-. Try again?
+      </div>
+      {% endif %}
+
+      {% if password_form.errors %}
+      <div class="notification is-danger">
+        {{ password_form.confirm_password.errors }}
+      </div>
+      {% endif %}
+
+      <div class="box is-unselectable">
+        <form action="" method="POST"> {% csrf_token %}
+
+          <div class="field">
+            <label class="label">Current Password</label>
+            <p class="control has-icons-left">
+              {% render_field password_form.current_password type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">vpn_key</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <label class="label">New Password</label>
+            <p class="control has-icons-left">
+              {% render_field password_form.new_password type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">lock_open</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <label class="label">Confirm Password</label>
+            <p class="control has-icons-left">
+              {% render_field password_form.confirm_password type="text" class+="input" %}
+              <span class="icon is-small is-left">
+                <i class="material-icons">lock_outline</i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field submit">
+            <p class="control">
+              <button class="button is-success" value="submit" name="password" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
+                Change Password
               </button>
             </p>
           </div>
@@ -48,6 +104,8 @@
 
     </div>
   </div>
+
+
 {% endblock content %}
 
 {% block js %}

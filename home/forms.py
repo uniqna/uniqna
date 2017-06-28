@@ -32,20 +32,20 @@ class registration(forms.Form):
 
 
 class editForm(forms.Form):
-	bio = forms.CharField(max_length=240)
+	bio = forms.CharField(max_length=256)
 
 
 class changePasswordForm(forms.Form):
 	current_password = forms.CharField(widget=forms.PasswordInput, required=True)
-	password1 = forms.CharField(widget=forms.PasswordInput, required=True)
-	password2 = forms.CharField(widget=forms.PasswordInput, required=True)
+	new_password = forms.CharField(widget=forms.PasswordInput, required=True)
+	confirm_password = forms.CharField(widget=forms.PasswordInput, required=True)
 
 	def clean_confirm_password(self):
-		password1 = self.cleaned_data.get('password')
+		password1 = self.cleaned_data.get('new_password')
 		password2 = self.cleaned_data.get('confirm_password')
 		if password1 != password2:
 			raise forms.ValidationError("Your passwords do not match")
-		return password2
+		return self.cleaned_data
 
 
 class emailForm(forms.Form):

@@ -6,6 +6,8 @@
 
 {% block content %}
 
+  {% with notifs=request.user.notification_set %}
+
   <section class="hero">
     <div class="hero-body narrow-padding">
       <div class="container">
@@ -13,13 +15,13 @@
           Notifications 📮
         </h1>
         <h1 class="subtitle">
-        {% if not notifs.all %} Uhh you don't have any notifications yet :( {% endif %}
+          {% if not notifs.all %} Uhh you don't have any notifications yet :( {% endif %}
         </h1>
       </div>
     </div>
   </section>
 
-  {% with notifs=request.user.notification_set %}
+
     {% if notifs.all %}
 
     <div class="columns is-unselectable">
