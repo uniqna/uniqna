@@ -2,6 +2,8 @@
 <p align="center">
 <img src="https://uniqna.com/static/assets/logo_colored.svg" width="50%"/>
 <br>
+<a href="https://travis-ci.org/uniqna/uniqna/"><img src="https://travis-ci.org/uniqna/uniqna.svg?branch=master" alt="Build Status" /></a>
+<a href='https://coveralls.io/github/uniqna/uniqna?branch=master'><img src='https://coveralls.io/repos/github/uniqna/uniqna/badge.svg?branch=master' alt='Coverage Status' /></a>
 <a href="https://pyup.io/repos/github/uniqna/uniqna/"><img src="https://pyup.io/repos/github/uniqna/uniqna/shield.svg" alt="Updates" /></a>
 </p>
 
