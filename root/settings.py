@@ -9,10 +9,7 @@ except ImportError:
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['.uniqna.com', '.localhost']
+ALLOWED_HOSTS = ['.uniqna.com', '.localhost', '.127.0.0.1']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 PREPEND_WWW = True
@@ -111,11 +108,14 @@ if 'SECRET_KEY' in os.environ:
     MG_KEY = os.environ['MG_KEY']
     MG_URL = os.environ['MG_URL']
     MG_FROM = os.environ['SECRET_KEY']
+    DEBUG = False
 else:
     SECRET_KEY = secret_settings.SECRET_KEY
     MG_KEY = secret_settings.MG_KEY
     MG_URL = secret_settings.MG_URL
     MG_FROM = secret_settings.MG_FROM
+    DEBUG = True
+    PREPEND_WWW = False
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -159,6 +159,13 @@ BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
 
 # Pipeline
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+if DEBUG or 'TRAVIS' in os.environ:
+    # In order for tests to run properly
+    PREPEND_WWW = False
+    ALLOWED_HOSTS = ['*']
+    STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

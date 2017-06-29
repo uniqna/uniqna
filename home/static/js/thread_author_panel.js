@@ -17,11 +17,10 @@ new Vue({
     url: ''
   },
   methods: {
-    changeText: function(dingdong, thread_id) {
+    changeText: function(dingdong, target_url) {
       if (dingdong == 'solved') {
         modal.bgcolor = 'rgba(30, 215, 96, 0.9)';
-        var solved_url = window.location.origin + '/thread/' + thread_id + '/solved/';
-        modal.url = solved_url;
+        modal.url = target_url
         modal.button = 'It\'s solved :D!';
         modal.content = 'Yayy mark it as solved!';
         modal.subtitle = `  Marking your question as solved is not mandatory;
@@ -33,8 +32,7 @@ new Vue({
 
       } else if (dingdong == 'delete') {
         modal.bgcolor = 'rgba(198, 40, 40, 0.9)';
-        var delete_url = window.location.origin + '/thread/' + thread_id + '/delete/';
-        modal.url = delete_url;
+        modal.url = target_url;
         modal.button = 'Yeup!';
         modal.content = 'Are you sure?';
         modal.subtitle = 'This cannot be undone btw...';
@@ -42,6 +40,7 @@ new Vue({
       }
         else if (dingdong == 'edit') {
         modal.bgcolor = 'rgba(50, 115, 220, 0.9)';
+        modal.url = target_url;
         modal.content = 'Your post will be marked as edited*';
         modal.subtitle = `    Sorry, post titles cannot be edited.
                               However, you can simply delete it and
