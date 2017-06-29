@@ -28,7 +28,7 @@ class TestPostViews(TestCase):
 		self.client.login(username="username", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "base/new.html")
+		self.assertTemplateUsed(resp, "new.html")
 		# Context Variables
 		channels = str(Channel.objects.all())
 		self.assertEqual(resp.context["metatype"], "question")
@@ -48,7 +48,7 @@ class TestPostViews(TestCase):
 		self.client.login(username="username", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "base/new.html")
+		self.assertTemplateUsed(resp, "new.html")
 		# Context Variables
 		channels = str(Channel.objects.all())
 		self.assertEqual(resp.context["metatype"], "discussion")

@@ -6,7 +6,7 @@ from django.test import TestCase
 from markdown2 import markdown
 
 from post.models import Channel, Question
-from threads.forms import answer_form
+from threads.forms import reply_form
 from threads.models import Answer
 
 
@@ -35,10 +35,15 @@ class TestThreadViewsGet(TestCase):
 		expected_url = self.q.get_absolute_url()
 		self.assertEqual(url, expected_url)
 		resp = self.client.get(url)
+		print(resp)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "thread_templates/thread.html")
+		self.assertTemplateUsed(resp, "thread.html")
+		self.assertTemplateUsed(resp, "contribute_modal.html")
+		self.assertTemplateUsed(resp, "thread_replies.html")
+		self.assertTemplateUsed(resp, "reply_modal.html")
+		self.assertTemplateUsed(resp, "reply_author_modal.html")
 		# The text which is shown when there are no users
-		self.assertContains(resp, 'Please <a href="/" style="color:#3f51b5">login</a> to contribute to this discussion!')
+		self.assertContains(resp, 'Hey there, stranger? If you want to contribute to this discussion, please log in so that we can recognise you! :D')
 
 	def test_thread_logged(self):
 		# Thread logged test with no answers
@@ -47,14 +52,14 @@ class TestThreadViewsGet(TestCase):
 		self.client.login(username="digi", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "thread_templates/thread.html")
+		self.assertTemplateUsed(resp, "thread.html")
 		# Context Variables
-		self.assertEqual(resp.context["question"], self.q)
+		self.assertEqual(resp.context["post"], self.q)
 		self.assertEqual(len(resp.context["nodes"]), 0)
-		self.assertIsInstance(resp.context["form"], answer_form)
+		self.assertIsInstance(resp.context["form"], reply_form)
 
 	def test_thread_delete(self):
-		# Test whether the delete button is there 
+		# Test whether the delete button is there
 		# just for the author.
 		q = self.q
 		url = self.url
@@ -64,14 +69,15 @@ class TestThreadViewsGet(TestCase):
 		self.client.login(username="digi", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertEqual(resp.context["question"], q)
+		self.assertEqual(resp.context["post"], q)
 		self.assertContains(resp, delete_url)
+		self.assertTemplateUsed(resp, "thread_author_panel.html")
 		self.client.logout()
 
 		# Not the author
 		self.client.login(username="jerry", password="password")
 		resp = self.client.get(url)
-		self.assertEqual(resp.context["question"], q)
+		self.assertEqual(resp.context["post"], q)
 		self.assertNotContains(resp, delete_url)
 
 	def test_thread_nodes(self):
@@ -88,7 +94,7 @@ class TestThreadViewsGet(TestCase):
 
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertEqual(resp.context["question"], self.q)
+		self.assertEqual(resp.context["post"], self.q)
 		self.assertEqual(str(resp.context["nodes"]), str(nodes))
 
 
@@ -106,7 +112,7 @@ class TestThreadViewsGet(TestCase):
 		self.client.login(username="username", password="password")
 		resp = self.client.get(url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertTemplateUsed(resp, "base/new.html")
+		self.assertTemplateUsed(resp, "new.html")
 		# Context Variables
 		channels = str(Channel.objects.all())
 		self.assertEqual(resp.context["metatype"], "discussion")
@@ -226,14 +232,14 @@ class TestMarkdown(TestCase):
 	def test_question_desc(self):
 		resp = self.client.get(self.url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertEqual(resp.context["question"], self.q)
+		self.assertEqual(resp.context["post"], self.q)
 		desc = markdown(self.q.description, extras=["tables", "cuddled-lists"])
 		self.assertEqual(resp.context["description"], desc)
 
 	def test_answer_desc(self):
 		resp = self.client.get(self.url)
 		self.assertEqual(resp.status_code, 200)
-		self.assertEqual(resp.context["question"], self.q)
+		self.assertEqual(resp.context["post"], self.q)
 		node = Answer.objects.first()
 		node.description = markdown(node.description, extras=["tables", "cuddled-lists"])
 		self.assertEqual(resp.context["nodes"][0], node)

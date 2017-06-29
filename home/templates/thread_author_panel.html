@@ -3,15 +3,15 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Edit</p>
-      <a class="button is-warning edit" v-on:click="changeText('edit')">
+      <a class="button is-warning edit" v-on:click="changeText('edit', '#')">
         <i class="material-icons">mode_edit</i>
       </a>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Mark as Solved</p>
-      <a class="button is-success solved" v-on:click="changeText('solved', '{{ post.pk }}')" {% if post.solved or post.metatype != "question" %}disabled{% endif %}>
+      <p class="heading">Mark as Solved</p>g
+      <a class="button is-success solved" v-on:click="changeText('solved', '{% url 'mark_answer_solved' post.pk %}')" {% if post.solved or post.metatype != "question" %}disabled{% endif %}>
         <i class="material-icons">done</i>
       </a>
     </div>
@@ -19,7 +19,7 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Delete</p>
-      <a class="button is-danger trash" v-on:click="changeText('delete', '{{ post.pk }}')">
+      <a class="button is-danger trash" v-on:click="changeText('delete', '{% url 'delete_post' post.pk %}')">
         <i class="material-icons">delete</i>
       </a>
     </div>
