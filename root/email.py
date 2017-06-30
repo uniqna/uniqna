@@ -65,10 +65,10 @@ def send_notification_email(notification):
 	url = "https://uniqna.com" + notification.get_absolute_url()
 	context = {
 		"header": "Hey {}, you have a new notificaiton.".format(uname),
-		"content": content,
+		"notification": content,
 		"url": url
 	}
-	body = render_email("sample_email.html", context)
+	body = render_email("notification_email.html", context)
 	opts = {
 		"recipents": to,
 		"subject": "Knock Knock. Mail from uniqna.",
