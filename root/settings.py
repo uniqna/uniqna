@@ -8,11 +8,6 @@ except ImportError:
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-ALLOWED_HOSTS = ['.uniqna.com', '.localhost', '.127.0.0.1']
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-PREPEND_WWW = True
 SITE_ID = 1
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -109,6 +104,10 @@ if 'SECRET_KEY' in os.environ:
     MG_URL = os.environ['MG_URL']
     MG_FROM = os.environ['SECRET_KEY']
     DEBUG = False
+    ALLOWED_HOSTS = ['.uniqna.com', '.localhost', '.127.0.0.1']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    PREPEND_WWW = True
 else:
     SECRET_KEY = secret_settings.SECRET_KEY
     MG_KEY = secret_settings.MG_KEY
@@ -116,6 +115,8 @@ else:
     MG_FROM = secret_settings.MG_FROM
     DEBUG = True
     PREPEND_WWW = False
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

@@ -35,7 +35,7 @@
       {% endif %}
 
        <div class="box">
-         <form action="" method="POST"> {% csrf_token %}
+         <form action="{% url 'submit' metatype %}" method="POST"> {% csrf_token %}
 
            <label class="label">Title (Speak your mind)</label>
            <div class="field">
@@ -58,7 +58,7 @@
           <div class="field">
             <label class="label">Channels</label>
             <p class="control has-icons-left">
-              {% render_field form.title type="text" class+="input" %}
+              <input type="text" name="selectedchannels" class="input" id="id_channel" />
               <span class="icon is-small is-left">
                 <i class="material-icons">view_carousel</i>
               </span>

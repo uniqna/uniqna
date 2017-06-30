@@ -10,7 +10,7 @@
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Mark as Solved</p>g
+      <p class="heading">Mark as Solved</p>
       <a class="button is-success solved" v-on:click="changeText('solved', '{% url 'mark_answer_solved' post.pk %}')" {% if post.solved or post.metatype != "question" %}disabled{% endif %}>
         <i class="material-icons">done</i>
       </a>
