@@ -18,4 +18,5 @@ script:
 after_success:
   coveralls
 notifications:
+  email: false
   slack: uniqna:pgBbsNzTmzw9koeX2jXX0vo6
