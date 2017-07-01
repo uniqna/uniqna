@@ -7,12 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>uniqna</title>
-    <!-- Stylesheet -->{% load static %}
-    <link href="{% static 'css/bulma.css' %}" rel="stylesheet" type="text/css" />
+    <!-- Stylesheet -->{% load pipeline %} {% load static %}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/twemoji-awesome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    {% stylesheet 'login' %}
     <link rel="manifest" href="{% static 'favicons/manifest.json' %}">
     <!-- Favicons -->
     {% include 'favicons.html' %}
@@ -139,8 +136,7 @@
   <!-- Js -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="{% static 'js/vue.js' %}"></script>
-  <script src="{% static 'js/submit.js' %}"></script>
-  <script src="{% static 'js/notif_delete.js' %}"></script>
+  {% javascript 'login' %}
 </body>
 
   </html>

@@ -153,10 +153,10 @@ TIME_ZONE = 'Asia/Kolkata'
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 # Bleach
-BLEACH_ALLOWED_TAGS = ['p', 'h3', 'h4', 'strong', 'a', 'ul', 'ol', 'li',
+BLEACH_ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'a', 'ul', 'ol', 'li',
                        'blockquote', 'code', 'table', 'thead', 'tbody', 'td',
-                       'th', 'tr', 'pre', 'img', 'br']
-BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
+                       'th', 'tr', 'pre', 'br', 'em', 'b']
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width']
 
 # Pipeline
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
@@ -182,6 +182,15 @@ PIPELINE = {
               'css/navbar.css',
             ),
             'output_filename': 'base.css',
+        },
+        'login': {
+            'source_filenames': (
+              'css/bulma.css',
+              'css/twemoji-awesome.css',
+              'css/question.css',
+              'css/login.css',
+            ),
+            'output_filename': 'login.css',
         },
         'home': {
             'source_filenames': (
@@ -249,6 +258,13 @@ PIPELINE = {
               'js/base.js',
             ),
             'output_filename': 'js/base.js',
+        },
+        'login': {
+            'source_filenames': (
+              'js/notif_delete.js',
+              'js/submit.js',
+            ),
+            'output_filename': 'js/login.js',
         },
         'home': {
             'source_filenames': (

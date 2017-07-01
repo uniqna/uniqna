@@ -2,6 +2,8 @@
   box-shadow: none;
   border: 2px solid;
   border-color: #b5b5b5;
+  height: auto;
+  max-height: 100%;
 }
 
 .font-is-light {

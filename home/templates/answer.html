@@ -27,7 +27,7 @@
             </p>
 
               <div class="reply-author-vue">
-              {% if node.answer_author == request.user.username %}
+              {% if node.answer_author == request.user.username or request.user.is_superuser %}
                 <a class="button is-warning is-small reply-edit" href="{% url 'edit_answer' node.question.pk node.pk %}">
                   <i class="material-icons icon-is-small">mode_edit</i>
                 </a>

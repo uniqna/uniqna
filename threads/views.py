@@ -153,7 +153,7 @@ def edit_answer(request, thread_id, answer_id):
 		raise Http404()
 	reply_requested = get_object_or_404(Answer, pk=answer_id)
 	author = reply_requested.answer_author
-	if author == request.user.username:
+	if author == request.user.username or request.user.is_superuser:
 		description = reply_requested.description
 		data = {'description': description}
 		prefilled_form = reply_form(data)
