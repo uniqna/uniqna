@@ -177,77 +177,77 @@ PIPELINE = {
     'STYLESHEETS': {
         'base': {
             'source_filenames': (
-              'css/bulma.css',
-              'css/base.css',
-              'css/navbar.css',
+                'css/bulma.css',
+                'css/base.css',
+                'css/navbar.css',
             ),
             'output_filename': 'base.css',
         },
         'login': {
             'source_filenames': (
-              'css/bulma.css',
-              'css/twemoji-awesome.css',
-              'css/question.css',
-              'css/login.css',
+                'css/bulma.css',
+                'css/twemoji-awesome.css',
+                'css/question.css',
+                'css/login.css',
             ),
             'output_filename': 'login.css',
         },
         'home': {
             'source_filenames': (
-              'css/twemoji-awesome.css',
-              'css/question.css',
-              'css/vote.css',
+                'css/twemoji-awesome.css',
+                'css/question.css',
+                'css/vote.css',
             ),
             'output_filename': 'home.css',
         },
         'new': {
             'source_filenames': (
-              'css/new.css',
+                'css/new.css',
             ),
             'output_filename': 'new.css',
         },
         'thread': {
             'source_filenames': (
-              'css/thread.css',
-              'css/thread_author_panel.css',
-              'css/answer.css',
-              'css/vote.css',
+                'css/thread.css',
+                'css/thread_author_panel.css',
+                'css/answer.css',
+                'css/vote.css',
             ),
             'output_filename': 'thread.css',
         },
         'profile': {
             'source_filenames': (
-              'css/profile.css',
-              'css/question.css',
-              'css/answer.css',
-              'css/vote.css',
+                'css/profile.css',
+                'css/question.css',
+                'css/answer.css',
+                'css/vote.css',
             ),
             'output_filename': 'profile.css',
         },
         'channel': {
             'source_filenames': (
-              'css/channel.css',
-              'css/question.css',
-              'css/vote.css',
+                'css/channel.css',
+                'css/question.css',
+                'css/vote.css',
             ),
             'output_filename': 'channel.css',
         },
         'register': {
             'source_filenames': (
-              'css/register.css',
-              'css/question.css',
+                'css/register.css',
+                'css/question.css',
             ),
             'output_filename': 'register.css',
         },
         'forgot': {
             'source_filenames': (
-              'css/forgot.css',
+                'css/forgot.css',
             ),
             'output_filename': 'forgot.css',
         },
         'notifications': {
             'source_filenames': (
-              'css/notifications.css',
+                'css/notifications.css',
             ),
             'output_filename': 'notifications.css',
         },
@@ -255,68 +255,68 @@ PIPELINE = {
     'JAVASCRIPT': {
         'base': {
             'source_filenames': (
-              'js/base.js',
+                'js/base.js',
             ),
             'output_filename': 'js/base.js',
         },
         'login': {
             'source_filenames': (
-              'js/notif_delete.js',
-              'js/submit.js',
+                'js/notif_delete.js',
+                'js/submit.js',
             ),
             'output_filename': 'js/login.js',
         },
         'home': {
             'source_filenames': (
-              'js/vote.js',
+                'js/vote.js',
             ),
             'output_filename': 'js/home.js',
         },
         'new': {
             'source_filenames': (
-              'js/submit.js',
-              'js/notif_delete.js'
+                'js/submit.js',
+                'js/notif_delete.js'
             ),
             'output_filename': 'js/new.js',
         },
         'thread': {
             'source_filenames': (
-              'js/vote.js',
-              'js/thread_author_panel.js',
-              'js/notif_delete.js',
-              'js/submit.js',
-              'js/contribute.js',
-              'js/reply_modal.js',
-              'js/collapse.js',
+                'js/vote.js',
+                'js/thread_author_panel.js',
+                'js/notif_delete.js',
+                'js/submit.js',
+                'js/contribute.js',
+                'js/reply_modal.js',
+                'js/collapse.js',
             ),
             'output_filename': 'js/thread.js',
         },
         'profile': {
             'source_filenames': (
-              'js/vote.js',
-              'js/notif_delete.js',
-              'js/submit.js',
-              'js/profile.js',
+                'js/vote.js',
+                'js/notif_delete.js',
+                'js/submit.js',
+                'js/profile.js',
             ),
             'output_filename': 'js/profile.js',
         },
         'channel': {
             'source_filenames': (
-              'js/vote.js',
+                'js/vote.js',
             ),
             'output_filename': 'js/channel.js',
         },
         'register': {
             'source_filenames': (
-              'js/submit.js',
-              'js/notif_delete.js'
+                'js/submit.js',
+                'js/notif_delete.js'
             ),
             'output_filename': 'js/register.js',
         },
         'forgot': {
             'source_filenames': (
-              'js/submit.js',
-              'js/notif_delete.js'
+                'js/submit.js',
+                'js/notif_delete.js'
             ),
             'output_filename': 'js/forgot.js',
         },
