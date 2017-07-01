@@ -1,17 +1,17 @@
 <nav class="level is-mobile">
   <div class="level-item has-text-centered">
-    <div>
-      <i class="material-icons">arrow_upward</i>
-    </div>
+    <div class="upvote" data-url="{% url 'question_vote' post.pk 'u' %}" data-id="{{post.pk}}">
+      <i class="material-icons arrow-align {% if request.user in post.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{post.pk}}">arrow_upward</i>
+      </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <h1 class="subtitle">{{ post.points }}</h1>
+      <h1 class="subtitle" id="score{{post.pk}}"> {{ post.points }} </h1>
     </div>
   </div>
   <div class="level-item has-text-centered">
-    <div>
-      <i class="material-icons">arrow_downward</i>
+    <div class="downvote" data-url="{% url 'question_vote' post.pk 'd' %}" data-id="{{post.pk}}">
+      <i class="material-icons arrow-align {% if request.user in post.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{post.pk}}">arrow_downward</i>
     </div>
   </div>
 </nav>
