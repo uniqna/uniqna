@@ -73,3 +73,4 @@ secret_settings.py
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 .jshintrc
+/static

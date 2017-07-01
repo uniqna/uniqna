@@ -2,11 +2,11 @@
         <div class="box is-unselectable login-bg-is-white">
           <article class="media">
             <div class="media-left">
-              <span class="upvote" data-url="{% url 'question_vote' x.pk 'u' %}" data-id="{{x.pk}}">
+              <span class="upvote is-pointer" data-url="{% url 'question_vote' x.pk 'u' %}" data-id="{{x.pk}}">
                 <i class="material-icons arrow-align {% if request.user in x.ups.all %} vote-success {% else %} vote-default {% endif %}" id="up{{x.pk}}">keyboard_arrow_up</i>
               </span>
                   <div class="score" id="score{{x.pk}}"> {{ x.points }} </div>
-              <span class="downvote" data-url="{% url 'question_vote' x.pk 'd' %}" data-id="{{x.pk}}">
+              <span class="downvote is-pointer" data-url="{% url 'question_vote' x.pk 'd' %}" data-id="{{x.pk}}">
                 <i class="material-icons arrow-align {% if request.user in x.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="down{{x.pk}}">keyboard_arrow_down</i>
               </span>
               {% if x.solved and x.metatype == "question" %}
