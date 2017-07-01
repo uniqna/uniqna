@@ -1,0 +1,11 @@
+.vote-default {
+  color: #424242;
+}
+
+.vote-success {
+  color: #4caf50;
+}
+
+.vote-danger {
+  color: #f44336;
+}

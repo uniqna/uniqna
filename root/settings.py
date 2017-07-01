@@ -187,6 +187,7 @@ PIPELINE = {
             'source_filenames': (
               'css/twemoji-awesome.css',
               'css/question.css',
+              'css/vote.css',
             ),
             'output_filename': 'home.css',
         },
@@ -200,6 +201,8 @@ PIPELINE = {
             'source_filenames': (
               'css/thread.css',
               'css/thread_author_panel.css',
+              'css/answer.css',
+              'css/vote.css',
             ),
             'output_filename': 'thread.css',
         },
@@ -208,6 +211,7 @@ PIPELINE = {
               'css/profile.css',
               'css/question.css',
               'css/answer.css',
+              'css/vote.css',
             ),
             'output_filename': 'profile.css',
         },
@@ -215,6 +219,7 @@ PIPELINE = {
             'source_filenames': (
               'css/channel.css',
               'css/question.css',
+              'css/vote.css',
             ),
             'output_filename': 'channel.css',
         },

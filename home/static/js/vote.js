@@ -1,5 +1,5 @@
 (function(){
-    // Parent voting 
+    // Parent voting
     // Element pattern references
 
     var up = "#up";
@@ -29,19 +29,19 @@
 })();
 
 (function(){
-    // Answer voting 
+    // Answer voting
 
     var ansup = "#ans-up";
     var ansdown = "#ans-down";
     var ansscore = "#ans-score";
 
     $(".site-content").on("click", ".ans-upvote", function() {
-            console.log("upping")
+            console.log("upping");
             vote_url = $(this).data("url");
             id = $(this).data("id");
             $.get(vote_url, function(data, status) {
                 $(ansup + id).toggleClass("vote-default").toggleClass("vote-success");
-                $(ansdown + id).removeClass("vote-danger").addClass("vote-default")
+                $(ansdown + id).removeClass("vote-danger").addClass("vote-default");
                 $(ansscore + id).text(data.points);
             });
         });
