@@ -1,6 +1,6 @@
 {% load mptt_tags %} {% load timesince_upto %}  {% load bleach_tags %}
 
-    <div class="box is-unselectable">
+    <div class="box is-unselectable {% if node.is_leaf_node %}leaf-node{% endif %}">
       <article class="media">
 
         <div class="media-left">
@@ -17,7 +17,9 @@
         <div class="media-content">
           <div class="content">
             <p>
-              <small>[+]</small>
+              {% if not node.is_leaf_node %}
+              <small class="minimize is-pointer">[-]</small>
+              {% endif %}
               <small><a class="is-pink" href="{% url 'user' node.answer_author %}">@{{ node.answer_author }}</a></small>
               <small>{{ node.created_time|timesince|upto:"," }} ago{% if node.edited %}*{% endif %}</small>
               <a class="is-indigo reply" v-on:click="getUserAndUrl('{{ node.answer_author }}', '{{ node.id }}')">
@@ -37,8 +39,8 @@
               </div>
               {% endif %}
           </div>
+          <small class="media-center child-count"></small>
         </div>
-
 
       </article>
 
