@@ -287,6 +287,7 @@ PIPELINE = {
               'js/submit.js',
               'js/contribute.js',
               'js/reply_modal.js',
+              'js/collapse.js',
             ),
             'output_filename': 'js/thread.js',
         },
