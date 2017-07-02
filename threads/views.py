@@ -57,7 +57,7 @@ def reply(request, thread_id, answer_id):
 	replies = replies.order_by('tree_id', 'lft')
 	description = parent_ques.description
 	return render(request, 'thread.html', {
-		'question': parent_ques,
+		'post': parent_ques,
 		'nodes': replies,
 		'description': description,
 		'reply': True
@@ -81,8 +81,9 @@ def submit_answer(request, thread_id):
 			question_answered.save()
 			question_author = get_object_or_404(
 				User, username=question_answered.author)
-			Notification.objects.create_answer_notification(
-				question_author, instance)
+			if not request.user == question_author:
+				Notification.objects.create_answer_notification(
+					question_author, instance)
 			return HttpResponseRedirect(question_answered.get_absolute_url())
 
 
@@ -105,7 +106,8 @@ def submit_reply(request, answer_id):
 				question=question_id).count()
 			question_instance.save()
 			answer_author = get_object_or_404(User, username=parent.answer_author)
-			Notification.objects.create_reply_notification(answer_author, reply)
+			if not request.user == answer_author:
+				Notification.objects.create_reply_notification(answer_author, reply)
 			return HttpResponseRedirect(parent.question.get_absolute_url())
 
 
