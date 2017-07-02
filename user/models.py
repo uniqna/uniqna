@@ -24,7 +24,7 @@ class NotificationExtender(models.Manager):
 		return srted
 
 	def create_answer_notification(self, user, answer):
-		notif_template = "@{0} replied \"{1}\""
+		notif_template = "@{0} replied to \"{1}\""
 		notification = self.create(
 			user=user,
 			content=notif_template.format(answer.answer_author, answer.question.title[:40]),
@@ -35,10 +35,10 @@ class NotificationExtender(models.Manager):
 			send_notification_email(notification)
 
 	def create_reply_notification(self, user, reply):
-		notif_template = "{0} replied \"{1}\"."
+		notif_template = "@{0} replied \"{1}\"."
 		notification = self.create(
 			user=user,
-			content=notif_template.format(reply.answer_author, reply.parent.description),
+			content=notif_template.format(reply.answer_author, reply.description),
 			notification_type="replied",
 			object_id=reply.pk
 		)
