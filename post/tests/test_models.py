@@ -13,20 +13,32 @@ class TestChannel(TestCase):
 
 	@classmethod
 	def setUpTestData(cls):
-		Channel.objects.create(name="testing")
+		Channel.objects.create(name="testing", detail="testing channel")
+		Channel.objects.create(name="colored", detail="colored channel", color="#afafaf")
 
 	def test_created_channel(self):
 		c = Channel.objects.first()
 		self.assertIsInstance(c, Channel)
 		self.assertEqual(c.name, "testing")
+		self.assertEqual(c.detail, "testing channel")
+		self.assertEqual(c.color, "#673AB7")
+
+		cc = Channel.objects.last()
+		self.assertIsInstance(cc, Channel)
+		self.assertEqual(cc.name, "colored")
+		self.assertEqual(cc.detail, "colored channel")
+		self.assertEqual(cc.color, "#afafaf")
 
 	def test_field_types(self):
 		c = Channel.objects.first()
 		self.assertIsInstance(c.name, str)
+		self.assertIsInstance(c.detail, str)
+		self.assertIsInstance(c.color, str)
 
 	def test_str(self):
 		c = Channel.objects.first()
-		self.assertEqual(str(c), c.name)
+		cstr = c.name + " - " + c.detail
+		self.assertEqual(str(c), cstr)
 
 
 class TestQuestion(TestCase):
