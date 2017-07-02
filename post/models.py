@@ -15,9 +15,11 @@ class question_extender(models.Manager):
 
 class Channel(models.Model):
 	name = models.CharField(max_length=15, unique=True)
+	detail = models.TextField(blank=True, default="")
+	color = models.CharField(max_length=30, default="#673AB7")
 
 	def __str__(self):
-		return self.name
+		return self.name + " - " + self.detail
 
 
 class Question(models.Model):

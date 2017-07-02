@@ -9,14 +9,20 @@
   <section class="hero">
     <div class="hero-body narrow-padding">
       <div class="container">
-        <h1 class="title">
-          <span class="tag bg-is-purple is-large">
+        <h1 class="title channel-title">
+          <span class="is-large"
+            style="color: {{channel.color}};">
             {{ channel }}
           </span>
         </h1>
-        <h2 class="subtitle">
-          {{ channel.question_set.count }} conversation{{ channel.question_set.count|pluralize }} so far
+        <h2 class="channel-detail">
+          <div class="is-black">
+            {{ channel.detail }}
+          </div>
         </h2>
+        <h3 class="subtitle">
+          {{ channel.question_set.count }} conversation{{ channel.question_set.count|pluralize }} so far
+        </h3>
       </div>
     </div>
   </section>
