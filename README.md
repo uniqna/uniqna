@@ -9,14 +9,14 @@
 
 Greetings!
 
-This is the primary codebase that powers the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django (v1.10) Framework.
+This is the primary codebase that powers the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django Framework.
 
 ## A TL;DR of our current live stack:
 
-1. Engine - Python v3.4 | Django v1.11.2
-2. Database - PostgreSQL
-3. Frontend - Google's Material Design Lite (extensively customised)
-4. Cloud server environment - AWS Elastic Beanstalk (64bit Linux )
+1. Engine - Python v3.5 | Django v1.11.2
+2. Database - PostgreSQL v9.6
+3. Frontend - Bulma, Vue and few other magic
+4. Cloud - Ubuntu 17.04 and nginx
 
 ## About
 
