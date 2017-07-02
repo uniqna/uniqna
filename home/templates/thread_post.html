@@ -4,14 +4,16 @@
       <div class="container">
 
         {% for c in post.channels.all %}
-          <span class="tag is-purple">{{ c }}</span>
+        <a href="{% url 'channel' c.name %}">
+          <span class="tag" style="color: {{c.color}};">{{ c.name }}</span>
+        </a>
         {% endfor %}
 
         {% if post.solved %}<i class="material-icons is-pulled-right solved-tick">done</i>{% endif %}
 
         <h2 class="subtitle">
           <a class="is-pink" href="{% url 'user' post.author %}">@{{ post.author }}</a><small> {{  post.created_time|date:"d M, Y" }}</small>
-          <i class="material-icons link">link</i>
+          <i class="material-icons link is-pointer" data-clipboard-text="https://uniqna.com{% url 'thread' post.pk post.title|slugify %}">link</i>
         </h2>
         <h1 class="title">
           {{ post.title }}

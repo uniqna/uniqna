@@ -32,7 +32,7 @@
                   <span class="next-line">
                   {% if x.channels.all %}
                     {% for c in x.channels.all %}
-                      <small><a class="channel is-purple" href="{% url 'channel' c.name %}">#{{c.name}}</a></small>
+                      <small><a class="channel" style="color:{{c.color}}" href="{% url 'channel' c.name %}">#{{c.name}}</a></small>
                     {% endfor %}
                   {% endif %}
                   </span>
