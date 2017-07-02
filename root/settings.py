@@ -1,4 +1,6 @@
 import os
+
+import raven
 from django.conf.global_settings import TEMPLATES
 
 try:
@@ -11,6 +13,36 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ID = 1
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+DEBUG = False
+
+if os.environ.get('PRODUCTION'):
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    MG_KEY = os.environ.get('MG_KEY')
+    MG_URL = os.environ.get('MG_URL')
+    MG_FROM = os.environ.get('MG_FROM')
+    ALLOWED_HOSTS = ['.uniqna.com']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    PREPEND_WWW = True
+else:
+    SECRET_KEY = secret_settings.SECRET_KEY
+    MG_KEY = secret_settings.MG_KEY
+    MG_URL = secret_settings.MG_URL
+    MG_FROM = secret_settings.MG_FROM
+    ALLOWED_HOSTS = ['*']
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+if 'TRAVIS' in os.environ:
+    PREPEND_WWW = False
+    ALLOWED_HOSTS = ['*']
+    STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 
 
 # Application definition
@@ -34,6 +66,7 @@ INSTALLED_APPS = [
     'el_pagination',
     'mptt',
     'pipeline',
+    'raven.contrib.django.raven_compat',
     'rest_framework',
     'robots',
     'widget_tweaks',
@@ -86,37 +119,28 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'uniqna',
-        'USER': 'moderator',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+if os.environ.get('PRODUCTION'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'uniqna',
+            'USER': 'moderator',
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
-
-
-if 'SECRET_KEY' in os.environ:
-    SECRET_KEY = os.environ['SECRET_KEY']
-    MG_KEY = os.environ['MG_KEY']
-    MG_URL = os.environ['MG_URL']
-    MG_FROM = os.environ['SECRET_KEY']
-    DEBUG = False
-    ALLOWED_HOSTS = ['.uniqna.com', '.localhost', '.127.0.0.1']
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    PREPEND_WWW = True
 else:
-    SECRET_KEY = secret_settings.SECRET_KEY
-    MG_KEY = secret_settings.MG_KEY
-    MG_URL = secret_settings.MG_URL
-    MG_FROM = secret_settings.MG_FROM
-    DEBUG = True
-    PREPEND_WWW = False
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'uniqna',
+            'USER': 'moderator',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -159,20 +183,6 @@ BLEACH_ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'a', '
 BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width']
 
 # Pipeline
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-if DEBUG or 'TRAVIS' in os.environ:
-    # In order for tests to run properly
-    PREPEND_WWW = False
-    ALLOWED_HOSTS = ['*']
-    STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
-
 PIPELINE = {
     'STYLESHEETS': {
         'base': {
@@ -264,6 +274,8 @@ PIPELINE = {
         },
         'login': {
             'source_filenames': (
+                'js/third_party/vue.min.js',
+                'js/third_party/jquery.min.js',
                 'js/notif_delete.js',
                 'js/submit.js',
             ),
@@ -330,3 +342,11 @@ PIPELINE = {
 
 PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.cssmin.CSSMinCompressor'
 PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
+
+# Sentry
+RAVEN_CONFIG = {
+    'dsn': 'https://cf76b80a140646d18c0340c614decf62:e8a22e4ed77148afb77c6cfdea8cb482@sentry.io/186841',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}

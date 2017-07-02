@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %} {% load el_pagination_tags %}
+{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %}
 
 {% block head %}
   {% stylesheet 'home' %}
@@ -6,7 +6,10 @@
 
 {% block content %}
   {% include 'tabbed-emoji.html' %}
-      <div  id="infini"> {% paginate question_list%} {% for x in question_list %} {% include 'question.html' %}{% endfor %} {% get_pages %}</div>
+  {% include 'trending_channels.html' %}
+    <div  id="infini">
+      {% for x in question_list %} {% include 'question.html' %} {% endfor %}
+    </div>
 {% endblock content %}
 
 {% block js %}

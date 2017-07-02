@@ -1,0 +1,10 @@
+{% if trending %}
+  <nav class="breadcrumb has-dot-separator">
+    <ul>
+      <i class="material-icons is-orange">trending_up</i>
+      {% for x in trending %}
+      <li><a href="{% url 'channel' x.name %}">{{ x.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}
