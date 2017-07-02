@@ -32,12 +32,14 @@ def home(request, tab="home"):
 			elif tab == "discussions":
 				question_list = Question.objects.filter(
 					metatype="discussion").order_by("-hot")
+			trending_channels = Channel.objects.filter(trending=True)
 			return render(
 				request,
 				'home.html',
 				{
 					'tab': tab,
 					'question_list': question_list,
+					'trending': trending_channels,
 				})
 		else:
 			question_list = Question.objects.all().order_by("-hot")[:3]
@@ -48,7 +50,6 @@ def home(request, tab="home"):
 			no_of_discussions = Answer.objects.filter(metatype="discussion").count()
 			no_of_solved = Question.objects.filter(
 				metatype="question", solved=True).count()
-			# +1 to avoid zero division errors
 			no_of_solved_percentage = round(
 				((no_of_solved + 1) / (no_of_questions + 1)) * 100)
 			return render(

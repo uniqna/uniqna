@@ -42,6 +42,10 @@
   color: #3f51b5;
 }
 
+.is-orange {
+  color: #ff9800;
+}
+
 .bg-is-purple {
   background-color: #673AB7;
   color: #fafafa;
