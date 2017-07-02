@@ -256,6 +256,8 @@ PIPELINE = {
     'JAVASCRIPT': {
         'base': {
             'source_filenames': (
+                'js/third_party/vue.min.js',
+                'js/third_party/jquery.min.js',
                 'js/base.js',
             ),
             'output_filename': 'js/base.js',
@@ -289,7 +291,7 @@ PIPELINE = {
                 'js/contribute.js',
                 'js/reply_modal.js',
                 'js/collapse.js',
-                'js/clipboard.min.js',
+                'js/third_party/clipboard.min.js',
                 'js/permalink.js',
             ),
             'output_filename': 'js/thread.js',
