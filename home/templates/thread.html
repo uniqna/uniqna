@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% load pipeline %}
 
+{% block title %} {{ post.title }} {% endblock %}
+
 {% block head %}
   {% stylesheet 'thread' %}
 {% endblock head %}

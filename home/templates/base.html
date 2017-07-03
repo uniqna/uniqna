@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fafafa">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>uniqna</title>
+    <title>uniqna - {% block title %} {% endblock %}</title>
     <!-- Stylesheet -->{% load pipeline %} {% load static %}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="manifest" href="{% static 'favicons/manifest.json' %}">
@@ -33,6 +33,7 @@
     <!-- Js -->
     {% javascript 'base' %}
     {% block js %} {% endblock %}
+    {% include 'google_analytics.html' %}
   </body>
 
   </html>

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}  {% load pipeline %} {% load widget_tweaks %}
 
+{% block title %} manage @{{ user }} {% endblock %}
+
 {% block head %}
   {% stylesheet 'register' %}
 {% endblock %}

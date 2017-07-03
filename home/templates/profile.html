@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %}
 
+{% block title %} @{{ user }} {% endblock %}
+
 {% block head %}
   {% stylesheet 'profile' %}
 {% endblock head %}

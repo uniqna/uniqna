@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %}
 
+{% block title %} #{{ channel.name|lower }} {% endblock %}
+
 {% block head %}
   {% stylesheet 'channel' %}
 {% endblock head %}

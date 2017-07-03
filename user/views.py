@@ -106,7 +106,7 @@ def edit_profile(request, user):
 
 
 def forgot(request):
-	navtext = "Forgot Password?"
+	navtext = "Forgot?"
 	if request.method == "POST" and request.POST:
 		email = request.POST['email']
 		try:

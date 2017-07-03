@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% load pipeline %}
 
+{% block title %} forgot? {% endblock %}
+
 {% block head %}
   {% stylesheet 'forgot' %}
 {% endblock head %}
@@ -36,7 +38,7 @@
            <div class="field submit">
              <p class="control">
                <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
-                 Login
+                 Submit
                </button>
              </p>
            </div>
