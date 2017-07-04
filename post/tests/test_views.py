@@ -98,6 +98,7 @@ class TestPostViews(TestCase):
 		self.assertEqual(q[0].description, desc)
 		self.assertEqual(q[0].channels.count(), 0)
 		self.assertEqual(q[0].metatype, "question")
+		self.assertEqual(q[0].author, "username")
 
 		# Test for posting of a discussion
 		url = reverse('submit', kwargs={"metatype": "discussion"})

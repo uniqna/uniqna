@@ -45,6 +45,9 @@
           <h1 class="title is-white">What are you posting? 🍃</h1>
           <a class="button is-success is-medium" href="{% url 'ask' %}">+Question</a>
           <a class="button is-success is-medium" href="{% url 'discuss' %}">+Discussion</a>
+          {% if user.is_superuser %}
+          <a class="button is-success is-medium" href="{% url 'random' %}">+Random</a>
+          {% endif %}
 
         </div>
       <button class="modal-close"></button>
