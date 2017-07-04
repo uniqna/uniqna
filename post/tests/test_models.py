@@ -22,12 +22,14 @@ class TestChannel(TestCase):
 		self.assertEqual(c.name, "testing")
 		self.assertEqual(c.detail, "testing channel")
 		self.assertEqual(c.color, "#673AB7")
+		self.assertEqual(c.trending, False)
 
 		cc = Channel.objects.last()
 		self.assertIsInstance(cc, Channel)
 		self.assertEqual(cc.name, "colored")
 		self.assertEqual(cc.detail, "colored channel")
 		self.assertEqual(cc.color, "#afafaf")
+		self.assertEqual(cc.trending, False)
 
 	def test_field_types(self):
 		c = Channel.objects.first()
@@ -37,8 +39,7 @@ class TestChannel(TestCase):
 
 	def test_str(self):
 		c = Channel.objects.first()
-		cstr = c.name + " - " + c.detail
-		self.assertEqual(str(c), cstr)
+		self.assertEqual(str(c), c.name)
 
 
 class TestQuestion(TestCase):

@@ -13,9 +13,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ID = 1
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-DEBUG = False
 
 if os.environ.get('PRODUCTION'):
+    DEBUG = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
     MG_KEY = os.environ.get('MG_KEY')
     MG_URL = os.environ.get('MG_URL')
@@ -25,6 +25,7 @@ if os.environ.get('PRODUCTION'):
     SESSION_COOKIE_SECURE = True
     PREPEND_WWW = True
 else:
+    DEBUG = True
     SECRET_KEY = secret_settings.SECRET_KEY
     MG_KEY = secret_settings.MG_KEY
     MG_URL = secret_settings.MG_URL
@@ -39,7 +40,10 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-if 'TRAVIS' in os.environ:
+# Manual debug override for generating static files
+# DEBUG = False
+
+if 'TRAVIS' in os.environ or DEBUG:
     PREPEND_WWW = False
     ALLOWED_HOSTS = ['*']
     STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
