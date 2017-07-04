@@ -360,7 +360,7 @@ PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
 
 # Sentry
 RAVEN_CONFIG = {
-    'dsn': 'https://cf76b80a140646d18c0340c614decf62:e8a22e4ed77148afb77c6cfdea8cb482@sentry.io/186841',
+    'dsn': 'https://21f0c0c78aca49f9aabdb563a194a73c:d00818e945b145ec97687ce8d96e6cdd@sentry.io/187649',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
