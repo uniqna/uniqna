@@ -51,8 +51,8 @@ def submit(request, metatype):
 			instance.metatype = metatype
 			instance.save()
 			instance.ups.add(request.user)
-			if request.POST['selectedchannels']:
-				selected_channels = request.POST['selectedchannels']
+			if request.POST['channels']:
+				selected_channels = request.POST['channels']
 				channel_list = selected_channels.split(",")
 				channel_list = [x.lower() for x in channel_list if x != '']
 				for channel in channel_list:
@@ -135,4 +135,3 @@ def random_submit(request):
 				})
 	else:
 		return HttpResponseRedirect(reverse('home'))
-
