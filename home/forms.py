@@ -30,6 +30,16 @@ class registration(forms.Form):
 			raise forms.ValidationError("Your passwords do not match")
 		return password2
 
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		if (re.search(r'(vitstudent.ac.in)$', email)):
+			if User.objects.filter(email=email).exists():
+				raise forms.ValidationError('An account with that email ID already exists, so please log in fam :D')
+			else:
+				return email
+		else:
+			raise forms.ValidationError('We are still on our way to your university, so stayed tuned :D If you can\'t wait, ping us at superheroes@uniqna.com')
+
 
 class editForm(forms.Form):
 	bio = forms.CharField(max_length=256)

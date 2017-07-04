@@ -23,11 +23,17 @@
   <div class="columns">
     <div class="column is-half is-offset-one-quarter">
 
-      {% if regform.errors %}
+      {% if regform.username.errors or regform.confirm_password.errors %}
       <div class="notification is-danger" v-bind:style="{display: value}">
         <button class="delete" v-on:click="triggerDelete"></button>
           {{ regform.username.errors }}
           {{ regform.confirm_password.errors }}
+       </div>
+      {% endif %}
+
+      {% if regform.email.errors %}
+      <div class="notification is-success">
+          {{ regform.email.errors }}
        </div>
       {% endif %}
 
@@ -45,7 +51,7 @@
            </div>
 
            <div class="field">
-             <label class="label">Email Address</label>
+             <label class="label">Email Address (yadayada@vitstudent.ac.in)</label>
              <p class="control has-icons-left">
                {% render_field regform.email type="email" class+="input" %}
                <span class="icon is-small is-left">

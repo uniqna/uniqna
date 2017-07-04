@@ -2,7 +2,9 @@
 <div class="columns">
   <div class="column is-two-thirds is-offset-2">
     <h2 class="subtitle">
-      {{ replies }} repl{{ replies|pluralize:"y,ies" }}
+      {% if replies %}
+        {{ replies }} repl{{ replies|pluralize:"y,ies" }}
+      {% endif %}
     </h2>
   </div>
 </div>
