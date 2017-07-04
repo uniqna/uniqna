@@ -1,0 +1,27 @@
+{% extends "email_templates/base.html" %} {% block content %}
+
+<body style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;color:#4a4a4a;font-size:1rem;font-weight:400;line-height:1.5;">
+  <section class="hero" style="box-sizing:inherit;align-items:stretch;background-color:white;display:flex;flex-direction:column;justify-content:space-between;">
+    <div class="hero-body" style="box-sizing:inherit;flex-grow:1;flex-shrink:0;padding-top:3rem;padding-bottom:3rem;padding-right:1.5rem;padding-left:1.5rem;">
+      <div class="container has-text-centered" style="box-sizing:inherit;text-align:center;position:relative;">
+        <img src="https://www.uniqna.com/static/assets/logo_colored.png" width="150px" style="box-sizing:inherit;max-width:100%;" ><br style="box-sizing:inherit;" >
+        <h1 class="title" style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;word-break:break-word;color:#363636;font-size:2rem;font-weight:300;line-height:1.125;">
+            Hello @{{ username }}!
+        </h1>
+        <h2 class="subtitle " style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;word-break:break-word;color:#4a4a4a;font-size:1.25rem;font-weight:300;line-height:1.25;">
+          We're glad to see you join the fam 🙌🏼
+        </h2>
+        <br style="box-sizing:inherit;">
+        <h2 class="subtitle" style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;word-break:break-word;color:#4a4a4a;font-size:1.25rem;font-weight:300;line-height:1.25;">
+          <p style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;" >uniqna is a thriving online community for all your university specific needs</p>
+          Wanna get a doubt cleared? Post a <b style="box-sizing:inherit;" >question</b><br>
+          Wanna debate over something? Post a <b style="box-sizing:inherit;" >discussion</b><br>
+          Wanna stay tuned to the latest events? Watch over a <b style="box-sizing:inherit;" >channel</b><br>
+          and pretty much lots more!</p>
+        </h2>
+      </div>
+    </div>
+  </section>
+</body>
+
+{% endblock content %}

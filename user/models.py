@@ -32,6 +32,8 @@ class NotificationExtender(models.Manager):
 		notification = self.create(
 			user=user,
 			content=notif_template.format(answer.answer_author, answer.question.title[:40]),
+			description=answer.description,
+			notification_time=answer.created_time,
 			notification_type="answered",
 			object_id=answer.pk
 		)
@@ -43,6 +45,8 @@ class NotificationExtender(models.Manager):
 		notification = self.create(
 			user=user,
 			content=notif_template.format(reply.answer_author, reply.description),
+			description=reply.description,
+			notification_time=reply.created_time,
 			notification_type="replied",
 			object_id=reply.pk
 		)
@@ -53,6 +57,7 @@ class NotificationExtender(models.Manager):
 class Notification(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	read = models.BooleanField(default=False)
+	description = models.TextField(blank=False, null=False)
 	object_id = models.IntegerField()
 	notification_type = models.CharField(max_length=50)
 	notification_time = models.DateTimeField(default=timezone.now)

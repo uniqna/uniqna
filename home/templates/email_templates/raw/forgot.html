@@ -1,0 +1,22 @@
+{% extends "email_templates/base.html" %}
+{% block content %}
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <img src="https://www.uniqna.com/static/assets/logo_colored.png" width="150px" style="box-sizing:inherit;max-width:100%;">
+        <h1 class="title">
+          So you're @{{ user }}
+        </h1>
+        <h2 class="subtitle">
+          And your new password is <b>{{ password }}</b> <br>
+          Remember to change it as soon as you login :)
+        </h2>
+          <a class="button is-large is-light" style="color: #23d160;" href="https://www.uniqna.com">Log in</a>
+      </div>
+    </div>
+  </section>
+</body>
+
+{% endblock content %}

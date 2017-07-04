@@ -1,0 +1,20 @@
+{% extends "email_templates/base.html" %} {% block content %}
+
+<body style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;color:#4a4a4a;font-size:1rem;font-weight:400;line-height:1.5;">
+  <section class="hero" style="box-sizing:inherit;align-items:stretch;background-color:white;display:flex;flex-direction:column;justify-content:space-between;">
+    <div class="hero-body" style="box-sizing:inherit;flex-grow:1;flex-shrink:0;padding-top:3rem;padding-bottom:3rem;padding-right:1.5rem;padding-left:1.5rem;">
+      <div class="container has-text-centered" style="box-sizing:inherit;position:relative;">
+         <img src="https://www.uniqna.com/static/assets/logo_colored.png" width="150px" style="box-sizing: inherit; max-width: 100%;">
+         <h1 style="font-size: 2rem; font-weight: 300; box-sizing: inherit; word-break: break-word; color: #424242; line-height: 1.125; margin: 0 0 1.5rem; padding: 0;">
+           So you're @{{ user }}
+         </h1>
+         <h2 style="font-size: 1.25rem; font-weight: 300; box-sizing: inherit; word-break: break-word; color: #4a4a4a; line-height: 1.25; margin: -1.5rem 0 1.5rem; padding: 0;">
+           And your new password is <b style="box-sizing: inherit;">{{ password }}</b><br style="box-sizing: inherit;">
+           Remember to change it as soon as you <a href="https://www.uniqna.com">login</a>
+         </h2>
+       </div>
+     </div>
+   </section>
+ </body>
+
+{% endblock %}

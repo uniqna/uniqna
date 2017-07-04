@@ -1,8 +1,7 @@
-from root.settings import MG_KEY, MG_URL, MG_FROM, BASE_DIR
+from root.settings import MG_KEY, MG_URL, MG_FROM
 from django.template.loader import render_to_string
 from root.settings import DEBUG
 import requests
-import os
 
 # Uncomment this if you wanna check out mails in action in debug mode
 # DEBUG = False
@@ -31,7 +30,7 @@ def send_email(opts={}):
 			auth=("api", MG_KEY),
 			data={
 				"from": MG_FROM,
-				"to": "uniqnamail@gmail.com",
+				"to": opts["recipents"],
 				"bcc": opts["recipents"],
 				"subject": opts["subject"],
 				"html": opts["body"]
@@ -47,7 +46,7 @@ def render_email(template, context):
 
 
 def test_send_email(to):
-	context = {"header": "Hey Sriram, you have a new notificaiton.", "content": "Jeremy answered your question 'Timeline enlightment?' "}
+	context = {"from_user": "jeremy", "timestamp": "June 25, 2017, 12:15 a.m.", "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Proin eget tortor risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim."}
 	body = render_email("notification_email.html", context)
 	opts = {
 		"recipents": to,
@@ -58,20 +57,17 @@ def test_send_email(to):
 
 
 def send_notification_email(notification):
-	# (Object: Notification)
-	to = notification.user.email
-	uname = notification.user.username
-	content = notification.content
 	url = "https://uniqna.com" + notification.get_absolute_url()
 	context = {
-		"header": "Hey {}, you have a new notificaiton.".format(uname),
-		"notification": content,
+		"from_user": notification.user,
+		"description": notification.description,
+		"timestamp": notification.notification_time,
 		"url": url
 	}
-	body = render_email("notification_email.html", context)
+	body = render_email("notification.html", context)
 	opts = {
-		"recipents": to,
-		"subject": "Knock Knock. Mail from uniqna.",
+		"recipents": notification.user.email,
+		"subject": "Notification from @" + str(notification.user),
 		"body": body
 	}
 	print(send_email(opts))

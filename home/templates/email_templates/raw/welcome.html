@@ -1,0 +1,34 @@
+{% extends "email_templates/base.html" %}
+{% block content %}
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+
+      <h1 class="title">
+        <img src="https://www.uniqna.com/static/assets/logo_colored.png" width="200px"><br>
+        Hello @{{ username }}!
+      </h1>
+      <h2 class="subtitle ">
+        We're glad to see you join the fam 🙌🏼
+      </h2>
+
+      <br>
+
+      <h1 class="title">So sup with this place? 🤔</h1>
+      <h2 class="subtitle">
+        <p>Well, uniqna is a thriving online community for all your university specific needs<br>
+        Wanna get a doubt cleared? Post a <b>question</b><br>
+        Wanna debate over something? Post a <b>discussion</b></p><br>
+        Wanna stay tuned to the latest events? Watch over a <b>channel</b></p><br>
+        and pretty much lots more!</p> <sup>*coughs* memes? *coughs*</sup>
+      </h2>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+{% endblock content %}
