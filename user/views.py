@@ -119,10 +119,10 @@ def forgot(request):
 		pwdstring = ''.join(pwd)
 		user.set_password(pwdstring)
 		user.save()
-		mail_html = render_email("forgot_password.html", {"password": pwdstring})
+		mail_html = render_email("forgot.html", {"password": pwdstring, "user": user})
 		opts = {
 			"recipents": user.email,
-			"subject": "Recover your account - uniqna",
+			"subject": "Recover your account",
 			"body": mail_html
 		}
 		send_email(opts)

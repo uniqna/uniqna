@@ -1,0 +1,29 @@
+{% extends "email_templates/base.html" %} {% load timesince_upto %}
+{% block content %}
+
+<body style="box-sizing:inherit;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;color:#4a4a4a;font-size:1rem;font-weight:400;line-height:1.5;">
+  <section class="hero" style="box-sizing:inherit;align-items:stretch;background-color:white;display:flex;flex-direction:column;justify-content:space-between;">
+    <div class="hero-body" style="box-sizing:inherit;flex-grow:1;flex-shrink:0;padding-top:3rem;padding-bottom:3rem;padding-right:1.5rem;padding-left:1.5rem;">
+      <div class="container has-text-centered" style="box-sizing:inherit;position:relative;">
+          <div style="box-sizing: inherit; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; flex: none; width: 100%;">
+            <center style="box-sizing: inherit;"><img src="https://www.uniqna.com/static/assets/logo_colored.png" width="150px" style="box-sizing: inherit; max-width: 100%;"></center>
+            <br style="box-sizing: inherit;">
+            <div style="box-sizing: inherit; border-radius: 5px; box-shadow: none; display: block; background-color: #fafafa; padding: 1.25rem;">
+            <h1 style="font-size: 2rem; font-weight: 300; box-sizing: inherit; word-break: break-word; color: #424242; line-height: 1.125; margin: 0 0 1.5rem; padding: 0;">
+              <span style="color: #d81b60; box-sizing: inherit; font-style: inherit; font-weight: inherit;">@{{ from_user }}</span> <small style="color: #424242; box-sizing: inherit; font-size: 0.5em;">{{ timestamp }}</small>
+            </h1>
+              <h2 style="box-sizing: inherit; font-size: 1.1em; font-weight: normal; word-break: break-word; color: #4a4a4a; line-height: 1.25; margin: 0; padding: 0;">
+                <div style="box-sizing: inherit; color: #4a4a4a; margin-bottom: 1.5rem;">
+                  {{ description }}
+                </div>
+                <br style="box-sizing: inherit;">
+                <a href="{{ url }}" style="box-sizing: inherit; color: #3f51b5; cursor: pointer; text-decoration: none; transition: none 86ms ease-out;">view on uniqna.com</a>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+{% endblock %}

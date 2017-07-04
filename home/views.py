@@ -96,10 +96,10 @@ def register(request):
 			new_profile.user = new_user
 			new_profile.save()
 			login(request, new_user)
-			mail_html = render_email("welcome_email.html", {"username": new_user.username})
+			mail_html = render_email("welcome.html", {'username': new_user.username, })
 			opts = {
 				"recipents": new_user.email,
-				"subject": "Welcome aboard.",
+				"subject": "Welcome aboard 🎉",
 				"body": mail_html
 			}
 			send_email(opts)
@@ -159,4 +159,4 @@ def notification_redirect(request, pk):
 
 
 def test_email_templates(request):
-	return render(request, "email_templates/welcome_email.html")
+	return render(request, "email_templates/notification.html")
