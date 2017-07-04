@@ -145,8 +145,6 @@ def toggle_email_notification(request, user):
 			return Http404()
 
 		toggle = request.POST["toggle"]
-		# Javascript true
-		toggle = toggle[0].upper() + toggle[1:]
 		this_student = get_object_or_404(student, user=request.user)
 		this_student.notification_emails = toggle
 		this_student.save()

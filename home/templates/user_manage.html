@@ -104,6 +104,25 @@
         </form>
       </div>
 
+      <div class="box is-unselectable">
+        <form action="{% url 'toggle_email' user.username %}" id="toggle_email_form">
+          {% csrf_token %}
+          <div class="field is-narrow">
+            <label class="label">Prefer to receive our amazing emails?</label>
+            <p class="control">
+              <label class="radio">
+                <input type="radio" name="emailpref" value="True" {% if user.student.notification_emails %}checked{% endif %}>
+                Yeah :D
+              </label>
+              <label class="radio">
+                <input type="radio" name="emailpref" value="False" {% if not user.student.notification_emails %}checked{% endif %}>
+                Nope :/
+              </label>
+            </p>
+          </div>
+        </form>
+      </div>
+
     </div>
   </div>
 
@@ -111,5 +130,5 @@
 {% endblock content %}
 
 {% block js %}
-  {% javascript 'register' %}
+  {% javascript 'usermanage' %}
 {% endblock js %}

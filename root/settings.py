@@ -336,6 +336,15 @@ PIPELINE = {
             ),
             'output_filename': 'js/register.js',
         },
+        'usermanage': {
+            'source_filenames': (
+                'js/attach_csrf_header.js',
+                'js/submit.js',
+                'js/notif_delete.js',
+                'js/manage.js',
+            ),
+            'output_filename': 'js/usermanage.js',
+        },
         'forgot': {
             'source_filenames': (
                 'js/submit.js',
