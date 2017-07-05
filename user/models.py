@@ -57,7 +57,7 @@ class NotificationExtender(models.Manager):
 class Notification(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	read = models.BooleanField(default=False)
-	description = models.TextField(blank=False, null=False)
+	description = models.TextField(blank=True, null=True)
 	object_id = models.IntegerField()
 	notification_type = models.CharField(max_length=50)
 	notification_time = models.DateTimeField(default=timezone.now)
@@ -72,7 +72,7 @@ class Notification(models.Model):
 
 
 # As notification is not being directly attached to any model
-# We need to manually delete it when an answer delete signal 
+# We need to manually delete it when an answer delete signal
 # is received
 
 @receiver(pre_delete, sender=Answer, dispatch_uid="delete_notification_with_question")
