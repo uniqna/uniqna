@@ -51,10 +51,13 @@ def submit(request, metatype):
 			instance.metatype = metatype
 			instance.save()
 			instance.ups.add(request.user)
+			print("CHANEEELLLSSS\n\n")
+			print(request.POST)
+			print("\n\n")
 			if request.POST['channels']:
 				selected_channels = request.POST['channels']
 				channel_list = selected_channels.split(",")
-				channel_list = [x.lower() for x in channel_list if x != '']
+				channel_list = [x for x in channel_list if x != '']
 				for channel in channel_list:
 					this_channel = Channel.objects.get(id=channel)
 					instance.channels.add(this_channel)
@@ -62,7 +65,7 @@ def submit(request, metatype):
 		else:
 			return render(
 				request,
-				"post_templates/new.html",
+				"new.html",
 				{
 					"username": request.user.username,
 					"tags": Channel.objects.all(),
@@ -110,13 +113,14 @@ def random_submit(request):
 			new_profile.user = new_user
 			new_profile.save()
 
+			print("\n\nahhhh")
 			instance = submitted_form.save(commit=False)
 			instance.author = username
 			instance.metatype = "question"
 			instance.save()
 			instance.ups.add(request.user)
-			if request.POST['selectedchannels']:
-				selected_channels = request.POST['selectedchannels']
+			if request.POST['channels']:
+				selected_channels = request.POST['channels']
 				channel_list = selected_channels.split(",")
 				channel_list = [x.lower() for x in channel_list if x != '']
 				for channel in channel_list:
@@ -126,7 +130,7 @@ def random_submit(request):
 		else:
 			return render(
 				request,
-				"post_templates/random_user_new.html.html",
+				"random_user_new.html.html",
 				{
 					"username": request.user.username,
 					"tags": Channel.objects.all(),
