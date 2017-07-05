@@ -10,8 +10,8 @@
 
         <div class="nav-center">
           <a class="nav-item" href="{% url 'notifications' %}" >
-            {% if user.notification_set.unread_count != 0 %}
-              {{ user.notification_set.unread_count }}
+            {% if request.user.notification_set.unread_count != 0 %}
+              {{ request.user.notification_set.unread_count }}
             {% endif %}
             <i class="material-icons">notifications</i>
           </a>
