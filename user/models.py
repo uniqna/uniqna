@@ -1,8 +1,12 @@
-from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.utils import timezone
 
 from root.email import send_notification_email
+from post.models import Question
+from threads.models import Answer
 
 
 class student(models.Model):
@@ -60,3 +64,16 @@ class Notification(models.Model):
 
 	def get_absolute_url(self):
 		return "/notification/{}".format(self.pk)
+
+
+# As notification is not being directly attached to any model
+# We need to manually delete it when an answer delete signal 
+# is received
+
+@receiver(pre_delete, sender=Answer, dispatch_uid="delete_notification_with_question")
+def delete_notification(sender, instance, using, **kwargs):
+	# Instance => Answer going to be deleted
+	# Look up Notification object having the same ID as instance
+	# And delete it
+	target_notif = Notification.objects.filter(object_id=instance.id)
+	target_notif.delete()
