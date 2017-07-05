@@ -332,7 +332,8 @@ PIPELINE = {
         'register': {
             'source_filenames': (
                 'js/submit.js',
-                'js/notif_delete.js'
+                'js/notif_delete.js',
+                'js/register.js',
             ),
             'output_filename': 'js/register.js',
         },

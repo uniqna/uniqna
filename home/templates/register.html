@@ -42,12 +42,17 @@
 
            <div class="field">
              <label class="label">Username</label>
-             <p class="control has-icons-left">
+             <p class="control has-icons-left has-icons-right" data-url="{% url 'availability' %}">
                {% render_field regform.username type="username" class+="input" %}
                <span class="icon is-small is-left">
                  <i class="material-icons">account_box</i>
                </span>
+               <span class="icon is-small is-right is-hidden">
+                 <i class="material-icons">done</i>
+               </span>
              </p>
+             <p class="help is-success is-hidden" id="available">Username is available. </p>
+             <p class="help is-danger is-hidden" id="not_available">Username is not available. </p>
            </div>
 
            <div class="field">

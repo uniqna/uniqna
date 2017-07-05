@@ -4,7 +4,10 @@ function validateForm() {
     if ( $(this).val() === '' )
         isValid = false;
   });
-  return isValid;
+  // Check for username availability
+  var isAvail = $("#id_username").hasClass("is-success");
+  console.log(isAvail);
+  return isValid && isAvail;
 }
 
 new Vue({
