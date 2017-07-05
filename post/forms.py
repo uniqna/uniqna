@@ -5,7 +5,7 @@ from post.models import Channel
 
 
 class post_form(forms.ModelForm):
-    channels = forms.ModelChoiceField(queryset=Channel.objects.all().order_by('name'))
+    channels = forms.ModelChoiceField(queryset=Channel.objects.all().order_by('name'), required=False)
 
     class Meta:
         model = Question
