@@ -56,7 +56,7 @@ def submit(request, metatype):
 				channel_list = selected_channels.split(",")
 				channel_list = [x.lower() for x in channel_list if x != '']
 				for channel in channel_list:
-					this_channel = Channel.objects.get(name=channel)
+					this_channel = Channel.objects.get(id=channel)
 					instance.channels.add(this_channel)
 			return HttpResponseRedirect(instance.get_absolute_url())
 		else:
@@ -120,7 +120,7 @@ def random_submit(request):
 				channel_list = selected_channels.split(",")
 				channel_list = [x.lower() for x in channel_list if x != '']
 				for channel in channel_list:
-					this_channel = Channel.objects.get(name=channel)
+					this_channel = Channel.objects.get(id=channel)
 					instance.channels.add(this_channel)
 			return HttpResponseRedirect("/thread/" + str(instance.pk))
 		else:
