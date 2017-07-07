@@ -67,24 +67,17 @@
               </p>
             </div>
 
-          <div class="field">
-            <label class="label">Channels</label>
-            <p class="control has-icons-left">
-              <select type="text" name="selectedchannels" class="input" id="id_channel">
-                {% for c in channels %}
-                  <option value="{{c.name}}">{{c.name}}</option>
-                {% endfor %}
-              </select>
-              <!--
-              <span class="icon is-small is-left">
-                <i class="material-icons">view_carousel</i>
-              </span>
-              -->
-              <span class="icon is-small is-right">
-                <i class="material-icons">keyboard_arrow_down</i>
-              </span>
-            </p>
-          </div>
+            <div class="field">
+              <label class="label">Channels (optional)</label>
+              <p class="control has-icons-left">
+                <span class="select is-fullwidth">
+                    {% render_field form.channels class+="input" %}
+                </span>
+                <span class="icon is-small is-left">
+                  <i class="material-icons">view_carousel</i>
+                </span>
+              </p>
+            </div>
 
            <div class="field submit">
              <p class="control">
