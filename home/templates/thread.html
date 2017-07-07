@@ -8,7 +8,7 @@
   <meta property="og:title" content="{{ post.title }}" />
   <meta property="og:description" content="{{ post.description }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ request.build_absolute_uri }}{{ post.get_absolute_url }}" />
+  <meta property="og:url" content="https://www.uniqna.com{% url 'thread' post.id post.title|slugify %}" />
   <meta property="og:image" content="https://uniqna.com/static/assets/logo_u_HD.png" />
 {% endblock head %}
 
