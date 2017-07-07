@@ -4,10 +4,12 @@
 
 {% block head %}
   {% stylesheet 'thread' %}
+  <!-- Open Graph -->
   <meta property="og:title" content="{{ post.title }}" />
+  <meta property="og:description" content="{{ post.description }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{% url 'thread' post.id post.title|slugify %}" />
-  <meta property="og:image" content="https://uniqna.com/static/favicons/android-chrome-256x256.png" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}{{ post.get_absolute_url }}" />
+  <meta property="og:image" content="https://uniqna.com/static/assets/logo_u_HD.png" />
 {% endblock head %}
 
 {% block content %}
