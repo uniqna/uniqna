@@ -4,6 +4,10 @@
 
 {% block head %}
   {% stylesheet 'thread' %}
+  <meta property="og:title" content="{{ post.title }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{% url 'thread' post.id post.title|slugify %}" />
+  <meta property="og:image" content="https://uniqna.com/static/favicons/android-chrome-256x256.png" />
 {% endblock head %}
 
 {% block content %}
