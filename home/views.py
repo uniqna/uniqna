@@ -128,14 +128,11 @@ def channel_view(request, channel_name):
 		channel_name = str(channel_name)
 	except ValueError:
 		raise Http404()
-	if request.user.is_authenticated:
-		channel_instance = get_object_or_404(Channel, name=channel_name)
-		return render(
-			request,
-			"channel.html",
-			{'channel': channel_instance})
-	else:
-		return HttpResponseRedirect(reverse('home'))
+	channel_instance = get_object_or_404(Channel, name=channel_name)
+	return render(
+		request,
+		"channel.html",
+		{'channel': channel_instance})
 
 
 def notifications_view(request):
