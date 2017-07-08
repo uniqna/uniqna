@@ -4,7 +4,7 @@ from root.settings import DEBUG
 import requests
 
 # Uncomment this if you wanna check out mails in action in debug mode
-DEBUG = False
+# DEBUG = False
 
 
 def send_email(opts={}):

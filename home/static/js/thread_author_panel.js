@@ -28,7 +28,7 @@ new Vue({
                             first answer you receive.
                             Wait until you receive an answer
                             that answers your question well.`;
-        modal.toggleEdit = flase;
+        modal.toggleEdit = false;
 
       } else if (dingdong == 'delete') {
         modal.bgcolor = 'rgba(198, 40, 40, 0.9)';
