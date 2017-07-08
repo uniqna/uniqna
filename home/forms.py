@@ -38,7 +38,7 @@ class registration(forms.Form):
 			else:
 				return email
 		else:
-			raise forms.ValidationError('We are still on our way to your university, so stayed tuned :D If you can\'t wait, ping us at superheroes@uniqna.com')
+			raise forms.ValidationError('Uh you need to enter your vit student email id')
 
 
 class editForm(forms.Form):

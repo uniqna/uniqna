@@ -156,4 +156,4 @@ def notification_redirect(request, pk):
 
 
 def test_email_templates(request):
-	return render(request, "email_templates/notification.html")
+	return render(request, "email_templates/invite.html")
