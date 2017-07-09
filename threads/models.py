@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from mptt.models import MPTTModel, TreeForeignKey
 
 from post.models import Question
-from root.algorithms import vote_score
+from root.algorithms import vote_score, parser
 
 
 class ManagerExtender(models.Manager):
@@ -32,6 +32,11 @@ class Answer(MPTTModel):
 	points = models.IntegerField(default=1)
 	score = models.DecimalField(default=0, max_digits=20, decimal_places=17)
 	objects = ManagerExtender()
+
+	def save(self, *args, **kwargs):
+		# Override save to use answer parser for description
+		self.description = parser.parse_user_mentions(self.description)
+		super(Answer, self).save(*args, **kwargs)
 
 	def __str__(self):
 		return str(self.description)

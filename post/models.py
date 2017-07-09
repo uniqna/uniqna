@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
+from root.algorithms import parser
 from root.algorithms.popularity import _popularity
 
 
@@ -43,6 +44,11 @@ class Question(models.Model):
 	flair_icon = models.CharField(max_length=25, null=True, blank=True)
 	flair = models.CharField(max_length=180, null=True, blank=True)
 	objects = question_extender()
+
+	def save(self, *args, **kwargs):
+		# Override save to use answer parser for description
+		self.description = parser.parse_user_mentions(self.description)
+		super(Question, self).save(*args, **kwargs)
 
 	def __str__(self):
 		return (self.title)
