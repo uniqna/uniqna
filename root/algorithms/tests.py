@@ -15,8 +15,6 @@ class TestParser(TestCase):
 
 	def test_get_user(self):
 		self.assertEqual(parser.get_user('digi'), self.u1)
-		self.assertEqual(parser.get_user('digi.'), self.u1)
-		self.assertEqual(parser.get_user('jerry!'), self.u2)
 		self.assertEqual(parser.get_user('idontexist'), False)
 		self.assertEqual(parser.get_user('DIGI'), False)
 		self.assertEqual(parser.get_user('digi..'), False)
@@ -26,7 +24,7 @@ class TestParser(TestCase):
 		expected1 = "hi <a href='/@digi/'>@digi</a>"
 		self.assertEqual(parser1, expected1)
 		parser2 = parser.parse_user_mentions('hi @jerry.')
-		expected2 = "hi <a href='/@jerry/'>@jerry.</a>"
+		expected2 = "hi <a href='/@jerry/'>@jerry</a>."
 		self.assertEqual(parser2, expected2)
 		parser3 = parser.parse_user_mentions('hi @anony.')
 		expected3 = "hi @anony."

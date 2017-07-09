@@ -148,15 +148,6 @@ class TestQuestion(TestCase):
 		calc_popularity = _popularity(1, 1, q.created_time)
 		self.assertEqual(float(q.hot), calc_popularity)
 
-	def test_parsed_description(self):
-		q = Question.objects.create(
-			title="Testing parsing.",
-			description="Hello @jerry",
-			author="digi"
-		)
-		parsed_descripton = parser.parse_user_mentions("Hello @jerry")
-		self.assertEqual(q.description, parsed_descripton)
-
 	def test_get_time(self):
 		q = Question.objects.first()
 		t = timezone.localtime(q.created_time)

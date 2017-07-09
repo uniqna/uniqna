@@ -137,15 +137,6 @@ class TestAnswer(TestCase):
 		self.assertEqual(a.points, 0)
 		self.assertEqual(float(a.score), calc_popularity)
 
-	def test_parsed_description(self):
-		a = Answer.objects.create(
-			question=self.q,
-			description="Hello @digi",
-			answer_author="jerry"
-		)
-		parsed_descripton = parser.parse_user_mentions("Hello @digi")
-		self.assertEqual(a.description, parsed_descripton)
-
 	def test_get_time(self):
 		a = self.a
 		t = timezone.localtime(a.created_time)

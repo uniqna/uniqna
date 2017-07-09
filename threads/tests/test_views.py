@@ -234,7 +234,6 @@ class TestMarkdown(TestCase):
 		self.assertEqual(resp.status_code, 200)
 		self.assertEqual(resp.context["post"], self.q)
 		desc = markdown(self.q.description, extras=["tables", "cuddled-lists"])
-		self.assertEqual(resp.context["description"], desc)
 
 	def test_answer_desc(self):
 		resp = self.client.get(self.url)
