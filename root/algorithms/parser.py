@@ -14,6 +14,9 @@ def get_user(token):
 
 
 def parse_user_mentions(string):
+	string = string.strip()
+	if string == "":
+		return ""
 	word_list = string.split(' ')
 	new_word_list = []
 	for word in word_list:
