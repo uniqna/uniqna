@@ -39,7 +39,7 @@
 
           <div class="tile is-5">
             <article class="tile is-child box">
-              <p class="title">Login</p>
+              <p class="title is-black"><b>Login</b></p>
               <p class="subtitle">to gain full access</p>
 
               {% if failed %}
@@ -107,7 +107,7 @@
 
               <div class="tile">
                 <article class="tile is-child box">
-                  <p class="title">What's buzzin</p>
+                  <p class="title is-black"><b>What's buzzin?</b></p>
                   {% for x in question_list %}
                     {% include 'question.html' %}
                   {% endfor %}
@@ -118,22 +118,86 @@
           </div>
         </div>
     </section>
+
+    <section class="hero is-success is-fullheight">
+      <div class="hero-body hide-overflow">
+        <div class="container is-unselectable">
+          <div class="columns">
+            <div class="column is-4 is-4-mobile">
+              <h1 class="title">
+                <b>Frontpage of your university</b>
+              </h1>
+              <h2 class="subtitle">
+                Stay up to date with the latest buzz
+              </h2>
+            </div>
+          <div class="column is-8">
+            <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/frontpage.png' %}" width="900px">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-primary is-fullheight">
+      <div class="hero-body hide-overflow">
+        <div class="container is-unselectable">
+          <div class="columns is-multiline">
+            <div class="column is-4 is-4-mobile">
+              <h1 class="title">
+                <b>Ask or Discuss</b>
+              </h1>
+              <h2 class="subtitle easter">
+                Whether it's an assignment,
+                an event update,
+                an opinion you'd like to share, or anything -
+                <b>You're just a post away</b>
+                <span class="lenny">( ͡° ͜ʖ ͡°)</span>
+              </h2>
+            </div>
+          <div class="column is-8 is-2-mobile">
+            <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/question.png' %}" width="900px">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-large">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+            <b>So what are you waiting for?</b>
+          </h1>
+          <h2 class="subtitle">
+            Sign up and become part of the fam :D
+          </h2>
+          <a href="{% url 'register' %}">
+            <img src="{% static 'assets/ticket.svg' %}" width="250px">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-light">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h2 class="subtitle">
+            Made with <img class="cardio" src="https://jeremyphilemon.github.io/blog/images/Heart.svg" style="vertical-align: -2px;" alt="Heart"> by two beautiful monkeys 🙈
+          </h2>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-
-  <footer class="footer">
-    <div class="container">
-      <div class="content has-text-centered">
-        <p>
-          Made with <img class="cardio" src="https://jeremyphilemon.github.io/blog/images/Heart.svg" style="vertical-align: -2.5px;"> by two beautiful monkeys 🙈
-        </p>
-      </div>
-    </div>
-  </footer>
 
 
   <!-- Js -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    $(".easter").click(function(){
+        $(".lenny").show();
+    });
+  </script>
   {% javascript 'login' %}
   {% include 'google_analytics.html' %}
 </body>
