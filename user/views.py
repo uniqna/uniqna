@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-import markdown2
+from root.algorithms.parser import parse
 
 from home.forms import editForm, changePasswordForm, emailForm
 from post.models import Question
@@ -23,16 +23,8 @@ def user_page(request, user):
 	requested_user = get_object_or_404(User, username=user)
 	user_posts = Question.objects.filter(author=user)
 	user_replies = Answer.objects.filter(answer_author=user)
-
-	for x in user_replies:
-		x.description = markdown2.markdown(
-			x.description,
-			extras=["tables", "cuddled-lists"])
-
-	for x in user_posts:
-		x.description = markdown2.markdown(
-			x.description,
-			extras=["tables", "cuddled-lists"])
+	user_posts = parse(user_posts)
+	user_replies = parse(user_replies)
 
 	all_list = sorted(
 		list(chain(user_posts, user_replies)),

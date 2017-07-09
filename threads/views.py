@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-import markdown2
+from root.algorithms.parser import parse
 
 from post.models import Question
 from post.forms import post_form
@@ -18,26 +18,19 @@ def thread(request, thread_id, slug="", answer_id=""):
 	except ValueError:
 		raise Http404()
 	post_requested = get_object_or_404(Question, pk=thread_id)
-	description = markdown2.markdown(
-		post_requested.description,
-		extras=["tables", "cuddled-lists"]
-	)
+	post_requested = post_requested.parse()
 	unsubmitted_reply = reply_form()
-	Answer._tree_manager.rebuild()  # You rebuild the tree and then query.
-	all_replies = Answer.objects.filter(
-		question=post_requested).order_by('tree_id', 'lft')
+	Answer._tree_manager.rebuild()
+	all_replies = Answer.objects.filter(question=post_requested).order_by('tree_id', 'lft')
+	all_replies = parse(all_replies)
 	replies_count = all_replies.count()
 	data = {'description': post_requested.description}
 	edit_form = post_form(data)
-	for x in all_replies:
-		x.description = markdown2.markdown(
-			x.description, extras=["tables", "cuddled-lists"])
 	return render(
 		request,
 		'thread.html',
 		{
 			'post': post_requested,
-			'description': description,
 			'form': unsubmitted_reply,
 			'nodes': all_replies,
 			'replies': replies_count,
@@ -55,11 +48,10 @@ def reply(request, thread_id, answer_id):
 	answer_req = get_object_or_404(Answer, pk=answer_id)
 	replies = answer_req.get_descendants(True)
 	replies = replies.order_by('tree_id', 'lft')
-	description = parent_ques.description
+	replies = parse(replies)
 	return render(request, 'thread.html', {
 		'post': parent_ques,
 		'nodes': replies,
-		'description': description,
 		'reply': True
 	})
 
