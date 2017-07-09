@@ -38,3 +38,14 @@
 .footer {
   padding: 3rem 1.5rem 3rem;
 }
+
+.is-screenshot {
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,0.15);
+  border-radius: 4px;
+  max-width: none;
+}
+
+
+.hide-overflow {
+  overflow-x: hidden;
+}
