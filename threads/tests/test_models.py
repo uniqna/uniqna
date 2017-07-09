@@ -8,6 +8,7 @@ from mptt.models import TreeForeignKey
 
 from post.models import Question
 from threads.models import Answer
+from root.algorithms import parser
 from root.algorithms.vote_score import confidence
 
 
@@ -135,6 +136,15 @@ class TestAnswer(TestCase):
 		calc_popularity = confidence(1, 1)
 		self.assertEqual(a.points, 0)
 		self.assertEqual(float(a.score), calc_popularity)
+
+	def test_parsed_description(self):
+		a = Answer.objects.create(
+			question=self.q,
+			description="Hello @digi",
+			answer_author="jerry"
+		)
+		parsed_descripton = parser.parse_user_mentions("Hello @digi")
+		self.assertEqual(a.description, parsed_descripton)
 
 	def test_get_time(self):
 		a = self.a
