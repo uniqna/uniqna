@@ -6,11 +6,22 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view  # unused
-from .serializers import AnswerSerializer, ChannelSerializer, QuestionSerializer, UsernameSerializer
+from .serializers import *
 from .models import UsernameSnippet
 
 from threads.models import Answer
 from post.models import Channel, Question
+
+
+class FrontPage(APIView):
+	def get(self, request):
+
+		if not request.user.is_authenticated:
+			return Response(status=status.HTTP_400_BAD_REQUEST)
+
+		posts = Question.objects.order_by("-hot")
+		serializer = FPSerializer(posts, many=True)
+		return Response(serializer.data)
 
 
 class CheckUsername(APIView):
