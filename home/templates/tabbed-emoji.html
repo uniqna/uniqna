@@ -3,7 +3,7 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Hot</p>
-            <a href="{% url 'home' %}" role="tab" title="Hot">
+            <a role="tab" title="Hot" v-on:click="fetchPosts('hot')">
                 <i class="twa twa-2x twa-fire"></i>
             </a>
           </div>
@@ -11,7 +11,7 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Q&A</p>
-            <a href="{% url 'tab' 'questions' %}" role="tab" title="Questions">
+            <a role="tab" title="Questions" v-on:click="fetchPosts('questions')">
                 <i class="twa twa-2x twa-thinking"></i>
             </a>
           </div>
@@ -19,7 +19,7 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Unsolved</p>
-            <a href="{% url 'tab' 'unsolved' %}" role="tab" title="Unsolved">
+            <a role="tab" title="Unsolved" v-on:click="fetchPosts('unsolved')">
                 <i class="twa twa-2x twa-confounded"></i>
             </a>
           </div>
@@ -27,7 +27,7 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Discussions</p>
-            <a href="{% url 'tab' 'discussions' %}" role="tab" title="Discussions">
+            <a role="tab" title="Discussions" v-on:click="fetchPosts('discussions')">
                 <i class="twa twa-2x twa-thought-balloon"></i>
             </a>
           </div>

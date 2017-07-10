@@ -7,11 +7,14 @@
 {% endblock head %}
 
 {% block content %}
+  <div id="vue-frontpage" data-user="{{request.user.username}}">
   {% include 'tabbed-emoji.html' %}
   {% include 'trending_channels.html' %}
-    <div  id="infini">
-      {% for x in question_list %} {% include 'question.html' %} {% endfor %}
-    </div>
+			<div v-if="loaded" v-for="post in posts" id="infini">
+				{% include "question_vue.html" %}
+			</div>
+			<div v-if="!loaded">Loading</div>
+  </div>
 {% endblock content %}
 
 {% block js %}

@@ -289,6 +289,8 @@ PIPELINE = {
         },
         'home': {
             'source_filenames': (
+                'js/infinite_scroll.js',
+                'js/frontpage.js',
                 'js/vote.js',
             ),
             'output_filename': 'js/home.js',
