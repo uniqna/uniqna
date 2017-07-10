@@ -14,12 +14,29 @@ from post.models import Channel, Question
 
 
 class FrontPage(APIView):
-	def get(self, request):
+	def get(self, request, cat, page):
+		# cat = category
+		# page = page number
 
 		if not request.user.is_authenticated:
 			return Response(status=status.HTTP_400_BAD_REQUEST)
+		order = "-" + cat
+		page = int(page)
+		mini = 10 * (page - 1)
+		maxi = 10 * page
 
-		posts = Question.objects.order_by("-hot")
+		if cat == "hot":
+			posts = Question.objects.order_by("-hot")
+		elif cat == "questions":
+			posts = Question.objects.filter(
+				metatype="question").order_by("-hot")
+		elif cat == "unsolved":
+			posts = Question.objects.filter(
+				metatype="question", solved=False).order_by("-hot")
+		elif cat == "discussions":
+			posts = Question.objects.filter(
+				metatype="discussion").order_by("-hot")
+		posts = posts[mini:maxi]
 		serializer = FPSerializer(posts, many=True)
 		return Response(serializer.data)
 
