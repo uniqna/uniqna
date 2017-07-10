@@ -1,21 +1,20 @@
-
-        <div class="box is-unselectable login-bg-is-white">
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  <small><a  class="author" href="">@[post.author]</a></small>
-                  <small class="meta">[post.created_time] ago</small>
-                  <small class="replies">[post.answers] replies</small>
-                    <span class="tag is-success" v-if="post.flair">[post.flair]</span>
-                  <br>
-                    <strong><a class="is-black" href="">[post.title]</a></strong>
-                  <span class="next-line" v-if="post.description" v-html="post.description"></span>
-                  <span class="next-line" v-for="channel in post.channels">
-                      <small><a class="channel" v-bind:style="{color:channel.color}" href="">#[channel.name]</a></small>
-                  </span>
-                </p>
-              </div>
-            </div>
-          </article>
-        </div>
+<div class="box is-unselectable login-bg-is-white" style="margin-bottom: 1.5rem;">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <small><a  class="author" href="">@[post.author]</a></small>
+          <small class="meta">[post.created_time] ago</small>
+          <small class="replies">[post.answers] replies</small>
+            <span class="tag is-success" v-if="post.flair">[post.flair]</span>
+          <br>
+            <strong><a class="is-black" href="">[post.title]</a></strong>
+          <span class="next-line" v-if="post.description" v-html="post.description"></span>
+          <span class="next-line" v-for="channel in post.channels">
+              <small><a class="channel" v-bind:style="{color:channel.color}" href="">#[channel.name]</a></small>
+          </span>
+        </p>
+      </div>
+    </div>
+  </article>
+</div>
