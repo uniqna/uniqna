@@ -10,10 +10,12 @@
   <div id="vue-frontpage" data-user="{{request.user.username}}">
   {% include 'tabbed-emoji.html' %}
   {% include 'trending_channels.html' %}
-			<div v-if="loaded" v-for="post in posts" id="infini">
+    <div id="infinity">
+			<div v-if="loaded" v-for="post in posts" id="post">
 				{% include "question_vue.html" %}
 			</div>
 			<div v-if="!loaded">Loading</div>
+    </div>
   </div>
 {% endblock content %}
 
