@@ -17,7 +17,7 @@ def get_user(token):
 
 def parse_match(match):
 	token = match.group()
-	username = match.group(1)
+	username = match.group(2)
 	user = get_user(username)
 	if user:
 		url = reverse('user', args=[user.username])
@@ -30,7 +30,7 @@ def parse_user_mentions(string):
 	string = string.strip()
 	if string == "":
 		return ""
-	new_string = re.sub(r'\s@([\w_]+)', parse_match, string)
+	new_string = re.sub(r'(\s|^)@([\w_]+)', parse_match, string)
 	return new_string
 
 
