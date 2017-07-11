@@ -290,6 +290,7 @@ PIPELINE = {
         'home': {
             'source_filenames': (
                 'js/infinite_scroll.js',
+                'js/third_party/moment.js',
                 'js/frontpage.js',
                 'js/vote.js',
             ),

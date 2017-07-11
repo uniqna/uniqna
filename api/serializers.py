@@ -49,4 +49,4 @@ class FPSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Question
-		exclude = ('flair_icon', 'hot', 'points')
+		exclude = ('flair_icon', 'hot')

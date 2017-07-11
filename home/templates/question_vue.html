@@ -1,17 +1,35 @@
 <div class="box is-unselectable login-bg-is-white" style="margin-bottom: 1.5rem;">
   <article class="media">
+    <div class="media-left">
+      <span class="upvote is-pointer" v-bind:data-url="voteUrl(post, 'u')" v-bind:data-id="post.id">
+        <i class="material-icons arrow-align vote-default" 
+          v-bind:id="'up'+post.id"
+          v-bind:class="[voteSuccess(post)?'vote-success':'vote-default']">
+          keyboard_arrow_up
+        </i>
+      </span>
+          <div class="score" v-bind:id="'score'+post.id"> [post.points] </div>
+      <span class="downvote is-pointer" v-bind:data-url="voteUrl(post, 'd')" v-bind:data-id="post.id">
+        <i class="material-icons arrow-align vote-default" 
+          v-bind:id="'down'+post.id"
+          v-bind:class="[voteDanger(post)?'vote-danger':'vote-default']">
+          keyboard_arrow_down
+        </i>
+      </span>
+      <i class="material-icons tick" v-if="post.solved">done</i>
+      </div>
     <div class="media-content">
       <div class="content">
         <p>
-          <small><a  class="author" href="">@[post.author]</a></small>
-          <small class="meta">[post.created_time] ago</small>
+          <small><a  class="author" v-bind:href="userUrl(post.author)">@[post.author]</a></small>
+          <small class="meta">[moment(post.created_time).fromNow()]</small>
           <small class="replies">[post.answers] replies</small>
             <span class="tag is-success" v-if="post.flair">[post.flair]</span>
           <br>
-            <strong><a class="is-black" href="">[post.title]</a></strong>
+            <strong><a class="is-black" v-bind:href="postUrl(post)">[post.title]</a></strong>
           <span class="next-line" v-if="post.description" v-html="post.description"></span>
           <span class="next-line" v-for="channel in post.channels">
-              <small><a class="channel" v-bind:style="{color:channel.color}" href="">#[channel.name]</a></small>
+              <small><a class="channel" v-bind:style="{color:channel.color}" v-bind:href="channelUrl(channel.name)">#[channel.name]</a></small>
           </span>
         </p>
       </div>

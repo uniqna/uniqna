@@ -44,8 +44,54 @@ var fp = new Vue({
         console.error('No network connectivity.');
       });
     },
+
     infiScroll: function() {
       this.fetchPosts(this.category, ++this.page, 3);
+    },
+
+    voteSuccess: function(post) {
+      var author_voted = 0;
+      for(var user of post.ups) {
+        if (user.username === this.user){
+            author_voted = 1;
+            break;
+        }
+      }
+      if(author_voted)
+        return true;
+      else
+        return false;
+    },
+
+    voteDanger: function(post) {
+      var author_voted = 0;
+      for(var user of post.downs) {
+        if (user.username === this.user){
+            author_voted = 1;
+            break;
+        }
+      }
+      if(author_voted)
+        return true;
+      else
+        return false;
+    },
+
+    userUrl: function(username) {
+      return `/@${username}/`;
+    },
+
+    channelUrl: function(channel) {
+      return `/channel/${channel}/`;
+    },
+
+    postUrl: function(post) {
+      slug = post.title.toLowerCase().split(' ').join('-');
+      return `/thread/${post.id}-${slug}`;
+    },
+
+    voteUrl: function(post, type) {
+      return `/api/vote/question/${post.id}/${type}`
     }
   }
 });
