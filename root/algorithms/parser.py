@@ -43,12 +43,14 @@ def parse(queryset):
 	# takes in a queryset/object  and returns a queryset/object with parsed descriptions
 	if type(queryset) == QuerySet or type(queryset) == TreeQuerySet:
 		for obj in queryset:
-			obj.description = parse_user_mentions(obj.description)
-			obj.description = parse_markdown(obj.description)
+			if obj.description:
+				obj.description = parse_user_mentions(obj.description)
+				obj.description = parse_markdown(obj.description)
 		return queryset
 	else:
 		# Else it's a single object
 		q = queryset
-		q.description = parse_user_mentions(q.description)
-		q.description = parse_markdown(q.description)
+		if q.description:
+			q.description = parse_user_mentions(q.description)
+			q.description = parse_markdown(q.description)
 		return q
