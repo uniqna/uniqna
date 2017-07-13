@@ -1,13 +1,10 @@
 function validateForm() {
   var isValid = true;
   $('.input').filter('[required]').each(function() {
-    if ( $(this).val() === '' )
+    if ( $(this).val().trim() === '' )
         isValid = false;
   });
-  // Check for username availability
-  var isAvail = $("#id_username").hasClass("is-success");
-  console.log(isAvail);
-  return isValid && isAvail;
+  return isValid;
 }
 
 new Vue({
@@ -17,9 +14,7 @@ new Vue({
   },
   methods: {
     toggleLoading: function() {
-      if (validateForm()) {
-        this.isActive = true;
-      }
+      this.isActive = validateForm();
     }
   }
 });
