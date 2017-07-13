@@ -7,10 +7,7 @@
   vertical-align: -6px;
 }
 
-.input {
-  box-shadow: none;
-  border: 2px solid;
-  border-color: #b5b5b5;
+.input-is-large {
   height: 17.25em;
 }
 

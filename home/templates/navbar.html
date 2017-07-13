@@ -1,10 +1,12 @@
-
     <nav class="nav">
       <div class="container">
         <div class="nav-left">
           <a class="nav-item" href="{% url 'home' %}">
               {% if tab != 'home' %} <i class="material-icons">arrow_back</i> {% endif %}
               <img src="https://uniqna.com/static/favicons/apple-touch-icon.png" alt="uniqna logo">
+          </a>
+          <a class="nav-item search-icon is-unselectable">
+              <i class="material-icons" id="search">search</i>
           </a>
         </div>
 

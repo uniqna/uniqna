@@ -11,6 +11,7 @@
 .site-content {
   flex: 1;
   padding: 10px;
+  margin-top: -65px;
 }
 
 .footer {
@@ -67,4 +68,35 @@
 
 .is-pointer {
   cursor: pointer;
+}
+
+.pull-down {
+  transition: transform 500ms;
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transform: translate3d(0px, 65px, -150px);
+}
+.pull-up {
+  transition: transform 500ms;
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transform: none;
+}
+
+.rotate-in {
+  transition: transform 250ms;
+  transform: rotate(180deg);
+}
+
+.rotate-out {
+  transition: transform 250ms;
+  transform: rotate(0deg);
+}
+
+.input {
+  box-shadow: none;
+  border: 2px solid;
+  border-color: #b5b5b5;
+}
+
+.search-field {
+  margin-bottom: 11px;
 }

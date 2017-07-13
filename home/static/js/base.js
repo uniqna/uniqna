@@ -28,3 +28,27 @@ $(".modal-close").click(function(){
 $(".modal-background").click(function(){
     $(".modal-nav").removeClass("is-active");
 });
+
+var search = false;
+$(".search-icon").on("click", function(){
+  if(search) {
+    search = false;
+    $("#search")
+      .removeClass("rotate-in")
+      .addClass("rotate-out")
+      .text("search");
+    $(".site-content")
+      .removeClass("pull-down")
+      .addClass("pull-up");
+  }
+  else {
+    search = true;
+    $("#search")
+      .removeClass("rotate-out")
+      .addClass("rotate-in")
+      .text("close");
+    $(".site-content")
+      .removeClass("pull-up")
+      .addClass("pull-down");
+  }
+});

@@ -241,6 +241,14 @@ PIPELINE = {
             ),
             'output_filename': 'profile.css',
         },
+        'search': {
+            'source_filenames': (
+                'css/search.css',
+                'css/question.css',
+                'css/vote.css'
+            ),
+            'output_filename': 'search.css'
+        },
         'channel': {
             'source_filenames': (
                 'css/channel.css',
@@ -275,6 +283,7 @@ PIPELINE = {
                 'js/third_party/vue.min.js',
                 'js/third_party/jquery.min.js',
                 'js/base.js',
+                'js/submit.js',
             ),
             'output_filename': 'js/base.js',
         },
@@ -322,6 +331,12 @@ PIPELINE = {
                 'js/profile.js',
             ),
             'output_filename': 'js/profile.js',
+        },
+        'search': {
+            'source_filenames': (
+                'js/vote.js',
+            ),
+            'output_filename': 'js/search.js'
         },
         'channel': {
             'source_filenames': (
