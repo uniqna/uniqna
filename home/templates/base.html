@@ -24,6 +24,9 @@
         {% include 'navbar_guest.html' %}
       {% endif %}
     <main class="site-content">
+      {% if user.is_authenticated %}
+        {% include 'search_form.html' %}
+      {% endif %}
       {% block content %} {% endblock %}
     </main>
       <div class="level"></div>

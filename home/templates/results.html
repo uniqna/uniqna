@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% load pipeline %}
+
+{% block title %} Search Results for {{query}} {% endblock title %}
+
+{% block head %}
+	{% stylesheet 'search' %}
+{% endblock head %}
+
+{% block content %}
+
+	<section class="hero">
+    <div class="hero-body narrow-padding">
+      <div class="container">
+        <h1 class="title channel-title">
+          <span class="is-large" style="color: {{channel.color}};">
+            {{ results.count }} result{{ results.count|pluralize }} for
+          </span>
+        </h1>
+        <h2 class="subtitle channel-detail">
+          <div class="is-black">
+            "{{ query }}"
+          </div>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+	<div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        {% for x in results %}
+          {% include 'question.html' %}
+        {% endfor %}
+      </div>
+  </div>
+
+	{% if not results %}
+	<div class="container has-text-centered hero-body">
+		<h2 class="subtitle is-4">
+			Uh oh, no posts found 🤷🏻‍
+		</h2>
+	</div>
+	{% endif %}
+
+{% endblock content %}
+
+{% block js %}
+	{% javascript 'search' %}
+{% endblock js %}
