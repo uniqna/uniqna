@@ -32,7 +32,7 @@ class registration(forms.Form):
 
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
-		if (re.search(r'(vitstudent.ac.in)$', email)):
+		if (re.search(r'(vit(student)?.ac.in)$', email)):
 			if User.objects.filter(email=email).exists():
 				raise forms.ValidationError('An account with that email ID already exists, so please log in fam :D')
 			else:
