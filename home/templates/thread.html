@@ -14,7 +14,7 @@
 
 {% block content %}
 
-  {% if request.user.username == post.author %}
+  {% if request.user.username == post.author or request.user.is_superuser %}
     {% include 'thread_author_panel.html' %}
   {% endif %}
 

@@ -111,7 +111,7 @@ def delete_question(request, thread_id):
 	username = request.user.username
 	question_requested = get_object_or_404(Question, pk=thread_id)
 	author = question_requested.author
-	if author == username:
+	if author == username or request.user.is_superuser:
 		question_requested.delete()
 		Answer.objects.filter(question=thread_id).delete()
 		return HttpResponseRedirect(reverse('home'))
@@ -129,7 +129,7 @@ def delete_answer(request, thread_id, answer_id):
 	question_requested = get_object_or_404(Question, pk=thread_id)
 	answer_requested = Answer.objects.get(id=answer_id)
 	author = answer_requested.answer_author
-	if author == username:
+	if author == username or request.user.is_superuser:
 		answer_requested.delete()
 		question_requested.answers = Answer.objects.filter(
 			question=thread_id).count()
@@ -191,7 +191,7 @@ def mark_answer_solved(request, thread_id):
 	username = request.user.username
 	question_requested = get_object_or_404(Question, pk=thread_id)
 	author = question_requested.author
-	if author == username:
+	if author == username or request.user.is_superuser:
 		question_requested.solved = True
 		question_requested.save()
 		return HttpResponseRedirect(question_requested.get_absolute_url())
