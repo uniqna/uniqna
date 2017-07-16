@@ -1,7 +1,10 @@
 from root.settings import MG_KEY, MG_URL, MG_FROM
 from django.template.loader import render_to_string
 from root.settings import DEBUG
+from django.shortcuts import get_object_or_404
 import requests
+
+from threads.models import Answer
 
 # Uncomment this if you wanna check out mails in action in debug mode
 # DEBUG = False
@@ -58,8 +61,9 @@ def test_send_email(to):
 
 def send_notification_email(notification):
 	url = "https://uniqna.com" + notification.get_absolute_url()
+	answer = get_object_or_404(Answer, id=notification.object_id)
 	context = {
-		"from_user": notification.user,
+		"from_user": answer.answer_author,
 		"description": notification.description,
 		"timestamp": notification.notification_time,
 		"url": url
@@ -67,7 +71,7 @@ def send_notification_email(notification):
 	body = render_email("notification.html", context)
 	opts = {
 		"recipents": notification.user.email,
-		"subject": "Notification from @" + str(notification.user),
+		"subject": "Notification from @" + str(answer.answer_author),
 		"body": body
 	}
 	print(send_email(opts))
