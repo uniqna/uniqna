@@ -29,7 +29,7 @@ class registration(forms.Form):
 		if password1 != password2:
 			raise forms.ValidationError("Your passwords do not match")
 		return password2
-
+"""
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
 		if (re.search(r'(vit(student)?.ac.in)$', email)):
@@ -39,6 +39,8 @@ class registration(forms.Form):
 				return email
 		else:
 			raise forms.ValidationError('Uh you need to enter your vit student email id')
+
+"""
 
 
 class editForm(forms.Form):
