@@ -29,18 +29,13 @@ class registration(forms.Form):
 		if password1 != password2:
 			raise forms.ValidationError("Your passwords do not match")
 		return password2
-"""
+
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
-		if (re.search(r'(vit(student)?.ac.in)$', email)):
-			if User.objects.filter(email=email).exists():
-				raise forms.ValidationError('An account with that email ID already exists, so please log in fam :D')
-			else:
-				return email
+		if User.objects.filter(email=email).exists():
+			raise forms.ValidationError('An account with that email ID already exists, so please log in fam :D')
 		else:
-			raise forms.ValidationError('Uh you need to enter your vit student email id')
-
-"""
+			return email
 
 
 class editForm(forms.Form):
