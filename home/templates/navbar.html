@@ -17,7 +17,7 @@
             {% endif %}
             <i class="material-icons">notifications</i>
           </a>
-          <a class="nav-item">
+          <a class="nav-item" href="{% url 'user' request.user.username %}">
             @{{ request.user.username }}
           </a>
           <a class="nav-item">
@@ -33,7 +33,6 @@
 
         <div class="nav-right nav-menu" v-bind:class="{'is-active': isActive }">
           <a class="nav-item is-tab button is-success post" v-on:click.native="activateModal">+Post</a>
-          <a class="nav-item is-tab" href="{% url 'user' request.user.username %}">Profile</a>
           <a class="nav-item is-tab" href="{% url 'logout' %}">Log out</a>
         </div>
       </div>
