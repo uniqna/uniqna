@@ -1,7 +1,7 @@
 {% load mptt_tags %} {% load timesince_upto %}  {% load bleach_tags %}
 
     <div class="box is-unselectable {% if node.is_leaf_node %}leaf-node{% endif %}">
-      <article class="media">
+      <article class="media" id="a{{node.pk}}">
 
         <div class="media-left">
           <span class="ans-upvote is-pointer" data-url="{% url 'answer_vote' node.pk 'u' %}" data-id="{{node.pk}}">

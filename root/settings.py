@@ -320,6 +320,7 @@ PIPELINE = {
                 'js/collapse.js',
                 'js/third_party/clipboard.min.js',
                 'js/permalink.js',
+                'js/smooth_scrolling.js',
             ),
             'output_filename': 'js/thread.js',
         },
