@@ -47,6 +47,7 @@
       <div class="column is-half is-offset-one-quarter">
         <span class="reply-vue">
         {% for node in replies %}
+        <strong><a class="is-black" href="{% url 'alt_thread' node.question.pk %}#a{{ node.pk }}">{{ node.question.title }}</a></strong>
           {% include 'answer.html' %}
         {% endfor %}
         </span>
