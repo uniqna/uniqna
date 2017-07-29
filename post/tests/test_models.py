@@ -94,7 +94,7 @@ class TestQuestion(TestCase):
 
 	def test_absolute_url(self):
 		q = Question.objects.first()
-		url = "/thread/{}-{}".format(q.id, slugify(q.title))
+		url = "/thread/{}-{}/".format(q.id, slugify(q.title))
 		self.assertEqual(q.get_absolute_url(), url)
 
 	def test_question_channel(self):
