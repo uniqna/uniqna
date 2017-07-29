@@ -89,7 +89,7 @@ class TestAnswer(TestCase):
 	def test_absolute_url(self):
 		a = self.a
 		r = self.r
-		ans_url = "/thread/{}#a{}".format(a.question.id, a.id)
+		ans_url = "/thread/{}?answer=a{}".format(a.question.id, a.id)
 		reply_url = "/thread/{}/reply/{}/".format(r.question.id, r.id)
 		self.assertEqual(a.get_absolute_url(), ans_url)
 		self.assertEqual(r.get_absolute_url(), reply_url)
