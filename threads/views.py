@@ -76,7 +76,7 @@ def submit_answer(request, thread_id):
 			if not request.user == question_author:
 				Notification.objects.create_answer_notification(
 					question_author, instance)
-			return HttpResponseRedirect(question_answered.get_absolute_url())
+			return HttpResponseRedirect(instance.get_absolute_url())
 
 
 def submit_reply(request, answer_id):
@@ -100,7 +100,10 @@ def submit_reply(request, answer_id):
 			answer_author = get_object_or_404(User, username=parent.answer_author)
 			if not request.user == answer_author:
 				Notification.objects.create_reply_notification(answer_author, reply)
-			return HttpResponseRedirect(parent.question.get_absolute_url())
+			# Attach the id of the parent answer to the url
+			# This ensures the page scrolls to parent after posting
+			url = parent.question.get_absolute_url() + "?answer=a{}".format(parent.id)
+			return HttpResponseRedirect(url)
 
 
 def delete_question(request, thread_id):

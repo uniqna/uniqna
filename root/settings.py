@@ -312,6 +312,7 @@ PIPELINE = {
         },
         'thread': {
             'source_filenames': (
+                'js/smooth_scrolling.js',
                 'js/vote.js',
                 'js/thread_author_panel.js',
                 'js/notif_delete.js',
