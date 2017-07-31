@@ -33,6 +33,8 @@
   border-width: 2px;
   border-left-color: #dbdbdb;
   border-radius: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .is-shady {
