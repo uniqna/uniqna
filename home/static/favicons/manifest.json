@@ -1,6 +1,6 @@
 {
+    "name": "uniqna",
     "short_name": "uniqna",
-    "name": "uniqna - Your university's online community",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -13,8 +13,8 @@
             "type": "image/png"
         }
     ],
+    "start_url": "/",
     "theme_color": "#fafafa",
     "background_color": "#fafafa",
     "display": "standalone",
-    "orientation": "portrait"
 }
