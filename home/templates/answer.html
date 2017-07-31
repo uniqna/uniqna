@@ -11,6 +11,7 @@
           <span class="ans-downvote is-pointer" data-url="{% url 'answer_vote' node.pk 'd' %}" data-id="{{node.pk}}">
             <i class="material-icons arrow-align {% if request.user in node.downs.all %} vote-danger {% else %} vote-default {% endif %}" id="ans-down{{node.pk}}">keyboard_arrow_down</i>
           </span>
+          <!--<i class="material-icons link pulled-little-down">link</i><br>-->
         </div>
 
         <div class="media-content">
