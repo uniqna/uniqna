@@ -100,3 +100,26 @@
 .search-field {
   margin-bottom: 11px;
 }
+
+.bd-rainbow {
+  animation: rainbow 8s ease infinite;
+  background-image: linear-gradient(124deg, #ff470f, #ff3860, #b86bff, #3273dc);
+  background-size: 800% 800%;
+}
+
+.hero.bd-is-love .title,
+.hero.bd-is-love .subtitle {
+  color: white;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 80%;
+  }
+  50% {
+    background-position: 100% 20%;
+  }
+  100% {
+    background-position: 0% 80%;
+  }
+}

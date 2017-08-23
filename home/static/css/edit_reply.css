@@ -6,6 +6,10 @@
   max-height: 100%;
 }
 
+.search-field .input{
+	height: 2.25em;
+}
+
 .font-is-light {
   font-weight: normal;
 }

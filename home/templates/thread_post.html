@@ -3,6 +3,8 @@
     <div class="hero-body narrow-padding">
       <div class="container">
 
+        {% if post.flair %}<span class="tag is-success">{{ post.flair }}</span>{% endif %}
+
         {% for c in post.channels.all %}
         <a href="{% url 'channel' c.name %}">
           <span class="tag" style="color: {{c.color}};">{{ c.name }}</span>
@@ -34,17 +36,13 @@
 
       {% include 'thread_post_vote.html' %}
 
-      <div class="notification bg-is-indigo">
-        {% if user.is_authenticated %}
-          This forum depends on everyone
-          sharing their ideas. If you're
-          able to contribute to this
-          discussion, please do!
-          <br><a class="button is-success is-pulled-right contribute">Contribute!</a>
-        {% else %}
-        Hey there, stranger? If you want to contribute to this discussion, please log in so that we can recognise you! :D
-        {% endif %}
-      </div>
+      {% if user.is_authenticated %}
+        <center><a class="button is-success is-medium contribute bd-rainbow"><b>Contribute</b>&nbsp;to this discussion</a></center>
+      {% else %}
+        <div class="notification bg-is-indigo">
+          Hey there, stranger? If you want to contribute to this discussion, please log in so that we can recognise you! :D
+        </div>
+      {% endif %}
 
     </div>
   </div>
