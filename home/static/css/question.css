@@ -26,3 +26,7 @@
 .next-line {
   display: block;
 }
+
+.title-no-description {
+	line-height: 1.1;
+}

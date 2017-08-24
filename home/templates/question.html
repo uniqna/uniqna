@@ -20,10 +20,14 @@
                   <small class="meta">{{ x.created_time|timesince|upto:',' }} ago</small>
                   <small class="replies">{{ x.answers }} replies</small>
                   {% if x.flair %}
-                    <span class="tag is-success">{{ x.flair }}</span>
+                    <span class="tag is-success is-absolute">{{ x.flair }}</span>
                   {% endif %}
                   <br>
-                    <strong><a class="is-black" href="{% url 'thread' x.pk x.title|slugify %}">{{ x.title }}</a></strong>
+                    <strong>
+                      <a class="is-black" href="{% url 'thread' x.pk x.title|slugify %}">
+                        <span class="{% if not x.description %}is-size-4 title-no-description{% endif %}">{{ x.title }}</span>
+                      </a>
+                    </strong>
                   <span class="next-line">
                   {% if x.description %}
                     {{ x.description|truncatechars:250|bleach }}
