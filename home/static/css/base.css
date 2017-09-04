@@ -15,12 +15,16 @@
 }
 
 .footer {
-  padding: 3rem 1.5rem 2rem;
+  padding: 0rem 1.5rem 2rem;
 }
 
 .modal .box {
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+}
+
+.is-bold {
+  font-weight: 900;
 }
 
 .is-white {

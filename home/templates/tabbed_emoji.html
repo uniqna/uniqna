@@ -2,7 +2,7 @@
       <nav class="level is-mobile">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Hot</p>
+            <p id="hot" class="heading">Hot</p>
             <a href="{% url 'home' %}" role="tab" title="Hot">
                 <i class="twa twa-2x twa-fire"></i>
             </a>
@@ -10,7 +10,7 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Q&A</p>
+            <p id="questions" class="heading">Q&A</p>
             <a href="{% url 'tab' 'questions' %}" role="tab" title="Questions">
                 <i class="twa twa-2x twa-thinking"></i>
             </a>
@@ -18,7 +18,7 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Unsolved</p>
+            <p id="unsolved" class="heading">Unsolved</p>
             <a href="{% url 'tab' 'unsolved' %}" role="tab" title="Unsolved">
                 <i class="twa twa-2x twa-confounded"></i>
             </a>
@@ -26,7 +26,7 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Discussions</p>
+            <p id="discussions" class="heading">Discussions</p>
             <a href="{% url 'tab' 'discussions' %}" role="tab" title="Discussions">
                 <i class="twa twa-2x twa-thought-balloon"></i>
             </a>

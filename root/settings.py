@@ -299,6 +299,7 @@ PIPELINE = {
         'home': {
             'source_filenames': (
                 'js/vote.js',
+                'js/tabbed_emoji.js',
             ),
             'output_filename': 'js/home.js',
         },
