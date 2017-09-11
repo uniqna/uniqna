@@ -15,6 +15,10 @@ a.nav-item.is-tab.button.is-success.post:hover {
   border-bottom-color: transparent;
 }
 
+a.nav-item:not(.button).is-tab {
+  padding: 1rem;
+}
+
 @media (max-width: 768px) {
   .post {
     margin-top: 0;

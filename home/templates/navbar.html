@@ -20,9 +20,9 @@
           <a class="nav-item" href="{% url 'user' request.user.username %}">
             @{{ request.user.username }}
           </a>
-          <a class="nav-item">
+          <!--<a class="nav-item">
           <span class="uni">u/vitcc</span>
-          </a>
+          </a>-->
         </div>
 
         <span class="nav-toggle" v-on:click="toggleNav" v-bind:class="{'is-active': isActive}">

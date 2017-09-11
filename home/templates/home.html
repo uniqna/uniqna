@@ -8,9 +8,9 @@
 
 {% block content %}
   {% include 'tabbed_emoji.html' %}
-  {% include 'trending_channels.html' %}
     <div class="columns">
      	<div class="column is-half is-offset-one-quarter">
+        {% include 'trending_channels.html' %}
         {% for x in question_list %} {% include 'question.html' %} {% endfor %}
       </div>
     </div>

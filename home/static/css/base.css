@@ -24,7 +24,7 @@
 }
 
 .is-bold {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .is-white {
@@ -118,6 +118,14 @@
 .hero.bd-is-love .title,
 .hero.bd-is-love .subtitle {
   color: white;
+}
+
+.search-is-bold {
+  font-weight: 500;
+}
+
+.narrow-padding {
+  padding: 1.5rem 1.5rem;
 }
 
 @keyframes rainbow {
