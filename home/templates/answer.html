@@ -16,7 +16,6 @@
 
         <div class="media-content">
           <div class="content">
-            <p>
               {% if not node.is_leaf_node %}
               <small class="minimize is-pointer">[-]</small>
               {% endif %}
@@ -26,7 +25,6 @@
                 <small class="reply">Reply</small>
               </a>
               <div class="description">{{ node.description|bleach }}</div>
-            </p>
 
               <div class="reply-author-vue">
               {% if node.answer_author == request.user.username or request.user.is_superuser %}
