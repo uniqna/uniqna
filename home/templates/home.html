@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %}
+{% extends 'base.html' %} {% load pipeline %} {% load timesince_upto %} {% load el_pagination_tags %}
 
 {% block title %} front page {% endblock %}
 
@@ -11,7 +11,13 @@
     <div class="columns">
      	<div class="column is-half is-offset-one-quarter">
         {% include 'trending_channels.html' %}
-        {% for x in question_list %} {% include 'question.html' %} {% endfor %}
+        {% paginate question_list %}
+	        {% for x in question_list %} 
+	        	{% include 'question.html' %} 
+	        {% endfor %}
+	    <nav class="pagination" role="navigation" aria-label="pagination">
+        {% show_pages %}
+    	</nav>
       </div>
     </div>
 {% endblock content %}

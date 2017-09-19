@@ -117,9 +117,6 @@ TEMPLATES += [
     },
 ]
 
-TEMPLATES[0]['OPTIONS']['context_processors'].insert(
-    0, 'django.template.context_processors.request')
-
 WSGI_APPLICATION = 'root.wsgi.application'
 
 
@@ -380,7 +377,10 @@ PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
 # Sentry
 RAVEN_CONFIG = {
     'dsn': 'https://cf76b80a140646d18c0340c614decf62:e8a22e4ed77148afb77c6cfdea8cb482@sentry.io/186841',
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
+
+# Pagination
+EL_PAGINATION_PER_PAGE = 10
+EL_PAGINATION_PREVIOUS_LABEL = '< prev'
+EL_PAGINATION_NEXT_LABEL = 'more >'
