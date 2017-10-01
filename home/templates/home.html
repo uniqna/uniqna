@@ -10,6 +10,15 @@
   {% include 'tabbed_emoji.html' %}
     <div class="columns">
      	<div class="column is-half is-offset-one-quarter">
+        <h1 class="title is-size-6 is-pulled-right" style="margin-bottom: 0">42˚C <i data-feather="sun"></i></h1>
+        <h1 class="title has-text-primary">u/vitcc
+          <span class="is-size-6 has-text-grey" style="margin-left: 1px;">1.2k students</span>
+        </h1>
+        <h2 class="subtitle" style="margin-bottom: 0.5rem;">
+          Vellore Institute of Technology, Chennai<br>
+          <i class="material-icons has-text-success is-size-5" style="vertical-align: -4px;">fiber_manual_record</i>
+          <span class="is-size-6 has-text-grey">352 online</span>
+        </h2>
         {% include 'trending_channels.html' %}
         {% paginate question_list %}
 	        {% for x in question_list %} 
@@ -24,4 +33,12 @@
 
 {% block js %}
   {% javascript 'home' %}
+  <script src="//cdn.rawgit.com/namuol/cheet.js/master/cheet.min.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script>
+    feather.replace();
+    cheet('g i t r e k t', function () { 
+      window.location.href = '/channel/Registrations';
+    });
+  </script>
 {% endblock js %}
