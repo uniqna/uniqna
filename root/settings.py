@@ -183,7 +183,7 @@ TIME_ZONE = 'Asia/Kolkata'
 BLEACH_ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'a', 'ul', 'ol', 'li',
                        'blockquote', 'code', 'table', 'thead', 'tbody', 'td',
                        'th', 'tr', 'pre', 'br', 'em', 'b', 'img']
-BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width']
+BLEACH_ALLOWED_ATTRIBUTES = ['href', 'title', 'name', 'align', 'width', 'src']
 
 # Pipeline
 PIPELINE = {
