@@ -8,7 +8,7 @@ Django==2.0.2
 django-bleach==0.3.0
 django-el-pagination==3.2.4
 django-mptt==0.9.0
-django-pipeline==1.6.13
+django-pipeline==1.6.14
 django-robots==3.0
 django-widget-tweaks==1.4.1
 djangorestframework==3.6.3
