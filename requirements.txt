@@ -1,5 +1,5 @@
 appdirs==1.4.3
-bleach==2.0.0
+bleach==2.1.2
 certifi==2017.7.27.1
 chardet==3.0.4
 contextlib2==0.5.5
