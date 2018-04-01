@@ -1,6 +1,6 @@
 ####  
 <p align="center">
-<img src="https://raw.githubusercontent.com/uniqna/uniqna/master/home/static/assets/logo_colored.png" width="50%"/>
+<img src="https://lh3.googleusercontent.com/GNYb7Wo9FnMTdMfhJy0H2_hJ3nZ2_pyewB-1j_0BNpdXw4uJJ-gcd-pRCQUQN2S-nm_2U2tO1W0rffN3CdtcIpgHAnDEGy1nKnNmKQ=s1600"/>
 <br>
 <a href="https://travis-ci.org/uniqna/uniqna/"><img src="https://travis-ci.org/uniqna/uniqna.svg?branch=master" alt="Build Status" /></a>
 <a href='https://coveralls.io/github/uniqna/uniqna?branch=master'><img src='https://coveralls.io/repos/github/uniqna/uniqna/badge.svg?branch=master' alt='Coverage Status' /></a>
