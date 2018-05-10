@@ -370,12 +370,6 @@ PIPELINE = {
 PIPELINE['CSS_COMPRESSOR'] = 'pipeline.compressors.cssmin.CSSMinCompressor'
 PIPELINE['JS_COMPRESSOR'] = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
 
-# Sentry
-RAVEN_CONFIG = {
-    'dsn': 'https://cf76b80a140646d18c0340c614decf62:e8a22e4ed77148afb77c6cfdea8cb482@sentry.io/186841',
-    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
-}
-
 # Pagination
 EL_PAGINATION_PER_PAGE = 10
 EL_PAGINATION_PREVIOUS_LABEL = '< prev'
