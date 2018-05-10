@@ -27,11 +27,8 @@
 
         <div class="container has-text-centered">
           <div class="title">
-            <img src="https://www.uniqna.com/static/assets/logo_colored.svg" width="250px">
+            <img src="{% static 'assets/logo_colored.svg' %}" width="250px">
           </div>
-          <h2 class="subtitle">
-              Your university's online community 💯
-            </h2>
         </div>
 
         <div class="tile is-ancestor">
@@ -95,7 +92,7 @@
                       <div class="level-item has-text-centered">
                         <div>
                           <p class="heading">Register!</p>
-                          <a href="#" onclick="alert('Sorry! Registrations are closed for now.')" class="icon is-large">
+                          <a href="{% url 'register' %}" class="icon is-large">
                             <i class="twa twa-2x twa-hatching-chick"></i>
                           </a>
                         </div>
@@ -161,7 +158,7 @@
       </div>
     </section>
 
-    <section class="hero is-large">
+    <section class="hero is-large is-light">
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
@@ -170,19 +167,9 @@
           <h2 class="subtitle">
             Sign up and become part of the fam :D
           </h2>
-          <a href="#" onclick="alert('Sorry! Registrations are closed for now.');">
+          <a href="{% url 'register' %}">
             <img src="{% static 'assets/ticket.svg' %}" width="250px">
           </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero is-light">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h2 class="subtitle">
-            Made with <img class="cardio" src="https://jeremyphilemon.github.io/blog/images/Heart.svg" style="vertical-align: -2px;" alt="Heart"> by two beautiful monkeys 🙈
-          </h2>
         </div>
       </div>
     </section>

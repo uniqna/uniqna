@@ -23,15 +23,15 @@ if os.environ.get('PRODUCTION'):
     MG_KEY = os.environ.get('MG_KEY')
     MG_URL = os.environ.get('MG_URL')
     MG_FROM = os.environ.get('MG_FROM')
-    ALLOWED_HOSTS = ['.uniqna.com']
+    ALLOWED_HOSTS = ['*']
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     PREPEND_WWW = True
 else:
-    SECRET_KEY = secret_settings.SECRET_KEY
-    MG_KEY = secret_settings.MG_KEY
-    MG_URL = secret_settings.MG_URL
-    MG_FROM = secret_settings.MG_FROM
+    SECRET_KEY = 'develop9v%&cj$2^k*)xrfa3k5w9uu&!za$6^relwtq!d481q%yq!w-&h'
+    MG_KEY = ''
+    MG_URL = ''
+    MG_FROM = ''
     ALLOWED_HOSTS = ['*']
 
 STATICFILES_FINDERS = (
@@ -42,14 +42,10 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-# Manual debug override for generating static files
-# DEBUG = False
-
 if 'TRAVIS' in os.environ or DEBUG:
     PREPEND_WWW = False
     ALLOWED_HOSTS = ['*']
     STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
-
 
 # Application definition
 INSTALLED_APPS = [

@@ -32,7 +32,7 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^(?P<tab>(questions|unsolved|discussions))/$', views.home, name="tab"),
 	url(r'^logout/$', views.logout_view, name='logout'),
-	# url(r'^register/$', views.register, name='register'),
+	url(r'^register/$', views.register, name='register'),
 	url(r'^notifications/$', views.notifications_view, name='notifications'),
 	url(r'^channel/(\w+)/$', views.channel_view, name='channel'),
 	url(r'^notification/(\d+)/$', views.notification_redirect, name='notif'),
