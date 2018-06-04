@@ -16,7 +16,7 @@ futures==3.2.0
 html5lib==1.0.1
 idna==2.6
 markdown2==2.3.5
-packaging==16.8
+packaging==17.1
 pep8==1.7.0
 psycopg2==2.7.3
 pyparsing==2.2.0
