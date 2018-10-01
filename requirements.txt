@@ -23,6 +23,6 @@ pyparsing==2.2.2
 pytz==2018.5
 raven==6.9.0
 requests==2.19.1
-six==1.10.0
+six==1.11.0
 urllib3==1.22
 webencodings==0.5.1
