@@ -19,7 +19,7 @@ markdown2==2.3.4
 packaging==16.8
 pep8==1.7.0
 psycopg2==2.7.3
-pyparsing==2.2.0
+pyparsing==2.2.2
 pytz==2017.2
 raven==6.1.0
 requests==2.18.2
