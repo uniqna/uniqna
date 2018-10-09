@@ -1,13 +1,9 @@
 ####  
 <p align="center">
-<img src="https://lh3.googleusercontent.com/GNYb7Wo9FnMTdMfhJy0H2_hJ3nZ2_pyewB-1j_0BNpdXw4uJJ-gcd-pRCQUQN2S-nm_2U2tO1W0rffN3CdtcIpgHAnDEGy1nKnNmKQ=s1600"/>
+<img src="https://storage.googleapis.com/jrmyphlmn/images/uniqna.png"/>
 <br>
 <a href="https://travis-ci.org/uniqna/uniqna/"><img src="https://travis-ci.org/uniqna/uniqna.svg?branch=master" alt="Build Status" /></a>
-<a href='https://coveralls.io/github/uniqna/uniqna?branch=master'><img src='https://coveralls.io/repos/github/uniqna/uniqna/badge.svg?branch=master' alt='Coverage Status' /></a>
-<a href="https://pyup.io/repos/github/uniqna/uniqna/"><img src="https://pyup.io/repos/github/uniqna/uniqna/shield.svg" alt="Updates" /></a>
 </p>
-
-Greetings!
 
 This is the primary codebase that powers the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django Framework.
 
