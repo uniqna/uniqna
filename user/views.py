@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from root.algorithms.parser import parse
 

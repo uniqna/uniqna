@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from root.algorithms.parser import parse

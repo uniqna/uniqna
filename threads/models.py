@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import uri_to_iri
 from django.contrib.auth.models import User
@@ -20,8 +20,8 @@ class ManagerExtender(models.Manager):
 
 
 class Answer(MPTTModel):
-	question = models.ForeignKey(Question)
-	parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+	question = models.ForeignKey(Question, on_delete=models.CASCADE)
+	parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
 	metatype = models.CharField(max_length=20, default="question", blank=False)
 	description = models.TextField(blank=False, null=False)
 	answer_author = models.CharField("Author", max_length=100, default="anon")
