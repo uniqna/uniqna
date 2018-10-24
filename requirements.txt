@@ -21,7 +21,7 @@ packaging==18.0
 pep8==1.7.1
 psycopg2==2.7.5
 pyparsing==2.2.2
-pytz==2018.5
+pytz==2018.6
 raven==6.9.0
 requests==2.19.1
 six==1.11.0
