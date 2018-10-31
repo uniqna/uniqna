@@ -1,4 +1,4 @@
-This is the primary codebase that powered the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django Framework.
+This is the primary codebase that powered the online community [uniqna](https://uniqna.jrmyphlmn.me/). The codebase's engine is  built upon the Django Framework.
 
 <p align="center">
   <img src="https://lh3.googleusercontent.com/N5wG6bLnvc3pRaP94wfIqShduGTIgIt0ORS-6sqMNJi7PCc608X01U1dmnsI3gL_59eLrvvc0hJgQXRD0crpcgCAaP5HsQ=s2560"></img>
