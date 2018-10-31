@@ -1,4 +1,4 @@
-This is the primary codebase that powered the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django Framework.
+This is the primary codebase that powered the online community [uniqna](https://uniqna.jrmyphlmn.me/). The codebase's engine is  built upon the Django Framework.
 
 ## A TL;DR of our current live stack:
 1. Engine - Python v3.5 | Django v1.11.2
