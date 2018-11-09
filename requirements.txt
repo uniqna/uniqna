@@ -23,7 +23,7 @@ psycopg2==2.7.5
 pyparsing==2.2.2
 pytz==2018.5
 raven==6.9.0
-requests==2.19.1
+requests==2.20.1
 six==1.11.0
 urllib3==1.23
 webencodings==0.5.1
