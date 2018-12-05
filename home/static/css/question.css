@@ -1,0 +1,32 @@
+.arrow-align {
+  display: block;
+}
+
+.score {
+  text-align: center;
+}
+
+.author {
+  color: #d81b60;
+}
+
+.replies {
+  color: #009688;
+}
+
+.tick {
+  color: #009688;
+}
+
+.bg-is-purple {
+  background-color: #673AB7;
+  color: #fafafa;
+}
+
+.next-line {
+  display: block;
+}
+
+.title-no-description {
+	line-height: 1.1;
+}

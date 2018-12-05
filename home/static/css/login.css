@@ -1,0 +1,63 @@
+.level {
+  padding: 10px;
+}
+
+.organisation {
+  padding-top: 0;
+  margin-top: -25px;
+}
+
+.tile.is-ancestor {
+  margin-top: 10px;
+}
+
+.box {
+  box-shadow: none;
+  background: #fafafa;
+}
+
+.login-bg-is-white {
+  background: #ffffff;
+}
+
+.input {
+  box-shadow: none;
+  border: 2px solid;
+  border-color: #b5b5b5;
+}
+
+.is-black {
+  color: #4a4a4a;
+}
+
+.is-purple {
+  color: #673AB7;
+}
+
+
+.footer {
+  padding: 3rem 1.5rem 3rem;
+}
+
+.is-screenshot {
+  box-shadow: 0 10px 30px 0 rgba(0,0,0,0.15);
+  border-radius: 4px;
+  max-width: none;
+}
+
+.hide-overflow {
+  overflow-x: hidden;
+}
+
+.lenny {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+    p.title {
+      margin-left: 0.6em;
+    }
+    p.subtitle {
+      margin-left: 1em;
+    }
+}
