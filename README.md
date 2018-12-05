@@ -1,15 +1,15 @@
 This is the primary codebase that powered the online community [uniqna.com](https://www.uniqna.com). The codebase's engine is  built upon the Django Framework.
 
-## A TL;DR of our current live stack:
-1. Engine - Python v3.5 | Django v1.11.2
-2. Database - PostgreSQL v9.6
-3. Frontend - Bulma, Vue and few other magic
-4. Cloud - Ubuntu 17.04 and nginx
-
 <p align="center">
   <img src="https://lh3.googleusercontent.com/N5wG6bLnvc3pRaP94wfIqShduGTIgIt0ORS-6sqMNJi7PCc608X01U1dmnsI3gL_59eLrvvc0hJgQXRD0crpcgCAaP5HsQ=s2560"></img>
 <br>
 </p>
+
+## A TL;DR of our current live stack:
+1. Engine - Python v3.5 | Django v2
+2. Database - PostgreSQL
+3. Frontend - Bulma, Vue and few other magic
+4. Cloud - Ubuntu 18.04 and nginx
 
 ## About
 The initial commits of uniqna began as a test project on which I ([Jeremy](https://github.com/jeremyphilemon)) would tinker around with Django and experiment with its MVC Architecture. In fact, the very idea of building an online forum didn't cross my mind then.
