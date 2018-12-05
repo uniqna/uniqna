@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,45 +9,36 @@
     <!-- Stylesheet -->{% load pipeline %} {% load static %}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% stylesheet 'login' %}
-    <!-- <link rel="manifest" href="{% static 'favicons/manifest.json' %}"> -->
+    <link rel="manifest" href="{% static 'favicons/manifest.json' %}">
     <!-- Favicons -->
     {% include 'favicons.html' %}
     <!-- Open Graph -->
   </head>
-
   <body class="site">
-  <main class="site-content">
-
-    <section class="hero">
-
-      {% include 'statistics.html' %}
-
-      <div class="hero-body organisation">
-
-        <div class="container has-text-centered">
-          <div class="title">
-            <img src="{% static 'assets/logo_colored.svg' %}" width="250px">
+    <main class="site-content">
+      <section class="hero">
+        {% include 'statistics.html' %}
+        <div class="hero-body organisation">
+          <div class="container has-text-centered">
+            <div class="title">
+              <img src="{% static 'assets/logo_colored.svg' %}" width="250px">
+            </div>
           </div>
-        </div>
-
-        <div class="tile is-ancestor">
-
-
-          <div class="tile is-5">
-            <article class="tile is-child box">
-              <p class="title is-black"><b>Login</b></p>
-              <p class="subtitle">to gain full access</p>
-
-              {% if failed %}
-              <div class="notification is-danger" v-bind:style="{display: value}">
-                <button class="delete" v-on:click="triggerDelete"></button>
-                  Either you mistyped something, you forgot your password
-                  orrr you don't have an account yet.
-                  If you still cannot log in,
-                <a href="mailto:superheroes@uniqna.com">ping us.</a>
-              </div>
-              {% endif %}
-
+          <div class="tile is-ancestor">
+            <div class="tile is-5">
+              <article class="tile is-child box">
+                <p class="title is-black"><b>Login</b></p>
+                <p class="subtitle">to gain full access</p>
+                <p class="help">For demo purposes - username: eleven | password: demopassword </p>
+                {% if failed %}
+                  <div class="notification is-danger" v-bind:style="{display: value}">
+                    <button class="delete" v-on:click="triggerDelete"></button>
+                    Either you mistyped something, you forgot your password
+                    orrr you don't have an account yet.
+                    If you still cannot log in,
+                    <a href="mailto:superheroes@uniqna.com">ping us.</a>
+                  </div>
+                {% endif %}
                 <div class="box login-bg-is-white">
                   <form action="" method="post"> {% csrf_token %}
                     <div class="field">
@@ -60,7 +50,6 @@
                         </span>
                       </p>
                     </div>
-
                     <div class="field">
                       <label class="label">Password</label>
                       <p class="control has-icons-left">
@@ -70,38 +59,34 @@
                         </span>
                       </p>
                     </div>
-
                     <div class="field submit">
                       <p class="control">
                         <button class="button is-success" value="submit" name="submit" v-on:click="toggleLoading" v-bind:class="{'is-loading': isActive}">
-                          Login
+                        Login
                         </button>
                       </p>
                     </div>
                   </form>
-
-                    <nav class="level is-mobile">
-                      <div class="level-item has-text-centered">
-                        <div>
-                          <p class="heading">Forgot Credentials?</p>
-                          <a href="{% url 'forgot' %}" class="icon is-large">
-                            <i class="twa twa-2x twa-thinking"></i>
-                          </a>
-                        </div>
+                  <nav class="level is-mobile">
+                    <div class="level-item has-text-centered">
+                      <div>
+                        <p class="heading">Forgot Credentials?</p>
+                        <a href="{% url 'forgot' %}" class="icon is-large">
+                          <i class="twa twa-2x twa-thinking"></i>
+                        </a>
                       </div>
-                      <div class="level-item has-text-centered">
-                        <div>
-                          <p class="heading">Register!</p>
-                          <a href="{% url 'register' %}" class="icon is-large">
-                            <i class="twa twa-2x twa-hatching-chick"></i>
-                          </a>
-                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                      <div>
+                        <p class="heading">Register!</p>
+                        <a href="{% url 'register' %}" class="icon is-large">
+                          <i class="twa twa-2x twa-hatching-chick"></i>
+                        </a>
                       </div>
-                    </nav>
-
+                    </div>
+                  </nav>
                 </div>
               </div>
-
               <div class="tile">
                 <article class="tile is-child box">
                   <p class="title is-black"><b>What's buzzin?</b></p>
@@ -110,83 +95,74 @@
                   {% endfor %}
                 </article>
               </div>
-
             </article>
           </div>
         </div>
-    </section>
-
-    <section class="hero is-success is-fullheight">
-      <div class="hero-body hide-overflow">
-        <div class="container is-unselectable">
-          <div class="columns">
-            <div class="column is-4 is-4-mobile">
-              <h1 class="title">
+      </section>
+      <section class="hero is-success is-fullheight">
+        <div class="hero-body hide-overflow">
+          <div class="container is-unselectable">
+            <div class="columns">
+              <div class="column is-4 is-4-mobile">
+                <h1 class="title">
                 <b>Frontpage of your university</b>
-              </h1>
-              <h2 class="subtitle">
+                </h1>
+                <h2 class="subtitle">
                 Stay up to date with the latest buzz
-              </h2>
+                </h2>
+              </div>
+              <div class="column is-8">
+                <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/frontpage.png' %}" width="900px">
+              </div>
             </div>
-          <div class="column is-8">
-            <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/frontpage.png' %}" width="900px">
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero is-primary is-fullheight">
-      <div class="hero-body hide-overflow">
-        <div class="container is-unselectable">
-          <div class="columns is-multiline">
-            <div class="column is-4 is-4-mobile">
-              <h1 class="title">
-                <b>Ask or Discuss</b>
-              </h1>
-              <h2 class="subtitle easter">
-                Whether it's an assignment,
-                an event update,
-                an opinion you'd like to share, or anything -
-                <b>You're just a post away</b>
-                <span class="lenny">( ͡° ͜ʖ ͡°)</span>
-              </h2>
+        </section>
+        <section class="hero is-primary is-fullheight">
+          <div class="hero-body hide-overflow">
+            <div class="container is-unselectable">
+              <div class="columns is-multiline">
+                <div class="column is-4 is-4-mobile">
+                  <h1 class="title">
+                  <b>Ask or Discuss</b>
+                  </h1>
+                  <h2 class="subtitle easter">
+                  Whether it's an assignment,
+                  an event update,
+                  an opinion you'd like to share, or anything -
+                  <b>You're just a post away</b>
+                  <span class="lenny">( ͡° ͜ʖ ͡°)</span>
+                  </h2>
+                </div>
+                <div class="column is-8 is-2-mobile">
+                  <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/question.png' %}" width="900px">
+                </div>
+              </div>
             </div>
-          <div class="column is-8 is-2-mobile">
-            <img class="is-screenshot hero-foot" src="{% static 'assets/screenshots/question.png' %}" width="900px">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero is-large is-light">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title">
-            <b>So what are you waiting for?</b>
-          </h1>
-          <h2 class="subtitle">
-            Sign up and become part of the fam :D
-          </h2>
-          <a href="{% url 'register' %}">
-            <img src="{% static 'assets/ticket.svg' %}" width="250px">
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-
-
-  <!-- Js -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script>
-    $(".easter").click(function(){
+          </section>
+          <section class="hero is-large is-light">
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <h1 class="title">
+                <b>So what are you waiting for?</b>
+                </h1>
+                <h2 class="subtitle">
+                Sign up and become part of the fam :D
+                </h2>
+                <a href="{% url 'register' %}">
+                  <img src="{% static 'assets/ticket.svg' %}" width="250px">
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+        <!-- Js -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+        $(".easter").click(function(){
         $(".lenny").show();
-    });
-  </script>
-  {% javascript 'login' %}
-  {% include 'google_analytics.html' %}
-</body>
-
-  </html>
+        });
+        </script>
+        {% javascript 'login' %}
+        {% include 'google_analytics.html' %}
+      </body>
+    </html>
