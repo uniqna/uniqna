@@ -19,7 +19,7 @@ idna==2.8
 markdown2==2.3.6
 packaging==18.0
 pep8==1.7.1
-psycopg2==2.7.6.1
+psycopg2==2.7.7
 pyparsing==2.3.0
 pytz==2018.7
 raven==6.9.0
