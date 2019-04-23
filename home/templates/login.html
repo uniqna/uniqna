@@ -29,7 +29,10 @@
               <article class="tile is-child box">
                 <p class="title is-black"><b>Login</b></p>
                 <p class="subtitle">to gain full access</p>
-                <p class="help">For demo purposes - username: eleven | password: demopassword </p>
+                <div class="notification is-info" v-bind:style="{display: value}">
+                  <button class="delete" v-on:click="triggerDelete"></button>
+                  For demo purposes <b>username:</b> eleven <b>password:</b> horsestaple&nbsp&nbsp
+                </div>
                 {% if failed %}
                   <div class="notification is-danger" v-bind:style="{display: value}">
                     <button class="delete" v-on:click="triggerDelete"></button>
