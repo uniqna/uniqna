@@ -1,6 +1,6 @@
 appdirs==1.4.3
 bleach==3.0.2
-certifi==2018.11.29
+certifi==2019.6.16
 chardet==3.0.4
 contextlib2==0.5.5
 coverage==4.5.2
