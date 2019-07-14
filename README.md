@@ -21,9 +21,9 @@ When the website was quite stable and worked seamlessly (just kidding), I was st
 So we put on our magical hats and, fast forward through all the slack discussions, all nighters, merge conflicts and intensive coding sessions, together we developed a working online platform called uniqna.
 
 ## Contribution Guidelines
-This project has now stopped active development, however, you can open up issues or pull requests and have fun!
+This project has now stopped active development, however, you can clone the repo, mess around, and have fun!
 
-If you're new to contributing to Open Source on Github, [this guide](https://guides.github.com/activities/contributing-to-open-source/) can help you get started. Contributing to Open Source can seem very indimidating at first, but I promise it'll be fun :)
+If you're new to contributing to Open Source on Github, [this guide](https://guides.github.com/activities/contributing-to-open-source/) can help you get started. Contributing to Open Source can seem very indimidating at first, but I promise it'll be fun 🌈
 
 ## License
 [BSD 3-Clause License](https://github.com/jeremyphilemon/uniqna/blob/master/LICENSE.md)
