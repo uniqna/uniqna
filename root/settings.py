@@ -1,6 +1,5 @@
 import os
 
-import raven
 from django.conf.global_settings import TEMPLATES
 
 try:
@@ -14,8 +13,11 @@ SITE_ID = 1
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEBUG = False
+SECRET_KEY = ''
 
-if os.environ.get('DEBUG'):
+if os.environ.get('PRODUCTION'):
+    DEBUG = False
+else:
     DEBUG = True
 
 if os.environ.get('PRODUCTION'):
