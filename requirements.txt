@@ -1,4 +1,4 @@
-appdirs==1.4.3
+appdirs==1.4.4
 bleach==3.0.2
 certifi==2019.6.16
 chardet==3.0.4
