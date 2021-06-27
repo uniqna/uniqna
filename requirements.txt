@@ -2,7 +2,7 @@ appdirs==1.4.3
 bleach==3.0.2
 certifi==2019.6.16
 chardet==3.0.4
-contextlib2==0.5.5
+contextlib2==21.6.0
 coverage==4.5.2
 Django==2.2.3
 django-bleach==0.3.0
